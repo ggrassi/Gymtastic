@@ -1,33 +1,30 @@
 package network;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 
-public class Server {
+import java.io.IOException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+
+public class Server implements Dummy {
 
     /**
      * @param args
      */
-    private final static int serverPort = 7777;
+    // private final static int serverPort = 7777;
+    private static String LOOKUP_NAME = "Dummy";
 
     public static void main(String[] args) throws IOException {
-	ServerSocket listenSocket = new ServerSocket(serverPort);
-	System.out.println("[GymTastic-Server started]");
-	// Acception Client Socket
-	Socket clientSocket = listenSocket.accept();
-	InetAddress clientAddress = clientSocket.getInetAddress();
-	System.out.println("[GymTastic] Client connected - " + clientAddress.getHostAddress());
-	try {
-	    Thread.currentThread();
-	    Thread.sleep(1000);
-	} catch (InterruptedException e) {
-	    e.printStackTrace();
-	}
-	clientSocket.close();
-	System.out.println("[GymTastic] Client " + clientAddress.getHostAddress() +" disconnected.");
-	System.out.println("[GymTastic-Server stopped]");
-	
+
+	Server server = new Server();
+	Dummy stub = (Dummy) UnicastRemoteObject.exportObject(server, 0);
+	Registry registry = LocateRegistry.getRegistry();
+	registry.rebind(LOOKUP_NAME, stub);
+    }
+
+    @Override
+    public String getDummyName(DummyClass dC) throws RemoteException {
+	return dC.getName();
     }
 
 }
