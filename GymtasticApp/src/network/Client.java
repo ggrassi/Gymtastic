@@ -19,7 +19,7 @@ public class Client {
 
 	Registry registry = LocateRegistry.getRegistry(serverName);
 	Dummy stub = (Dummy) registry.lookup(LOOKUP_NAME);
-	System.out.println(stub.getDummyName(new DummyClass("Fässi")));
+	System.out.println(stub.getDummyName(new DummyClass("Faessi")));
 
     }
 

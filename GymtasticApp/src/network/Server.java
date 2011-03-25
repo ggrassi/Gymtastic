@@ -8,34 +8,35 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Server extends UnicastRemoteObject implements Dummy {
+public class Server implements Dummy {
 
-    /**
-     * @param args
+	/**
+     * 
      */
-    private final static int serverPort = 7777;
-    private static String LOOKUP_NAME = "Dummy";
-    
-    protected Server() throws RemoteException, MalformedURLException {
-	super();
-	LocateRegistry.createRegistry(serverPort );
-	Naming.rebind("rmi://localhost", this);
-    }
-    
-    @Override
-    public String getDummyName(DummyClass dC) throws RemoteException {
-	return dC.getName();
-    }
+	private static final long serialVersionUID = 1L;
+	/**
+	 * @param args
+	 */
+	private final static int serverPort = 1099;
+	private static String LOOKUP_NAME = "Dummy";
+	private static String HOST = "localhost";
+	private static String SERVICE_NAME = "RMI-Server";
 
+	public Server() throws RemoteException, MalformedURLException {
+		super();
+		// Naming.rebind("//"+HOST+"/"+SERVICE_NAME, this);
+	}
 
-    public static void main(String[] args) throws IOException {
+	public String getDummyName(DummyClass dC) throws RemoteException {
+		return dC.getName();
+	}
 
-	Server server = new Server();
-	Dummy stub = (Dummy) UnicastRemoteObject.exportObject(server, 0);
-	Registry registry = LocateRegistry.getRegistry();
-	registry.rebind(LOOKUP_NAME, stub);
-    }
+	public static void main(String[] args) throws IOException {
 
-
-
+		Server server = new Server();
+		LocateRegistry.createRegistry(serverPort);
+		Dummy stub = (Dummy) UnicastRemoteObject.exportObject(server, 0);
+		Registry registry = LocateRegistry.getRegistry();
+		registry.rebind(LOOKUP_NAME, stub);
+	}
 }
