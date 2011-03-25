@@ -2,6 +2,7 @@ package network;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -18,9 +19,12 @@ public class Server implements Dummy {
 	 */
 	private final static int serverPort = 1099;
 	private static String LOOKUP_NAME = "Dummy";
+	private static String HOST = "localhost";
+	private static String SERVICE_NAME = "RMI-Server";
 
 	public Server() throws RemoteException, MalformedURLException {
 		super();
+		// Naming.rebind("//"+HOST+"/"+SERVICE_NAME, this);
 	}
 
 	public String getDummyName(DummyClass dC) throws RemoteException {
