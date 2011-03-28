@@ -5,8 +5,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-import domain.Dummy;
-
 public class RMIClient implements RMIClientInterface {
 
     private static final String HOST = "152.96.232.152";
@@ -36,9 +34,9 @@ public class RMIClient implements RMIClientInterface {
 
     }
 
-    public void updateClient(Dummy dummy) throws RemoteException {
-//	System.out.println("Client Update");
-    	dummy.setName("fjkldsajflkšas");
+    @Override
+    public void updateClient() throws RemoteException {
+	System.out.println("Client Update");
 
     }
 
