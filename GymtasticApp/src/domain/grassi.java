@@ -1,5 +1,5 @@
 package domain;
 
-public class grassi {
+public class Grassi {
 
 }
