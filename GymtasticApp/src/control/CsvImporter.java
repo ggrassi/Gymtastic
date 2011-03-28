@@ -13,12 +13,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
+import domain.Squad;
+
 /**
  * 
  * @author ggrassi
  */
 public class CsvImporter {
 
+	
 	private String path;
 	private FileReader csvFile = null;
 	private BufferedReader br = null;
@@ -41,8 +44,10 @@ public class CsvImporter {
 					valuesArray.add(cnt++, line1.split(","));
 				}
 			}
+			
 		} catch (IOException e) {
 			System.err.println("Error2 :" + e);
+			
 		} finally {
 			try {
 				br.close();
@@ -51,9 +56,6 @@ public class CsvImporter {
 				System.err.println("Error2 :" + e);
 			}
 		}
-
-		
-
 	}
 
 }
