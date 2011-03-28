@@ -1,5 +1,6 @@
-#Thu Mar 24 16:13:36 CET 2011
+#Mon Mar 28 17:06:53 CEST 2011
 eclipse.preferences.version=1
+preferredDetailPanes=DefaultDetailPane\:DefaultDetailPane|
 preferredTargets=default\:default|
 org.eclipse.debug.ui.PREF_LAUNCH_PERSPECTIVES=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<launchPerspectives/>\n
 org.eclipse.debug.ui.user_view_bindings=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<viewBindings>\n<view id\="org.eclipse.ui.console.ConsoleView">\n<perspective id\="org.eclipse.jdt.ui.JavaPerspective" userAction\="opened"/>\n</view>\n</viewBindings>\n

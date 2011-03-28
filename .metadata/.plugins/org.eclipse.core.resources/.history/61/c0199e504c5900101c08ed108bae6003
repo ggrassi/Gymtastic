@@ -20,9 +20,7 @@ public RMIClient() throws Exception{
 		
 		RMIClientInterface stub = (RMIClientInterface) UnicastRemoteObject.exportObject(this,0);
 		
-		System.out.println("davor");
 		rmiServerInterface.addClient(stub);
-		System.out.println("davor");
 
 	}
 	

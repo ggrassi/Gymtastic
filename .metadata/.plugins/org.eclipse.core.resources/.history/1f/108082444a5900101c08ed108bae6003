@@ -15,15 +15,22 @@ public RMIClient() throws Exception{
 		
 		Registry registry = LocateRegistry.getRegistry(HOST);
 		
-		rmiServerInterface = (RMIServerInterface) registry.lookup("Server");
+		rmiServerInterface = (RMIServerInterface) registry.lookup("rmiServerInterface");
 		
 		
-		RMIClientInterface stub = (RMIClientInterface) UnicastRemoteObject.exportObject(this,0);
+		RMIClientInterface stub = (RMIClientInterface) UnicastRemoteObject.exportObject((Remote) this,0);
 		
-		System.out.println("davor");
 		rmiServerInterface.addClient(stub);
-		System.out.println("davor");
-
+//		trader = (Trader) registry.lookup("trader");
+//		
+//		// read stock
+//		aktien = trader.getAktien();
+//		
+//		// generate proxy
+//		AktienUpdater stub = (AktienUpdater ) UnicastRemoteObject.exportObject(this, 0);
+//		
+//		// register client at server
+//		trader.addClient(stub);
 	}
 	
 	/**
