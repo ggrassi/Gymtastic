@@ -8,10 +8,8 @@ public class Mark {
 	private int eMarkThree;
 	private int penalty;
 	private int bonus;
-	private int finalmark;
-	
-	
-	
+	private int finalMark;
+
 	public Mark(int dMark, int eMarkOne, int emarkTwo, int eMarkThree,
 			int penalty, int bonus, int finalmark) {
 		super();
@@ -21,7 +19,13 @@ public class Mark {
 		this.eMarkThree = eMarkThree;
 		this.penalty = penalty;
 		this.bonus = bonus;
-		this.finalmark = finalmark;
+		this.finalMark = generateFinalMark();
+	}
+
+	public int generateFinalMark() {
+		// TODO
+
+		return 0;
 	}
 
 	@Override
@@ -29,9 +33,9 @@ public class Mark {
 		return "Mark [dMark=" + dMark + ", eMarkOne=" + eMarkOne
 				+ ", emarkTwo=" + emarkTwo + ", eMarkThree=" + eMarkThree
 				+ ", penalty=" + penalty + ", bonus=" + bonus + ", finalmark="
-				+ finalmark + "]";
+				+ finalMark + "]";
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -41,10 +45,11 @@ public class Mark {
 		result = prime * result + eMarkOne;
 		result = prime * result + eMarkThree;
 		result = prime * result + emarkTwo;
-		result = prime * result + finalmark;
+		result = prime * result + finalMark;
 		result = prime * result + penalty;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -64,56 +69,73 @@ public class Mark {
 			return false;
 		if (emarkTwo != other.emarkTwo)
 			return false;
-		if (finalmark != other.finalmark)
+		if (finalMark != other.finalMark)
 			return false;
 		if (penalty != other.penalty)
 			return false;
 		return true;
 	}
+
 	public int getdMark() {
 		return dMark;
 	}
+
 	public void setdMark(int dMark) {
 		this.dMark = dMark;
+		generateFinalMark();
 	}
+
 	public int geteMarkOne() {
 		return eMarkOne;
 	}
+
 	public void seteMarkOne(int eMarkOne) {
 		this.eMarkOne = eMarkOne;
+		generateFinalMark();
 	}
+
 	public int getEmarkTwo() {
 		return emarkTwo;
 	}
+
 	public void setEmarkTwo(int emarkTwo) {
 		this.emarkTwo = emarkTwo;
+		generateFinalMark();
 	}
+
 	public int geteMarkThree() {
 		return eMarkThree;
 	}
+
 	public void seteMarkThree(int eMarkThree) {
 		this.eMarkThree = eMarkThree;
+		generateFinalMark();
 	}
+
 	public int getPenalty() {
 		return penalty;
 	}
+
 	public void setPenalty(int penalty) {
 		this.penalty = penalty;
+		generateFinalMark();
 	}
+
 	public int getBonus() {
 		return bonus;
 	}
+
 	public void setBonus(int bonus) {
 		this.bonus = bonus;
+		generateFinalMark();
 	}
+
 	public int getFinalmark() {
-		return finalmark;
+		return finalMark;
 	}
+
 	public void setFinalmark(int finalmark) {
-		this.finalmark = finalmark;
+		this.finalMark = finalmark;
 	}
-	
-	
-	
-	
+
 }
