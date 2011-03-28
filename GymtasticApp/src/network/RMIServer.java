@@ -1,9 +1,13 @@
 package network;
 
-import java.rmi.Remote;
-import java.rmi.RemoteException;
+public class RMIServer {
 
-public interface RMIServer extends Remote{
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+	// TODO Auto-generated method stub
 
-    public String getDummyName(DummyClass dC) throws RemoteException;
+    }
+
 }
