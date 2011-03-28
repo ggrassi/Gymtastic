@@ -1,9 +1,34 @@
 package network;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Vector;
 
-public interface RMIServer extends Remote{
+public class RMIServer implements RMIServerInterface {
 
-    public String getDummyName(DummyClass dC) throws RemoteException;
+    /**
+     * @param args
+     */
+    Vector<Object> clients = new Vector<Object>();
+    
+    
+    
+    public RMIServer() {
+	super();
+    }
+
+    @Override
+    public void addClient(RMIClientInterface client) throws RemoteException {
+	
+    }
+
+    @Override
+    public void removeClient() throws RemoteException {
+	
+    }
+    
+    
+    public static void main(String[] args) {
+
+    }
+
 }

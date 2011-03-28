@@ -260,3 +260,23 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -data /Users/mathias/
 
 !ENTRY org.eclipse.core.net 1 0 2011-03-25 14:10:36.440
 !MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2011-03-25 14:32:46.243 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -keyring /Users/mathias/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -data /Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic -keyring /Users/mathias/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2011-03-25 14:32:51.351
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2011-03-28 15:19:06.981 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -keyring /Users/mathias/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/mathias/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2011-03-28 15:19:15.024
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
