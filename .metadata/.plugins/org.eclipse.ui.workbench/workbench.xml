@@ -37,32 +37,17 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
-<part id="2"/>
-<part id="3"/>
-<part id="4"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Client.java" partName="Client.java" path="/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/src/network/Client.java" title="Client.java" tooltip="GymtasticApp/src/network/Client.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GymtasticApp/src/network/Client.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="517" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="585" selectionTopPixel="0"/>
 </editor>
 <editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Server.java" partName="Server.java" path="/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/src/network/Server.java" title="Server.java" tooltip="GymtasticApp/src/network/Server.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GymtasticApp/src/network/Server.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="651" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.ui.DefaultTextEditor" name="rmi.policy" partName="rmi.policy" path="/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/rmi.policy" title="rmi.policy" tooltip="GymtasticApp/rmi.policy" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GymtasticApp/rmi.policy"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RMIServer.java" partName="RMIServer.java" path="/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/src/network/RMIServer.java" title="RMIServer.java" tooltip="GymtasticApp/src/network/RMIServer.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GymtasticApp/src/network/RMIServer.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="189" selectionTopPixel="0"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Dummy.java" partName="Dummy.java" path="/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/src/network/Dummy.java" title="Dummy.java" tooltip="GymtasticApp/src/network/Dummy.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GymtasticApp/src/network/Dummy.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="187" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="260" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
@@ -83,8 +68,7 @@
 <view id="org.eclipse.ui.views.PropertySheet" partName="Properties"/>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
-<expanded>
-<category IMemento.internal.id="Warnings (3 items)"/>
+<expanded>&#x0A;<category IMemento.internal.id="Warnings (3 items)"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="0" org.eclipse.ui.ide.markerType="0" org.eclipse.ui.ide.pathField="0" org.eclipse.ui.ide.resourceField="0" org.eclipse.ui.ide.severityAndDescriptionField="0"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
@@ -388,163 +372,169 @@
 <workingSets/>
 <navigationHistory>
 <editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/network/Server.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/network/Client.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/network/Dummy.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/network/RMIServer.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/network/Client.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/network/Client.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/network/Server.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/network/Server.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/network/Client.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/network/Client.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/network/Client.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/network/Server.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/network/RMIServer.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/network/Dummy.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/network/Client.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/network/Dummy.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/network/RMIServer.java"/>
 </editors>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="833" y="0"/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="814" y="0"/>
-</item>
-<item historyLabel="RMIServer.java" index="2">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="RMIServer.java" index="2">
-<position/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="814" y="0"/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="331" y="0"/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="276" y="6"/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="1095" y="0"/>
-</item>
-<item historyLabel="RMIServer.java" index="2">
-<position/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="837" y="65"/>
-</item>
-<item historyLabel="RMIServer.java" index="2">
-<position info="not_deleted" x="189" y="0"/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="837" y="65"/>
-</item>
-<item historyLabel="Dummy.java" index="3">
-<position info="not_deleted" x="187" y="0"/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="837" y="65"/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="543" y="0"/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="661" y="0"/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="495" y="0"/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="521" y="0"/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="661" y="0"/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="506" y="0"/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="521" y="0"/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="1183" y="4"/>
-</item>
-<item historyLabel="Client.java" index="0">
-<position info="not_deleted" x="16" y="0"/>
-</item>
-<item historyLabel="Server.java" index="1">
+<item historyLabel="Server.java" index="0">
 <position info="not_deleted" x="717" y="0"/>
 </item>
-<item historyLabel="Client.java" index="0">
-<position info="not_deleted" x="245" y="0"/>
-</item>
-<item historyLabel="RMIServer.java" index="2">
-<position info="not_deleted" x="189" y="0"/>
-</item>
-<item historyLabel="Server.java" index="1">
-<position info="not_deleted" x="717" y="0"/>
-</item>
-<item historyLabel="Server.java" index="1">
+<item historyLabel="Server.java" index="0">
 <position info="not_deleted" x="461" y="0"/>
 </item>
-<item historyLabel="Server.java" index="1">
+<item historyLabel="Server.java" index="0">
 <position info="not_deleted" x="1008" y="6"/>
 </item>
-<item historyLabel="Client.java" index="4">
+<item historyLabel="Client.java" index="1">
 <position info="not_deleted" x="245" y="0"/>
 </item>
-<item historyLabel="Server.java" index="1">
+<item historyLabel="Server.java" index="0">
 <position info="not_deleted" x="1112" y="2"/>
 </item>
-<item historyLabel="Server.java" index="1">
+<item historyLabel="Server.java" index="0">
 <position info="not_deleted" x="1110" y="0"/>
 </item>
-<item historyLabel="Server.java" index="1">
+<item historyLabel="Server.java" index="0">
 <position info="not_deleted" x="957" y="65"/>
 </item>
-<item historyLabel="Dummy.java" index="5">
+<item historyLabel="Dummy.java" index="2">
 <position info="not_deleted" x="187" y="0"/>
 </item>
-<item historyLabel="Server.java" index="1">
+<item historyLabel="Server.java" index="0">
 <position info="not_deleted" x="957" y="65"/>
 </item>
-<item historyLabel="RMIServer.java" index="6">
+<item historyLabel="RMIServer.java" index="3">
 <position info="not_deleted" x="189" y="0"/>
 </item>
-<item historyLabel="Dummy.java" index="5">
+<item historyLabel="Dummy.java" index="2">
 <position info="not_deleted" x="187" y="0"/>
 </item>
-<item historyLabel="Server.java" index="1">
+<item historyLabel="Server.java" index="0">
 <position info="not_deleted" x="443" y="0"/>
 </item>
-<item historyLabel="Client.java" index="4">
+<item historyLabel="Client.java" index="1">
 <position info="not_deleted" x="617" y="11"/>
 </item>
-<item historyLabel="Server.java" index="1">
+<item historyLabel="Server.java" index="0">
 <position info="not_deleted" x="1093" y="11"/>
 </item>
-<item historyLabel="Client.java" index="4">
+<item historyLabel="Client.java" index="1">
 <position info="not_deleted" x="688" y="0"/>
 </item>
-<item historyLabel="Server.java" index="1">
+<item historyLabel="Server.java" index="0">
 <position info="not_deleted" x="1093" y="11"/>
 </item>
-<item historyLabel="RMIServer.java" index="6">
+<item historyLabel="RMIServer.java" index="3">
 <position info="not_deleted" x="189" y="0"/>
 </item>
-<item historyLabel="Server.java" index="1">
+<item historyLabel="Server.java" index="0">
 <position info="not_deleted" x="585" y="0"/>
 </item>
-<item historyLabel="Client.java" index="4">
+<item historyLabel="Client.java" index="1">
 <position info="not_deleted" x="628" y="0"/>
 </item>
-<item historyLabel="Server.java" index="1">
+<item historyLabel="Server.java" index="0">
 <position info="not_deleted" x="585" y="0"/>
 </item>
-<item historyLabel="Client.java" index="4">
+<item historyLabel="Client.java" index="1">
 <position info="not_deleted" x="517" y="0"/>
 </item>
-<item historyLabel="Server.java" index="1">
+<item historyLabel="Server.java" index="0">
 <position info="not_deleted" x="585" y="0"/>
 </item>
-<item historyLabel="Client.java" index="4">
+<item historyLabel="Client.java" index="1">
 <position info="not_deleted" x="517" y="0"/>
 </item>
-<item active="true" historyLabel="Server.java" index="1">
+<item historyLabel="Server.java" index="0">
+<position info="not_deleted" x="651" y="0"/>
+</item>
+<item historyLabel="Client.java" index="4">
+<position info="not_deleted" x="300" y="0"/>
+</item>
+<item historyLabel="Client.java" index="5">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Server.java" index="6">
+<position info="not_deleted" x="397" y="0"/>
+</item>
+<item historyLabel="Server.java" index="7">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Client.java" index="8">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Client.java" index="9">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Client.java" index="10">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Server.java" index="11">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Client.java" index="10">
+<position info="not_deleted" x="254" y="0"/>
+</item>
+<item historyLabel="Server.java" index="11">
+<position info="not_deleted" x="544" y="0"/>
+</item>
+<item historyLabel="Client.java" index="10">
+<position info="not_deleted" x="254" y="0"/>
+</item>
+<item historyLabel="Server.java" index="11">
+<position info="not_deleted" x="544" y="0"/>
+</item>
+<item historyLabel="Client.java" index="10">
+<position info="not_deleted" x="657" y="0"/>
+</item>
+<item historyLabel="Server.java" index="11">
+<position info="not_deleted" x="544" y="0"/>
+</item>
+<item historyLabel="Client.java" index="10">
+<position info="not_deleted" x="606" y="0"/>
+</item>
+<item historyLabel="Server.java" index="11">
+<position info="not_deleted" x="544" y="0"/>
+</item>
+<item historyLabel="Client.java" index="12">
+<position info="not_deleted" x="611" y="0"/>
+</item>
+<item historyLabel="Client.java" index="12">
+<position info="not_deleted" x="245" y="0"/>
+</item>
+<item historyLabel="Client.java" index="12">
+<position info="not_deleted" x="534" y="51"/>
+</item>
+<item historyLabel="Client.java" index="12">
+<position info="not_deleted" x="245" y="0"/>
+</item>
+<item historyLabel="Client.java" index="12">
 <position info="not_deleted" x="585" y="0"/>
+</item>
+<item historyLabel="Server.java" index="11">
+<position info="not_deleted" x="723" y="0"/>
+</item>
+<item historyLabel="Client.java" index="12">
+<position info="not_deleted" x="585" y="0"/>
+</item>
+<item historyLabel="Server.java" index="11">
+<position info="not_deleted" x="520" y="0"/>
+</item>
+<item historyLabel="Client.java" index="12">
+<position info="not_deleted" x="585" y="0"/>
+</item>
+<item active="true" historyLabel="Server.java" index="11">
+<position info="not_deleted" x="520" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -563,6 +553,12 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Server.java" tooltip="GymtasticApp/src/network/Server.java">
+<persistable path="/GymtasticApp/src/network/Server.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Client.java" tooltip="GymtasticApp/src/network/Client.java">
+<persistable path="/GymtasticApp/src/network/Client.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Dummy.java" tooltip="GymtasticApp/src/network/Dummy.java">
 <persistable path="/GymtasticApp/src/network/Dummy.java"/>
 </file>
@@ -571,18 +567,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="rmi.policy" tooltip="GymtasticApp/rmi.policy">
 <persistable path="/GymtasticApp/rmi.policy"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Server.java" tooltip="GymtasticApp/src/network/Server.java">
-<persistable path="/GymtasticApp/src/network/Server.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Client.java" tooltip="GymtasticApp/src/network/Client.java">
-<persistable path="/GymtasticApp/src/network/Client.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Client.java" tooltip="GymtasticApp/network/Client.java">
-<persistable path="/GymtasticApp/network/Client.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Server.java" tooltip="GymtasticApp/network/Server.java">
-<persistable path="/GymtasticApp/network/Server.java"/>
 </file>
 </mruList>
 </workbench>

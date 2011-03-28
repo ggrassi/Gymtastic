@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 4 elements from project &apos;GymtasticApp&apos;&#x0A;- Original project: &apos;GymtasticApp&apos;&#x0A;- Original elements:&#x0A;     network.Client.java&#x0A;     network.Dummy.java&#x0A;     network.DummyClass.java&#x0A;     network.Server.java" description="Delete elements" element1="/src&lt;network{Dummy.java" element2="/src&lt;network{Client.java" element3="/src&lt;network{DummyClass.java" element4="/src&lt;network{Server.java" elements="4" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1301322199874" subPackages="false" version="1.0"/>
+</session>
