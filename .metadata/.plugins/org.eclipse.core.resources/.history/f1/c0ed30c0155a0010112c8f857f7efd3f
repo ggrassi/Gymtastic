@@ -9,7 +9,7 @@ import domain.Dummy;
 
 public class RMIClient implements RMIClientInterface {
 
-    private static final String HOST = "152.96.232.133";
+    private static final String HOST = "152.96.232.152";
     private RMIServerInterface rmiServerInterface;
 
     public RMIClient() throws Exception {
