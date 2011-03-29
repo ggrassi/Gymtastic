@@ -1,0 +1,15 @@
+#ignore Temp Files created by Word
+*~*
+#ignore thumbnails created by windows
+Thumbs.db
+#ignore Desktop Service Store files created by mac
+*.DS_Store
+#Ignore files built by Eclipse
+*.class
+.metadata/
+.classpath
+.project
+.settings/
+bin/
+#ignore temporary enterprise architect files
+.ldb
