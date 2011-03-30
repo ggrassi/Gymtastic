@@ -7,7 +7,6 @@ public class Person {
 	
 	
 	public Person(String name, String vorname, String adresse) {
-		super();
 		this.firstName = name;
 		this.lastName = vorname;
 		this.adresse = adresse;

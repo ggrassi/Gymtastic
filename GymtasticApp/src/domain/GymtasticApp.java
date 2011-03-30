@@ -1,18 +1,10 @@
 package domain;
 
 import importer.ImportStartList;
-
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
-
 import control.SquadCreator;
 
 public class GymtasticApp {
-
-
 
     /**
      * @param args
@@ -30,11 +22,10 @@ public class GymtasticApp {
 	System.out.println("******** Squad Generator *************");
 	SquadCreator squadCreator = new SquadCreator(importList);
 	Map<Integer, Squad> squads = squadCreator.createSquads();
-	
+
 	//
 	System.out.println("******** Good Bye *************");
 
     }
 
- 
 }
