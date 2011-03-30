@@ -35,7 +35,9 @@ public class RMIServer implements RMIServerInterface {
 
 	private void updateClients() throws RemoteException {
 		for (RMIClientInterface client : clients) {
-			client.updateClient(new Dummy("test"));
+			Dummy tempDummy = new Dummy("tempDummy");
+			System.out.println("Dummy mit name: " + tempDummy.getName() + " wird an Client Ÿbertragen");
+			client.updateClient(tempDummy);
 		}
 	}
 
@@ -57,6 +59,12 @@ public class RMIServer implements RMIServerInterface {
 			}
 		}
 
+	}
+
+	@Override
+	public void updateServer(Dummy dummy) throws RemoteException {
+		System.out.println("Bearbeiteter Dummy mit Name: " + dummy.getName() + " wurde empfangen.");
+		
 	}
 
 }
