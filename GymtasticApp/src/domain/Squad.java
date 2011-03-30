@@ -1,19 +1,18 @@
 package domain;
 
 import java.io.Serializable;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.UUID;
+import java.util.List;
+import java.util.LinkedList;
 
 public class Squad implements Serializable {
 
     private static final long serialVersionUID = -4834032781011953418L;
-    private Set<Athlet> athlets;
+    private List<Athlet> athlets;
     private final int squadId;
 
     public Squad(int squadId) {
 	this.squadId = squadId;
-	athlets = new TreeSet<Athlet>();
+	athlets = new LinkedList<Athlet>();
     }
 
     public int getId() {
@@ -26,8 +25,17 @@ public class Squad implements Serializable {
 	}
     }
     
-    public Athlet getAthlete(){
-	return null;
+    public Athlet getAthlete(int pos){
+	if(pos < athlets.size()){
+	    return athlets.get(pos);
+	}else{
+	    return null;
+	}
+	
+    }
+    
+    public void removeAthlete(Athlet athlet){
+	athlets.remove(athlet);
     }
 
     @Override
