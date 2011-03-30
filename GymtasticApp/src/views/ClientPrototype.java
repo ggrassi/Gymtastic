@@ -147,7 +147,9 @@ public class ClientPrototype implements Observer {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					disableConnectionPanel();
+					client.setServerIP(txtServerIP.getText());
 					client.connect();
+					System.out.println("Connection established");
 
 				} catch (Exception e) {
 
