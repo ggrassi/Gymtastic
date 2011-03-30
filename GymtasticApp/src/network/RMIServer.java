@@ -103,6 +103,8 @@ public class RMIServer extends Observable implements RMIServerInterface {
 	public void uploadSquadToServer(Dummy dummy) throws RemoteException {
 //		System.out.println("Bearbeiteter Dummy mit Name: " + dummy.getName()
 //				+ " wurde empfangen.");
+	    dummies.add(dummy);
+	    updateObservers();
 
 	}
 
