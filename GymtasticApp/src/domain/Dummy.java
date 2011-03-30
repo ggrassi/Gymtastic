@@ -52,11 +52,6 @@ public class Dummy implements Serializable{
 	public String toString() {
 		return "Dummy [Name: "+ getName() +" E-Note: "+ geteNote() +" D-Note: "+ getdNote() +"]";
 	}
-
-	@Override
-	public String toString() {
-	    return "Dummy [name=" + name + "]";
-	}
 	
 	
 	
