@@ -1,11 +1,11 @@
 package domain;
 
-public class Verein {
+public class Association {
 
 	private String name;
 	private String location;
 
-	public Verein(String name, String location) {
+	public Association(String name, String location) {
 		super();
 		this.name = name;
 		this.location = location;
@@ -34,7 +34,7 @@ public class Verein {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Verein other = (Verein) obj;
+		Association other = (Association) obj;
 		if (location == null) {
 			if (other.location != null)
 				return false;

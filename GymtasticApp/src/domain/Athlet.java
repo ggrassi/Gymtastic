@@ -5,18 +5,19 @@ public class Athlet extends Person {
     private final int athletId;
     private String prgClass;
     private int yearOfBirth;
-    private Verein verein;
+    private Association verein;
     private Evaluation eval;
     private int squadID;
 
     public Athlet(int squadID, int athletId, String prgClass, String vorname, String name, String adresse,
-	    int yearOfBirth, Verein verein) {
+	    int yearOfBirth, Association verein) {
 	super(name, vorname, adresse);
 	this.squadID = squadID;
 	this.athletId = athletId;
 	this.prgClass = prgClass;
 	this.yearOfBirth = yearOfBirth;
 	this.verein = verein;
+	eval = new Evaluation();
     }
 
     public String getPrgClass() {
@@ -31,20 +32,16 @@ public class Athlet extends Person {
 	this.yearOfBirth = yearOfBirth;
     }
 
-    public Verein getVerein() {
+    public Association getVerein() {
 	return verein;
     }
 
-    public void setVerein(Verein verein) {
+    public void setVerein(Association verein) {
 	this.verein = verein;
     }
 
     public Evaluation getEval() {
 	return eval;
-    }
-
-    public void setEval(Evaluation eval) {
-	this.eval = eval;
     }
 
     public int getAthletId() {

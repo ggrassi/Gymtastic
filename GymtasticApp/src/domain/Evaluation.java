@@ -22,12 +22,12 @@ public class Evaluation {
 		marks.remove(key);
 	}
 	
-	public int getAverageMark(){
-		int total = 0;
+	public float getAverageMark(){
+		float total = 0;
 		Collection c = marks.values();
 		Iterator it = c.iterator();
 		while(it.hasNext()){
-			total = ((Mark) it.next()).getFinalmark();
+			total += ((Mark) it.next()).generateFinalMark();
 		}
 		return (total/marks.size());
 		
