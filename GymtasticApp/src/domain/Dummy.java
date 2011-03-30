@@ -21,6 +21,13 @@ public class Dummy implements Serializable{
 	{
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+	    return "Dummy [name=" + name + "]";
+	}
+	
+	
 	
 	
 
