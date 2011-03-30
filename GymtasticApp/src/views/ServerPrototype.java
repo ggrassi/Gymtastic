@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -22,6 +23,9 @@ import java.awt.Color;
 import javax.swing.JButton;
 
 import domain.Dummy;
+import javax.swing.ListSelectionModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ServerPrototype implements Observer{
 
@@ -64,6 +68,7 @@ public class ServerPrototype implements Observer{
 	for (Dummy d : server.getDummies()) {
 		model.addElement(d);
 	}
+	listDummy.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	listDummy.setModel(model);
 	
     }
@@ -97,6 +102,7 @@ public class ServerPrototype implements Observer{
 	panel_2.setLayout(new BorderLayout(0, 0));
 	
 	list = new JList();
+	list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	panel_2.add(list, BorderLayout.CENTER);
 	
 	
@@ -122,6 +128,17 @@ public class ServerPrototype implements Observer{
 	panel_3.setLayout(new BorderLayout(0, 0));
 	
 	JButton btnNewButton = new JButton("send dummy to client");
+	btnNewButton.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+		   RMIClientInterface stub = (RMIClientInterface) list.getSelectedValue();
+		   try {
+		    stub.uploadSquadToClient((Dummy) listDummy.getSelectedValue());
+		} catch (RemoteException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+		}
+	});
 	panel_3.add(btnNewButton, BorderLayout.EAST);
     }
     
