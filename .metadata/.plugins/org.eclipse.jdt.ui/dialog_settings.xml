@@ -11,8 +11,8 @@
 	<section name="DialogBounds_SuperInterfaceSelectionDialog">
 		<item value="374" key="DIALOG_WIDTH"/>
 		<item value="-49" key="DIALOG_Y_ORIGIN"/>
-		<item value="89" key="DIALOG_X_ORIGIN"/>
 		<item value="458" key="DIALOG_HEIGHT"/>
+		<item value="89" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="RefactoringWizard.preview">
@@ -20,8 +20,8 @@
 		<item value="600" key="width"/>
 	</section>
 	<section name="SourceActionDialog.methods">
-		<item value="1" key="VisibilityModifier"/>
 		<item value="false" key="Comments"/>
+		<item value="1" key="VisibilityModifier"/>
 		<item value="false" key="SynchronizedModifier"/>
 		<item value="false" key="FinalModifier"/>
 	</section>
