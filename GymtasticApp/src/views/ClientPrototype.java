@@ -27,11 +27,13 @@ public class ClientPrototype implements Observer {
 
 	private JFrame frmGymtasticClient;
 	private JTextField txtServerIP;
-	private JTextField textField;
+	private JTextField txtName;
 	private final RMIClient client;
 	private Dummy dummy;
 	final JButton btnDisconnect = new JButton("Disconnect");
 	final JButton btnConnect = new JButton("Connect");
+	private JComboBox cBeNote;
+	private JComboBox cBdNote;
 
 	/**
 	 * Launch the application.
@@ -196,14 +198,14 @@ public class ClientPrototype implements Observer {
 		gbc_lblName.gridy = 0;
 		panel_5.add(lblName, gbc_lblName);
 
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 0;
-		panel_5.add(textField, gbc_textField);
-		textField.setColumns(10);
+		txtName = new JTextField();
+		GridBagConstraints gbc_txtName = new GridBagConstraints();
+		gbc_txtName.insets = new Insets(0, 0, 5, 0);
+		gbc_txtName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtName.gridx = 1;
+		gbc_txtName.gridy = 0;
+		panel_5.add(txtName, gbc_txtName);
+		txtName.setColumns(10);
 
 		JLabel lblEnote = new JLabel("E-Note:");
 		GridBagConstraints gbc_lblEnote = new GridBagConstraints();
@@ -213,9 +215,9 @@ public class ClientPrototype implements Observer {
 		gbc_lblEnote.gridy = 1;
 		panel_5.add(lblEnote, gbc_lblEnote);
 
-		JComboBox cBeNote = new JComboBox();
-		DefaultComboBoxModel cBModel = new DefaultComboBoxModel(new String[] { "0", "1", "2",
-				"3", "4", "5", "6", "7", "8", "9" });
+		cBeNote = new JComboBox();
+		DefaultComboBoxModel cBModel = new DefaultComboBoxModel(new String[] {
+				"0", "1", "2", "3", "4", "5", "6", "7", "8", "9" });
 		cBeNote.setModel(cBModel);
 		GridBagConstraints gbc_cBeNote = new GridBagConstraints();
 		gbc_cBeNote.fill = GridBagConstraints.HORIZONTAL;
@@ -232,7 +234,7 @@ public class ClientPrototype implements Observer {
 		gbc_lblDnote.gridy = 2;
 		panel_5.add(lblDnote, gbc_lblDnote);
 
-		JComboBox cBdNote = new JComboBox();
+		cBdNote = new JComboBox();
 		cBdNote.setModel(cBModel);
 		GridBagConstraints gbc_cBdNote = new GridBagConstraints();
 		gbc_cBdNote.fill = GridBagConstraints.HORIZONTAL;
@@ -258,6 +260,7 @@ public class ClientPrototype implements Observer {
 		btnDisconnect.setEnabled(true);
 		txtServerIP.setEnabled(false);
 	}
+
 	private void enableConnectionPanel() {
 		btnConnect.setEnabled(true);
 		btnDisconnect.setEnabled(false);
@@ -266,6 +269,15 @@ public class ClientPrototype implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		dummy = client.getDummy();
+		updateFields();
+
+	}
+
+	private void updateFields() {
+		txtName.setText(dummy.getName());
+		cBdNote.setSelectedItem(dummy.getdNote());
+		cBeNote.setSelectedItem(dummy.geteNote());
 
 	}
 

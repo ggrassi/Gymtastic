@@ -7,13 +7,14 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.RemoteServer;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Observable;
 
 import views.ClientPrototype;
 import network.RMIServerInterface;
 
 import domain.Dummy;
 
-public class RMIClient implements RMIClientInterface {
+public class RMIClient extends Observable implements RMIClientInterface {
 
 	// private static final String HOST = "152.96.233.102";
 	// private static final String HOST = "192.168.0.100";
@@ -63,6 +64,9 @@ public class RMIClient implements RMIClientInterface {
 
 	public void uploadSquadToClient(Dummy dummy) throws RemoteException {
 		this.dummy = dummy;
+		updateObservers();
+		
+		/*
 		System.out.println("Dummy mit Name: " + dummy.getName()
 				+ "ist bei Client eingetroffen.");
 
@@ -70,7 +74,14 @@ public class RMIClient implements RMIClientInterface {
 		System.out.println("Neuer Dummy name: " + this.dummy.getName());
 
 		serverUpdate();
+		*/
 
+	}
+
+	private void updateObservers() {
+		setChanged();
+		notifyObservers();
+		
 	}
 
 	public void setServerIP(String serverIP) {
