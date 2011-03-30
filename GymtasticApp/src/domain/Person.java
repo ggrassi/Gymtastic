@@ -6,16 +6,17 @@ public class Person {
 	private String adresse = null;
 	
 	
-	public Person(String name, String vorname) {
+	public Person(String name, String vorname, String adresse) {
 		super();
 		this.firstName = name;
 		this.lastName = vorname;
+		this.adresse = adresse;
 	}
 	
 	@Override
 	public String toString() {
 		return "Person [name=" + firstName + ", vorname=" + lastName + ", adresse="
-				+ adresse + "]";
+				+ adresse.toString() + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -67,7 +68,7 @@ public class Person {
 		this.lastName = vorname;
 	}
 	protected String getAdresse() {
-		return adresse;
+	return adresse.toString();
 	}
 	protected void setAdresse(String adresse) {
 		this.adresse = adresse;
