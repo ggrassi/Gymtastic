@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import network.RMIClient;
+import network.RMIServerInterface;
 import domain.Dummy;
 
 public class ClientPrototype implements Observer {
@@ -34,6 +35,7 @@ public class ClientPrototype implements Observer {
 	final JButton btnConnect = new JButton("Connect");
 	private JComboBox cBeNote;
 	private JComboBox cBdNote;
+	private RMIServerInterface server;
 
 	/**
 	 * Launch the application.
@@ -57,6 +59,8 @@ public class ClientPrototype implements Observer {
 
 	public ClientPrototype(RMIClient client) {
 		this.client = client;
+		server = client.getRmiServerInterface();
+		client.addObserver(this);
 		initialize();
 	}
 
@@ -216,9 +220,11 @@ public class ClientPrototype implements Observer {
 		panel_5.add(lblEnote, gbc_lblEnote);
 
 		cBeNote = new JComboBox();
-		DefaultComboBoxModel cBModel = new DefaultComboBoxModel(new String[] {
+		DefaultComboBoxModel cBeNoteModel = new DefaultComboBoxModel(new String[] {
 				"0", "1", "2", "3", "4", "5", "6", "7", "8", "9" });
-		cBeNote.setModel(cBModel);
+		DefaultComboBoxModel cBdNoteModel = new DefaultComboBoxModel(new String[] {
+				"0", "1", "2", "3", "4", "5", "6", "7", "8", "9" });
+		cBeNote.setModel(cBeNoteModel);
 		GridBagConstraints gbc_cBeNote = new GridBagConstraints();
 		gbc_cBeNote.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cBeNote.insets = new Insets(0, 0, 5, 0);
@@ -235,7 +241,7 @@ public class ClientPrototype implements Observer {
 		panel_5.add(lblDnote, gbc_lblDnote);
 
 		cBdNote = new JComboBox();
-		cBdNote.setModel(cBModel);
+		cBdNote.setModel(cBdNoteModel);
 		GridBagConstraints gbc_cBdNote = new GridBagConstraints();
 		gbc_cBdNote.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cBdNote.gridx = 1;
@@ -251,6 +257,22 @@ public class ClientPrototype implements Observer {
 		panel_1.add(panel_4, gbc_panel_4);
 
 		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				updateDummy();
+				try {
+					server.uploadSquadToServer(dummy);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+
+			private void updateDummy() {
+				dummy.setName(txtName.getName());
+				dummy.setdNote((Integer)cBdNote.getSelectedItem());
+				dummy.seteNote((Integer)cBeNote.getSelectedItem());
+			}
+		});
 		btnUpdate.setToolTipText("Transmitts Updates to Server");
 		panel_4.add(btnUpdate);
 	}
