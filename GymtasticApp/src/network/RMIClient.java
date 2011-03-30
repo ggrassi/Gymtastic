@@ -29,7 +29,7 @@ public class RMIClient implements RMIClientInterface {
 				.exportObject(this, 0);
 
 		System.out.println("Aufruf von addClient auf ServerStub");
-		rmiServerInterface.addClient(stub, RMIServer.POMMEL_HORSE);
+		rmiServerInterface.addClient(stub, RMIServer.FLOOR_EXCERICE);
 		System.out.println("Aufruf von addClient auf ServerStub ausgeführt");
 		
 		

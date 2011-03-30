@@ -5,10 +5,11 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Observable;
 
 import domain.Dummy;
 
-public class RMIServer implements RMIServerInterface {
+public class RMIServer extends Observable implements RMIServerInterface {
 
 	/**
 	 * @param args
@@ -45,12 +46,21 @@ public class RMIServer implements RMIServerInterface {
 		// } else {
 		// System.out.println("Gerät Nr." + gymDevice + "ist bereits belegt.");
 		// }
+		
+		updateObservers();
+	}
+
+	private void updateObservers() {
+	    setChanged();
+	    notifyObservers();
 	}
 
 	@Override
 	public void removeClient(RMIClientInterface client) throws RemoteException {
 		clients.remove(client);
 		System.out.println("Client removed!");
+		
+		updateObservers();
 
 	}
 
@@ -62,9 +72,15 @@ public class RMIServer implements RMIServerInterface {
 			client.uploadSquadToClient(tempDummy);
 		}
 	}
+	
+	public ArrayList<RMIClientInterface> getClient()
+	{
+	    return clients;
+	}
 
 	public static void main(String[] args) throws RemoteException {
 		RMIServer server = new RMIServer();
+		views.ServerPrototype.newServerFrame(server);
 		while (true) {
 		}
 
