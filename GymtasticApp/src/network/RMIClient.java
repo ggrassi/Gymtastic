@@ -11,7 +11,8 @@ import domain.Dummy;
 public class RMIClient implements RMIClientInterface {
 
 //	private static final String HOST = "152.96.233.102";
-	private static final String HOST = "192.168.0.100";
+	private static final String HOST = "localhost";
+//	private static final String HOST = "192.168.0.100";
 	private RMIServerInterface rmiServerInterface;
 	private Dummy dummy;
 
@@ -28,7 +29,7 @@ public class RMIClient implements RMIClientInterface {
 				.exportObject(this, 0);
 
 		System.out.println("Aufruf von addClient auf ServerStub");
-		rmiServerInterface.addClient(stub, RMIServer.FLOOR_EXCERICE);
+		rmiServerInterface.addClient(stub, RMIServer.POMMEL_HORSE);
 		System.out.println("Aufruf von addClient auf ServerStub ausgeführt");
 		
 		

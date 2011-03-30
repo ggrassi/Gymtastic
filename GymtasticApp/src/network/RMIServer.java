@@ -22,20 +22,29 @@ public class RMIServer implements RMIServerInterface {
 
 	ArrayList<RMIClientInterface> clients = new ArrayList<RMIClientInterface>(6);
 
-	public RMIServer() {
+	public RMIServer() throws RemoteException {
 		super();
+		System.out.println("[GymTastic-Server]");
+		System.out.println("[GymTastic] generate proxy");
+		RMIServerInterface stub = (RMIServerInterface) UnicastRemoteObject
+				.exportObject(this, 0);
+		System.out.println("[GymTastic] registry()");
+		Registry registry = LocateRegistry.createRegistry(1099);
+		registry.rebind("Server", stub);
+
 	}
 
 	@Override
-	public void addClient(RMIClientInterface client, int gymDevice)
+	public synchronized void addClient(RMIClientInterface client, int gymDevice)
 			throws RemoteException {
-		if (clients.get(gymDevice) == null) {
-			clients.add(gymDevice, client);
-			System.out.println("Client added");
-			clients.remove(client);
-		} else {
-			System.out.println("Gerät Nr." + gymDevice + "ist bereits belegt.");
-		}
+		// if (clients.get(gymDevice) == null) {
+		clients.add(gymDevice, client);
+		System.out.println("Client added");
+		updateClients();
+
+		// } else {
+		// System.out.println("Gerät Nr." + gymDevice + "ist bereits belegt.");
+		// }
 	}
 
 	@Override
@@ -55,21 +64,8 @@ public class RMIServer implements RMIServerInterface {
 	}
 
 	public static void main(String[] args) throws RemoteException {
-		System.out.println("[GymTastic-Server]");
 		RMIServer server = new RMIServer();
-		System.out.println("[GymTastic] generate proxy");
-		RMIServerInterface stub = (RMIServerInterface) UnicastRemoteObject
-				.exportObject(server, 0);
-		System.out.println("[GymTastic] registry()");
-		Registry registry = LocateRegistry.createRegistry(1099);
-		registry.rebind("Server", stub);
 		while (true) {
-			server.updateClients();
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 		}
 
 	}
