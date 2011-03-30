@@ -22,7 +22,11 @@ public class GymtasticApp {
 	System.out.println("******** Squad Generator *************");
 	SquadCreator squadCreator = new SquadCreator(importList);
 	Map<Integer, Squad> squads = squadCreator.createSquads();
-
+	
+	RoundAllocation ra = new RoundAllocation(squads);
+	System.out.println(ra.getMap(0));
+	System.out.println(ra.roundChange(ra.getMap(0)));
+	System.out.println(DeviceType.FLOOR_EXCERCISE.getIndex());
 	//
 	System.out.println("******** Good Bye *************");
 
