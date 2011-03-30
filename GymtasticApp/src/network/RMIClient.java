@@ -11,7 +11,7 @@ import domain.Dummy;
 public class RMIClient implements RMIClientInterface {
 
 //	private static final String HOST = "152.96.233.102";
-	private static final String HOST = "192.168.1.5";
+	private static final String HOST = "192.168.0.100";
 	private RMIServerInterface rmiServerInterface;
 	private Dummy dummy;
 
