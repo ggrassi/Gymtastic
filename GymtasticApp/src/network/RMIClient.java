@@ -5,6 +5,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.RemoteServer;
 import java.rmi.server.UnicastRemoteObject;
 
 import views.ClientPrototype;
@@ -45,7 +46,6 @@ public class RMIClient implements RMIClientInterface {
 		System.out.println("stub object creation");
 		RMIClientInterface stub = (RMIClientInterface) UnicastRemoteObject
 				.exportObject(this, 0);
-
 		System.out.println("Aufruf von addClient auf ServerStub");
 		rmiServerInterface.addClient(stub, RMIServer.FLOOR_EXCERICE);
 		System.out.println("Aufruf von addClient auf ServerStub ausgeführt");
