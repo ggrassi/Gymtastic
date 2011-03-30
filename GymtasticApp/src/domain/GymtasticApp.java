@@ -1,14 +1,18 @@
 package domain;
 
+import importer.ImportStartList;
+
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
-import importer.ImportStartList;
+import control.SquadCreator;
 
 public class GymtasticApp {
 
-private static final int squadPositionImport = 0;
+
 
     /**
      * @param args
@@ -17,40 +21,20 @@ private static final int squadPositionImport = 0;
 	System.out.println("******** Welcome to Gymtastic *************");
 
 	/* Import the starter file */
-	ImportStartList startList = new ImportStartList("src/importer/Startliste_Bsp.txt");
+	ImportStartList importList = new ImportStartList("src/importer/Startliste_Bsp.txt");
 	System.out.println("******** Import *************");
-	startList.readImport();
-	startList.toString();
-	
+	importList.readImport();
+	importList.toString();
+
 	/* generate Squads with importlist */
 	System.out.println("******** Squad Generator *************");
-	createSquad(startList);
+	SquadCreator squadCreator = new SquadCreator(importList);
+	Map<Integer, Squad> squads = squadCreator.createSquads();
 	
-	System.out.println(DeviceType.FLOOR_EXCERCISE);
-	
-	Evaluation eval = new Evaluation();
-	eval.insertMark(new Mark(5,10,5,10,5,10,5));
-	System.out.println(eval.getAverageMark());
-	
-	
+	//
+	System.out.println("******** Good Bye *************");
+
     }
 
-    private static void createSquad(ImportStartList startList) {
-	
-	//Set mit Riegen erstellen
-	Set<Integer> squadsList = new TreeSet<Integer>();
-	List<List<String>> importList = startList.getImportList();
-	for (List<String> line : importList) {
-	    squadsList.add(Integer.parseInt(line.get(squadPositionImport)));
-	}
-	
-	// Ausgabe aller Riegennummern
-	for (Integer squadNr : squadsList) {
-	    System.out.println(squadNr);
-	}
-	
-	// Anhand der Riegennummern die Riegen erstellen
-	
-    }
-
+ 
 }

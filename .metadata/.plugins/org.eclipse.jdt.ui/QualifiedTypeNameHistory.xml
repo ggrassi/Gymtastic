@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.rmi.Remote"/>
-<fullyQualifiedTypeName name="network.RMIServer"/>
 <fullyQualifiedTypeName name="java.rmi.registry.LocateRegistry"/>
 <fullyQualifiedTypeName name="java.rmi.registry.Registry"/>
 <fullyQualifiedTypeName name="java.rmi.RemoteException"/>
-<fullyQualifiedTypeName name="network.RMIServerInterface"/>
 <fullyQualifiedTypeName name="java.rmi.server.UnicastRemoteObject"/>
-<fullyQualifiedTypeName name="network.RMIClientInterface"/>
 <fullyQualifiedTypeName name="java.lang.Exception"/>
-<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="network.RMIServerInterface"/>
 <fullyQualifiedTypeName name="domain.Dummy"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="network.RMIClientInterface"/>
+<fullyQualifiedTypeName name="network.RMIServer"/>
 </qualifiedTypeNameHistroy>
