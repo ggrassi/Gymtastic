@@ -17,6 +17,7 @@ public class Athlet extends Person {
 	this.prgClass = prgClass;
 	this.yearOfBirth = yearOfBirth;
 	this.verein = verein;
+	eval = new Evaluation();
     }
 
     public String getPrgClass() {
@@ -41,10 +42,6 @@ public class Athlet extends Person {
 
     public Evaluation getEval() {
 	return eval;
-    }
-
-    public void setEval(Evaluation eval) {
-	this.eval = eval;
     }
 
     public int getAthletId() {

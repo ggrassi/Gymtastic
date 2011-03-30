@@ -26,6 +26,12 @@ private static final int squadPositionImport = 0;
 	System.out.println("******** Squad Generator *************");
 	createSquad(startList);
 	
+	System.out.println(DeviceType.FLOOR_EXCERCISE);
+	
+	Evaluation eval = new Evaluation();
+	eval.insertMark(new Mark(5,10,5,10,5,10,5));
+	System.out.println(eval.getAverageMark());
+	
 	
     }
 
