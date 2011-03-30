@@ -59,7 +59,6 @@ public class ClientPrototype implements Observer {
 
 	public ClientPrototype(RMIClient client) {
 		this.client = client;
-		server = client.getRmiServerInterface();
 		client.addObserver(this);
 		initialize();
 	}
@@ -155,6 +154,7 @@ public class ClientPrototype implements Observer {
 					disableConnectionPanel();
 					client.setServerIP(txtServerIP.getText());
 					client.connect();
+					server = client.getRmiServerInterface();
 					System.out.println("Connection established");
 
 				} catch (Exception e) {
@@ -220,10 +220,10 @@ public class ClientPrototype implements Observer {
 		panel_5.add(lblEnote, gbc_lblEnote);
 
 		cBeNote = new JComboBox();
-		DefaultComboBoxModel cBeNoteModel = new DefaultComboBoxModel(new String[] {
-				"0", "1", "2", "3", "4", "5", "6", "7", "8", "9" });
-		DefaultComboBoxModel cBdNoteModel = new DefaultComboBoxModel(new String[] {
-				"0", "1", "2", "3", "4", "5", "6", "7", "8", "9" });
+		DefaultComboBoxModel cBeNoteModel = new DefaultComboBoxModel(
+				new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" });
+		DefaultComboBoxModel cBdNoteModel = new DefaultComboBoxModel(
+				new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" });
 		cBeNote.setModel(cBeNoteModel);
 		GridBagConstraints gbc_cBeNote = new GridBagConstraints();
 		gbc_cBeNote.fill = GridBagConstraints.HORIZONTAL;
@@ -268,9 +268,12 @@ public class ClientPrototype implements Observer {
 			}
 
 			private void updateDummy() {
-				dummy.setName(txtName.getName());
-				dummy.setdNote((Integer)cBdNote.getSelectedItem());
-				dummy.seteNote((Integer)cBeNote.getSelectedItem());
+				dummy.setName(txtName.getText());
+				dummy.setdNote(Integer.parseInt((String) cBdNote
+						.getSelectedItem()));
+				dummy.seteNote(Integer.parseInt((String) cBeNote
+						.getSelectedItem()));
+				System.out.println("Updated Dummy: " + dummy);
 			}
 		});
 		btnUpdate.setToolTipText("Transmitts Updates to Server");

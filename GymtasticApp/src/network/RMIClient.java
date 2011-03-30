@@ -7,7 +7,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Observable;
-import java.util.Observer;
 
 import views.ClientPrototype;
 import domain.Dummy;
