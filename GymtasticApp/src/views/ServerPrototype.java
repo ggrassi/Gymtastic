@@ -26,6 +26,8 @@ import domain.Dummy;
 import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class ServerPrototype implements Observer {
 
@@ -69,6 +71,7 @@ public class ServerPrototype implements Observer {
 	for (Dummy d : server.getDummies()) {
 	    model.addElement(d);
 	}
+	
 	listDummy.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	listDummy.setModel(model);
 
@@ -104,6 +107,7 @@ public class ServerPrototype implements Observer {
 	panel_2.setLayout(new BorderLayout(0, 0));
 
 	list = new JList();
+	
 	list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	panel_2.add(list, BorderLayout.CENTER);
 
@@ -128,7 +132,8 @@ public class ServerPrototype implements Observer {
 	panel.add(panel_3, gbc_panel_3);
 	panel_3.setLayout(new BorderLayout(0, 0));
 
-	JButton btnNewButton = new JButton("send dummy to client");
+	final JButton btnNewButton = new JButton("send dummy to client");
+	btnNewButton.setEnabled(false);
 	btnNewButton.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent arg0) {
 		RMIClientInterface stub = (RMIClientInterface) list.getSelectedValue();
@@ -143,6 +148,26 @@ public class ServerPrototype implements Observer {
 	    }
 	});
 	panel_3.add(btnNewButton, BorderLayout.EAST);
+	
+	listDummy.addListSelectionListener(new ListSelectionListener() {
+		public void valueChanged(ListSelectionEvent arg0) {
+		    if(list.getSelectedValue() != null)
+		    {
+			btnNewButton.setEnabled(true);
+		    }
+		}
+	});
+	
+	list.addListSelectionListener(new ListSelectionListener() {
+		public void valueChanged(ListSelectionEvent arg0) {
+		    if(listDummy.getSelectedValue() != null)
+		    {
+			btnNewButton.setEnabled(true);
+		    }
+		}
+	});
+	
+	
     }
 
     private void updateList() {
