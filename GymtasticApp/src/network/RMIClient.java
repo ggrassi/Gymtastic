@@ -5,20 +5,19 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.RemoteServer;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Observable;
 
 import views.ClientPrototype;
-import network.RMIServerInterface;
-
 import domain.Dummy;
 
-public class RMIClient implements RMIClientInterface {
+public class RMIClient extends Observable implements RMIClientInterface {
 
 	// private static final String HOST = "152.96.233.102";
 	// private static final String HOST = "192.168.0.100";
 	private String serverIP = "localhost";
 	private RMIServerInterface rmiServerInterface;
+
 	private Dummy dummy;
 
 	/**
@@ -58,18 +57,29 @@ public class RMIClient implements RMIClientInterface {
 
 	private void serverUpdate() throws RemoteException {
 		System.out.println("Bearbeiteter Dummy wird an Server Ÿbertragen.");
-		rmiServerInterface.uploadSquadToServer(this.dummy);
+		rmiServerInterface.uploadSquadToServer(dummy);
 	}
 
 	public void uploadSquadToClient(Dummy dummy) throws RemoteException {
+		System.out.println("Received new Dummy " + dummy);
 		this.dummy = dummy;
-		System.out.println("Dummy mit Name: " + dummy.getName()
-				+ "ist bei Client eingetroffen.");
+		updateObservers();
 
-		this.dummy.setName("SuuuperDuuuuperDummy");
-		System.out.println("Neuer Dummy name: " + this.dummy.getName());
+		/*
+		 * System.out.println("Dummy mit Name: " + dummy.getName() +
+		 * "ist bei Client eingetroffen.");
+		 * 
+		 * this.dummy.setName("SuuuperDuuuuperDummy");
+		 * System.out.println("Neuer Dummy name: " + this.dummy.getName());
+		 * 
+		 * serverUpdate();
+		 */
 
-		serverUpdate();
+	}
+
+	private void updateObservers() {
+		setChanged();
+		notifyObservers();
 
 	}
 
@@ -84,5 +94,9 @@ public class RMIClient implements RMIClientInterface {
 	public Dummy getDummy() {
 		return dummy;
 	}
+	public RMIServerInterface getRmiServerInterface() {
+		return rmiServerInterface;
+	}
+
 
 }

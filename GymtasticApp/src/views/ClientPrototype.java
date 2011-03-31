@@ -21,17 +21,21 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import network.RMIClient;
+import network.RMIServerInterface;
 import domain.Dummy;
 
 public class ClientPrototype implements Observer {
 
 	private JFrame frmGymtasticClient;
 	private JTextField txtServerIP;
-	private JTextField textField;
+	private JTextField txtName;
 	private final RMIClient client;
 	private Dummy dummy;
 	final JButton btnDisconnect = new JButton("Disconnect");
 	final JButton btnConnect = new JButton("Connect");
+	private JComboBox cBeNote;
+	private JComboBox cBdNote;
+	private RMIServerInterface server;
 
 	/**
 	 * Launch the application.
@@ -55,6 +59,7 @@ public class ClientPrototype implements Observer {
 
 	public ClientPrototype(RMIClient client) {
 		this.client = client;
+		client.addObserver(this);
 		initialize();
 	}
 
@@ -149,6 +154,7 @@ public class ClientPrototype implements Observer {
 					disableConnectionPanel();
 					client.setServerIP(txtServerIP.getText());
 					client.connect();
+					server = client.getRmiServerInterface();
 					System.out.println("Connection established");
 
 				} catch (Exception e) {
@@ -196,14 +202,14 @@ public class ClientPrototype implements Observer {
 		gbc_lblName.gridy = 0;
 		panel_5.add(lblName, gbc_lblName);
 
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 0;
-		panel_5.add(textField, gbc_textField);
-		textField.setColumns(10);
+		txtName = new JTextField();
+		GridBagConstraints gbc_txtName = new GridBagConstraints();
+		gbc_txtName.insets = new Insets(0, 0, 5, 0);
+		gbc_txtName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtName.gridx = 1;
+		gbc_txtName.gridy = 0;
+		panel_5.add(txtName, gbc_txtName);
+		txtName.setColumns(10);
 
 		JLabel lblEnote = new JLabel("E-Note:");
 		GridBagConstraints gbc_lblEnote = new GridBagConstraints();
@@ -213,10 +219,12 @@ public class ClientPrototype implements Observer {
 		gbc_lblEnote.gridy = 1;
 		panel_5.add(lblEnote, gbc_lblEnote);
 
-		JComboBox cBeNote = new JComboBox();
-		DefaultComboBoxModel cBModel = new DefaultComboBoxModel(new String[] { "0", "1", "2",
-				"3", "4", "5", "6", "7", "8", "9" });
-		cBeNote.setModel(cBModel);
+		cBeNote = new JComboBox();
+		DefaultComboBoxModel cBeNoteModel = new DefaultComboBoxModel(
+				new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" });
+		DefaultComboBoxModel cBdNoteModel = new DefaultComboBoxModel(
+				new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" });
+		cBeNote.setModel(cBeNoteModel);
 		GridBagConstraints gbc_cBeNote = new GridBagConstraints();
 		gbc_cBeNote.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cBeNote.insets = new Insets(0, 0, 5, 0);
@@ -232,8 +240,8 @@ public class ClientPrototype implements Observer {
 		gbc_lblDnote.gridy = 2;
 		panel_5.add(lblDnote, gbc_lblDnote);
 
-		JComboBox cBdNote = new JComboBox();
-		cBdNote.setModel(cBModel);
+		cBdNote = new JComboBox();
+		cBdNote.setModel(cBdNoteModel);
 		GridBagConstraints gbc_cBdNote = new GridBagConstraints();
 		gbc_cBdNote.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cBdNote.gridx = 1;
@@ -249,6 +257,25 @@ public class ClientPrototype implements Observer {
 		panel_1.add(panel_4, gbc_panel_4);
 
 		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				updateDummy();
+				try {
+					server.uploadSquadToServer(dummy);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+
+			private void updateDummy() {
+				dummy.setName(txtName.getText());
+				dummy.setdNote(Integer.parseInt((String) cBdNote
+						.getSelectedItem()));
+				dummy.seteNote(Integer.parseInt((String) cBeNote
+						.getSelectedItem()));
+				System.out.println("Updated Dummy: " + dummy);
+			}
+		});
 		btnUpdate.setToolTipText("Transmitts Updates to Server");
 		panel_4.add(btnUpdate);
 	}
@@ -258,6 +285,7 @@ public class ClientPrototype implements Observer {
 		btnDisconnect.setEnabled(true);
 		txtServerIP.setEnabled(false);
 	}
+
 	private void enableConnectionPanel() {
 		btnConnect.setEnabled(true);
 		btnDisconnect.setEnabled(false);
@@ -266,6 +294,15 @@ public class ClientPrototype implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		dummy = client.getDummy();
+		updateFields();
+
+	}
+
+	private void updateFields() {
+		txtName.setText(dummy.getName());
+		cBdNote.setSelectedItem(dummy.getdNote());
+		cBeNote.setSelectedItem(dummy.geteNote());
 
 	}
 

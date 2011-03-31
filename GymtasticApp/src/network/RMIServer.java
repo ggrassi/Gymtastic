@@ -3,8 +3,6 @@ package network;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.RemoteServer;
-import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -105,6 +103,8 @@ public class RMIServer extends Observable implements RMIServerInterface {
 	public void uploadSquadToServer(Dummy dummy) throws RemoteException {
 //		System.out.println("Bearbeiteter Dummy mit Name: " + dummy.getName()
 //				+ " wurde empfangen.");
+	    dummies.add(dummy);
+	    updateObservers();
 
 	}
 
