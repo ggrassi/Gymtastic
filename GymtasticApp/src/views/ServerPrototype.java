@@ -71,7 +71,7 @@ public class ServerPrototype implements Observer {
 	for (Dummy d : server.getDummies()) {
 	    model.addElement(d);
 	}
-	
+
 	listDummy.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	listDummy.setModel(model);
 
@@ -107,7 +107,7 @@ public class ServerPrototype implements Observer {
 	panel_2.setLayout(new BorderLayout(0, 0));
 
 	list = new JList();
-	
+
 	list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	panel_2.add(list, BorderLayout.CENTER);
 
@@ -143,41 +143,34 @@ public class ServerPrototype implements Observer {
 		    // TODO Auto-generated catch block
 		    e.printStackTrace();
 		}
-		server.getDummies().remove((Dummy)listDummy.getSelectedValue());
+		server.getDummies().remove((Dummy) listDummy.getSelectedValue());
 		updateDummies();
 	    }
 	});
 	panel_3.add(btnNewButton, BorderLayout.EAST);
-	
+
 	listDummy.addListSelectionListener(new ListSelectionListener() {
-		public void valueChanged(ListSelectionEvent arg0) {
-		    if(list.getSelectedValue() != null && listDummy.getSelectedValue() != null)
-		    {
-			btnNewButton.setEnabled(true);
-		    }
-		    else
-		    {
-			btnNewButton.setEnabled(false);
-			
-		    }
+	    public void valueChanged(ListSelectionEvent arg0) {
+		if (list.getSelectedValue() != null && listDummy.getSelectedValue() != null) {
+		    btnNewButton.setEnabled(true);
+		} else {
+		    btnNewButton.setEnabled(false);
+
 		}
+	    }
 	});
-	
+
 	list.addListSelectionListener(new ListSelectionListener() {
-		public void valueChanged(ListSelectionEvent arg0) {
-		    if(listDummy.getSelectedValue() != null && list.getSelectedValue() != null)
-		    {
-			btnNewButton.setEnabled(true);
-		    }
-		    else
-		    {
-			btnNewButton.setEnabled(false);
-			
-		    }
+	    public void valueChanged(ListSelectionEvent arg0) {
+		if (listDummy.getSelectedValue() != null && list.getSelectedValue() != null) {
+		    btnNewButton.setEnabled(true);
+		} else {
+		    btnNewButton.setEnabled(false);
+
 		}
+	    }
 	});
-	
-	
+
     }
 
     private void updateList() {
@@ -186,7 +179,7 @@ public class ServerPrototype implements Observer {
 	    model.addElement(c);
 	}
 	list.setModel(model);
-	
+
     }
 
     @Override

@@ -4,3 +4,4 @@
 1301473564061	Rename method 'updateClient'
 1301474300916	Change method 'removeClient'
 1301491900940	Extract method 'updateObservers'
+1301563929117	Extract method 'generateDummies'
