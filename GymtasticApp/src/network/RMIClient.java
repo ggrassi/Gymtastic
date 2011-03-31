@@ -55,7 +55,7 @@ public class RMIClient extends Observable implements RMIClientInterface {
 
 	}
 
-	private void serverUpdate() throws RemoteException {
+	public void updateServer() throws RemoteException {
 		System.out.println("Bearbeiteter Dummy wird an Server Ÿbertragen.");
 		rmiServerInterface.uploadSquadToServer(dummy);
 	}
@@ -94,9 +94,9 @@ public class RMIClient extends Observable implements RMIClientInterface {
 	public Dummy getDummy() {
 		return dummy;
 	}
+
 	public RMIServerInterface getRmiServerInterface() {
 		return rmiServerInterface;
 	}
-
 
 }
