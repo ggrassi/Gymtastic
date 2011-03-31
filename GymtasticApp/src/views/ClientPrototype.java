@@ -18,10 +18,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import network.RMIClient;
-import network.RMIServerInterface;
 import domain.Dummy;
 
 public class ClientPrototype implements Observer {
@@ -35,7 +35,7 @@ public class ClientPrototype implements Observer {
 	final JButton btnConnect = new JButton("Connect");
 	private JComboBox cBeNote;
 	private JComboBox cBdNote;
-	private RMIServerInterface server;
+	private JButton btnUpdate;
 
 	/**
 	 * Launch the application.
@@ -154,7 +154,6 @@ public class ClientPrototype implements Observer {
 					disableConnectionPanel();
 					client.setServerIP(txtServerIP.getText());
 					client.connect();
-					server = client.getRmiServerInterface();
 					System.out.println("Connection established");
 
 				} catch (Exception e) {
@@ -256,15 +255,16 @@ public class ClientPrototype implements Observer {
 		gbc_panel_4.gridy = 1;
 		panel_1.add(panel_4, gbc_panel_4);
 
-		JButton btnUpdate = new JButton("Update");
+		btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				updateDummy();
 				try {
-					server.uploadSquadToServer(dummy);
+					client.updateServer();
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
+				disableFields();
 			}
 
 			private void updateDummy() {
@@ -278,6 +278,7 @@ public class ClientPrototype implements Observer {
 		});
 		btnUpdate.setToolTipText("Transmitts Updates to Server");
 		panel_4.add(btnUpdate);
+		disableFields();
 	}
 
 	private void disableConnectionPanel() {
@@ -291,19 +292,33 @@ public class ClientPrototype implements Observer {
 		btnDisconnect.setEnabled(false);
 		txtServerIP.setEnabled(true);
 	}
+	private void disableFields(){
+		txtName.setEnabled(false);
+		cBdNote.setEnabled(false);
+		cBeNote.setEnabled(false);
+		btnUpdate.setEnabled(false);
+	}
+	private void enableFields(){
+		txtName.setEnabled(true);
+		cBdNote.setEnabled(true);
+		cBeNote.setEnabled(true);
+		btnUpdate.setEnabled(true);
+	}
 
+
+	private void updateFields() {
+		txtName.setText(dummy.getName());
+		cBdNote.setSelectedIndex(dummy.getdNote());
+		cBeNote.setSelectedIndex(dummy.geteNote());
+
+	}
+	
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		dummy = client.getDummy();
 		updateFields();
-
-	}
-
-	private void updateFields() {
-		txtName.setText(dummy.getName());
-		cBdNote.setSelectedItem(dummy.getdNote());
-		cBeNote.setSelectedItem(dummy.geteNote());
-
+		enableFields();
+		
 	}
 
 }
