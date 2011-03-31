@@ -31,9 +31,9 @@ public class GymtasticApp {
 	System.out.println("******** Round Allocation Generator *************");
 	RoundAllocation ra = new RoundAllocation(squads);
 	System.out.println("Riege vor der Rotation");
-	System.out.println(ra.getMap(0));
+	System.out.println(ra.getRoundAllocation(0));
 	System.out.println("Riege nach der Rotation");
-	System.out.println(ra.roundChange(ra.getMap(0)));
+	System.out.println(ra.roundChange(ra.getRoundAllocation(0)));
 	//
 	System.out.println("******** Good Bye *************");
 
