@@ -2220,3 +2220,361 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/mathi
 !MESSAGE From: WindowBuilder XML Core 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml.feature.feature.group 0.9.0.r36x201102111134)
 !SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:28:25.384
 !MESSAGE To: org.eclipse.wb.core.xml [0.9.0.r36x201102111134]
+
+!ENTRY org.eclipse.equinox.p2.operations 4 0 2011-03-30 14:30:10.950
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:10.950
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:10.950
+!MESSAGE Software being installed: SWT Designer XWT Support 0.9.0.r36x201102111225 (org.eclipse.wb.xwt.feature.feature.group 0.9.0.r36x201102111225)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:10.950
+!MESSAGE Missing requirement: WindowBuilder Core for XML GUI's 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml 0.9.0.r36x201102111134) requires 'bundle org.eclipse.wst.sse.core 0.0.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:10.950
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:10.950
+!MESSAGE From: XWT Databinding Support 0.9.0.r36x201102111225 (org.eclipse.wb.rcp.databinding.xwt 0.9.0.r36x201102111225)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:10.950
+!MESSAGE To: bundle org.eclipse.wb.core.xml 0.0.0
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:10.950
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:10.950
+!MESSAGE From: SWT Designer XWT Support 0.9.0.r36x201102111225 (org.eclipse.wb.xwt.feature.feature.group 0.9.0.r36x201102111225)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:10.950
+!MESSAGE To: org.eclipse.wb.rcp.databinding.xwt [0.9.0.r36x201102111225]
+
+!ENTRY org.eclipse.equinox.p2.operations 4 0 2011-03-30 14:30:10.953
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:10.953
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:10.953
+!MESSAGE Software being installed: SWT Designer XWT Support 0.9.0.r36x201102111225 (org.eclipse.wb.xwt.feature.feature.group 0.9.0.r36x201102111225)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:10.953
+!MESSAGE Missing requirement: WindowBuilder Core for XML GUI's 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml 0.9.0.r36x201102111134) requires 'bundle org.eclipse.wst.sse.core 0.0.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:10.953
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:10.953
+!MESSAGE From: XWT Databinding Support 0.9.0.r36x201102111225 (org.eclipse.wb.rcp.databinding.xwt 0.9.0.r36x201102111225)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:10.953
+!MESSAGE To: bundle org.eclipse.wb.core.xml 0.0.0
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:10.953
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:10.953
+!MESSAGE From: SWT Designer XWT Support 0.9.0.r36x201102111225 (org.eclipse.wb.xwt.feature.feature.group 0.9.0.r36x201102111225)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:10.953
+!MESSAGE To: org.eclipse.wb.rcp.databinding.xwt [0.9.0.r36x201102111225]
+
+!ENTRY org.eclipse.equinox.p2.operations 4 0 2011-03-30 14:30:48.106
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:48.106
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:48.106
+!MESSAGE Software being installed: GWT Designer Editor 2.2.0.r36x201102111142 (com.google.gdt.eclipse.designer.editor.feature.feature.group 2.2.0.r36x201102111142)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:48.106
+!MESSAGE Missing requirement: WindowBuilder Core for XML GUI's 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml 0.9.0.r36x201102111134) requires 'bundle org.eclipse.wst.sse.core 0.0.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:48.106
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:48.106
+!MESSAGE From: GWT Designer Editor 2.2.0.r36x201102111142 (com.google.gdt.eclipse.designer.editor.feature.feature.group 2.2.0.r36x201102111142)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:48.106
+!MESSAGE To: org.eclipse.wb.core.xml.feature.feature.group 0.9.0.r36x201102111134
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:48.106
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:48.106
+!MESSAGE From: WindowBuilder XML Core 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml.feature.feature.group 0.9.0.r36x201102111134)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:48.106
+!MESSAGE To: org.eclipse.wb.core.xml [0.9.0.r36x201102111134]
+
+!ENTRY org.eclipse.equinox.p2.operations 4 0 2011-03-30 14:30:48.107
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:48.107
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:48.107
+!MESSAGE Software being installed: GWT Designer Editor 2.2.0.r36x201102111142 (com.google.gdt.eclipse.designer.editor.feature.feature.group 2.2.0.r36x201102111142)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:48.107
+!MESSAGE Missing requirement: WindowBuilder Core for XML GUI's 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml 0.9.0.r36x201102111134) requires 'bundle org.eclipse.wst.sse.core 0.0.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:48.107
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:48.107
+!MESSAGE From: GWT Designer Editor 2.2.0.r36x201102111142 (com.google.gdt.eclipse.designer.editor.feature.feature.group 2.2.0.r36x201102111142)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:48.107
+!MESSAGE To: org.eclipse.wb.core.xml.feature.feature.group 0.9.0.r36x201102111134
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:48.107
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:48.107
+!MESSAGE From: WindowBuilder XML Core 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml.feature.feature.group 0.9.0.r36x201102111134)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:48.107
+!MESSAGE To: org.eclipse.wb.core.xml [0.9.0.r36x201102111134]
+
+!ENTRY org.eclipse.equinox.p2.operations 4 0 2011-03-30 14:30:59.628
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:59.628
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:59.628
+!MESSAGE Software being installed: GWT Designer 2.2.0.r36x201102111155 (com.google.gdt.eclipse.designer.feature.feature.group 2.2.0.r36x201102111155)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:59.629
+!MESSAGE Missing requirement: WindowBuilder Core for XML GUI's 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml 0.9.0.r36x201102111134) requires 'bundle org.eclipse.wst.sse.core 0.0.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:59.629
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:59.629
+!MESSAGE From: GWT Designer 2.2.0.r36x201102111155 (com.google.gdt.eclipse.designer.feature.feature.group 2.2.0.r36x201102111155)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:59.629
+!MESSAGE To: org.eclipse.wb.core.xml.feature.feature.group 0.9.0.r36x201102111134
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:59.629
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:59.629
+!MESSAGE From: WindowBuilder XML Core 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml.feature.feature.group 0.9.0.r36x201102111134)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:59.629
+!MESSAGE To: org.eclipse.wb.core.xml [0.9.0.r36x201102111134]
+
+!ENTRY org.eclipse.equinox.p2.operations 4 0 2011-03-30 14:30:59.629
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:59.629
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:59.630
+!MESSAGE Software being installed: GWT Designer 2.2.0.r36x201102111155 (com.google.gdt.eclipse.designer.feature.feature.group 2.2.0.r36x201102111155)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:59.630
+!MESSAGE Missing requirement: WindowBuilder Core for XML GUI's 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml 0.9.0.r36x201102111134) requires 'bundle org.eclipse.wst.sse.core 0.0.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:59.630
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:59.630
+!MESSAGE From: GWT Designer 2.2.0.r36x201102111155 (com.google.gdt.eclipse.designer.feature.feature.group 2.2.0.r36x201102111155)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:59.630
+!MESSAGE To: org.eclipse.wb.core.xml.feature.feature.group 0.9.0.r36x201102111134
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:30:59.630
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:59.630
+!MESSAGE From: WindowBuilder XML Core 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml.feature.feature.group 0.9.0.r36x201102111134)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:30:59.630
+!MESSAGE To: org.eclipse.wb.core.xml [0.9.0.r36x201102111134]
+
+!ENTRY org.eclipse.equinox.p2.operations 4 0 2011-03-30 14:31:08.569
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:31:08.569
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:31:08.569
+!MESSAGE Software being installed: WindowBuilder XML Core 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml.feature.feature.group 0.9.0.r36x201102111134)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:31:08.569
+!MESSAGE Missing requirement: WindowBuilder Core for XML GUI's 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml 0.9.0.r36x201102111134) requires 'bundle org.eclipse.wst.sse.core 0.0.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:31:08.569
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:31:08.569
+!MESSAGE From: WindowBuilder XML Core 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml.feature.feature.group 0.9.0.r36x201102111134)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:31:08.569
+!MESSAGE To: org.eclipse.wb.core.xml [0.9.0.r36x201102111134]
+
+!ENTRY org.eclipse.equinox.p2.operations 4 0 2011-03-30 14:31:08.569
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:31:08.569
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:31:08.569
+!MESSAGE Software being installed: WindowBuilder XML Core 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml.feature.feature.group 0.9.0.r36x201102111134)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:31:08.569
+!MESSAGE Missing requirement: WindowBuilder Core for XML GUI's 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml 0.9.0.r36x201102111134) requires 'bundle org.eclipse.wst.sse.core 0.0.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2011-03-30 14:31:08.570
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:31:08.570
+!MESSAGE From: WindowBuilder XML Core 0.9.0.r36x201102111134 (org.eclipse.wb.core.xml.feature.feature.group 0.9.0.r36x201102111134)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2011-03-30 14:31:08.570
+!MESSAGE To: org.eclipse.wb.core.xml [0.9.0.r36x201102111134]
+!SESSION 2011-03-30 14:32:05.060 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -keyring /Users/mathias/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/mathias/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2011-03-30 14:32:12.035
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.ui 4 0 2011-03-30 14:58:47.735
+!MESSAGE Unhandled event loop exception
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.swt.widgets.Link.textView_clickOnLink_atIndex(Link.java:117)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5227)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Widget.callSuper(Widget.java:220)
+	at org.eclipse.swt.widgets.Widget.mouseDownSuper(Widget.java:1025)
+	at org.eclipse.swt.widgets.Widget.mouseDown(Widget.java:1021)
+	at org.eclipse.swt.widgets.Control.mouseDown(Control.java:2263)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4983)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Widget.callSuper(Widget.java:220)
+	at org.eclipse.swt.widgets.Widget.windowSendEvent(Widget.java:1959)
+	at org.eclipse.swt.widgets.Shell.windowSendEvent(Shell.java:2025)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5047)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Display.applicationSendEvent(Display.java:4589)
+	at org.eclipse.swt.widgets.Display.applicationProc(Display.java:4666)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSend(Native Method)
+	at org.eclipse.swt.internal.cocoa.NSApplication.sendEvent(NSApplication.java:115)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3281)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:620)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:575)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1408)
+
+!ENTRY org.eclipse.ui 4 0 2011-03-30 15:06:19.345
+!MESSAGE Unhandled event loop exception
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.swt.widgets.Link.textView_clickOnLink_atIndex(Link.java:117)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5227)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Widget.callSuper(Widget.java:220)
+	at org.eclipse.swt.widgets.Widget.mouseDownSuper(Widget.java:1025)
+	at org.eclipse.swt.widgets.Widget.mouseDown(Widget.java:1021)
+	at org.eclipse.swt.widgets.Control.mouseDown(Control.java:2263)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4983)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Widget.callSuper(Widget.java:220)
+	at org.eclipse.swt.widgets.Widget.windowSendEvent(Widget.java:1959)
+	at org.eclipse.swt.widgets.Shell.windowSendEvent(Shell.java:2025)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5047)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Display.applicationSendEvent(Display.java:4589)
+	at org.eclipse.swt.widgets.Display.applicationProc(Display.java:4666)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSend(Native Method)
+	at org.eclipse.swt.internal.cocoa.NSApplication.sendEvent(NSApplication.java:115)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3281)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:620)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:575)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1408)
+
+!ENTRY org.eclipse.ui 4 0 2011-03-30 16:36:33.048
+!MESSAGE Unhandled event loop exception
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.swt.widgets.Link.textView_clickOnLink_atIndex(Link.java:117)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5227)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Widget.callSuper(Widget.java:220)
+	at org.eclipse.swt.widgets.Widget.mouseDownSuper(Widget.java:1025)
+	at org.eclipse.swt.widgets.Widget.mouseDown(Widget.java:1021)
+	at org.eclipse.swt.widgets.Control.mouseDown(Control.java:2263)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4983)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Widget.callSuper(Widget.java:220)
+	at org.eclipse.swt.widgets.Widget.windowSendEvent(Widget.java:1959)
+	at org.eclipse.swt.widgets.Shell.windowSendEvent(Shell.java:2025)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5047)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Display.applicationSendEvent(Display.java:4589)
+	at org.eclipse.swt.widgets.Display.applicationProc(Display.java:4666)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSend(Native Method)
+	at org.eclipse.swt.internal.cocoa.NSApplication.sendEvent(NSApplication.java:115)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3281)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:620)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:575)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1408)
+
+!ENTRY org.eclipse.ui 4 0 2011-03-30 16:36:39.964
+!MESSAGE Unhandled event loop exception
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.swt.widgets.Link.textView_clickOnLink_atIndex(Link.java:117)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5227)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Widget.callSuper(Widget.java:220)
+	at org.eclipse.swt.widgets.Widget.mouseDownSuper(Widget.java:1025)
+	at org.eclipse.swt.widgets.Widget.mouseDown(Widget.java:1021)
+	at org.eclipse.swt.widgets.Control.mouseDown(Control.java:2263)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4983)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Widget.callSuper(Widget.java:220)
+	at org.eclipse.swt.widgets.Widget.windowSendEvent(Widget.java:1959)
+	at org.eclipse.swt.widgets.Shell.windowSendEvent(Shell.java:2025)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5047)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Display.applicationSendEvent(Display.java:4589)
+	at org.eclipse.swt.widgets.Display.applicationProc(Display.java:4666)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSend(Native Method)
+	at org.eclipse.swt.internal.cocoa.NSApplication.sendEvent(NSApplication.java:115)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3281)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:620)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:575)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1408)
+
+!ENTRY org.eclipse.jdt.core 4 4 2011-03-31 10:31:15.296
+!MESSAGE Background Indexer Crash Recovery
+!STACK 0
+java.lang.NegativeArraySizeException
+	at org.eclipse.jdt.internal.compiler.util.HashtableOfObject.<init>(HashtableOfObject.java:38)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.readCategoryTable(DiskIndex.java:636)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.mergeCategory(DiskIndex.java:461)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.mergeCategories(DiskIndex.java:453)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.mergeWith(DiskIndex.java:543)
+	at org.eclipse.jdt.internal.core.index.Index.save(Index.java:192)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager.saveIndex(IndexManager.java:774)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager.saveIndexes(IndexManager.java:816)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager.notifyIdle(IndexManager.java:546)
+	at org.eclipse.jdt.internal.core.search.processing.JobManager.run(JobManager.java:387)
+	at java.lang.Thread.run(Thread.java:636)

@@ -5,10 +5,11 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Observable;
 
 import domain.Dummy;
 
-public class RMIServer implements RMIServerInterface {
+public class RMIServer extends Observable implements RMIServerInterface {
 
 	/**
 	 * @param args
@@ -21,6 +22,7 @@ public class RMIServer implements RMIServerInterface {
 	public static final int HIGH_BAR = 5;
 
 	ArrayList<RMIClientInterface> clients = new ArrayList<RMIClientInterface>(6);
+	ArrayList<Dummy> dummies = new ArrayList<Dummy>(10);
 
 	public RMIServer() throws RemoteException {
 		super();
@@ -31,6 +33,13 @@ public class RMIServer implements RMIServerInterface {
 		System.out.println("[GymTastic] registry()");
 		Registry registry = LocateRegistry.createRegistry(1099);
 		registry.rebind("Server", stub);
+		
+		
+		for(int i = 0; i <10 ; i++)
+		{
+		    dummies.add(new Dummy("Dummy"+i));
+		}
+
 
 	}
 
@@ -43,28 +52,48 @@ public class RMIServer implements RMIServerInterface {
 		updateClients();
 
 		// } else {
-		// System.out.println("GerŠt Nr." + gymDevice + "ist bereits belegt.");
+		// System.out.println("Gerï¿½t Nr." + gymDevice + "ist bereits belegt.");
 		// }
+		
+		updateObservers();
+	}
+
+	private void updateObservers() {
+	    setChanged();
+	    notifyObservers();
 	}
 
 	@Override
 	public void removeClient(RMIClientInterface client) throws RemoteException {
 		clients.remove(client);
 		System.out.println("Client removed!");
+		
+		updateObservers();
 
 	}
 
 	private void updateClients() throws RemoteException {
-		for (RMIClientInterface client : clients) {
-			Dummy tempDummy = new Dummy("tempDummy");
-			System.out.println("Dummy mit name: " + tempDummy.getName()
-					+ " wird an Client Ÿbertragen");
-			client.uploadSquadToClient(tempDummy);
-		}
+//		for (RMIClientInterface client : clients) {
+//			Dummy tempDummy = new Dummy("tempDummy");
+//			System.out.println("Dummy mit name: " + tempDummy.getName()
+//					+ " wird an Client ï¿½bertragen");
+//			client.uploadSquadToClient(tempDummy);
+//		}
+	}
+	
+	public ArrayList<RMIClientInterface> getClient()
+	{
+	    return clients;
+	}
+	
+	public ArrayList<Dummy> getDummies()
+	{
+	    return dummies;
 	}
 
 	public static void main(String[] args) throws RemoteException {
 		RMIServer server = new RMIServer();
+		views.ServerPrototype.newServerFrame(server); 
 		while (true) {
 		}
 
@@ -72,8 +101,10 @@ public class RMIServer implements RMIServerInterface {
 
 	@Override
 	public void uploadSquadToServer(Dummy dummy) throws RemoteException {
-		System.out.println("Bearbeiteter Dummy mit Name: " + dummy.getName()
-				+ " wurde empfangen.");
+//		System.out.println("Bearbeiteter Dummy mit Name: " + dummy.getName()
+//				+ " wurde empfangen.");
+	    dummies.add(dummy);
+	    updateObservers();
 
 	}
 
