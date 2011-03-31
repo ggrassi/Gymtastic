@@ -139,7 +139,7 @@ public class ServerPrototype implements Observer {
 		    e.printStackTrace();
 		}
 		server.getDummies().remove((Dummy)listDummy.getSelectedValue());
-		updateList();
+		updateDummies();
 	    }
 	});
 	panel_3.add(btnNewButton, BorderLayout.EAST);
@@ -151,11 +151,13 @@ public class ServerPrototype implements Observer {
 	    model.addElement(c);
 	}
 	list.setModel(model);
+	
     }
 
     @Override
     public void update(Observable arg0, Object arg1) {
 	updateList();
+	updateDummies();
 
     }
 }
