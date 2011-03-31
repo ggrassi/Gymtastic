@@ -50,11 +50,7 @@ public class Dummy implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Dummy [Name: "+ getName() +" E-Note: "+ geteNote() +" D-Note: "+ getdNote() +"]";
+		return getName() +" [ E-Note: "+ geteNote() +" D-Note: "+ getdNote() +" ]";
 	}
-	
-	
-	
-	
 
 }
