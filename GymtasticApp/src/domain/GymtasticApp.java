@@ -12,6 +12,8 @@ public class GymtasticApp {
     public static void main(String[] args) {
 	System.out.println("******** Welcome to Gymtastic *************");
 
+	/* create a cup */
+	
 	/* Import the starter file */
 	ImportStartList importList = new ImportStartList("src/importer/Startliste_Bsp.txt");
 	System.out.println("******** Import *************");
@@ -23,7 +25,6 @@ public class GymtasticApp {
 	SquadCreator squadCreator = new SquadCreator(importList);
 	Map<Integer, Squad> squads = squadCreator.createSquads();
 	
-	/* create a cup */
 	
 	/* create a competition in the cup */
 	
