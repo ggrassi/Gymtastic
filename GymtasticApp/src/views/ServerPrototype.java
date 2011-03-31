@@ -151,18 +151,28 @@ public class ServerPrototype implements Observer {
 	
 	listDummy.addListSelectionListener(new ListSelectionListener() {
 		public void valueChanged(ListSelectionEvent arg0) {
-		    if(list.getSelectedValue() != null)
+		    if(list.getSelectedValue() != null && listDummy.getSelectedValue() != null)
 		    {
 			btnNewButton.setEnabled(true);
+		    }
+		    else
+		    {
+			btnNewButton.setEnabled(false);
+			
 		    }
 		}
 	});
 	
 	list.addListSelectionListener(new ListSelectionListener() {
 		public void valueChanged(ListSelectionEvent arg0) {
-		    if(listDummy.getSelectedValue() != null)
+		    if(listDummy.getSelectedValue() != null && list.getSelectedValue() != null)
 		    {
 			btnNewButton.setEnabled(true);
+		    }
+		    else
+		    {
+			btnNewButton.setEnabled(false);
+			
 		    }
 		}
 	});
