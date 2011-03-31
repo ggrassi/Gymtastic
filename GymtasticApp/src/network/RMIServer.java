@@ -52,7 +52,7 @@ public class RMIServer extends Observable implements RMIServerInterface {
 		updateClients();
 
 		// } else {
-		// System.out.println("GerŠt Nr." + gymDevice + "ist bereits belegt.");
+		// System.out.println("Gerï¿½t Nr." + gymDevice + "ist bereits belegt.");
 		// }
 		
 		updateObservers();
@@ -76,7 +76,7 @@ public class RMIServer extends Observable implements RMIServerInterface {
 //		for (RMIClientInterface client : clients) {
 //			Dummy tempDummy = new Dummy("tempDummy");
 //			System.out.println("Dummy mit name: " + tempDummy.getName()
-//					+ " wird an Client Ÿbertragen");
+//					+ " wird an Client ï¿½bertragen");
 //			client.uploadSquadToClient(tempDummy);
 //		}
 	}
@@ -93,7 +93,7 @@ public class RMIServer extends Observable implements RMIServerInterface {
 
 	public static void main(String[] args) throws RemoteException {
 		RMIServer server = new RMIServer();
-		views.ServerPrototype.newServerFrame(server);
+		views.ServerPrototype.newServerFrame(server); 
 		while (true) {
 		}
 
