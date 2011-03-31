@@ -14,8 +14,8 @@ public class RoundAllocation {
 
     }
 
-    public Map<DeviceType, Squad> getMap(int index) {
-	return roundlist.get(index);
+    public Map<DeviceType, Squad> getRoundAllocation(int roundNr) {
+	return roundlist.get(roundNr);
     }
 
     public RoundAllocation(Map<Integer, Squad> squads) {

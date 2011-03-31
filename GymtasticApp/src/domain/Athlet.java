@@ -1,23 +1,35 @@
 package domain;
 
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
+@Entity
 public class Athlet extends Person {
-    private final int athletId;
-    private String prgClass;
-    private int yearOfBirth;
-    private Association verein;
-    private Evaluation eval;
+    @Embedded
+    private Association association;
+    @OneToOne
+    private Evaluation evaluation;
+    @Id
     private int squadID;
+    @Id
+    private int athletID;
+    @Id
+    private String prgClass;
+    @Id
+    private int yearOfBirth;
 
-    public Athlet(int squadID, int athletId, String prgClass, String vorname, String name, String adresse,
+    public Athlet(int squadID, int athletID, String prgClass, String vorname, String name, String adresse,
 	    int yearOfBirth, Association verein) {
 	super(name, vorname, adresse);
+
 	this.squadID = squadID;
-	this.athletId = athletId;
+	this.athletID = athletID;
 	this.prgClass = prgClass;
 	this.yearOfBirth = yearOfBirth;
-	this.verein = verein;
-	eval = new Evaluation();
+	this.association = verein;
+	evaluation = new Evaluation();
     }
 
     public String getPrgClass() {
@@ -32,26 +44,26 @@ public class Athlet extends Person {
 	this.yearOfBirth = yearOfBirth;
     }
 
-    public Association getVerein() {
-	return verein;
+    public Association getAssociation() {
+	return association;
     }
 
-    public void setVerein(Association verein) {
-	this.verein = verein;
+    public void setAssociation(Association verein) {
+	this.association = verein;
     }
 
     public Evaluation getEval() {
-	return eval;
+	return evaluation;
     }
 
     public int getAthletId() {
-	return athletId;
+	return athletID;
     }
 
     public int getSquadID() {
 	return squadID;
     }
-    
+
     public void setSquadID(int squadId) {
 	this.squadID = squadId;
     }

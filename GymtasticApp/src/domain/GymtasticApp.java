@@ -2,6 +2,8 @@ package domain;
 
 import importer.ImportStartList;
 import java.util.Map;
+
+import control.DBConnection;
 import control.SquadCreator;
 
 public class GymtasticApp {
@@ -23,11 +25,21 @@ public class GymtasticApp {
 	SquadCreator squadCreator = new SquadCreator(importList);
 	Map<Integer, Squad> squads = squadCreator.createSquads();
 	
+	System.out.println("******** DB *************");
+	System.out.println("DB Connection");
+	DBConnection db = new DBConnection();
+	
+	db.insert(squads);
+	db.closeConnection();
+	//db.getAllSquads();
+	
+	
+	
 	RoundAllocation ra = new RoundAllocation(squads);
-	System.out.println(ra.getMap(0));
-	System.out.println(ra.roundChange(ra.getMap(0)));
+	System.out.println(ra.getRoundAllocation(0));
+	System.out.println(ra.roundChange(ra.getRoundAllocation(0)));
 	System.out.println(DeviceType.FLOOR_EXCERCISE.getIndex());
-	//
+	
 	System.out.println("******** Good Bye *************");
 
     }

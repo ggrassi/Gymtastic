@@ -1,14 +1,21 @@
 package domain;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Squad implements Serializable {
 
-    private static final long serialVersionUID = -4834032781011953418L;
-    private List<Athlet> athlets;
+    private static final long serialVersionUID = 1L;
+    @Id
     private final int squadId;
+    @OneToMany
+    private List<Athlet> athlets;
 
     public Squad(int squadId) {
 	this.squadId = squadId;
@@ -24,17 +31,17 @@ public class Squad implements Serializable {
 	    athlets.add(athlet);
 	}
     }
-    
-    public Athlet getAthlete(int pos){
-	if(pos < athlets.size()){
+
+    public Athlet getAthlete(int pos) {
+	if (pos < athlets.size()) {
 	    return athlets.get(pos);
-	}else{
+	} else {
 	    return null;
 	}
-	
+
     }
-    
-    public void removeAthlete(Athlet athlet){
+
+    public void removeAthlete(Athlet athlet) {
 	athlets.remove(athlet);
     }
 
@@ -42,5 +49,5 @@ public class Squad implements Serializable {
     public String toString() {
 	return "Squad [squadId=" + squadId + "]";
     }
-    
+
 }
