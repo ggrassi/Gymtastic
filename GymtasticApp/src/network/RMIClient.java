@@ -15,7 +15,7 @@ public class RMIClient extends Observable implements RMIClientInterface {
 
     private String serverIP = "localhost";
     private RMIServerInterface rmiServerInterface;
-
+  
     private Dummy dummy;
 
     /**
