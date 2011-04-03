@@ -25,9 +25,11 @@ public class PdfExport {
 	PdfWriter.getInstance(document, new FileOutputStream(path));
 	document.open();
 	// fill document
-	document.add(new Paragraph("Startliste\n"));
+	Paragraph title = new Paragraph("Startliste\n");
+	title.setAlignment(Paragraph.ALIGN_CENTER);
+	document.add(title);
 	for (Squad squad : squads.values()) {
-	    document.add(new Paragraph("Riege " + squad.getId()));
+	    document.add(new Paragraph("\nRiege " + squad.getId()));
 	    for (int i = 0; i < squad.getSquadSize(); i++) {
 		Athlet athlet = squad.getAthlete(i);
 		document.add(new Paragraph(athlet.getAthletId() + " " + athlet.getVorname() + " " + athlet.getName()));

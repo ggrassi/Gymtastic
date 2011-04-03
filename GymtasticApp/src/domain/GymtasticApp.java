@@ -47,10 +47,8 @@ public class GymtasticApp {
 	try {
 	    export.createStartList("src/exporter/Startliste.pdf");
 	} catch (FileNotFoundException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	} catch (DocumentException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 	
