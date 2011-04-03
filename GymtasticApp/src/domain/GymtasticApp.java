@@ -1,8 +1,14 @@
 package domain;
 
 import importer.ImportStartList;
+
+import java.io.FileNotFoundException;
 import java.util.Map;
+
+import com.itextpdf.text.DocumentException;
+
 import control.SquadCreator;
+import exporter.PdfExport;
 
 public class GymtasticApp {
 
@@ -35,6 +41,19 @@ public class GymtasticApp {
 	System.out.println("Riege nach der Rotation");
 	System.out.println(ra.roundChange(ra.getMap(0)));
 	//
+	
+	/* create a startlist pdf */
+	PdfExport export = new PdfExport(squads);
+	try {
+	    export.createStartList("src/exporter/Startliste.pdf");
+	} catch (FileNotFoundException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (DocumentException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+	
 	System.out.println("******** Good Bye *************");
 
     }

@@ -54,13 +54,13 @@ public class Person {
 	}
 
 	
-	protected String getName() {
+	public String getName() {
 		return firstName;
 	}
 	protected void setName(String name) {
 		this.firstName = name;
 	}
-	protected String getVorname() {
+	public String getVorname() {
 		return lastName;
 	}
 	protected void setVorname(String vorname) {
