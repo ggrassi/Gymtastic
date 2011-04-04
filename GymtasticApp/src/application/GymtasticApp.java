@@ -1,4 +1,4 @@
-package domain;
+package application;
 
 import importer.ImportStartList;
 
@@ -9,6 +9,10 @@ import java.util.Map;
 import com.itextpdf.text.DocumentException;
 
 import control.SquadCreator;
+import domain.Competition;
+import domain.Gymcup;
+import domain.RoundAllocation;
+import domain.Squad;
 import exporter.PdfExport;
 
 public class GymtasticApp {
