@@ -31,22 +31,18 @@ public class RMIClient implements RMIClientInterface {
 	}
 
 	public void connect(DeviceType deviceType) throws RemoteException, NotBoundException,
-			AccessException {
+			AccessException, ServerNotActiveException {
 		Registry registry = LocateRegistry.getRegistry(getServerIP());
 		rmiServerInterface = (RMIServerInterface) registry.lookup("Gymtastic");
 		RMIClientInterface stub = (RMIClientInterface) UnicastRemoteObject
 				.exportObject(this, 0);
 		try {
-<<<<<<< HEAD
+
 			rmiServerInterface.addClient(stub, deviceType);
 		} catch (ServerNotActiveException e) {
 			e.printStackTrace();
-=======
+
 		    rmiServerInterface.addClient(stub, deviceType);
-		} catch (ServerNotActiveException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
->>>>>>> 68a2cbe122ac2d8e7a0560f2db259b485fae2be6
 		}
 	}
 

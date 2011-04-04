@@ -5,18 +5,9 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.RemoteServer;
 import java.rmi.server.ServerNotActiveException;
-<<<<<<< HEAD
-import java.util.Vector;
-
-=======
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.Vector;
 
-import network.prototype.RMIClientInterfacePT;
-import network.prototype.RMIServerInterfacePT;
-
->>>>>>> 68a2cbe122ac2d8e7a0560f2db259b485fae2be6
 import domain.ClientAllocation;
 import domain.DeviceType;
 import domain.Squad;
