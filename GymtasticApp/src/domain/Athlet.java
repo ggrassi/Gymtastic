@@ -9,9 +9,9 @@ public class Athlet extends Person {
     private Evaluation eval;
     private int squadID;
 
-    public Athlet(int squadID, int athletId, String prgClass, String vorname, String name, String adresse,
+    public Athlet(int squadID, int athletId, String prgClass, String firstName, String lastName, String adresse,
 	    int yearOfBirth, Association verein) {
-	super(name, vorname, adresse);
+	super(firstName, lastName, adresse);
 	this.squadID = squadID;
 	this.athletId = athletId;
 	this.prgClass = prgClass;

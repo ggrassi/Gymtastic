@@ -6,9 +6,9 @@ public class Person {
 	private String adresse = null;
 	
 	
-	public Person(String name, String vorname, String adresse) {
-		this.firstName = name;
-		this.lastName = vorname;
+	public Person(String firstName, String lastName, String adresse) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.adresse = adresse;
 	}
 	
@@ -54,17 +54,17 @@ public class Person {
 	}
 
 	
-	public String getName() {
+	public String getFirstName() {
 		return firstName;
 	}
-	protected void setName(String name) {
-		this.firstName = name;
+	protected void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	public String getVorname() {
+	public String getLastName() {
 		return lastName;
 	}
-	protected void setVorname(String vorname) {
-		this.lastName = vorname;
+	protected void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	protected String getAdresse() {
 	return adresse.toString();

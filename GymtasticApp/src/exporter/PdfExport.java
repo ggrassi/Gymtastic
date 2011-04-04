@@ -31,7 +31,7 @@ public class PdfExport {
 	    document.add(new Paragraph("\nRiege " + squad.getId()));
 	    for (int i = 0; i < squad.getSquadSize(); i++) {
 		Athlet athlet = squad.getAthlete(i);
-		document.add(new Paragraph(athlet.getAthletId() + " " + athlet.getVorname() + " " + athlet.getName()));
+		document.add(new Paragraph(athlet.getAthletId() + " " + athlet.getFirstName() + " " + athlet.getLastName()));
 	    }
 	}
 	document.close();

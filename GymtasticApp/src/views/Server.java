@@ -20,6 +20,8 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import viewModels.DeviceTypeTableModel;
+import java.awt.Dimension;
+import javax.swing.SpinnerNumberModel;
 
 public class Server {
 
@@ -121,9 +123,9 @@ public class Server {
 	gbc_panelCompetitionControl.gridy = 0;
 	panelCompetitionControlBorder.add(panelCompetitionControl, gbc_panelCompetitionControl);
 	GridBagLayout gbl_panelCompetitionControl = new GridBagLayout();
-	gbl_panelCompetitionControl.columnWidths = new int[]{0, 0, 0, 0, 0};
+	gbl_panelCompetitionControl.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
 	gbl_panelCompetitionControl.rowHeights = new int[]{0, 0};
-	gbl_panelCompetitionControl.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+	gbl_panelCompetitionControl.columnWeights = new double[]{0.0, 1.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 	gbl_panelCompetitionControl.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 	panelCompetitionControl.setLayout(gbl_panelCompetitionControl);
 	
@@ -136,6 +138,7 @@ public class Server {
 	panelCompetitionControl.add(lblCompetition, gbc_lblCompetition);
 	
 	JComboBox cmbCompetition = new JComboBox();
+	cmbCompetition.setMinimumSize(new Dimension(100, 20));
 	GridBagConstraints gbc_cmbCompetition = new GridBagConstraints();
 	gbc_cmbCompetition.fill = GridBagConstraints.HORIZONTAL;
 	gbc_cmbCompetition.insets = new Insets(0, 0, 0, 5);
@@ -143,16 +146,26 @@ public class Server {
 	gbc_cmbCompetition.gridy = 0;
 	panelCompetitionControl.add(cmbCompetition, gbc_cmbCompetition);
 	
+	JLabel label = new JLabel("New label");
+	GridBagConstraints gbc_label = new GridBagConstraints();
+	gbc_label.insets = new Insets(0, 0, 0, 5);
+	gbc_label.gridx = 2;
+	gbc_label.gridy = 0;
+	panelCompetitionControl.add(label, gbc_label);
+	
 	JButton btnStartCompetition = new JButton("Wettkampf Starten");
 	GridBagConstraints gbc_btnStartCompetition = new GridBagConstraints();
+	gbc_btnStartCompetition.anchor = GridBagConstraints.EAST;
 	gbc_btnStartCompetition.insets = new Insets(0, 0, 0, 5);
-	gbc_btnStartCompetition.gridx = 2;
+	gbc_btnStartCompetition.gridx = 3;
 	gbc_btnStartCompetition.gridy = 0;
 	panelCompetitionControl.add(btnStartCompetition, gbc_btnStartCompetition);
 	
 	JButton btnStopCompetition = new JButton("Wettkampf anhalten");
 	GridBagConstraints gbc_btnStopCompetition = new GridBagConstraints();
-	gbc_btnStopCompetition.gridx = 3;
+	gbc_btnStopCompetition.insets = new Insets(0, 0, 0, 5);
+	gbc_btnStopCompetition.anchor = GridBagConstraints.EAST;
+	gbc_btnStopCompetition.gridx = 4;
 	gbc_btnStopCompetition.gridy = 0;
 	panelCompetitionControl.add(btnStopCompetition, gbc_btnStopCompetition);
 	
@@ -312,6 +325,7 @@ public class Server {
 	panelRoundControl.add(labelRound, gbc_labelRound);
 	
 	JSpinner spnRound = new JSpinner();
+	spnRound.setModel(new SpinnerNumberModel(0, 0, 6, 1));
 	GridBagConstraints gbc_spnRound = new GridBagConstraints();
 	gbc_spnRound.insets = new Insets(0, 0, 0, 5);
 	gbc_spnRound.gridx = 1;
