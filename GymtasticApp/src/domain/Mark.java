@@ -4,34 +4,34 @@ public class Mark {
 
 	private double dMark;
 	private double eMarkOne;
-	private double emarkTwo;
+	private double eMarkTwo;
 	private double eMarkThree;
 	private double penalty;
 	private double bonus;
 	private double finalMark;
 
-	public Mark(int dMark, int eMarkOne, int emarkTwo, int eMarkThree,
-			int penalty, int bonus, int finalmark) {
+	public Mark(double dMark, double eMarkOne, double emarkTwo, double eMarkThree,
+			double penalty, double bonus, double finalmark) {
 		super();
 		this.dMark = dMark;
 		this.eMarkOne = eMarkOne;
-		this.emarkTwo = emarkTwo;
+		this.eMarkTwo = emarkTwo;
 		this.eMarkThree = eMarkThree;
 		this.penalty = penalty;
 		this.bonus = bonus;
 		this.finalMark = generateFinalMark();
 	}
 
-	public int generateFinalMark() {
-		
-
-		return 5;
+	public double generateFinalMark() {
+		double eMark;
+		eMark = (eMarkOne+eMarkTwo+eMarkThree)/3;
+		return eMark+dMark+bonus-penalty;
 	}
 
 	@Override
 	public String toString() {
 		return "Mark [dMark=" + dMark + ", eMarkOne=" + eMarkOne
-				+ ", emarkTwo=" + emarkTwo + ", eMarkThree=" + eMarkThree
+				+ ", emarkTwo=" + eMarkTwo + ", eMarkThree=" + eMarkThree
 				+ ", penalty=" + penalty + ", bonus=" + bonus + ", finalmark="
 				+ finalMark + "]";
 	}
@@ -49,7 +49,7 @@ public class Mark {
 	    result = prime * result + (int) (temp ^ (temp >>> 32));
 	    temp = Double.doubleToLongBits(eMarkThree);
 	    result = prime * result + (int) (temp ^ (temp >>> 32));
-	    temp = Double.doubleToLongBits(emarkTwo);
+	    temp = Double.doubleToLongBits(eMarkTwo);
 	    result = prime * result + (int) (temp ^ (temp >>> 32));
 	    temp = Double.doubleToLongBits(finalMark);
 	    result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -75,7 +75,7 @@ public class Mark {
 		return false;
 	    if (Double.doubleToLongBits(eMarkThree) != Double.doubleToLongBits(other.eMarkThree))
 		return false;
-	    if (Double.doubleToLongBits(emarkTwo) != Double.doubleToLongBits(other.emarkTwo))
+	    if (Double.doubleToLongBits(eMarkTwo) != Double.doubleToLongBits(other.eMarkTwo))
 		return false;
 	    if (Double.doubleToLongBits(finalMark) != Double.doubleToLongBits(other.finalMark))
 		return false;
@@ -101,11 +101,11 @@ public class Mark {
 	}
 
 	public double getEmarkTwo() {
-	    return emarkTwo;
+	    return eMarkTwo;
 	}
 
 	public void setEmarkTwo(double emarkTwo) {
-	    this.emarkTwo = emarkTwo;
+	    this.eMarkTwo = emarkTwo;
 	}
 
 	public double geteMarkThree() {

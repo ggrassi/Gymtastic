@@ -2,6 +2,8 @@ package application;
 
 
 
+import views.Server;
+
 public class Gymtastic_Server {
 
     /**
@@ -9,9 +11,8 @@ public class Gymtastic_Server {
      */
     public static void main(String[] args) {
 	
-	views.Server.newServerFrame();
-	
-	
+	Server.emulateCup();
+	views.Server.newServerFrame();		
 
     }
     

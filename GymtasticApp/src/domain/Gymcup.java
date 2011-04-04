@@ -21,4 +21,8 @@ public class Gymcup {
 	competitions.add(competition);
     }
     
+    public void removeCompetition(Competition competition){
+	competitions.remove(competition);
+    }
+    
 }
