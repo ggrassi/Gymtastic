@@ -8,7 +8,7 @@ public class Squad implements Serializable {
 
     private static final long serialVersionUID = -4834032781011953418L;
     private List<Athlet> athlets;
-    private final int squadId;
+    private int squadId;
 
     public Squad(int squadId) {
 	this.squadId = squadId;
@@ -17,6 +17,10 @@ public class Squad implements Serializable {
 
     public int getId() {
 	return squadId;
+    }
+    
+    public int getSquadSize(){
+	return athlets.size();
     }
 
     public void addAthlete(Athlet athlet) {
