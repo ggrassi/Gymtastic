@@ -9,7 +9,6 @@ public class Evaluation {
 	private Map<Object, Mark> marks = null;
 
 	public Evaluation() {
-		super();
 		this.marks = new HashMap<Object, Mark>();
 	}
 	
