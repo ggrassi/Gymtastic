@@ -1,11 +1,13 @@
 package network;
 
+import network.prototype.RMIClientInterfacePT;
+
 public class ClientInformation {
 
-	private RMIClientInterface stub;
+	private RMIClientInterfacePT stub;
 	private String ipAddress;
 
-	public ClientInformation(RMIClientInterface stub, String host) {
+	public ClientInformation(RMIClientInterfacePT stub, String host) {
 		this.stub = stub;
 		this.ipAddress = host;
 	}
@@ -14,7 +16,7 @@ public class ClientInformation {
 		return ipAddress;
 	}
 
-	public RMIClientInterface getStub() {
+	public RMIClientInterfacePT getStub() {
 		return stub;
 	}
 
