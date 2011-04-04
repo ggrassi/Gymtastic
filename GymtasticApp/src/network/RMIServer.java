@@ -19,18 +19,19 @@ import domain.Squad;
 
 public class RMIServer implements RMIServerInterface {
 
+//    Vector<ClientInformation> clientsWaitingForAllocation = new Vector<ClientInformation>();
+    ClientAllocation clientsWaitingForAllocation = new ClientAllocation();
+    ClientAllocation clientsAllocated = new ClientAllocation();
+    
     public RMIServer() throws RemoteException {
 	RMIServerInterface stub = (RMIServerInterface) UnicastRemoteObject.exportObject(this, 0);
 	Registry registry = LocateRegistry.createRegistry(1099);
 	registry.rebind("Gymtastic", stub);
     }
-
-    Vector<ClientInformation> clientsWaitingForAllocation = new Vector<ClientInformation>();
-    ClientAllocation clientsAllocated = new ClientAllocation();
     
     @Override
     public void addClient(RMIClientInterface client, DeviceType deviceType) throws RemoteException, ServerNotActiveException {
-	clientsWaitingForAllocation.add(new ClientInformation(client, RemoteServer.getClientHost()));
+	clientsWaitingForAllocation.addAllocation(deviceType, new ClientInformation(client, RemoteServer.getClientHost()));
 	System.out.println("client added");
 	System.out.println(deviceType);
 
@@ -46,7 +47,7 @@ public class RMIServer implements RMIServerInterface {
 
     }
 
-    public Vector<ClientInformation> getClientsWaitingForAllocation() {
+    public ClientAllocation getClientsWaitingForAllocation() {
 	return clientsWaitingForAllocation;
     }
     

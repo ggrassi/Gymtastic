@@ -7,6 +7,7 @@ import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.rmi.RemoteException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,13 +20,18 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import network.RMIServer;
+
 import viewModels.DeviceTypeTableModel;
 
 public class Server {
 
     private JFrame serverFrame;
     private JTable tableDevices;
-    DeviceTypeTableModel deviceTypeTableModel = new DeviceTypeTableModel();
+    DeviceTypeTableModel deviceTypeTableModel;
+    
+    RMIServer rmiServer;
+	
 
     /**
      * Launch the application.
@@ -47,6 +53,14 @@ public class Server {
      * Create the application.
      */
     public Server() {
+	try {
+	    rmiServer = new RMIServer();
+	} catch (RemoteException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+	
+	deviceTypeTableModel = new DeviceTypeTableModel(rmiServer);
 	initialize();
     }
 

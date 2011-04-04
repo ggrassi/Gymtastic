@@ -2,10 +2,12 @@ package domain;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import network.ClientInformation;
 
-public class ClientAllocation {
+public class ClientAllocation{
 
 	private Map<DeviceType, ClientInformation> alloc;
 
@@ -20,5 +22,30 @@ public class ClientAllocation {
 	public void removeAllocation(DeviceType deviceType) {
 		alloc.remove(deviceType);
 	}
+
+
+	
+
+	public boolean isEmpty() {
+	    return alloc.isEmpty();
+	}
+
+
+
+	public int size() {
+	    return alloc.size();
+	}
+
+	public Set<Entry<DeviceType, ClientInformation>> entrySet() {
+	    return alloc.entrySet();
+	}
+
+	
+
+	
+	
+	
+
+	
 
 }

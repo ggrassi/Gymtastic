@@ -12,13 +12,11 @@ public class Gymtastic_Server {
     public static void main(String[] args) {
 	
 	views.Server.newServerFrame();
-	try {
-	    RMIServer rmiServer = new RMIServer();
-	} catch (RemoteException e) {
-	    e.printStackTrace();
-	}
+	
 	
 
     }
+    
+    
 
 }
