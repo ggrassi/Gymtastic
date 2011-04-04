@@ -13,13 +13,11 @@ public class Gymtastic_Server {
 	
 	GymtasticApp.emulateCup();
 	views.Server.newServerFrame();
-	try {
-	    RMIServer rmiServer = new RMIServer();
-	} catch (RemoteException e) {
-	    e.printStackTrace();
-	}
+	
 	
 
     }
+    
+    
 
 }
