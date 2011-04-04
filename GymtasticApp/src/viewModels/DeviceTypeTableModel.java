@@ -1,15 +1,7 @@
 package viewModels;
 
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
-
-import domain.ClientAllocation;
-import domain.DeviceType;
-
-import network.ClientInformation;
 import network.RMIServer;
 
 public class DeviceTypeTableModel extends AbstractTableModel {
@@ -38,12 +30,13 @@ public class DeviceTypeTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 	
-	Set<Entry<DeviceType, ClientInformation>> clientSet = rmiServer.getClientsWaitingForAllocation().entrySet();
-	
+//	Set<Entry<DeviceType, ClientInformation>> clientSet = rmiServer.getClientsWaitingForAllocation().entrySet();
 	
 	switch (columnIndex) {
 	case 0:
+	    return "hallo";
 	case 1:
+	    return "tschau";
 	
 
 	}
