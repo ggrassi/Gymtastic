@@ -3,6 +3,7 @@ package domain;
 import importer.ImportStartList;
 
 import java.io.FileNotFoundException;
+import java.util.GregorianCalendar;
 import java.util.Map;
 
 import com.itextpdf.text.DocumentException;
@@ -19,6 +20,8 @@ public class GymtasticApp {
 	System.out.println("******** Welcome to Gymtastic *************");
 
 	/* create a cup */
+	System.out.println("******** Cup *************");
+	Gymcup cup = new Gymcup("HSR Cup", "Rapperswil");
 	
 	/* Import the starter file */
 	ImportStartList importList = new ImportStartList("src/importer/Startliste_Bsp.txt");
@@ -33,6 +36,19 @@ public class GymtasticApp {
 	
 	
 	/* create a competition in the cup */
+	System.out.println("******** Competition *************");
+	Competition competition1 = new Competition("Wettkampf1", new GregorianCalendar(2011, 04, 04, 16, 0, 0), "Wettkampf Programm 1");
+	cup.addCompetition(competition1);
+	
+	/* Riegeneinteilung - die ersten 6 Riegen zum Wettkampf1 hinzufügen */
+	System.out.println("******** Add squads to Competition *************");
+	competition1.addSquad(squads.get(1));
+	competition1.addSquad(squads.get(2));
+	competition1.addSquad(squads.get(3));
+	competition1.addSquad(squads.get(4));
+	competition1.addSquad(squads.get(5));
+	competition1.addSquad(squads.get(6));
+	
 	
 	/* create the round allocation for the competition */
 	System.out.println("******** Round Allocation Generator *************");
