@@ -5,6 +5,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
 
 import domain.DeviceType;
@@ -35,7 +36,12 @@ public class RMIClient implements RMIClientInterface {
 		rmiServerInterface = (RMIServerInterface) registry.lookup("Gymtastic");
 		RMIClientInterface stub = (RMIClientInterface) UnicastRemoteObject
 				.exportObject(this, 0);
-		rmiServerInterface.addClient(stub, deviceType);
+		try {
+		    rmiServerInterface.addClient(stub, deviceType);
+		} catch (ServerNotActiveException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
 	}
 
 	public void disconnect() throws RemoteException {

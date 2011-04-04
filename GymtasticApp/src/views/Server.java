@@ -3,30 +3,23 @@ package views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
-<<<<<<< HEAD
+import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-=======
-import java.awt.Frame;
->>>>>>> 1e2e570e4262c4c5410473c5580087604e06aa87
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-<<<<<<< HEAD
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
-=======
-import javax.swing.JTable;
-import javax.swing.JButton;
 
 import viewModels.DeviceTypeTableModel;
->>>>>>> 1e2e570e4262c4c5410473c5580087604e06aa87
 
 public class Server {
 
@@ -96,8 +89,6 @@ public class Server {
 	JButton btnAllocateAllDevices = new JButton("Alle Zuweisen");
 	panelControl.add(btnAllocateAllDevices, BorderLayout.EAST);
 	
-	
-<<<<<<< HEAD
 	JPanel RoundAllocatoin = new JPanel();
 	tabbedPane.addTab("Durchgangssteuerung", null, RoundAllocatoin, null);
 	GridBagLayout gbl_RoundAllocatoin = new GridBagLayout();
@@ -340,8 +331,6 @@ public class Server {
 	gbc_btnDurchgangFreigeben.gridx = 4;
 	gbc_btnDurchgangFreigeben.gridy = 0;
 	panelRoundControl.add(btnDurchgangFreigeben, gbc_btnDurchgangFreigeben);
-=======
->>>>>>> 1e2e570e4262c4c5410473c5580087604e06aa87
 	
 	JPanel panelRanking = new JPanel();
 	tabbedPane.addTab("Ranglistengenerierung", null, panelRanking, null);
