@@ -24,7 +24,6 @@ public class PdfExport {
 	Document document = new Document();
 	PdfWriter.getInstance(document, new FileOutputStream(path));
 	document.open();
-	// fill document
 	Paragraph title = new Paragraph("Startliste\n");
 	title.setAlignment(Paragraph.ALIGN_CENTER);
 	document.add(title);
