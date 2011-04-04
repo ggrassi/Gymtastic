@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import network.RMIClient;
+import network.prototype.RMIClientPT;
 import domain.Dummy;
 
 public class ClientPrototype implements Observer {
@@ -28,7 +28,7 @@ public class ClientPrototype implements Observer {
     private JFrame frmGymtasticClient;
     private JTextField txtServerIP;
     private JTextField txtName;
-    private final RMIClient client;
+    private final RMIClientPT client;
     private Dummy dummy;
     final JButton btnDisconnect = new JButton("Disconnect");
     final JButton btnConnect = new JButton("Connect");
@@ -39,7 +39,7 @@ public class ClientPrototype implements Observer {
     /**
      * Launch the application.
      */
-    public static void newClientPrototypeFrame(final RMIClient client) {
+    public static void newClientPrototypeFrame(final RMIClientPT client) {
 	EventQueue.invokeLater(new Runnable() {
 	    public void run() {
 		try {
@@ -56,7 +56,7 @@ public class ClientPrototype implements Observer {
      * Create the application.
      */
 
-    public ClientPrototype(RMIClient client) {
+    public ClientPrototype(RMIClientPT client) {
 	this.client = client;
 	client.addObserver(this);
 	initialize();

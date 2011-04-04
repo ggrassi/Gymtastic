@@ -2635,3 +2635,304 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/mathi
 
 !ENTRY org.eclipse.core.net 1 0 2011-03-31 15:20:26.356
 !MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2011-04-04 15:31:55.280 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -keyring /Users/mathias/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/mathias/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2011-04-04 15:32:04.051
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.wb.core 4 4 2011-04-04 15:49:30.850
+!MESSAGE Designer [0.9.0.r36x201102111130.201104041549]: java.lang.NullPointerException
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.wb.gef.core.EditPart.getViewer(EditPart.java:539)
+	at org.eclipse.wb.internal.core.gef.part.DesignRootEditPart$1.getFigureCanvas(DesignRootEditPart.java:78)
+	at org.eclipse.wb.internal.core.gef.part.DesignRootEditPart$1.refreshed(DesignRootEditPart.java:72)
+	at sun.reflect.GeneratedMethodAccessor88.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.eclipse.wb.core.model.broadcast.BroadcastSupport$1.intercept(BroadcastSupport.java:208)
+	at org.eclipse.wb.core.model.broadcast.ObjectEventListener$$EnhancerByCGLIB$$cf71bdfd.refreshed(<generated>)
+	at org.eclipse.wb.core.model.ObjectInfo.refresh(ObjectInfo.java:502)
+	at org.eclipse.wb.core.model.ObjectInfo.endEdit(ObjectInfo.java:453)
+	at org.eclipse.wb.internal.core.utils.execution.ExecutionUtils.run(ExecutionUtils.java:319)
+	at org.eclipse.wb.internal.core.model.property.GenericPropertyImpl.setValue(GenericPropertyImpl.java:207)
+	at org.eclipse.wb.core.gef.policy.DirectTextPropertyEditPolicy$3.run(DirectTextPropertyEditPolicy.java:145)
+	at org.eclipse.wb.internal.core.utils.execution.ExecutionUtils.runLog(ExecutionUtils.java:100)
+	at org.eclipse.wb.core.gef.policy.DirectTextPropertyEditPolicy.setText(DirectTextPropertyEditPolicy.java:143)
+	at org.eclipse.wb.gef.graphical.policies.DirectTextEditPolicy.commitEdit(DirectTextEditPolicy.java:72)
+	at org.eclipse.wb.gef.graphical.policies.DirectTextEditPolicy.access$1(DirectTextEditPolicy.java:69)
+	at org.eclipse.wb.gef.graphical.policies.DirectTextEditPolicy$4.handleEvent(DirectTextEditPolicy.java:107)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:3783)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1375)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1398)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1379)
+	at org.eclipse.swt.widgets.Control.sendFocusEvent(Control.java:2963)
+	at org.eclipse.swt.widgets.Display.checkFocus(Display.java:617)
+	at org.eclipse.swt.widgets.Shell.becomeKeyWindow(Shell.java:479)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4863)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSend(Native Method)
+	at org.eclipse.swt.internal.cocoa.NSWindow.makeKeyAndOrderFront(NSWindow.java:190)
+	at org.eclipse.swt.widgets.Shell.makeKeyAndOrderFront(Shell.java:1130)
+	at org.eclipse.swt.widgets.Shell.setWindowVisible(Shell.java:1740)
+	at org.eclipse.swt.widgets.Shell.open(Shell.java:1173)
+	at org.eclipse.jface.window.Window.open(Window.java:797)
+	at org.eclipse.jface.dialogs.ProgressMonitorDialog.open(ProgressMonitorDialog.java:678)
+	at org.eclipse.jface.dialogs.ProgressMonitorDialog.aboutToRun(ProgressMonitorDialog.java:579)
+	at org.eclipse.jface.dialogs.ProgressMonitorDialog.run(ProgressMonitorDialog.java:504)
+	at org.eclipse.wb.internal.core.editor.DesignPage.internal_refreshGEF_withProgress(DesignPage.java:404)
+	at org.eclipse.wb.internal.core.editor.DesignPage.internal_refreshGEF(DesignPage.java:354)
+	at org.eclipse.wb.internal.core.editor.UndoManager.refreshDesignerEditor(UndoManager.java:381)
+	at org.eclipse.wb.internal.core.editor.UndoManager$6.run(UndoManager.java:330)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3593)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3286)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:620)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:575)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1408)
+
+!ENTRY org.eclipse.jdt.core 4 4 2011-04-04 16:11:01.113
+!MESSAGE JavaBuilder handling ImageBuilderInternalException while building: Bibliothek
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Problems encountered while deleting resources.
+	at org.eclipse.core.internal.resources.Resource.delete(Resource.java:799)
+	at org.eclipse.jdt.internal.core.builder.BatchImageBuilder.cleanOutputFolders(BatchImageBuilder.java:114)
+	at org.eclipse.jdt.internal.core.builder.BatchImageBuilder.build(BatchImageBuilder.java:46)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.buildAll(JavaBuilder.java:254)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.build(JavaBuilder.java:173)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:629)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:172)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:203)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:255)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:258)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:311)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:343)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:144)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:242)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Contains: Could not delete '/Bibliothek/bin/.svn'.
+org.eclipse.core.internal.resources.ResourceException: Problems encountered while deleting resources.
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.delete(FileSystemResourceManager.java:270)
+	at org.eclipse.core.internal.resources.ResourceTree.internalDeleteFolder(ResourceTree.java:352)
+	at org.eclipse.core.internal.resources.ResourceTree.standardDeleteFolder(ResourceTree.java:798)
+	at org.eclipse.core.internal.resources.Resource.unprotectedDelete(Resource.java:1940)
+	at org.eclipse.core.internal.resources.Resource.delete(Resource.java:786)
+	at org.eclipse.jdt.internal.core.builder.BatchImageBuilder.cleanOutputFolders(BatchImageBuilder.java:114)
+	at org.eclipse.jdt.internal.core.builder.BatchImageBuilder.build(BatchImageBuilder.java:46)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.buildAll(JavaBuilder.java:254)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.build(JavaBuilder.java:173)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:629)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:172)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:203)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:255)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:258)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:311)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:343)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:144)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:242)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Contains: Problems encountered while deleting files.
+Contains: Could not delete: /Users/mathias/Programming/JavaProgs/UserInterfaces1/Bibliothek/bin/.svn/all-wcprops.
+Contains: Could not delete: /Users/mathias/Programming/JavaProgs/UserInterfaces1/Bibliothek/bin/.svn/entries.
+Contains: Could not delete: /Users/mathias/Programming/JavaProgs/UserInterfaces1/Bibliothek/bin/.svn.
+!SUBENTRY 1 org.eclipse.core.resources 4 273 2011-04-04 16:11:01.113
+!MESSAGE Problems encountered while deleting resources.
+!SUBENTRY 2 org.eclipse.core.resources 4 273 2011-04-04 16:11:01.113
+!MESSAGE Could not delete '/Bibliothek/bin/.svn'.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Problems encountered while deleting resources.
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.delete(FileSystemResourceManager.java:270)
+	at org.eclipse.core.internal.resources.ResourceTree.internalDeleteFolder(ResourceTree.java:352)
+	at org.eclipse.core.internal.resources.ResourceTree.standardDeleteFolder(ResourceTree.java:798)
+	at org.eclipse.core.internal.resources.Resource.unprotectedDelete(Resource.java:1940)
+	at org.eclipse.core.internal.resources.Resource.delete(Resource.java:786)
+	at org.eclipse.jdt.internal.core.builder.BatchImageBuilder.cleanOutputFolders(BatchImageBuilder.java:114)
+	at org.eclipse.jdt.internal.core.builder.BatchImageBuilder.build(BatchImageBuilder.java:46)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.buildAll(JavaBuilder.java:254)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.build(JavaBuilder.java:173)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:629)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:172)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:203)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:255)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:258)
+	at org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:311)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:343)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:144)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:242)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Contains: Problems encountered while deleting files.
+Contains: Could not delete: /Users/mathias/Programming/JavaProgs/UserInterfaces1/Bibliothek/bin/.svn/all-wcprops.
+Contains: Could not delete: /Users/mathias/Programming/JavaProgs/UserInterfaces1/Bibliothek/bin/.svn/entries.
+Contains: Could not delete: /Users/mathias/Programming/JavaProgs/UserInterfaces1/Bibliothek/bin/.svn.
+!SUBENTRY 3 org.eclipse.core.resources 4 273 2011-04-04 16:11:01.113
+!MESSAGE Problems encountered while deleting resources.
+!SUBENTRY 4 org.eclipse.core.filesystem 4 273 2011-04-04 16:11:01.113
+!MESSAGE Problems encountered while deleting files.
+!SUBENTRY 5 org.eclipse.core.filesystem 4 273 2011-04-04 16:11:01.113
+!MESSAGE Could not delete: /Users/mathias/Programming/JavaProgs/UserInterfaces1/Bibliothek/bin/.svn/all-wcprops.
+!SUBENTRY 5 org.eclipse.core.filesystem 4 273 2011-04-04 16:11:01.113
+!MESSAGE Could not delete: /Users/mathias/Programming/JavaProgs/UserInterfaces1/Bibliothek/bin/.svn/entries.
+!SUBENTRY 5 org.eclipse.core.filesystem 4 273 2011-04-04 16:11:01.113
+!MESSAGE Could not delete: /Users/mathias/Programming/JavaProgs/UserInterfaces1/Bibliothek/bin/.svn.
+
+!ENTRY org.eclipse.ui 4 0 2011-04-04 16:13:10.412
+!MESSAGE Unhandled event loop exception
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.swt.widgets.Link.textView_clickOnLink_atIndex(Link.java:117)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5227)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Widget.callSuper(Widget.java:220)
+	at org.eclipse.swt.widgets.Widget.mouseDownSuper(Widget.java:1025)
+	at org.eclipse.swt.widgets.Widget.mouseDown(Widget.java:1021)
+	at org.eclipse.swt.widgets.Control.mouseDown(Control.java:2263)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4983)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Widget.callSuper(Widget.java:220)
+	at org.eclipse.swt.widgets.Widget.windowSendEvent(Widget.java:1959)
+	at org.eclipse.swt.widgets.Shell.windowSendEvent(Shell.java:2025)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5047)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Display.applicationSendEvent(Display.java:4589)
+	at org.eclipse.swt.widgets.Display.applicationProc(Display.java:4666)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSend(Native Method)
+	at org.eclipse.swt.internal.cocoa.NSApplication.sendEvent(NSApplication.java:115)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3281)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:620)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:575)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1408)
+
+!ENTRY org.eclipse.ui 4 0 2011-04-04 16:41:08.246
+!MESSAGE Unhandled event loop exception
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.swt.widgets.Link.textView_clickOnLink_atIndex(Link.java:117)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5227)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Widget.callSuper(Widget.java:220)
+	at org.eclipse.swt.widgets.Widget.mouseDownSuper(Widget.java:1025)
+	at org.eclipse.swt.widgets.Widget.mouseDown(Widget.java:1021)
+	at org.eclipse.swt.widgets.Control.mouseDown(Control.java:2263)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4983)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Widget.callSuper(Widget.java:220)
+	at org.eclipse.swt.widgets.Widget.windowSendEvent(Widget.java:1959)
+	at org.eclipse.swt.widgets.Shell.windowSendEvent(Shell.java:2025)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5047)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Display.applicationSendEvent(Display.java:4589)
+	at org.eclipse.swt.widgets.Display.applicationProc(Display.java:4666)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSend(Native Method)
+	at org.eclipse.swt.internal.cocoa.NSApplication.sendEvent(NSApplication.java:115)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3281)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:620)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:575)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1408)
+
+!ENTRY org.eclipse.ui 4 0 2011-04-04 16:41:22.756
+!MESSAGE Unhandled event loop exception
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.swt.widgets.Link.textView_clickOnLink_atIndex(Link.java:117)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5227)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Widget.callSuper(Widget.java:220)
+	at org.eclipse.swt.widgets.Widget.mouseDownSuper(Widget.java:1025)
+	at org.eclipse.swt.widgets.Widget.mouseDown(Widget.java:1021)
+	at org.eclipse.swt.widgets.Control.mouseDown(Control.java:2263)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:4983)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Widget.callSuper(Widget.java:220)
+	at org.eclipse.swt.widgets.Widget.windowSendEvent(Widget.java:1959)
+	at org.eclipse.swt.widgets.Shell.windowSendEvent(Shell.java:2025)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:5047)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSendSuper(Native Method)
+	at org.eclipse.swt.widgets.Display.applicationSendEvent(Display.java:4589)
+	at org.eclipse.swt.widgets.Display.applicationProc(Display.java:4666)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSend(Native Method)
+	at org.eclipse.swt.internal.cocoa.NSApplication.sendEvent(NSApplication.java:115)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3281)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2640)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2604)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2438)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:671)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:664)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:115)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:369)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:620)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:575)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1408)

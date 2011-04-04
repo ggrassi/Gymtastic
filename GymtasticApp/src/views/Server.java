@@ -3,23 +3,36 @@ package views;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+<<<<<<< HEAD
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+=======
+import java.awt.Frame;
+>>>>>>> 1e2e570e4262c4c5410473c5580087604e06aa87
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+<<<<<<< HEAD
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+=======
+import javax.swing.JTable;
+import javax.swing.JButton;
+
+import viewModels.DeviceTypeTableModel;
+>>>>>>> 1e2e570e4262c4c5410473c5580087604e06aa87
 
 public class Server {
 
-    private JFrame frame;
+    private JFrame serverFrame;
+    private JTable tableDevices;
+    DeviceTypeTableModel deviceTypeTableModel = new DeviceTypeTableModel();
 
     /**
      * Launch the application.
@@ -29,7 +42,7 @@ public class Server {
 	    public void run() {
 		try {
 		    Server window = new Server();
-		    window.frame.setVisible(true);
+		    window.serverFrame.setVisible(true);
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
@@ -48,12 +61,13 @@ public class Server {
      * Initialize the contents of the frame.
      */
     private void initialize() {
-	frame = new JFrame();
-	frame.setBounds(100, 100, 638, 474);
-	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	serverFrame = new JFrame();
+	serverFrame.setBounds(100, 100, 638, 474);
+	serverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	serverFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
 	
 	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
+	serverFrame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 	
 	JPanel panelGymCup = new JPanel();
 	tabbedPane.addTab("Cupverwaltung", null, panelGymCup, null);
@@ -69,7 +83,21 @@ public class Server {
 	
 	JPanel panelDeviceType = new JPanel();
 	tabbedPane.addTab("Ger\u00E4tezuweisung", null, panelDeviceType, null);
+	panelDeviceType.setLayout(new BorderLayout(0, 0));
 	
+	tableDevices = new JTable();
+	tableDevices.setModel(deviceTypeTableModel);
+	panelDeviceType.add(tableDevices, BorderLayout.CENTER);
+	
+	JPanel panelControl = new JPanel();
+	panelDeviceType.add(panelControl, BorderLayout.SOUTH);
+	panelControl.setLayout(new BorderLayout(0, 0));
+	
+	JButton btnAllocateAllDevices = new JButton("Alle Zuweisen");
+	panelControl.add(btnAllocateAllDevices, BorderLayout.EAST);
+	
+	
+<<<<<<< HEAD
 	JPanel RoundAllocatoin = new JPanel();
 	tabbedPane.addTab("Durchgangssteuerung", null, RoundAllocatoin, null);
 	GridBagLayout gbl_RoundAllocatoin = new GridBagLayout();
@@ -312,15 +340,17 @@ public class Server {
 	gbc_btnDurchgangFreigeben.gridx = 4;
 	gbc_btnDurchgangFreigeben.gridy = 0;
 	panelRoundControl.add(btnDurchgangFreigeben, gbc_btnDurchgangFreigeben);
+=======
+>>>>>>> 1e2e570e4262c4c5410473c5580087604e06aa87
 	
 	JPanel panelRanking = new JPanel();
 	tabbedPane.addTab("Ranglistengenerierung", null, panelRanking, null);
 	
 	JPanel panelLogo = new JPanel();
-	frame.getContentPane().add(panelLogo, BorderLayout.NORTH);
+	serverFrame.getContentPane().add(panelLogo, BorderLayout.NORTH);
 	
 	JPanel panelStatus = new JPanel();
-	frame.getContentPane().add(panelStatus, BorderLayout.SOUTH);
+	serverFrame.getContentPane().add(panelStatus, BorderLayout.SOUTH);
     }
 
 }

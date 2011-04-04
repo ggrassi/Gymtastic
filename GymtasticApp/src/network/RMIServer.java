@@ -1,78 +1,49 @@
 package network;
 
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
+import java.rmi.server.RemoteServer;
+import java.rmi.server.ServerNotActiveException;
 import java.util.ArrayList;
-import java.util.Observable;
 import java.util.Vector;
 
+import network.prototype.RMIClientInterfacePT;
+
+import domain.ClientAllocation;
+import domain.DeviceType;
 import domain.Dummy;
+import domain.Squad;
 
-public class RMIServer extends Observable implements RMIServerInterface {
+public class RMIServer implements RMIServerInterface {
 
-    /**
-     * @param args
-     */
-
-    Vector<RMIClientInterface> clients = new Vector<RMIClientInterface>();
-    ArrayList<Dummy> dummies = new ArrayList<Dummy>(10);
-
-    public static void main(String[] args) throws RemoteException {
-	RMIServer server = new RMIServer();
-	views.ServerPrototype.newServerFrame(server);
-    }
-
-    public RMIServer() throws RemoteException {
-	super();
-	RMIServerInterface stub = (RMIServerInterface) UnicastRemoteObject.exportObject(this, 0);
-	Registry registry = LocateRegistry.createRegistry(1099);
-	registry.rebind("Gymtastic", stub);
-
-	generateDummies();
-
-    }
-
+    Vector<ClientInformation> clientsWaitingForAllocation = new Vector<ClientInformation>();
+    ClientAllocation clientsAllocated = new ClientAllocation();
+    
     @Override
-    public synchronized void addClient(RMIClientInterface client) throws RemoteException {
-	clients.add(client);
-	updateObservers();
+    public void addClient(RMIClientInterface client, DeviceType deviceType) throws RemoteException, ServerNotActiveException {
+	clientsWaitingForAllocation.add(new ClientInformation(client, RemoteServer.getClientHost()));
+
     }
 
     @Override
     public void removeClient(RMIClientInterface client) throws RemoteException {
-	clients.remove(client);
-	System.out.println("Client removed!");
+	// TODO Auto-generated method stub
 
-	updateObservers();
-
-    }
-
-    public Vector<RMIClientInterface> getClient() {
-	return clients;
-    }
-
-    public ArrayList<Dummy> getDummies() {
-	return dummies;
     }
 
     @Override
-    public void uploadSquadToServer(Dummy dummy) throws RemoteException {
-	dummies.add(dummy);
-	updateObservers();
+    public void uploadSquadToServer(Squad squad) throws RemoteException {
+	// TODO Auto-generated method stub
 
     }
 
-    private void generateDummies() {
-	for (int i = 0; i < 10; i++) {
-	    dummies.add(new Dummy("Dummy" + i));
-	}
+    public Vector<ClientInformation> getClientsWaitingForAllocation() {
+	return clientsWaitingForAllocation;
     }
+    
+    
 
-    private void updateObservers() {
-	setChanged();
-	notifyObservers();
-    }
+   
+
+  
 
 }

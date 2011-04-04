@@ -16,8 +16,9 @@ import java.util.Observer;
 import javax.swing.border.TitledBorder;
 import javax.swing.JList;
 
-import network.RMIClientInterface;
-import network.RMIServer;
+import network.prototype.RMIClientInterfacePT;
+import network.prototype.RMIServerPT;
+
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -33,7 +34,7 @@ import java.awt.FlowLayout;
 public class ServerPrototype implements Observer {
 
     private JFrame frame;
-    private RMIServer server;
+    private RMIServerPT server;
     JList list;
     JList listDummy = new JList();
 
@@ -42,7 +43,7 @@ public class ServerPrototype implements Observer {
      * 
      * @param server
      */
-    public static void newServerFrame(final RMIServer server) {
+    public static void newServerFrame(final RMIServerPT server) {
 
 	EventQueue.invokeLater(new Runnable() {
 	    public void run() {
@@ -60,7 +61,7 @@ public class ServerPrototype implements Observer {
     /**
      * Create the application.
      */
-    public ServerPrototype(RMIServer server) {
+    public ServerPrototype(RMIServerPT server) {
 	this.server = server;
 	server.addObserver(this);
 	updateDummies();
@@ -137,7 +138,7 @@ public class ServerPrototype implements Observer {
 	btnNewButton.setEnabled(false);
 	btnNewButton.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent arg0) {
-		RMIClientInterface stub = (RMIClientInterface) list.getSelectedValue();
+		RMIClientInterfacePT stub = (RMIClientInterfacePT) list.getSelectedValue();
 		try {
 		    stub.uploadSquadToClient((Dummy) listDummy.getSelectedValue());
 		} catch (RemoteException e) {
@@ -177,7 +178,7 @@ public class ServerPrototype implements Observer {
 
     private void updateList() {
 	DefaultListModel model = new DefaultListModel();
-	for (RMIClientInterface c : server.getClient()) {
+	for (RMIClientInterfacePT c : server.getClient()) {
 	    model.addElement(c);
 	}
 	list.setModel(model);
