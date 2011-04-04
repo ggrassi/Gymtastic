@@ -3,14 +3,10 @@ package network;
 import java.rmi.RemoteException;
 import java.rmi.server.RemoteServer;
 import java.rmi.server.ServerNotActiveException;
-import java.util.ArrayList;
 import java.util.Vector;
-
-import network.prototype.RMIClientInterfacePT;
 
 import domain.ClientAllocation;
 import domain.DeviceType;
-import domain.Dummy;
 import domain.Squad;
 
 public class RMIServer implements RMIServerInterface {
@@ -26,13 +22,11 @@ public class RMIServer implements RMIServerInterface {
 
     @Override
     public void removeClient(RMIClientInterface client) throws RemoteException {
-	// TODO Auto-generated method stub
 
     }
 
     @Override
     public void uploadSquadToServer(Squad squad) throws RemoteException {
-	// TODO Auto-generated method stub
 
     }
 

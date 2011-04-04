@@ -159,6 +159,11 @@ public class ClientConnection {
 
 		panelButton.add(btnConnect);
 		btnConnect.setMnemonic(KeyEvent.VK_V);
+		btnAbbrechen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmClientConnection.dispose();
+			}
+		});
 		btnAbbrechen.setMnemonic(KeyEvent.VK_A);
 		panelButton.add(btnAbbrechen);
 	}
