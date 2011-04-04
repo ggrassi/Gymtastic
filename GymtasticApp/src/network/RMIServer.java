@@ -6,15 +6,10 @@ import java.rmi.registry.Registry;
 import java.rmi.server.RemoteServer;
 import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.Vector;
-
-import network.prototype.RMIClientInterfacePT;
-import network.prototype.RMIServerInterfacePT;
 
 import domain.ClientAllocation;
 import domain.DeviceType;
-import domain.Dummy;
 import domain.Squad;
 
 public class RMIServer implements RMIServerInterface {
