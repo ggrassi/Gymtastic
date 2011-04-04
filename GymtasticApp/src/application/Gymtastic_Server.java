@@ -1,5 +1,7 @@
 package application;
 
+import java.rmi.RemoteException;
+
 import network.RMIServer;
 
 public class Gymtastic_Server {
@@ -10,7 +12,11 @@ public class Gymtastic_Server {
     public static void main(String[] args) {
 	
 	views.Server.newServerFrame();
-	RMIServer rmiServer = new RMIServer();
+	try {
+	    RMIServer rmiServer = new RMIServer();
+	} catch (RemoteException e) {
+	    e.printStackTrace();
+	}
 	
 
     }
