@@ -5,6 +5,7 @@ import java.util.*;
 public class Gymcup {
     
     private List<Competition> competitions = new ArrayList<Competition>();
+    private Map<Integer, Squad> squads;
     private ClientAllocation clientAlloc;
     private GregorianCalendar startDate;
     private GregorianCalendar endDate;
@@ -23,6 +24,18 @@ public class Gymcup {
     
     public void removeCompetition(Competition competition){
 	competitions.remove(competition);
+    }
+    
+    public void addSquads( Map<Integer, Squad> squads){
+	this.squads = squads;
+    }
+    
+    public List<Competition> getCompetitions(){
+	return competitions;
+    }
+    
+    public Map<Integer, Squad> getSquads(){
+	return squads;
     }
     
 }
