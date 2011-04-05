@@ -1,5 +1,6 @@
 package domain;
 
+
 public enum DeviceType {
 
     FLOOR_EXCERCISE(0), POMMEL_HORSE(1), STILL_RINGS(2), VAULT(3), PARALLEL_BARS(4), HIGH_BAR(5);

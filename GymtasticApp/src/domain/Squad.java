@@ -1,53 +1,65 @@
 package domain;
 
-import java.io.Serializable;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 @Entity
-public class Squad implements Serializable {
+public class Squad{
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    private final int squadId;
-    @OneToMany
-    private List<Athlet> athlets;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private int squadId;
+	@OneToMany(cascade=CascadeType.ALL)
+	@OrderBy("athleteId ASC")
+	private List<Athlet> athlets;
 
-    public Squad(int squadId) {
-	this.squadId = squadId;
-	athlets = new LinkedList<Athlet>();
-    }
+	public Squad() {
+		super();
 
-    public int getId() {
-	return squadId;
-    }
-
-    public void addAthlete(Athlet athlet) {
-	if (athlet != null && athlet.getSquadID() == squadId) {
-	    athlets.add(athlet);
-	}
-    }
-
-    public Athlet getAthlete(int pos) {
-	if (pos < athlets.size()) {
-	    return athlets.get(pos);
-	} else {
-	    return null;
 	}
 
-    }
+	public Squad(int squadId) {
+		super();
+		this.squadId=squadId;
+		athlets = new LinkedList<Athlet>();
+	}
 
-    public void removeAthlete(Athlet athlet) {
-	athlets.remove(athlet);
-    }
+	
+	
+	public int getId() {
+		return id;
+	}
 
-    @Override
-    public String toString() {
-	return "Squad [squadId=" + squadId + "]";
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getSquadId() {
+		return squadId;
+	}
+
+	public Collection<Athlet> getAthlets() {
+		return athlets;
+	}
+
+	public void setAthlets(List<Athlet> athlets) {
+		this.athlets = athlets;
+	}
+
+	public void addAthlet(Athlet athlet) {
+		athlet.setSquad(this);
+		athlets.add(athlet);
+
+	}
 
 }
