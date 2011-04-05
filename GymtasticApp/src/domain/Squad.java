@@ -12,8 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+<<<<<<< HEAD
 @Entity
 public class Squad{
+=======
+    private static final long serialVersionUID = -4834032781011953418L;
+    private List<Athlet> athlets;
+    private int squadId;
+>>>>>>> a91882a3d347308dc17a165cb91e38ca5844371e
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +29,18 @@ public class Squad{
 	@OrderBy("athleteId ASC")
 	private List<Athlet> athlets;
 
+<<<<<<< HEAD
 	public Squad() {
 		super();
+=======
+    public int getId() {
+	return squadId;
+    }
+    
+    public int getSquadSize(){
+	return athlets.size();
+    }
+>>>>>>> a91882a3d347308dc17a165cb91e38ca5844371e
 
 	}
 

@@ -1,5 +1,6 @@
 package domain;
 
+<<<<<<< HEAD
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -14,6 +15,18 @@ public abstract class Person {
 
 	public Person() {
 		super();
+=======
+public class Person {
+	private String firstName = null;
+	private String lastName = null;
+	private String adresse = null;
+	
+	
+	public Person(String firstName, String lastName, String adresse) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.adresse = adresse;
+>>>>>>> a91882a3d347308dc17a165cb91e38ca5844371e
 	}
 
 	
@@ -25,6 +38,7 @@ public abstract class Person {
 		this.adresse = adresse;
 	}
 
+<<<<<<< HEAD
 
 
 	public String getVorname() {
@@ -47,6 +61,20 @@ public abstract class Person {
 
 	public void setNachname(String nachname) {
 		this.nachname = nachname;
+=======
+	
+	public String getFirstName() {
+		return firstName;
+	}
+	protected void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	protected void setLastName(String lastName) {
+		this.lastName = lastName;
+>>>>>>> a91882a3d347308dc17a165cb91e38ca5844371e
 	}
 
 

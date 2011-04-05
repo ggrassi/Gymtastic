@@ -18,9 +18,13 @@ public class Evaluation{
 	private Mark markTest = new Mark(4, 5, 3, 5, 3, 4, 3);
 
 	public Evaluation() {
+<<<<<<< HEAD
 		super();
 		this.marks = new HashMap<DeviceType, Mark>();
 		insertMark(DeviceType.FLOOR_EXCERCISE, markTest);
+=======
+		this.marks = new HashMap<Object, Mark>();
+>>>>>>> a91882a3d347308dc17a165cb91e38ca5844371e
 	}
 	
 	public Map<DeviceType, Mark> getMarks() {

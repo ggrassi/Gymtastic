@@ -5,49 +5,45 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Observable;
 
-import views.ClientPrototype;
-import domain.Dummy;
+import domain.DeviceType;
+import domain.Squad;
 
-public class RMIClient extends Observable implements RMIClientInterface {
+public class RMIClient implements RMIClientInterface {
 
-	// private static final String HOST = "152.96.233.102";
-	// private static final String HOST = "192.168.0.100";
+	
 	private String serverIP = "localhost";
 	private RMIServerInterface rmiServerInterface;
+	private Squad squad;
 
-	private Dummy dummy;
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) throws Exception {
-		System.out.println("Client gestartet");
-		RMIClient client = new RMIClient();
-		ClientPrototype.newClientPrototypeFrame(client);
+	@Override
+	public void uploadSquadToClient(Squad squad) throws RemoteException {
 
 	}
-
 	public RMIClient() throws Exception {
-
 	}
 
-	public void connect() throws RemoteException, NotBoundException,
-			AccessException {
-		System.out.println("generate registry");
+	public RMIClient(String host) throws Exception {
+		this.serverIP = host;
+	}
+
+	public void connect(DeviceType deviceType) throws RemoteException, NotBoundException,
+			AccessException, ServerNotActiveException {
 		Registry registry = LocateRegistry.getRegistry(getServerIP());
-
-		System.out.println("registry lookup");
-		rmiServerInterface = (RMIServerInterface) registry.lookup("Server");
-
-		System.out.println("stub object creation");
+		rmiServerInterface = (RMIServerInterface) registry.lookup("Gymtastic");
 		RMIClientInterface stub = (RMIClientInterface) UnicastRemoteObject
 				.exportObject(this, 0);
-		System.out.println("Aufruf von addClient auf ServerStub");
-		rmiServerInterface.addClient(stub, RMIServer.FLOOR_EXCERICE);
-		System.out.println("Aufruf von addClient auf ServerStub ausgeführt");
+		try {
+
+			rmiServerInterface.addClient(stub, deviceType);
+		} catch (ServerNotActiveException e) {
+			e.printStackTrace();
+
+		    rmiServerInterface.addClient(stub, deviceType);
+		}
 	}
 
 	public void disconnect() throws RemoteException {
@@ -55,32 +51,8 @@ public class RMIClient extends Observable implements RMIClientInterface {
 
 	}
 
-	private void serverUpdate() throws RemoteException {
-		System.out.println("Bearbeiteter Dummy wird an Server übertragen.");
-		rmiServerInterface.uploadSquadToServer(dummy);
-	}
-
-	public void uploadSquadToClient(Dummy dummy) throws RemoteException {
-		System.out.println("Received new Dummy " + dummy);
-		this.dummy = dummy;
-		updateObservers();
-
-		/*
-		 * System.out.println("Dummy mit Name: " + dummy.getName() +
-		 * "ist bei Client eingetroffen.");
-		 * 
-		 * this.dummy.setName("SuuuperDuuuuperDummy");
-		 * System.out.println("Neuer Dummy name: " + this.dummy.getName());
-		 * 
-		 * serverUpdate();
-		 */
-
-	}
-
-	private void updateObservers() {
-		setChanged();
-		notifyObservers();
-
+	public void updateServer() throws RemoteException {
+		rmiServerInterface.uploadSquadToServer(squad);
 	}
 
 	public void setServerIP(String serverIP) {
@@ -91,9 +63,10 @@ public class RMIClient extends Observable implements RMIClientInterface {
 		return serverIP;
 	}
 
-	public Dummy getDummy() {
-		return dummy;
+	public Squad getSquad() {
+		return squad;
 	}
+
 	public RMIServerInterface getRmiServerInterface() {
 		return rmiServerInterface;
 	}

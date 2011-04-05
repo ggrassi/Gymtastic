@@ -8,12 +8,14 @@ import java.util.Map;
 public class RoundAllocation {
 
     private List<Map<DeviceType, Squad>> roundlist = new ArrayList<Map<DeviceType, Squad>>();
-    private int counter = 0;
 
+<<<<<<< HEAD
     public RoundAllocation() {
 
     }
 
+=======
+>>>>>>> a91882a3d347308dc17a165cb91e38ca5844371e
     public Map<DeviceType, Squad> getRoundAllocation(int roundNr) {
 	return roundlist.get(roundNr);
     }
@@ -26,20 +28,17 @@ public class RoundAllocation {
 	    j++;
 	}
 	roundlist.add(map);
-	counter++;
-
     }
 
     public Map<DeviceType, Squad> roundChange(Map<DeviceType, Squad> origin) {
 
-	Map<DeviceType, Squad> changed = origin;
+	Map<DeviceType, Squad> changed = new HashMap<DeviceType,Squad>();
+	origin.putAll(changed);
+	
 	for (DeviceType device : DeviceType.values()) {
-	    int temp = device.getIndex();
-	    System.out.println(device.getDevice(++temp%6));
-	    
-	    changed.put(device, origin.get(device.getDevice(temp % 6)));
+	    int temp = device.getIndex();	    
+	    changed.put(device, origin.get(device.getDevice(++temp%6)));
 	}
-
 	return changed;
     }
 

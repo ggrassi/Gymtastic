@@ -16,8 +16,9 @@ import java.util.Observer;
 import javax.swing.border.TitledBorder;
 import javax.swing.JList;
 
-import network.RMIClientInterface;
-import network.RMIServer;
+import network.prototype.RMIClientInterfacePT;
+import network.prototype.RMIServerPT;
+
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -26,11 +27,14 @@ import domain.Dummy;
 import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+import java.awt.FlowLayout;
 
 public class ServerPrototype implements Observer {
 
     private JFrame frame;
-    private RMIServer server;
+    private RMIServerPT server;
     JList list;
     JList listDummy = new JList();
 
@@ -39,7 +43,7 @@ public class ServerPrototype implements Observer {
      * 
      * @param server
      */
-    public static void newServerFrame(final RMIServer server) {
+    public static void newServerFrame(final RMIServerPT server) {
 
 	EventQueue.invokeLater(new Runnable() {
 	    public void run() {
@@ -57,7 +61,7 @@ public class ServerPrototype implements Observer {
     /**
      * Create the application.
      */
-    public ServerPrototype(RMIServer server) {
+    public ServerPrototype(RMIServerPT server) {
 	this.server = server;
 	server.addObserver(this);
 	updateDummies();
@@ -69,6 +73,7 @@ public class ServerPrototype implements Observer {
 	for (Dummy d : server.getDummies()) {
 	    model.addElement(d);
 	}
+
 	listDummy.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	listDummy.setModel(model);
 
@@ -87,9 +92,9 @@ public class ServerPrototype implements Observer {
 	frame.getContentPane().add(panel, BorderLayout.CENTER);
 	GridBagLayout gbl_panel = new GridBagLayout();
 	gbl_panel.columnWidths = new int[] { 0, 0 };
-	gbl_panel.rowHeights = new int[] { 0, 0, 0, 0 };
+	gbl_panel.rowHeights = new int[] { 87, 0, 0, 0 };
 	gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-	gbl_panel.rowWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
+	gbl_panel.rowWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
 	panel.setLayout(gbl_panel);
 
 	JPanel panel_2 = new JPanel();
@@ -104,6 +109,7 @@ public class ServerPrototype implements Observer {
 	panel_2.setLayout(new BorderLayout(0, 0));
 
 	list = new JList();
+
 	list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	panel_2.add(list, BorderLayout.CENTER);
 
@@ -122,36 +128,61 @@ public class ServerPrototype implements Observer {
 
 	JPanel panel_3 = new JPanel();
 	GridBagConstraints gbc_panel_3 = new GridBagConstraints();
-	gbc_panel_3.fill = GridBagConstraints.BOTH;
+	gbc_panel_3.anchor = GridBagConstraints.EAST;
+	gbc_panel_3.fill = GridBagConstraints.VERTICAL;
 	gbc_panel_3.gridx = 0;
 	gbc_panel_3.gridy = 2;
 	panel.add(panel_3, gbc_panel_3);
-	panel_3.setLayout(new BorderLayout(0, 0));
 
-	JButton btnNewButton = new JButton("send dummy to client");
+	final JButton btnNewButton = new JButton("send dummy to client");
+	btnNewButton.setEnabled(false);
 	btnNewButton.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent arg0) {
-		RMIClientInterface stub = (RMIClientInterface) list.getSelectedValue();
+		RMIClientInterfacePT stub = (RMIClientInterfacePT) list.getSelectedValue();
 		try {
 		    stub.uploadSquadToClient((Dummy) listDummy.getSelectedValue());
 		} catch (RemoteException e) {
 		    // TODO Auto-generated catch block
 		    e.printStackTrace();
 		}
-		server.getDummies().remove((Dummy)listDummy.getSelectedValue());
+		server.getDummies().remove((Dummy) listDummy.getSelectedValue());
 		updateDummies();
 	    }
 	});
-	panel_3.add(btnNewButton, BorderLayout.EAST);
+	panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+	panel_3.add(btnNewButton);
+
+	listDummy.addListSelectionListener(new ListSelectionListener() {
+	    public void valueChanged(ListSelectionEvent arg0) {
+		if (list.getSelectedValue() != null && listDummy.getSelectedValue() != null) {
+		    btnNewButton.setEnabled(true);
+		} else {
+		    btnNewButton.setEnabled(false);
+
+		}
+	    }
+	});
+
+	list.addListSelectionListener(new ListSelectionListener() {
+	    public void valueChanged(ListSelectionEvent arg0) {
+		if (listDummy.getSelectedValue() != null && list.getSelectedValue() != null) {
+		    btnNewButton.setEnabled(true);
+		} else {
+		    btnNewButton.setEnabled(false);
+
+		}
+	    }
+	});
+
     }
 
     private void updateList() {
 	DefaultListModel model = new DefaultListModel();
-	for (RMIClientInterface c : server.getClient()) {
+	for (RMIClientInterfacePT c : server.getClient()) {
 	    model.addElement(c);
 	}
 	list.setModel(model);
-	
+
     }
 
     @Override
