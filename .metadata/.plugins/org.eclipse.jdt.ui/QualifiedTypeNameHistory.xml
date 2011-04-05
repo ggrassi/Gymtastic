@@ -21,4 +21,5 @@
 <fullyQualifiedTypeName name="java.util.Map.Entry"/>
 <fullyQualifiedTypeName name="java.rmi.server.RemoteServer"/>
 <fullyQualifiedTypeName name="views.Server"/>
+<fullyQualifiedTypeName name="domain.DeviceType"/>
 </qualifiedTypeNameHistroy>
