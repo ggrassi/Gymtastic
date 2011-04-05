@@ -13,63 +13,60 @@ import domain.Squad;
 
 public class RMIClient implements RMIClientInterface {
 
-	
-	private String serverIP = "localhost";
-	private RMIServerInterface rmiServerInterface;
-	private Squad squad;
+    private String serverIP = "localhost";
+    private RMIServerInterface rmiServerInterface;
+    private Squad squad;
 
+    @Override
+    public void uploadSquadToClient(Squad squad) throws RemoteException {
 
-	@Override
-	public void uploadSquadToClient(Squad squad) throws RemoteException {
+    }
 
+    public RMIClient() throws Exception {
+    }
+
+    public RMIClient(String host) throws Exception {
+	this.serverIP = host;
+    }
+
+    public void connect(DeviceType deviceType) throws RemoteException, NotBoundException, AccessException,
+	    ServerNotActiveException {
+	Registry registry = LocateRegistry.getRegistry(getServerIP());
+	rmiServerInterface = (RMIServerInterface) registry.lookup("Gymtastic");
+	RMIClientInterface stub = (RMIClientInterface) UnicastRemoteObject.exportObject(this, 0);
+	try {
+
+	    rmiServerInterface.addClient(stub, deviceType);
+	} catch (ServerNotActiveException e) {
+	    e.printStackTrace();
+
+	    rmiServerInterface.addClient(stub, deviceType);
 	}
-	public RMIClient() throws Exception {
-	}
+    }
 
-	public RMIClient(String host) throws Exception {
-		this.serverIP = host;
-	}
+    public void disconnect() throws RemoteException {
+	rmiServerInterface.removeClient(this);
 
-	public void connect(DeviceType deviceType) throws RemoteException, NotBoundException,
-			AccessException, ServerNotActiveException {
-		Registry registry = LocateRegistry.getRegistry(getServerIP());
-		rmiServerInterface = (RMIServerInterface) registry.lookup("Gymtastic");
-		RMIClientInterface stub = (RMIClientInterface) UnicastRemoteObject
-				.exportObject(this, 0);
-		try {
+    }
 
-			rmiServerInterface.addClient(stub, deviceType);
-		} catch (ServerNotActiveException e) {
-			e.printStackTrace();
+    public void updateServer() throws RemoteException {
+	rmiServerInterface.uploadSquadToServer(squad);
+    }
 
-		    rmiServerInterface.addClient(stub, deviceType);
-		}
-	}
+    public void setServerIP(String serverIP) {
+	this.serverIP = serverIP;
+    }
 
-	public void disconnect() throws RemoteException {
-		rmiServerInterface.removeClient(this);
+    public String getServerIP() {
+	return serverIP;
+    }
 
-	}
+    public Squad getSquad() {
+	return squad;
+    }
 
-	public void updateServer() throws RemoteException {
-		rmiServerInterface.uploadSquadToServer(squad);
-	}
-
-	public void setServerIP(String serverIP) {
-		this.serverIP = serverIP;
-	}
-
-	public String getServerIP() {
-		return serverIP;
-	}
-
-	public Squad getSquad() {
-		return squad;
-	}
-
-	public RMIServerInterface getRmiServerInterface() {
-		return rmiServerInterface;
-	}
-
+    public RMIServerInterface getRmiServerInterface() {
+	return rmiServerInterface;
+    }
 
 }
