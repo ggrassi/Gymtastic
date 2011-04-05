@@ -44,12 +44,6 @@ public class Server {
 
     private JFrame serverFrame;
     private JTable tableDevices;
-    
-    private static Gymcup cup;
-    static ImportStartList importList;
-    static Map<Integer, Squad> squads;
-    static Competition competition1;
-    
     DeviceTypeTableModel deviceTypeTableModel;
 
     RMIServer rmiServer;
@@ -396,10 +390,10 @@ public class Server {
 
 	/* create a cup */
 	System.out.println("******** Cup *************");
-	cup = new Gymcup("HSR Cup", "Rapperswil");
+	Gymcup cup = new Gymcup("HSR Cup", "Rapperswil");
 
 	/* Import the starter file */
-	importList = new ImportStartList("src/importer/Startliste_Bsp.txt");
+	ImportStartList importList = new ImportStartList("src/importer/Startliste_Bsp.txt");
 	System.out.println("******** Import *************");
 	importList.readImport();
 	importList.toString();
@@ -407,11 +401,11 @@ public class Server {
 	/* generate Squads with importlist */
 	System.out.println("******** Squad Generator *************");
 	SquadCreator squadCreator = new SquadCreator(importList);
-	squads = squadCreator.createSquads();
+	Map<Integer, Squad> squads = squadCreator.createSquads();
 
 	/* create a competition in the cup */
 	System.out.println("******** Competition *************");
-	competition1 = new Competition("Wettkampf1", new GregorianCalendar(2011, 04, 04, 16, 0, 0),
+	Competition competition1 = new Competition("Wettkampf1", new GregorianCalendar(2011, 04, 04, 16, 0, 0),
 		"Wettkampf Programm 1");
 	cup.addCompetition(competition1);
 

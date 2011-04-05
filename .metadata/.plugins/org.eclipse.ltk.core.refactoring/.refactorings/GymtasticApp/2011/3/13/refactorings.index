@@ -1,13 +1,3 @@
 1301059049455	Delete element
 1301059100586	Delete element
 1301326009371	Delete element
-1301566895037	Extract Class...
-1301573289672	Extract method 'connect'
-1301573355101	Extract method 'commit'
-1301573488657	Extract method 'querySQL'
-1301573751917	Extract method 'insert'
-1301573887850	Extract method 'startTransaction'
-1301574218631	Extract method 'getSquads'
-1301575573533	Rename local variable 'athletId'
-1301576824692	Extract method 'closeConnection'
-1301583704618	Rename field 'verein'

@@ -1,23 +1,8 @@
 package domain;
 
-import javax.persistence.Embeddable;
-
-@Embeddable
 public class Mark {
+
 	private double dMark;
-<<<<<<< HEAD
-    private double eMarkOne;
-    private double emarkTwo;
-    private double eMarkThree;
-    private double penalty;
-    private double bonus;
-    private double finalMark;
-    
-    
-    
-	public Mark(double dMark, double eMarkOne, double emarkTwo,
-			double eMarkThree, double penalty, double bonus, double finalMark) {
-=======
 	private double eMarkOne;
 	private double eMarkTwo;
 	private double eMarkThree;
@@ -27,7 +12,6 @@ public class Mark {
 
 	public Mark(double dMark, double eMarkOne, double emarkTwo, double eMarkThree,
 			double penalty, double bonus, double finalmark) {
->>>>>>> a91882a3d347308dc17a165cb91e38ca5844371e
 		super();
 		this.dMark = dMark;
 		this.eMarkOne = eMarkOne;
@@ -35,13 +19,6 @@ public class Mark {
 		this.eMarkThree = eMarkThree;
 		this.penalty = penalty;
 		this.bonus = bonus;
-<<<<<<< HEAD
-		this.finalMark = finalMark;
-	}
-	
-	public Mark() {
-		super();
-=======
 		this.finalMark = generateFinalMark();
 	}
 
@@ -105,64 +82,60 @@ public class Mark {
 	    if (Double.doubleToLongBits(penalty) != Double.doubleToLongBits(other.penalty))
 		return false;
 	    return true;
->>>>>>> a91882a3d347308dc17a165cb91e38ca5844371e
 	}
 
 	public double getdMark() {
-		return dMark;
-	}
-	public void setdMark(double dMark) {
-		this.dMark = dMark;
-	}
-	public double geteMarkOne() {
-		return eMarkOne;
-	}
-	public void seteMarkOne(double eMarkOne) {
-		this.eMarkOne = eMarkOne;
-	}
-	public double getEmarkTwo() {
-<<<<<<< HEAD
-		return emarkTwo;
-=======
-	    return eMarkTwo;
->>>>>>> a91882a3d347308dc17a165cb91e38ca5844371e
-	}
-	public void setEmarkTwo(double emarkTwo) {
-<<<<<<< HEAD
-		this.emarkTwo = emarkTwo;
-=======
-	    this.eMarkTwo = emarkTwo;
->>>>>>> a91882a3d347308dc17a165cb91e38ca5844371e
-	}
-	public double geteMarkThree() {
-		return eMarkThree;
-	}
-	public void seteMarkThree(double eMarkThree) {
-		this.eMarkThree = eMarkThree;
-	}
-	public double getPenalty() {
-		return penalty;
-	}
-	public void setPenalty(double penalty) {
-		this.penalty = penalty;
-	}
-	public double getBonus() {
-		return bonus;
-	}
-	public void setBonus(double bonus) {
-		this.bonus = bonus;
-	}
-	public double getFinalMark() {
-		return finalMark;
-	}
-	public void setFinalMark(double finalMark) {
-		this.finalMark = finalMark;
+	    return dMark;
 	}
 
-	public float generateFinalMark() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void setdMark(double dMark) {
+	    this.dMark = dMark;
 	}
-    
-    
+
+	public double geteMarkOne() {
+	    return eMarkOne;
+	}
+
+	public void seteMarkOne(double eMarkOne) {
+	    this.eMarkOne = eMarkOne;
+	}
+
+	public double getEmarkTwo() {
+	    return eMarkTwo;
+	}
+
+	public void setEmarkTwo(double emarkTwo) {
+	    this.eMarkTwo = emarkTwo;
+	}
+
+	public double geteMarkThree() {
+	    return eMarkThree;
+	}
+
+	public void seteMarkThree(double eMarkThree) {
+	    this.eMarkThree = eMarkThree;
+	}
+
+	public double getPenalty() {
+	    return penalty;
+	}
+
+	public void setPenalty(double penalty) {
+	    this.penalty = penalty;
+	}
+
+	public double getBonus() {
+	    return bonus;
+	}
+
+	public void setBonus(double bonus) {
+	    this.bonus = bonus;
+	}
+
+	public double getFinalMark() {
+	    return finalMark;
+	}
+
+	
+
 }

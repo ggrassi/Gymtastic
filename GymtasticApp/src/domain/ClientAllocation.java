@@ -5,11 +5,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-<<<<<<< HEAD
-public class ClientAllocation {
-    
-    private Map<DeviceType, RMIClientInterface> alloc;
-=======
 import network.ClientInformation;
 
 public class ClientAllocation{
@@ -53,5 +48,4 @@ public class ClientAllocation{
 
 	
 
->>>>>>> a91882a3d347308dc17a165cb91e38ca5844371e
 }
