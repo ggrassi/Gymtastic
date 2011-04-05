@@ -9,6 +9,13 @@ public class RoundAllocation {
 
     private List<Map<DeviceType, Squad>> roundlist = new ArrayList<Map<DeviceType, Squad>>();
 
+<<<<<<< HEAD
+    public RoundAllocation() {
+
+    }
+
+=======
+>>>>>>> a91882a3d347308dc17a165cb91e38ca5844371e
     public Map<DeviceType, Squad> getRoundAllocation(int roundNr) {
 	return roundlist.get(roundNr);
     }

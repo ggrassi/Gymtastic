@@ -1,8 +1,13 @@
 package domain;
 
+<<<<<<< HEAD
+
+public enum DeviceType {
+=======
 import java.io.Serializable;
 
 public enum DeviceType implements Serializable{
+>>>>>>> a91882a3d347308dc17a165cb91e38ca5844371e
 
     FLOOR_EXCERCISE(0), POMMEL_HORSE(1), STILL_RINGS(2), VAULT(3), PARALLEL_BARS(4), HIGH_BAR(5);
 

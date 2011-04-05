@@ -41,7 +41,7 @@ public class SquadCreator {
 	}
 
 	for (List<String> line : importList) {
-	    squadMap.get(Integer.parseInt(line.get(squadPositionImport))).addAthlete(
+	    squadMap.get(Integer.parseInt(line.get(squadPositionImport))).addAthlet(
 		    new Athlet(Integer.parseInt(line.get(squadPositionImport)), Integer.parseInt(line
 			    .get(startNrPositionImport)), line.get(progClassPositionImport), line
 			    .get(firstNamePositionImport), line.get(lastNamePositionImport), line

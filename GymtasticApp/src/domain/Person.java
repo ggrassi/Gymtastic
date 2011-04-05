@@ -1,5 +1,21 @@
 package domain;
 
+<<<<<<< HEAD
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Person {
+
+	private String vorname;
+	private String nachname;
+	private String adresse;
+
+	public Person() {
+		super();
+=======
 public class Person {
 	private String firstName = null;
 	private String lastName = null;
@@ -10,49 +26,42 @@ public class Person {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.adresse = adresse;
-	}
-	
-	@Override
-	public String toString() {
-		return "Person [name=" + firstName + ", vorname=" + lastName + ", adresse="
-				+ adresse.toString() + "]";
-	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((adresse == null) ? 0 : adresse.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Person other = (Person) obj;
-		if (adresse == null) {
-			if (other.adresse != null)
-				return false;
-		} else if (!adresse.equals(other.adresse))
-			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
-		return true;
+>>>>>>> a91882a3d347308dc17a165cb91e38ca5844371e
 	}
 
+	
+
+	public Person(String vorname, String nachname, String adresse) {
+		super();
+		this.vorname = vorname;
+		this.nachname = nachname;
+		this.adresse = adresse;
+	}
+
+<<<<<<< HEAD
+
+
+	public String getVorname() {
+		return vorname;
+	}
+
+
+
+	public void setVorname(String vorname) {
+		this.vorname = vorname;
+	}
+
+
+
+	public String getNachname() {
+		return nachname;
+	}
+
+
+
+	public void setNachname(String nachname) {
+		this.nachname = nachname;
+=======
 	
 	public String getFirstName() {
 		return firstName;
@@ -65,12 +74,22 @@ public class Person {
 	}
 	protected void setLastName(String lastName) {
 		this.lastName = lastName;
+>>>>>>> a91882a3d347308dc17a165cb91e38ca5844371e
 	}
-	protected String getAdresse() {
-	return adresse.toString();
+
+
+
+	public String getAdresse() {
+		return adresse;
 	}
-	protected void setAdresse(String adresse) {
+
+
+
+	public void setAdresse(String adresse) {
 		this.adresse = adresse;
 	}
+
+
+
 	
 }

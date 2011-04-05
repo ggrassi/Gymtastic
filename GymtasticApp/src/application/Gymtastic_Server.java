@@ -1,10 +1,8 @@
 package application;
 
-import java.rmi.RemoteException;
+
 
 import views.Server;
-
-import network.RMIServer;
 
 public class Gymtastic_Server {
 
