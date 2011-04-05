@@ -28,21 +28,59 @@
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
+<<<<<<< HEAD
+=======
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+<part id="5"/>
+>>>>>>> 4d22f753d1b34e60fd39697c8c7bdefd882a3d4a
 </presentation>
 </folder>
 </info>
 </editorArea>
+<<<<<<< HEAD
 <editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Athlet.java" partName="Athlet.java" path="/home/ggrassi/Dokumente/java/sep/Gymtastic/GymtasticApp/src/domain/Athlet.java" title="Athlet.java" tooltip="GymtasticApp/src/domain/Athlet.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GymtasticApp/src/domain/Athlet.java"/>
 <editorState selectionHorizontalPixel="0" selectionLength="27" selectionOffset="451" selectionTopPixel="0"/>
+=======
+<editor activePart="true" focus="true" id="org.eclipse.wb.core.guiEditor" name="DeviceTypeTableModel.java" partName="DeviceTypeTableModel.java" path="/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/src/viewModels/DeviceTypeTableModel.java" title="DeviceTypeTableModel.java" tooltip="GymtasticApp/src/viewModels/DeviceTypeTableModel.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GymtasticApp/src/viewModels/DeviceTypeTableModel.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="880" selectionTopPixel="256"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RMIClient.java" partName="RMIClient.java" path="/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/src/network/RMIClient.java" title="RMIClient.java" tooltip="GymtasticApp/src/network/RMIClient.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GymtasticApp/src/network/RMIClient.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="288" selectionTopPixel="255"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RMIServer.java" partName="RMIServer.java" path="/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/src/network/RMIServer.java" title="RMIServer.java" tooltip="GymtasticApp/src/network/RMIServer.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GymtasticApp/src/network/RMIServer.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="9" selectionOffset="405" selectionTopPixel="245"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ClientInformation.java" partName="ClientInformation.java" path="/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/src/network/ClientInformation.java" title="ClientInformation.java" tooltip="GymtasticApp/src/network/ClientInformation.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GymtasticApp/src/network/ClientInformation.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="234" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Gymtastic_Server.java" partName="Gymtastic_Server.java" path="/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/src/application/Gymtastic_Server.java" title="Gymtastic_Server.java" tooltip="GymtasticApp/src/application/Gymtastic_Server.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GymtasticApp/src/application/Gymtastic_Server.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="44" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.wb.core.guiEditor" name="ClientConnection.java" partName="ClientConnection.java" path="/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/src/views/ClientConnection.java" title="ClientConnection.java" tooltip="GymtasticApp/src/views/ClientConnection.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GymtasticApp/src/views/ClientConnection.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="8" selectionOffset="660" selectionTopPixel="1772"/>
+>>>>>>> 4d22f753d1b34e60fd39697c8c7bdefd882a3d4a
 </editor>
 </editors>
 <views>
 <view id="org.eclipse.jdt.ui.TypeHierarchy" partName="Hierarchy"/>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
+<<<<<<< HEAD
 <expanded>
 <category IMemento.internal.id="Errors (1 item)"/>
+=======
+<expanded>&#x0A;<category IMemento.internal.id="Warnings (11 items)"/>
+>>>>>>> 4d22f753d1b34e60fd39697c8c7bdefd882a3d4a
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="73" org.eclipse.ui.ide.markerType="108" org.eclipse.ui.ide.pathField="143" org.eclipse.ui.ide.resourceField="108" org.eclipse.ui.ide.severityAndDescriptionField="350"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
@@ -166,9 +204,15 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
+<<<<<<< HEAD
 <info part="org.eclipse.ui.editorss" ratio="0.24950495" ratioLeft="252" ratioRight="758" relationship="2" relative="left"/>
 <info folder="true" part="bottom" ratio="0.7495961" ratioLeft="464" ratioRight="155" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">
+=======
+<info part="org.eclipse.ui.editorss" ratio="0.15638107" ratioLeft="261" ratioRight="1408" relationship="2" relative="left"/>
+<info folder="true" part="bottom" ratio="0.6444954" ratioLeft="562" ratioRight="310" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+>>>>>>> 4d22f753d1b34e60fd39697c8c7bdefd882a3d4a
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
 <page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
@@ -180,6 +224,18 @@
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
+<<<<<<< HEAD
+=======
+<part id="3"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@1df155b" ratio="0.80369127" ratioLeft="479" ratioRight="117" relationship="2" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.mylyn.tasks.ui.views.tasks" appearance="2" expanded="2">
+<page content="org.eclipse.mylyn.tasks.ui.views.tasks" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+>>>>>>> 4d22f753d1b34e60fd39697c8c7bdefd882a3d4a
 </presentation>
 </folder>
 </info>
@@ -200,6 +256,7 @@
 <workingSets/>
 <navigationHistory>
 <editors>
+<<<<<<< HEAD
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/domain/Athlet.java"/>
 </editors>
 <item historyLabel="Athlet.java" index="0">
@@ -208,6 +265,105 @@
 <item active="true" historyLabel="Athlet.java" index="0">
 <position info="not_deleted" x="0" y="0"/>
 </item>
+=======
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wb.core.guiEditor" path="/GymtasticApp/src/viewModels/DeviceTypeTableModel.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/network/RMIClient.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wb.core.guiEditor" path="/GymtasticApp/src/viewModels/DeviceTypeTableModel.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/network/RMIClient.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/network/RMIServer.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/network/ClientInformation.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/application/Gymtastic_Server.java"/>
+<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=Bibliothek/\/System\/Library\/Java\/JavaVirtualMachines\/1.6.0.jdk\/Contents\/Classes\/classes.jar&lt;java.net(URLClassLoader.class"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wb.core.guiEditor" path="/GymtasticApp/src/views/ClientConnection.java"/>
+</editors>
+<item historyLabel="DeviceTypeTableModel.java" index="0">
+<position info="not_deleted" x="162" y="0"/>
+</item>
+<item historyLabel="RMIClient.java" index="1">
+<position info="not_deleted" x="504" y="0"/>
+</item>
+<item historyLabel="DeviceTypeTableModel.java" index="2">
+<position info="not_deleted" x="199" y="0"/>
+</item>
+<item historyLabel="RMIClient.java" index="3">
+<position info="not_deleted" x="335" y="0"/>
+</item>
+<item historyLabel="RMIServer.java" index="4">
+<position info="not_deleted" x="390" y="0"/>
+</item>
+<item historyLabel="RMIServer.java" index="4">
+<position info="not_deleted" x="1132" y="0"/>
+</item>
+<item historyLabel="ClientInformation.java" index="5">
+<position info="not_deleted" x="638" y="0"/>
+</item>
+<item historyLabel="RMIServer.java" index="4">
+<position info="not_deleted" x="1132" y="0"/>
+</item>
+<item historyLabel="ClientInformation.java" index="5">
+<position info="not_deleted" x="192" y="0"/>
+</item>
+<item historyLabel="ClientInformation.java" index="5">
+<position info="not_deleted" x="234" y="0"/>
+</item>
+<item historyLabel="RMIClient.java" index="3">
+<position info="not_deleted" x="288" y="0"/>
+</item>
+<item historyLabel="RMIServer.java" index="4">
+<position info="not_deleted" x="285" y="0"/>
+</item>
+<item historyLabel="Gymtastic_Server.java" index="6">
+<position info="not_deleted" x="182" y="0"/>
+</item>
+<item historyLabel="DeviceTypeTableModel.java" index="2">
+<position info="not_deleted" x="199" y="0"/>
+</item>
+<item historyLabel="DeviceTypeTableModel.java" index="2">
+<position info="not_deleted" x="949" y="0"/>
+</item>
+<item historyLabel="DeviceTypeTableModel.java" index="2">
+<position info="not_deleted" x="469" y="0"/>
+</item>
+<item historyLabel="RMIServer.java" index="4">
+<position info="not_deleted" x="405" y="9"/>
+</item>
+<item historyLabel="RMIClient.java" index="3">
+<position info="not_deleted" x="288" y="0"/>
+</item>
+<item historyLabel="Gymtastic_Server.java" index="6">
+<position info="not_deleted" x="182" y="0"/>
+</item>
+<item historyLabel="RMIClient.java" index="3">
+<position info="not_deleted" x="288" y="0"/>
+</item>
+<item historyLabel="DeviceTypeTableModel.java" index="2">
+<position info="not_deleted" x="948" y="0"/>
+</item>
+<item historyLabel="Gymtastic_Server.java" index="6">
+<position info="not_deleted" x="182" y="0"/>
+</item>
+<item historyLabel="URLClassLoader.class" index="7">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Gymtastic_Server.java" index="6">
+<position info="not_deleted" x="182" y="0"/>
+</item>
+<item historyLabel="ClientConnection.java" index="8">
+<position info="not_deleted" x="660" y="8"/>
+</item>
+<item historyLabel="Gymtastic_Server.java" index="6">
+<position info="not_deleted" x="44" y="0"/>
+</item>
+<item historyLabel="ClientInformation.java" index="5">
+<position info="not_deleted" x="234" y="0"/>
+</item>
+<item historyLabel="RMIServer.java" index="4">
+<position info="not_deleted" x="405" y="9"/>
+</item>
+<item active="true" historyLabel="DeviceTypeTableModel.java" index="2">
+<position info="not_deleted" x="948" y="0"/>
+</item>
+>>>>>>> 4d22f753d1b34e60fd39697c8c7bdefd882a3d4a
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -225,8 +381,55 @@
 </trimLayout>
 </window>
 <mruList>
+<<<<<<< HEAD
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Athlet.java" tooltip="GymtasticApp/src/domain/Athlet.java">
 <persistable path="/GymtasticApp/src/domain/Athlet.java"/>
+=======
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wb.core.guiEditor" name="ClientConnection.java" tooltip="GymtasticApp/src/views/ClientConnection.java">
+<persistable path="/GymtasticApp/src/views/ClientConnection.java"/>
+</file>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="URLClassLoader.class" tooltip="java.net.URLClassLoader">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=Bibliothek/\/System\/Library\/Java\/JavaVirtualMachines\/1.6.0.jdk\/Contents\/Classes\/classes.jar&lt;java.net(URLClassLoader.class"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Gymtastic_Server.java" tooltip="GymtasticApp/src/application/Gymtastic_Server.java">
+<persistable path="/GymtasticApp/src/application/Gymtastic_Server.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ClientInformation.java" tooltip="GymtasticApp/src/network/ClientInformation.java">
+<persistable path="/GymtasticApp/src/network/ClientInformation.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RMIServer.java" tooltip="GymtasticApp/src/network/RMIServer.java">
+<persistable path="/GymtasticApp/src/network/RMIServer.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RMIClient.java" tooltip="GymtasticApp/src/network/RMIClient.java">
+<persistable path="/GymtasticApp/src/network/RMIClient.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wb.core.guiEditor" name="DeviceTypeTableModel.java" tooltip="GymtasticApp/src/viewModels/DeviceTypeTableModel.java">
+<persistable path="/GymtasticApp/src/viewModels/DeviceTypeTableModel.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GymtasticApp.java" tooltip="GymtasticApp/src/application/GymtasticApp.java">
+<persistable path="/GymtasticApp/src/application/GymtasticApp.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ClientAllocation.java" tooltip="GymtasticApp/src/domain/ClientAllocation.java">
+<persistable path="/GymtasticApp/src/domain/ClientAllocation.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wb.core.guiEditor" name="Server.java" tooltip="GymtasticApp/src/views/Server.java">
+<persistable path="/GymtasticApp/src/views/Server.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RMIServerPT.java" tooltip="GymtasticApp/src/network/prototype/RMIServerPT.java">
+<persistable path="/GymtasticApp/src/network/prototype/RMIServerPT.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RMIServerInterface.java" tooltip="GymtasticApp/src/network/RMIServerInterface.java">
+<persistable path="/GymtasticApp/src/network/RMIServerInterface.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wb.core.guiEditor" name="W3_BookMaster.java" tooltip="Bibliothek/src/views/W3_BookMaster.java">
+<persistable path="/Bibliothek/src/views/W3_BookMaster.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Server.java" tooltip="GymtasticApp/src/network/Server.java">
+<persistable path="/GymtasticApp/src/network/Server.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wb.core.guiEditor" name="ClientPrototype.java" tooltip="GymtasticApp/src/views/ClientPrototype.java">
+<persistable path="/GymtasticApp/src/views/ClientPrototype.java"/>
+>>>>>>> 4d22f753d1b34e60fd39697c8c7bdefd882a3d4a
 </file>
 </mruList>
 </workbench>
