@@ -14,112 +14,111 @@ import javax.persistence.OneToMany;
 @Entity
 public class Athlet extends Person {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	private int squadId;
-	private int athletId;
-	private String prgClass;
-	private int yearOfBirth;
-	@OneToMany
-	private Map<DeviceType, Mark> marks;
-	@Embedded
-	private Association association;
-	@ManyToOne
-	private Squad squad;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private int squadId;
+    private int athletId;
+    private String prgClass;
+    private int yearOfBirth;
+    @OneToMany
+    private Map<DeviceType, Mark> marks;
+    @Embedded
+    private Association association;
+    @ManyToOne
+    private Squad squad;
 
-	public Athlet(int squadID, int athletID, String prgClass, String vorname,
-			String name, String adresse, int yearOfBirth,
-			Association association) {
-		super(name, vorname, adresse);
-		this.squadId = squadID;
-		this.athletId = athletID;
-		this.prgClass = prgClass;
-		this.yearOfBirth = yearOfBirth;
-		this.association = association;
-		marks = new HashMap<DeviceType, Mark>();
-		marks.put(DeviceType.FLOOR_EXCERCISE, new Mark(4, 3, 4, 3, 4, 3, 4));
-	}
+    public Athlet(int squadID, int athletID, String prgClass, String vorname, String name, String adresse,
+	    int yearOfBirth, Association association) {
+	super(name, vorname, adresse);
+	this.squadId = squadID;
+	this.athletId = athletID;
+	this.prgClass = prgClass;
+	this.yearOfBirth = yearOfBirth;
+	this.association = association;
+	marks = new HashMap<DeviceType, Mark>();
+	marks.put(DeviceType.FLOOR_EXCERCISE, new Mark(4, 3, 4, 3, 4, 3, 4));
+    }
 
-	public Athlet() {
-		super();
-	}
+    public Athlet() {
+	super();
+    }
 
-	public Athlet(String vorname, String nachname, String adresse) {
-		super(vorname, nachname, adresse);
-	}
+    public Athlet(String vorname, String nachname, String adresse) {
+	super(vorname, nachname, adresse);
+    }
 
-	public Squad getSquad() {
-		return squad;
-	}
+    public Squad getSquad() {
+	return squad;
+    }
 
-	public void setSquad(Squad squad) {
-		this.squad = squad;
-	}
+    public void setSquad(Squad squad) {
+	this.squad = squad;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {
+	return id;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+	this.id = id;
+    }
 
-	public int getSquadId() {
-		return squadId;
-	}
+    public int getSquadId() {
+	return squadId;
+    }
 
-	public void setSquadId(int squadId) {
-		this.squadId = squadId;
-	}
+    public void setSquadId(int squadId) {
+	this.squadId = squadId;
+    }
 
-	public int getAthletId() {
-		return athletId;
-	}
+    public int getAthletId() {
+	return athletId;
+    }
 
-	public void setAthletId(int athletId) {
-		this.athletId = athletId;
-	}
+    public void setAthletId(int athletId) {
+	this.athletId = athletId;
+    }
 
-	public String getPrgClass() {
-		return prgClass;
-	}
+    public String getPrgClass() {
+	return prgClass;
+    }
 
-	public void setPrgClass(String prgClass) {
-		this.prgClass = prgClass;
-	}
+    public void setPrgClass(String prgClass) {
+	this.prgClass = prgClass;
+    }
 
-	public int getYearOfBirth() {
-		return yearOfBirth;
-	}
+    public int getYearOfBirth() {
+	return yearOfBirth;
+    }
 
-	public void setYearOfBirth(int yearOfBirth) {
-		this.yearOfBirth = yearOfBirth;
-	}
+    public void setYearOfBirth(int yearOfBirth) {
+	this.yearOfBirth = yearOfBirth;
+    }
 
-	public Map<DeviceType, Mark> getMarks() {
-		return marks;
-	}
+    public Map<DeviceType, Mark> getMarks() {
+	return marks;
+    }
 
-	public void setMarks(Map<DeviceType, Mark> marks) {
-		this.marks = marks;
-	}
+    public void setMarks(Map<DeviceType, Mark> marks) {
+	this.marks = marks;
+    }
 
-	public Association getAssociation() {
-		return association;
-	}
+    public Association getAssociation() {
+	return association;
+    }
 
-	public void setAssociation(Association association) {
-		this.association = association;
-	}
+    public void setAssociation(Association association) {
+	this.association = association;
+    }
 
-	@Override
-	public String toString() {
-		return String.format("(%d, %d)", this.squadId, this.athletId);
-	}
+    @Override
+    public String toString() {
+	return String.format("(%d, %d)", this.squadId, this.athletId);
+    }
 
-	public void addMark(DeviceType dt, Mark mark) {
-		marks.put(dt, mark);
-		
-	}
+    public void addMark(DeviceType dt, Mark mark) {
+	marks.put(dt, mark);
+
+    }
 }

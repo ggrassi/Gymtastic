@@ -40,6 +40,8 @@ public class Squad{
 		
 	}
 	
+	
+	
 	public int getSquadSize(){
 		return athlets.size();
 	}
@@ -62,6 +64,10 @@ public class Squad{
 
 	public void setAthlets(List<Athlet> athlets) {
 		this.athlets = athlets;
+	}
+
+	public Athlet getAthlete(int index) {
+	    return athlets.get(index);
 	}
 
 
