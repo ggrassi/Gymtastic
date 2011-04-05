@@ -1,50 +1,68 @@
 package domain;
 
-import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
-public class Squad implements Serializable {
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
-    private static final long serialVersionUID = -4834032781011953418L;
-    private List<Athlet> athlets;
-    private int squadId;
 
-    public Squad(int squadId) {
-	this.squadId = squadId;
-	athlets = new LinkedList<Athlet>();
-    }
+@Entity
+public class Squad{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private int squadId;
+	@OneToMany(cascade=CascadeType.ALL)
+	@OrderBy("athleteId ASC")
+	private List<Athlet> athlets;
 
-    public int getId() {
-	return squadId;
-    }
-    
-    public int getSquadSize(){
-	return athlets.size();
-    }
-
-    public void addAthlete(Athlet athlet) {
-	if (athlet != null && athlet.getSquadID() == squadId) {
-	    athlets.add(athlet);
+	public Squad() {
+		super();
+		athlets = new LinkedList<Athlet>();
 	}
-    }
-    
-    public Athlet getAthlete(int pos){
-	if(pos < athlets.size()){
-	    return athlets.get(pos);
-	}else{
-	    return null;
+
+	public Squad(int squadId) {
+		super();
+		this.squadId=squadId;
+		athlets = new LinkedList<Athlet>();
+	}
+
+	public void addAthlet(Athlet athlet) {
+		athlet.setSquad(this);
+		athlets.add(athlet);
+		
 	}
 	
-    }
-    
-    public void removeAthlete(Athlet athlet){
-	athlets.remove(athlet);
-    }
+	public int getSquadSize(){
+		return athlets.size();
+	}
+	
+	public int getId() {
+		return id;
+	}
 
-    @Override
-    public String toString() {
-	return "Squad [squadId=" + squadId + "]";
-    }
-    
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getSquadId() {
+		return squadId;
+	}
+
+	public Collection<Athlet> getAthlets() {
+		return athlets;
+	}
+
+	public void setAthlets(List<Athlet> athlets) {
+		this.athlets = athlets;
+	}
+
+
 }

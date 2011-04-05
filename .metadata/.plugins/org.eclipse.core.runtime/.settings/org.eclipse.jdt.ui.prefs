@@ -1,11 +1,11 @@
-#Wed Mar 30 14:12:14 CEST 2011
+#Tue Apr 05 17:04:49 CEST 2011
 content_assist_proposals_foreground=0,0,0
 spelling_locale_initialized=true
 formatter_profile=_Java Conventions Gymtastic-Style
 org.eclipse.jdt.ui.text.templates_migrated=true
 useAnnotationsPrefPage=true
 eclipse.preferences.version=1
-org.eclipse.jface.textfont=1|Monaco|11.0|0|COCOA|1|;
+org.eclipse.jface.textfont=1|Monospace|10.0|0|GTK|1|;
 tabWidthPropagated=true
 org.eclipse.jdt.ui.editor.tab.width=
 fontPropagated=true
