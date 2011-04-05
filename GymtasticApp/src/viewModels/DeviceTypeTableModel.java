@@ -18,7 +18,7 @@ public class DeviceTypeTableModel extends AbstractTableModel {
      * 
      */
     private static final long serialVersionUID = 1L;
-    private String[] columns = {"IP-Adresse","Gewünschtes Gerät"};
+    private String[] columns = { "IP-Adresse", "Gewünschtes Gerät" };
     private final RMIServer rmiServer;
 
     public DeviceTypeTableModel(RMIServer rmiServer) {
@@ -32,19 +32,22 @@ public class DeviceTypeTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-	return rmiServer.getClientsWaitingForAllocation().size();
+	if (rmiServer != null) {
+	    return rmiServer.getClientsWaitingForAllocation().size();
+	} else {
+	    return 0;
+	}
+
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-	
+
 	Set<Entry<DeviceType, ClientInformation>> clientSet = rmiServer.getClientsWaitingForAllocation().entrySet();
-	
-	
+
 	switch (columnIndex) {
 	case 0:
 	case 1:
-	
 
 	}
 	return null;
