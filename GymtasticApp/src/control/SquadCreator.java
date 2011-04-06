@@ -24,6 +24,8 @@ public class SquadCreator {
     private static final int startNrPositionImport = 1;
     private static final int squadPositionImport = 0;
 
+    
+    private int nonsense;
     private ImportStartList startList;
     private DBConnection db;
 
