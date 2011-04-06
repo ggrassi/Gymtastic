@@ -37,13 +37,13 @@ public class RMIServer extends Observable implements RMIServerInterface {
 
     @Override
     public void removeClient(RMIClientInterface client) throws RemoteException {
-
+	
 	updateObservers();
     }
 
     @Override
     public void uploadSquadToServer(Squad squad) throws RemoteException {
-
+//	updateObservers();
     }
 
     public Vector<ClientInformation> getClientsWaitingForAllocation() {
