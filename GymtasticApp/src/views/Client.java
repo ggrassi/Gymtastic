@@ -72,8 +72,17 @@ public class Client {
 	panelActualSquad.add(panelSquadInformation, BorderLayout.NORTH);
 	panelSquadInformation.setLayout(new BoxLayout(panelSquadInformation, BoxLayout.X_AXIS));
 	
-	JLabel lblNewLabel = new JLabel("New label");
-	panelSquadInformation.add(lblNewLabel);
+	JLabel lblTextSquadName = new JLabel("Riegen Name: ");
+	panelSquadInformation.add(lblTextSquadName);
+	
+	JLabel lblSquadName = new JLabel(" ");
+	panelSquadInformation.add(lblSquadName);
+	
+	JLabel lblTextNumberOfAthletes = new JLabel("Anzahl Athleten: ");
+	panelSquadInformation.add(lblTextNumberOfAthletes);
+	
+	JLabel lblNumberOfAthletes = new JLabel("");
+	panelSquadInformation.add(lblNumberOfAthletes);
 	
 	tableActualSquad = new JTable();
 	tableActualSquad.setModel(actualSquadTableModel);

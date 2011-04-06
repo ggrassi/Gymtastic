@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="lib/iText-5.0.6.jar"/>
 	<classpathentry kind="lib" path="/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/objectdb-2.2.0/jars/objectdb.jar"/>
+ cf4c5da2f2a006fa60dd7f8a7cda7021614766a9
 	<classpathentry kind="output" path="bin"/>
 </classpath>
