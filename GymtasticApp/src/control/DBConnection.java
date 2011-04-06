@@ -84,6 +84,10 @@ public class DBConnection {
 	public EntityManager getEm() {
 	    return em;
 	}
+
+	public <T> TypedQuery<T> createQuery(String str, Class<T> cla) {
+		return em.createQuery(str, cla);
+	}
 	
 
 }

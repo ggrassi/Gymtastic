@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+
+import control.DBConnection;
+
 public class Competition {
 
     private String prgClass;
@@ -24,7 +28,7 @@ public class Competition {
     }
     
     public void importAllSquads(){
-	
+    	
     }
     
  

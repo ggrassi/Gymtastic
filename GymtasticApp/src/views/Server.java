@@ -11,6 +11,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.io.FileNotFoundException;
 import java.rmi.RemoteException;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Map;
 
@@ -403,8 +404,8 @@ public class Server {
 	/* generate Squads with importlist */
 	System.out.println("******** Squad Generator *************");
 	SquadCreator squadCreator = new SquadCreator(importList);
-	Map<Integer, Squad> squads = squadCreator.createSquads();
-	cup.addSquads(squads);
+	squadCreator.insertImportToDB();
+	cup.importAllSquads();
 
 	/* create a competition in the cup */
 	System.out.println("******** Competition *************");
@@ -412,26 +413,26 @@ public class Server {
 		"Wettkampf Programm 1");
 	cup.addCompetition(competition1);
 
-	/* Riegeneinteilung - die ersten 6 Riegen zum Wettkampf1 hinzufügen */
+	/* Riegeneinteilung - die ersten 6 Riegen zum Wettkampf1 hinzufï¿½gen */
 	System.out.println("******** Add squads to Competition *************");
-	competition1.addSquad(squads.get(1));
-	competition1.addSquad(squads.get(2));
-	competition1.addSquad(squads.get(3));
-	competition1.addSquad(squads.get(4));
-	competition1.addSquad(squads.get(5));
-	competition1.addSquad(squads.get(6));
+	competition1.addSquad(cup.getSquad(1));
+	competition1.addSquad(cup.getSquad(2));
+	competition1.addSquad(cup.getSquad(3));
+	competition1.addSquad(cup.getSquad(4));
+	competition1.addSquad(cup.getSquad(5));
+	competition1.addSquad(cup.getSquad(6));
 
-	/* create the round allocation for the competition */
-	System.out.println("******** Round Allocation Generator *************");
-	RoundAllocation ra = new RoundAllocation(squads);
-	System.out.println("Riege vor der Rotation");
-	System.out.println(ra.getRoundAllocation(0));
-	System.out.println("Riege nach der Rotation");
-	System.out.println(ra.roundChange(ra.getRoundAllocation(0)));
-	//
+//	/* create the round allocation for the competition */
+//	System.out.println("******** Round Allocation Generator *************");
+//	RoundAllocation ra = new RoundAllocation(squads);
+//	System.out.println("Riege vor der Rotation");
+//	System.out.println(ra.getRoundAllocation(0));
+//	System.out.println("Riege nach der Rotation");
+//	System.out.println(ra.roundChange(ra.getRoundAllocation(0)));
+//	//
 
 	/* create a startlist pdf */
-	PdfExport export = new PdfExport(squads);
+	PdfExport export = new PdfExport(cup.getSquads());
 	try {
 	    export.createStartList("src/exporter/Startliste.pdf");
 	} catch (FileNotFoundException e) {
