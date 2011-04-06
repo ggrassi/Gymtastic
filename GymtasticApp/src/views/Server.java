@@ -128,7 +128,6 @@ public class Server {
 
 		tableDevices = new JTable();
 		tableDevices.setModel(deviceTypeTableModel);
-		tableDevices.setAutoCreateRowSorter(true);
 		tableDevices.getColumnModel().getColumn(1).setCellEditor(
 				new DeviceTypeEditor(cmbDeviceType));
 
