@@ -10,7 +10,7 @@ Thumbs.db
 *.odb
 *.odf
 .metadata/
-#.classpath
+.classpath
 .project
 .settings/
 #bin/
