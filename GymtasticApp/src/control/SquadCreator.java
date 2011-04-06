@@ -25,6 +25,7 @@ public class SquadCreator {
     private static final int squadPositionImport = 0;
 
     private ImportStartList startList;
+    private DBConnection db;
 
     public SquadCreator(ImportStartList importStartList) {
 	this.startList = importStartList;
@@ -41,7 +42,7 @@ public class SquadCreator {
 	}
 
 	for (List<String> line : importList) {
-	    squadMap.get(Integer.parseInt(line.get(squadPositionImport))).addAthlete(
+	    squadMap.get(Integer.parseInt(line.get(squadPositionImport))).addAthlet(
 		    new Athlet(Integer.parseInt(line.get(squadPositionImport)), Integer.parseInt(line
 			    .get(startNrPositionImport)), line.get(progClassPositionImport), line
 			    .get(firstNamePositionImport), line.get(lastNamePositionImport), line
@@ -60,6 +61,36 @@ public class SquadCreator {
 	    squadsNrList.add(Integer.parseInt(line.get(squadPositionImport)));
 	}
 	return squadsNrList;
+    }
+
+    public void insertImportToDB() {
+	db = new DBConnection();
+	List<List<String>> importList = startList.getImportList();
+	Set<Integer> squadsNrList = findSquadNumbers(importList);
+	for (Integer squadNr : squadsNrList) {
+	    db.persist(new Squad(squadNr));
+	}
+	db.commit();
+	db.closeConnection();
+	db = new DBConnection();
+	for (List<String> line : importList) {
+	    // db.begin();
+	    Squad temp = new Squad(Integer.parseInt(line.get(squadPositionImport)));
+	    temp = db.getEm().find(Squad.class, temp.getSquadId());
+
+	    Athlet atemp = new Athlet(Integer.parseInt(line.get(squadPositionImport)), Integer.parseInt(line
+		    .get(startNrPositionImport)), line.get(progClassPositionImport), line.get(firstNamePositionImport),
+		    line.get(lastNamePositionImport), line.get(addressPositionImport), Integer.parseInt(line
+			    .get(yearPositionImport)), new Association(line.get(associationNamePositionImport), line
+			    .get(associationPlacePositionImport)));
+	    db.persist(atemp);
+	    temp.addAthlet(atemp);
+	    db.persist(temp);
+
+	}
+	db.commit();
+
+	db.closeConnection();
     }
 
 }

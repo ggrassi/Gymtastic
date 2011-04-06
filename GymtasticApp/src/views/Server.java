@@ -45,7 +45,7 @@ public class Server {
     private JFrame frameServer;
     private JTable tableDevices;
     DeviceTypeTableModel deviceTypeTableModel;
-    
+
     static Gymcup cup;
 
     RMIServer rmiServer;

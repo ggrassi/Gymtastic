@@ -1,3 +1,22 @@
+<<<<<<< HEAD
+INDEX VERSION 1.126+/home/ggrassi/Dokumente/java/sep/Gymtastic/.metadata/.plugins/org.eclipse.jdt.core
+1189062746.index
+516116778.index
+2686503099.index
+1393721363.index
+823750906.index
+1445151894.index
+925624498.index
+3740762094.index
+1796948596.index
+1193566714.index
+737766193.index
+3223902160.index
+2040264796.index
+2889915287.index
+1654635368.index
+465338488.index
+=======
 INDEX VERSION 1.126+/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/.metadata/.plugins/org.eclipse.jdt.core
 1384487945.index
 1271342938.index
@@ -25,4 +44,9 @@ INDEX VERSION 1.126+/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/.me
 3712507179.index
 84777399.index
 1819685514.index
+<<<<<<< HEAD
 4249315662.index
+=======
+3712507179.index
+>>>>>>> 4d22f753d1b34e60fd39697c8c7bdefd882a3d4a
+>>>>>>> f29ea1c2cf3d4e7d5d7a6db848649d90c7768464
