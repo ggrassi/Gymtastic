@@ -14,6 +14,9 @@ import viewModels.ActualSquadTableModel;
 
 import network.RMIClient;
 import javax.swing.JScrollPane;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Client {
 
@@ -32,6 +35,7 @@ public class Client {
     JLabel lblNumberOfAthletes;
     JPanel panelControl;
     JScrollPane scrollPaneTableActualSquad;
+    private JButton btn;
 
     /**
      * Launch the application.
@@ -64,6 +68,7 @@ public class Client {
      */
     private void initialize() {
 	frameClient = new JFrame();
+	frameClient.setTitle("Gymtastic - Client");
 	frameClient.setBounds(100, 100, 645, 424);
 	frameClient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frameClient.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -94,11 +99,20 @@ public class Client {
 	lblTextNumberOfAthletes = new JLabel("Anzahl Athleten: ");
 	panelSquadInformation.add(lblTextNumberOfAthletes);
 
-	lblNumberOfAthletes = new JLabel("");
+	lblNumberOfAthletes = new JLabel("0");
 	panelSquadInformation.add(lblNumberOfAthletes);
 
 	panelControl = new JPanel();
 	panelActualSquad.add(panelControl, BorderLayout.SOUTH);
+	panelControl.setLayout(new BorderLayout(0, 0));
+	
+	btn = new JButton("Durchgang Abschliessen");
+	btn.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+		    
+		}
+	});
+	panelControl.add(btn, BorderLayout.EAST);
 
 	scrollPaneTableActualSquad = new JScrollPane();
 	panelActualSquad.add(scrollPaneTableActualSquad, BorderLayout.CENTER);

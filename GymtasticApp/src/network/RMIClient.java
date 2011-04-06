@@ -67,6 +67,7 @@ public class RMIClient extends Observable implements RMIClientInterface {
     public Squad getSquad() {
 	return squad;
     }
+    
 
     public RMIServerInterface getRmiServerInterface() {
 	return rmiServerInterface;

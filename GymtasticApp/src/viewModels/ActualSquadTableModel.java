@@ -44,12 +44,29 @@ public class ActualSquadTableModel extends AbstractTableModel implements Observe
     }
 
     @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+	if (columnIndex == 1) {
+	    return true;
+	}
+	return false;
+    }
+
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+	Athlet athlete = rmiClient.getSquad().getAthlete(rowIndex);
+
+	if (columnIndex == 1) {
+	    athlete.setFirstName((String) aValue);
+	}
+
+    }
+
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
 	if (squad != null) {
 
 	    Athlet athlet = squad.getAthlete(rowIndex);
-	    // Athlet athlet = new Athlet("Mathias","Fasser","Gutacker");
 
 	    switch (columnIndex) {
 	    case 0:
