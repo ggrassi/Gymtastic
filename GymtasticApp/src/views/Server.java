@@ -42,7 +42,7 @@ import exporter.PdfExport;
 
 public class Server {
 
-    private JFrame serverFrame;
+    private JFrame frameServer;
     private JTable tableDevices;
     DeviceTypeTableModel deviceTypeTableModel;
 
@@ -58,7 +58,7 @@ public class Server {
 	    public void run() {
 		try {
 		    Server window = new Server();
-		    window.serverFrame.setVisible(true);
+		    window.frameServer.setVisible(true);
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
@@ -85,13 +85,13 @@ public class Server {
      * Initialize the contents of the frame.
      */
     private void initialize() {
-	serverFrame = new JFrame();
-	serverFrame.setBounds(100, 100, 638, 474);
-	serverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	serverFrame.setExtendedState(Frame.MAXIMIZED_BOTH);
+	frameServer = new JFrame();
+	frameServer.setBounds(100, 100, 638, 474);
+	frameServer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	frameServer.setExtendedState(Frame.MAXIMIZED_BOTH);
 
 	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	serverFrame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
+	frameServer.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
 	JPanel panelGymCup = new JPanel();
 	tabbedPane.addTab("Cupverwaltung", null, panelGymCup, null);
@@ -382,10 +382,10 @@ public class Server {
 	tabbedPane.addTab("Ranglistengenerierung", null, panelRanking, null);
 
 	JPanel panelLogo = new JPanel();
-	serverFrame.getContentPane().add(panelLogo, BorderLayout.NORTH);
+	frameServer.getContentPane().add(panelLogo, BorderLayout.NORTH);
 
 	JPanel panelStatus = new JPanel();
-	serverFrame.getContentPane().add(panelStatus, BorderLayout.SOUTH);
+	frameServer.getContentPane().add(panelStatus, BorderLayout.SOUTH);
     }
 
     public static void emulateCup() {
