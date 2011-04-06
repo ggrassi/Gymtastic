@@ -13,9 +13,9 @@ public class RoundAllocation {
 	return roundlist.get(roundNr);
     }
 
-    public RoundAllocation(Map<Integer, Squad> squads) {
+    public RoundAllocation(List<Squad> squads) {
 	Map<DeviceType, Squad> map = new HashMap<DeviceType, Squad>();
-	int j = 1;
+	int j = 0;
 	for (DeviceType device : DeviceType.values()) {
 	    map.put(device, squads.get(j));
 	    j++;
@@ -23,14 +23,18 @@ public class RoundAllocation {
 	roundlist.add(map);
     }
 
+    public Squad getSquad(DeviceType deviceType, int round) {
+	return roundlist.get(round - 1).get(deviceType);
+    }
+
     public Map<DeviceType, Squad> roundChange(Map<DeviceType, Squad> origin) {
 
-	Map<DeviceType, Squad> changed = new HashMap<DeviceType,Squad>();
+	Map<DeviceType, Squad> changed = new HashMap<DeviceType, Squad>();
 	origin.putAll(changed);
-	
+
 	for (DeviceType device : DeviceType.values()) {
-	    int temp = device.getIndex();	    
-	    changed.put(device, origin.get(device.getDevice(++temp%6)));
+	    int temp = device.getIndex();
+	    changed.put(device, origin.get(device.getDevice(++temp % 6)));
 	}
 	return changed;
     }

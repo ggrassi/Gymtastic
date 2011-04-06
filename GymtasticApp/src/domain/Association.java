@@ -1,10 +1,16 @@
 package domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Association {
+public class Association implements Serializable {
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -3461109808214362308L;
 	private String name;
 	private String location;
 

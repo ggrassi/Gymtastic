@@ -8,12 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Athlet extends Person {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -18961899248373223L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -25,7 +28,6 @@ public class Athlet extends Person {
     private Map<DeviceType, Mark> marks;
     @Embedded
     private Association association;
-
 
     public Athlet(int squadID, int athletID, String prgClass, String vorname, String name, String adresse,
 	    int yearOfBirth, Association association) {
