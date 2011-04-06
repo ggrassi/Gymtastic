@@ -13,13 +13,14 @@ import domain.DeviceType;
 public class DeviceTypeTableModel extends AbstractTableModel implements
 		Observer {
 
-	/**
+    /**
      * 
      */
-	private static final long serialVersionUID = 1L;
-	private String[] columns = { "IP-Adresse", "Gewünschtes Gerät" };
-	private final RMIServer rmiServer;
+    private static final long serialVersionUID = 1L;
+    private String[] columns = { "IP-Adresse", "Gewünschtes Gerät" };
+    private final RMIServer rmiServer;
 
+<<<<<<< HEAD
 	public DeviceTypeTableModel(RMIServer rmiServer) {
 		this.rmiServer = rmiServer;
 		this.rmiServer.addObserver(this);
@@ -29,12 +30,28 @@ public class DeviceTypeTableModel extends AbstractTableModel implements
 	public int getColumnCount() {
 		return columns.length;
 	}
+=======
+    public DeviceTypeTableModel(RMIServer rmiServer) {
+	this.rmiServer = rmiServer;
+	this.rmiServer.addObserver(this);
+    }
 
-	@Override
-	public int getRowCount() {
-		return rmiServer.getClientsWaitingForAllocation().size();
+    @Override
+    public int getColumnCount() {
+	return columns.length;
+    }
+>>>>>>> 3c7a84274fe90e2f0d5186a77ce9eb159c8740d4
+
+    @Override
+    public int getRowCount() {
+	if (rmiServer != null) {
+	    return rmiServer.getClientsWaitingForAllocation().size();
+	} else {
+	    return 0;
 	}
+    }
 
+<<<<<<< HEAD
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		ClientInformation client = getClient(rowIndex);
@@ -46,8 +63,22 @@ public class DeviceTypeTableModel extends AbstractTableModel implements
 			return client.getDeviceType();
 		}
 		return "";
-	}
+=======
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+	ClientInformation client = rmiServer.getClientsWaitingForAllocation().get(rowIndex);
 
+	switch (columnIndex) {
+	case 0:
+	    return client.getHost();
+	case 1:
+	    return client.getDeviceType();
+>>>>>>> 3c7a84274fe90e2f0d5186a77ce9eb159c8740d4
+	}
+	return "";
+    }
+
+<<<<<<< HEAD
 	private ClientInformation getClient(int rowIndex) {
 		ClientInformation client = rmiServer.getClientsWaitingForAllocation()
 				.get(rowIndex);
@@ -73,4 +104,11 @@ public class DeviceTypeTableModel extends AbstractTableModel implements
 	}
 	
 
+=======
+    @Override
+    public void update(Observable arg0, Object arg1) {
+	fireTableChanged(new TableModelEvent(this, TableModelEvent.INSERT));
+    }
+
+>>>>>>> 3c7a84274fe90e2f0d5186a77ce9eb159c8740d4
 }

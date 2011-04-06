@@ -43,7 +43,7 @@ public class DBConnection {
 		return em.createQuery(sqlQuery);
 	}
 
-	private void commit() {
+	public void commit() {
 		em.getTransaction().commit();
 	}
 
@@ -76,5 +76,14 @@ public class DBConnection {
 	private void startTransaction() {
 		this.em.getTransaction().begin();
 	}
+	
+	public void persist(Object o){
+	    em.persist(o);
+	}
+
+	public EntityManager getEm() {
+	    return em;
+	}
+	
 
 }

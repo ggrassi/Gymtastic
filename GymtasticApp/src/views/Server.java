@@ -45,6 +45,7 @@ import exporter.PdfExport;
 
 public class Server {
 
+<<<<<<< HEAD
 	private JComboBox cmbDeviceType = new JComboBox();
 	private JFrame serverFrame;
 	private JTable tableDevices;
@@ -70,6 +71,15 @@ public class Server {
 			}
 		});
 	}
+=======
+    private JFrame serverFrame;
+    private JTable tableDevices;
+    DeviceTypeTableModel deviceTypeTableModel;
+
+    static Gymcup cup;
+
+    RMIServer rmiServer;
+>>>>>>> 3c7a84274fe90e2f0d5186a77ce9eb159c8740d4
 
 	/**
 	 * Create the application.
