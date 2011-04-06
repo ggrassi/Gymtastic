@@ -24,11 +24,11 @@ public class RMIClient extends Observable implements RMIClientInterface {
 	updateObservers();
     }
 
-
     public RMIClient() throws Exception {
     }
 
-    public RMIClient(String host) throws Exception {
+
+    public RMIClient(String host) {
 	this.serverIP = host;
     }
 
@@ -71,7 +71,7 @@ public class RMIClient extends Observable implements RMIClientInterface {
     public RMIServerInterface getRmiServerInterface() {
 	return rmiServerInterface;
     }
-    
+
     private void updateObservers() {
 	setChanged();
 	notifyObservers();
