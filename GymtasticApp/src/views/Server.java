@@ -392,23 +392,22 @@ public class Server {
 	JButton btnDurchgangFreigeben = new JButton("Durchgang Freigeben");
 	btnDurchgangFreigeben.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
-		// for (DeviceType device : DeviceType.values()) {
-		//
-		// try {
-		// clientAllocation.getClientStub(device).uploadSquadToClient(
-		// cup.getCompetitions().get(0).getRoundAllocation().getSquad(device,
-		// 1));
-		// } catch (RemoteException e1) {
-		// e1.printStackTrace();
-		// }
-		// }
-		Squad squad = new Squad(1);
-		squad.addAthlet(new Athlet("Fotze", "Muschi", "penissstrasse"));
-		try {
-		    clientAllocation.getClientStub(DeviceType.FLOOR_EXCERCISE).uploadSquadToClient(squad);
-		} catch (RemoteException e1) {
-		    e1.printStackTrace();
+		for (DeviceType device : DeviceType.values()) {
+
+		    try {
+			clientAllocation.getClientStub(device).uploadSquadToClient(
+				cup.getCompetitions().get(0).getRoundAllocation().getSquad(device, 1));
+		    } catch (RemoteException e1) {
+			e1.printStackTrace();
+		    }
 		}
+//		Squad squad = new Squad(1);
+//		squad.addAthlet(new Athlet("Fotze", "Muschi", "penissstrasse"));
+//		try {
+//		    clientAllocation.getClientStub(DeviceType.FLOOR_EXCERCISE).uploadSquadToClient(squad);
+//		} catch (RemoteException e1) {
+//		    e1.printStackTrace();
+//		}
 	    }
 	});
 	GridBagConstraints gbc_btnDurchgangFreigeben = new GridBagConstraints();
