@@ -1,0 +1,25 @@
+package application;
+
+
+<<<<<<< HEAD
+=======
+import views.Server;
+
+import network.RMIServer;
+>>>>>>> 5190303d18556fa4ed738b49bd7d861fa9e449b3
+
+public class Gymtastic_Server {
+
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+	
+	Server.emulateCup();
+	views.Server.newServerFrame();		
+
+    }
+    
+    
+
+}
