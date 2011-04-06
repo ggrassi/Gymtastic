@@ -12,8 +12,10 @@ Thumbs.db
 .metadata/
 #.classpath
 .project
-.settings/
-bin/
-objectdb-2.2.0/
+#.settings/
+#bin/
+#objectdb-2.2.0/
+#log/
+#db/
 #ignore temporary enterprise architect files
 .ldb
