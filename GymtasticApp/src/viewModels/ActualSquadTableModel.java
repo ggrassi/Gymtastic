@@ -16,7 +16,7 @@ public class ActualSquadTableModel extends AbstractTableModel implements Observe
      * 
      */
     private static final long serialVersionUID = 1L;
-    private String[] columns = { "Athlet ID", "Vorname", "Nachname","Jahrgang", "Leistungsklasse"};
+    private String[] columns = { "Athlet ID", "Vorname", "Nachname", "Jahrgang", "Leistungsklasse" };
     private final RMIClient rmiClient;
 
     public ActualSquadTableModel(RMIClient rmiClient) {
@@ -40,24 +40,28 @@ public class ActualSquadTableModel extends AbstractTableModel implements Observe
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-	Athlet athlet = rmiClient.getSquad().getAthlete(rowIndex);
-//	Athlet athlet = new Athlet("Mathias","Fasser","Gutacker");
-	
 
-	switch (columnIndex) {
-	case 0:
-	    return athlet.getAthletId();
-	case 1:
-	    return athlet.getFirstName();
-	case 2:
-	    return athlet.getLastName();
-	case 3:
-	    return athlet.getYearOfBirth();
-	case 4:
-	    return athlet.getPrgClass();
+	if (rmiClient.getSquad() != null) {
 
+	    Athlet athlet = rmiClient.getSquad().getAthlete(rowIndex);
+	    // Athlet athlet = new Athlet("Mathias","Fasser","Gutacker");
+
+	    switch (columnIndex) {
+	    case 0:
+		return athlet.getAthletId();
+	    case 1:
+		return athlet.getFirstName();
+	    case 2:
+		return athlet.getLastName();
+	    case 3:
+		return athlet.getYearOfBirth();
+	    case 4:
+		return athlet.getPrgClass();
+
+	    }
 	}
 	return "";
+
     }
 
     @Override

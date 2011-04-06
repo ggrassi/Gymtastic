@@ -4313,3 +4313,13 @@ Java Model Exception: Java Model Status [src [in GymtasticApp] does not exist]
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1408)
 !SUBENTRY 1 org.eclipse.jdt.core 4 969 2011-04-06 13:40:32.629
 !MESSAGE src [in GymtasticApp] does not exist
+!SESSION 2011-04-06 14:47:30.961 -----------------------------------------------
+eclipse.buildId=M20110210-1200
+java.version=1.6.0_24
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -keyring /Users/mathias/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/mathias/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2011-04-06 14:47:38.325
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
