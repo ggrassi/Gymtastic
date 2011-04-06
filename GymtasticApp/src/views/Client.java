@@ -13,6 +13,7 @@ import javax.swing.BoxLayout;
 import viewModels.ActualSquadTableModel;
 
 import network.RMIClient;
+import javax.swing.JScrollPane;
 
 public class Client {
 
@@ -20,6 +21,17 @@ public class Client {
     private JTable tableActualSquad;
     RMIClient client;
     ActualSquadTableModel actualSquadTableModel;
+    JPanel panelStatus;
+    JPanel panelLogo;
+    JTabbedPane tabbedPane;
+    JPanel panelActualSquad;
+    JPanel panelSquadInformation;
+    JLabel lblTextSquadName;
+    JLabel lblSquadName;
+    JLabel lblTextNumberOfAthletes;
+    JLabel lblNumberOfAthletes;
+    JPanel panelControl;
+    JScrollPane scrollPaneTableActualSquad;
 
     /**
      * Launch the application.
@@ -54,42 +66,45 @@ public class Client {
 	frameClient.setBounds(100, 100, 645, 424);
 	frameClient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frameClient.getContentPane().setLayout(new BorderLayout(0, 0));
-	JPanel panelStatus = new JPanel();
-	
+	panelStatus = new JPanel();
+
 	frameClient.getContentPane().add(panelStatus, BorderLayout.SOUTH);
-	
-	JPanel panelLogo = new JPanel();
+
+	panelLogo = new JPanel();
 	frameClient.getContentPane().add(panelLogo, BorderLayout.NORTH);
-	
-	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+
+	tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	frameClient.getContentPane().add(tabbedPane, BorderLayout.CENTER);
-	
-	JPanel panelActualSquad = new JPanel();
+
+	panelActualSquad = new JPanel();
 	tabbedPane.addTab("Aktuelle Riege", null, panelActualSquad, null);
 	panelActualSquad.setLayout(new BorderLayout(0, 0));
-	
-	JPanel panelSquadInformation = new JPanel();
+
+	panelSquadInformation = new JPanel();
 	panelActualSquad.add(panelSquadInformation, BorderLayout.NORTH);
 	panelSquadInformation.setLayout(new BoxLayout(panelSquadInformation, BoxLayout.X_AXIS));
-	
-	JLabel lblTextSquadName = new JLabel("Riegen Name: ");
+
+	lblTextSquadName = new JLabel("Riegen Name: ");
 	panelSquadInformation.add(lblTextSquadName);
-	
-	JLabel lblSquadName = new JLabel(" ");
+
+	lblSquadName = new JLabel(" ");
 	panelSquadInformation.add(lblSquadName);
-	
-	JLabel lblTextNumberOfAthletes = new JLabel("Anzahl Athleten: ");
+
+	lblTextNumberOfAthletes = new JLabel("Anzahl Athleten: ");
 	panelSquadInformation.add(lblTextNumberOfAthletes);
-	
-	JLabel lblNumberOfAthletes = new JLabel("");
+
+	lblNumberOfAthletes = new JLabel("");
 	panelSquadInformation.add(lblNumberOfAthletes);
-	
+
+	panelControl = new JPanel();
+	panelActualSquad.add(panelControl, BorderLayout.SOUTH);
+
+	scrollPaneTableActualSquad = new JScrollPane();
+	panelActualSquad.add(scrollPaneTableActualSquad, BorderLayout.CENTER);
+
 	tableActualSquad = new JTable();
 	tableActualSquad.setModel(actualSquadTableModel);
-	panelActualSquad.add(tableActualSquad, BorderLayout.CENTER);
-	
-	JPanel panelControl = new JPanel();
-	panelActualSquad.add(panelControl, BorderLayout.SOUTH);
+	scrollPaneTableActualSquad.setViewportView(tableActualSquad);
     }
 
 }

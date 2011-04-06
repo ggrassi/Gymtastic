@@ -15,14 +15,13 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.rmi.RemoteException;
 import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -30,7 +29,6 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
-import network.ClientInformation;
 import network.RMIServer;
 import view.editor.DeviceTypeEditor;
 import viewModels.DeviceTypeTableModel;
@@ -54,6 +52,7 @@ public class Server {
     private DeviceTypeTableModel deviceTypeTableModel;
     private JComboBox cmbDeviceType = new JComboBox();
     private ClientAllocation clientAllocation;
+    private JScrollPane scrollPaneTableDevices;
 
     static Gymcup cup;
 
@@ -117,11 +116,6 @@ public class Server {
 	tabbedPane.addTab("Ger\u00E4tezuweisung", null, panelDeviceType, null);
 	panelDeviceType.setLayout(new BorderLayout(0, 0));
 
-	tableDevices = new JTable();
-	tableDevices.setModel(deviceTypeTableModel);
-	tableDevices.getColumnModel().getColumn(1).setCellEditor(new DeviceTypeEditor(cmbDeviceType));
-	panelDeviceType.add(tableDevices, BorderLayout.CENTER);
-
 	JPanel panelControl = new JPanel();
 	panelDeviceType.add(panelControl, BorderLayout.SOUTH);
 	panelControl.setLayout(new BorderLayout(0, 0));
@@ -134,6 +128,14 @@ public class Server {
 	    }
 	});
 	panelControl.add(btnAllocateAllDevices, BorderLayout.EAST);
+
+	tableDevices = new JTable();
+	tableDevices.setModel(deviceTypeTableModel);
+	tableDevices.getColumnModel().getColumn(1).setCellEditor(new DeviceTypeEditor(cmbDeviceType));
+
+	scrollPaneTableDevices = new JScrollPane();
+	panelDeviceType.add(scrollPaneTableDevices, BorderLayout.CENTER);
+	scrollPaneTableDevices.setViewportView(tableDevices);
 
 	JPanel RoundAllocatoin = new JPanel();
 	tabbedPane.addTab("Durchgangssteuerung", null, RoundAllocatoin, null);
@@ -480,5 +482,4 @@ public class Server {
 	    e.printStackTrace();
 	}
     }
-
 }

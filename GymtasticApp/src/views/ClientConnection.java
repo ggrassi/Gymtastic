@@ -41,9 +41,6 @@ public class ClientConnection {
 	 * Launch the application.
 	 */
 
-	public static void main(String[] args) {
-		ClientConnection.newClientConnectionFrame();
-	}
 
 	public static void newClientConnectionFrame() {
 		EventQueue.invokeLater(new Runnable() {

@@ -27,4 +27,5 @@
 <fullyQualifiedTypeName name="domain.Squad"/>
 <fullyQualifiedTypeName name="viewModels.ActualSquadTableModel"/>
 <fullyQualifiedTypeName name="domain.Athlet"/>
+<fullyQualifiedTypeName name="views.ClientConnection"/>
 </qualifiedTypeNameHistroy>

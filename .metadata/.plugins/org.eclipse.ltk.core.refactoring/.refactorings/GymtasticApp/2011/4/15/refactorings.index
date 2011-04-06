@@ -4,3 +4,4 @@
 1302085902384	Copy compilation unit
 1302088112378	Extract method 'updateObservers'
 1302092261890	Delete elements
+1302099678427	Rename local variable 'scrollPane'
