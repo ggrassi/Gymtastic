@@ -27,6 +27,7 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import network.RMIServer;
+import view.editor.DeviceTypeEditor;
 import viewModels.DeviceTypeTableModel;
 
 import com.itextpdf.text.DocumentException;
@@ -36,6 +37,8 @@ import domain.ClientAllocation;
 import domain.Competition;
 import domain.Gymcup;
 import exporter.PdfExport;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Server {
 
@@ -109,6 +112,8 @@ public class Server {
 
 		tableDevices = new JTable();
 		tableDevices.setModel(deviceTypeTableModel);
+		tableDevices.getColumnModel().getColumn(1).setCellEditor(
+				new DeviceTypeEditor(cmbDeviceType));
 		panelDeviceType.add(tableDevices, BorderLayout.CENTER);
 
 		JPanel panelControl = new JPanel();
@@ -116,6 +121,12 @@ public class Server {
 		panelControl.setLayout(new BorderLayout(0, 0));
 
 		JButton btnAllocateAllDevices = new JButton("Alle Zuweisen");
+		btnAllocateAllDevices.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				clientAllocation = new ClientAllocation();
+				clientAllocation.addAll(rmiServer.getClientsWaitingForAllocation());
+			}
+		});
 		panelControl.add(btnAllocateAllDevices, BorderLayout.EAST);
 
 		JPanel RoundAllocatoin = new JPanel();
