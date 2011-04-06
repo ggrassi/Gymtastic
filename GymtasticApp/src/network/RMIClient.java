@@ -7,11 +7,12 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Observable;
 
 import domain.DeviceType;
 import domain.Squad;
 
-public class RMIClient implements RMIClientInterface {
+public class RMIClient extends Observable implements RMIClientInterface {
 
     private String serverIP = "localhost";
     private RMIServerInterface rmiServerInterface;
@@ -19,8 +20,10 @@ public class RMIClient implements RMIClientInterface {
 
     @Override
     public void uploadSquadToClient(Squad squad) throws RemoteException {
-
+	this.squad = squad;
+	updateObservers();
     }
+
 
     public RMIClient() throws Exception {
     }
@@ -67,6 +70,11 @@ public class RMIClient implements RMIClientInterface {
 
     public RMIServerInterface getRmiServerInterface() {
 	return rmiServerInterface;
+    }
+    
+    private void updateObservers() {
+	setChanged();
+	notifyObservers();
     }
 
 }

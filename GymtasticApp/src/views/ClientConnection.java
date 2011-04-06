@@ -152,6 +152,9 @@ public class ClientConnection {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				
+				Client.newClientFrame(client);
+				frmClientConnection.dispose();
 
 			}
 		});
