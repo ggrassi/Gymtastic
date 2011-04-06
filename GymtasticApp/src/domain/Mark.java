@@ -1,11 +1,17 @@
 package domain;
 
 
+import java.io.Serializable;
+
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Mark {
+public class Mark implements Serializable{
 
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -2064909882686204715L;
 	private double dMark;
 	private double eMarkOne;
 	private double eMarkTwo;
