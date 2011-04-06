@@ -13,7 +13,6 @@ Thumbs.db
 .classpath
 .project
 .settings/
-bin/
 objectdb-2.2.0/
 log/
 db/
