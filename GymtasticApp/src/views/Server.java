@@ -39,6 +39,7 @@ import domain.Gymcup;
 import exporter.PdfExport;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
 public class Server {
 
@@ -47,6 +48,7 @@ public class Server {
 	private DeviceTypeTableModel deviceTypeTableModel;
 	private JComboBox cmbDeviceType = new JComboBox();
 	private ClientAllocation clientAllocation;
+	private JScrollPane scrollPaneTableDevices;
 
 	static Gymcup cup;
 
@@ -110,12 +112,6 @@ public class Server {
 		tabbedPane.addTab("Ger\u00E4tezuweisung", null, panelDeviceType, null);
 		panelDeviceType.setLayout(new BorderLayout(0, 0));
 
-		tableDevices = new JTable();
-		tableDevices.setModel(deviceTypeTableModel);
-		tableDevices.getColumnModel().getColumn(1).setCellEditor(
-				new DeviceTypeEditor(cmbDeviceType));
-		panelDeviceType.add(tableDevices, BorderLayout.CENTER);
-
 		JPanel panelControl = new JPanel();
 		panelDeviceType.add(panelControl, BorderLayout.SOUTH);
 		panelControl.setLayout(new BorderLayout(0, 0));
@@ -124,10 +120,21 @@ public class Server {
 		btnAllocateAllDevices.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				clientAllocation = new ClientAllocation();
-				clientAllocation.addAll(rmiServer.getClientsWaitingForAllocation());
+				clientAllocation.addAll(rmiServer
+						.getClientsWaitingForAllocation());
 			}
 		});
 		panelControl.add(btnAllocateAllDevices, BorderLayout.EAST);
+
+		tableDevices = new JTable();
+		tableDevices.setModel(deviceTypeTableModel);
+		tableDevices.setAutoCreateRowSorter(true);
+		tableDevices.getColumnModel().getColumn(1).setCellEditor(
+				new DeviceTypeEditor(cmbDeviceType));
+
+		scrollPaneTableDevices = new JScrollPane();
+		panelDeviceType.add(scrollPaneTableDevices, BorderLayout.CENTER);
+		scrollPaneTableDevices.setViewportView(tableDevices);
 
 		JPanel RoundAllocatoin = new JPanel();
 		tabbedPane.addTab("Durchgangssteuerung", null, RoundAllocatoin, null);
@@ -253,8 +260,8 @@ public class Server {
 		gbl_panelClientStatus.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panelClientStatus.columnWeights = new double[] { 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_panelClientStatus.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				Double.MIN_VALUE };
+		gbl_panelClientStatus.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, Double.MIN_VALUE };
 		panelClientStatus.setLayout(gbl_panelClientStatus);
 
 		JLabel lblFloor = new JLabel("Boden");
@@ -306,58 +313,58 @@ public class Server {
 		gbc_lblRingsStatusText.gridx = 2;
 		gbc_lblRingsStatusText.gridy = 2;
 		panelClientStatus.add(lblRingsStatusText, gbc_lblRingsStatusText);
-		
-				JLabel lblVault = new JLabel("Sprung");
-				GridBagConstraints gbc_lblVault = new GridBagConstraints();
-				gbc_lblVault.anchor = GridBagConstraints.WEST;
-				gbc_lblVault.insets = new Insets(0, 0, 5, 5);
-				gbc_lblVault.gridx = 0;
-				gbc_lblVault.gridy = 3;
-				panelClientStatus.add(lblVault, gbc_lblVault);
-						
-								JLabel lblVaultStatusText = new JLabel(
-										"Ger\u00E4tedurchgang nicht gestartet");
-								GridBagConstraints gbc_lblVaultStatusText = new GridBagConstraints();
-								gbc_lblVaultStatusText.anchor = GridBagConstraints.WEST;
-								gbc_lblVaultStatusText.insets = new Insets(0, 0, 5, 5);
-								gbc_lblVaultStatusText.gridx = 2;
-								gbc_lblVaultStatusText.gridy = 3;
-								panelClientStatus.add(lblVaultStatusText, gbc_lblVaultStatusText);
-				
-						JLabel lblParallelBars = new JLabel("Barren");
-						GridBagConstraints gbc_lblParallelBars = new GridBagConstraints();
-						gbc_lblParallelBars.anchor = GridBagConstraints.WEST;
-						gbc_lblParallelBars.insets = new Insets(0, 0, 5, 5);
-						gbc_lblParallelBars.gridx = 0;
-						gbc_lblParallelBars.gridy = 4;
-						panelClientStatus.add(lblParallelBars, gbc_lblParallelBars);
-								
-										JLabel lblParallelBarsStatusText = new JLabel(
-												"Ger\u00E4tedurchgang nicht gestartet");
-										GridBagConstraints gbc_lblParallelBarsStatusText = new GridBagConstraints();
-										gbc_lblParallelBarsStatusText.anchor = GridBagConstraints.WEST;
-										gbc_lblParallelBarsStatusText.insets = new Insets(0, 0, 5, 5);
-										gbc_lblParallelBarsStatusText.gridx = 2;
-										gbc_lblParallelBarsStatusText.gridy = 4;
-										panelClientStatus.add(lblParallelBarsStatusText,
-												gbc_lblParallelBarsStatusText);
-						
-								JLabel lblHighBar = new JLabel("Reck");
-								GridBagConstraints gbc_lblHighBar = new GridBagConstraints();
-								gbc_lblHighBar.anchor = GridBagConstraints.WEST;
-								gbc_lblHighBar.insets = new Insets(0, 0, 0, 5);
-								gbc_lblHighBar.gridx = 0;
-								gbc_lblHighBar.gridy = 5;
-								panelClientStatus.add(lblHighBar, gbc_lblHighBar);
-								
-										JLabel lblHighBarStatusText = new JLabel(
-												"Ger\u00E4tedurchgang nicht gestartet");
-										GridBagConstraints gbc_lblHighBarStatusText = new GridBagConstraints();
-										gbc_lblHighBarStatusText.insets = new Insets(0, 0, 0, 5);
-										gbc_lblHighBarStatusText.anchor = GridBagConstraints.WEST;
-										gbc_lblHighBarStatusText.gridx = 2;
-										gbc_lblHighBarStatusText.gridy = 5;
-										panelClientStatus.add(lblHighBarStatusText, gbc_lblHighBarStatusText);
+
+		JLabel lblVault = new JLabel("Sprung");
+		GridBagConstraints gbc_lblVault = new GridBagConstraints();
+		gbc_lblVault.anchor = GridBagConstraints.WEST;
+		gbc_lblVault.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVault.gridx = 0;
+		gbc_lblVault.gridy = 3;
+		panelClientStatus.add(lblVault, gbc_lblVault);
+
+		JLabel lblVaultStatusText = new JLabel(
+				"Ger\u00E4tedurchgang nicht gestartet");
+		GridBagConstraints gbc_lblVaultStatusText = new GridBagConstraints();
+		gbc_lblVaultStatusText.anchor = GridBagConstraints.WEST;
+		gbc_lblVaultStatusText.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVaultStatusText.gridx = 2;
+		gbc_lblVaultStatusText.gridy = 3;
+		panelClientStatus.add(lblVaultStatusText, gbc_lblVaultStatusText);
+
+		JLabel lblParallelBars = new JLabel("Barren");
+		GridBagConstraints gbc_lblParallelBars = new GridBagConstraints();
+		gbc_lblParallelBars.anchor = GridBagConstraints.WEST;
+		gbc_lblParallelBars.insets = new Insets(0, 0, 5, 5);
+		gbc_lblParallelBars.gridx = 0;
+		gbc_lblParallelBars.gridy = 4;
+		panelClientStatus.add(lblParallelBars, gbc_lblParallelBars);
+
+		JLabel lblParallelBarsStatusText = new JLabel(
+				"Ger\u00E4tedurchgang nicht gestartet");
+		GridBagConstraints gbc_lblParallelBarsStatusText = new GridBagConstraints();
+		gbc_lblParallelBarsStatusText.anchor = GridBagConstraints.WEST;
+		gbc_lblParallelBarsStatusText.insets = new Insets(0, 0, 5, 5);
+		gbc_lblParallelBarsStatusText.gridx = 2;
+		gbc_lblParallelBarsStatusText.gridy = 4;
+		panelClientStatus.add(lblParallelBarsStatusText,
+				gbc_lblParallelBarsStatusText);
+
+		JLabel lblHighBar = new JLabel("Reck");
+		GridBagConstraints gbc_lblHighBar = new GridBagConstraints();
+		gbc_lblHighBar.anchor = GridBagConstraints.WEST;
+		gbc_lblHighBar.insets = new Insets(0, 0, 0, 5);
+		gbc_lblHighBar.gridx = 0;
+		gbc_lblHighBar.gridy = 5;
+		panelClientStatus.add(lblHighBar, gbc_lblHighBar);
+
+		JLabel lblHighBarStatusText = new JLabel(
+				"Ger\u00E4tedurchgang nicht gestartet");
+		GridBagConstraints gbc_lblHighBarStatusText = new GridBagConstraints();
+		gbc_lblHighBarStatusText.insets = new Insets(0, 0, 0, 5);
+		gbc_lblHighBarStatusText.anchor = GridBagConstraints.WEST;
+		gbc_lblHighBarStatusText.gridx = 2;
+		gbc_lblHighBarStatusText.gridy = 5;
+		panelClientStatus.add(lblHighBarStatusText, gbc_lblHighBarStatusText);
 
 		JPanel panelRoundControlBorder = new JPanel();
 		panelRoundControlBorder.setBorder(new TitledBorder(UIManager
