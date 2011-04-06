@@ -35,7 +35,7 @@ public class Squad{
 	}
 
 	public void addAthlet(Athlet athlet) {
-//		athlet.setSquad(this);
+		athlet.setSquad(this);
 		athlets.add(athlet);
 		
 	}
@@ -66,17 +66,8 @@ public class Squad{
 		this.athlets = athlets;
 	}
 
-<<<<<<< HEAD
-	public Athlet getAthlet(int i){
-	    return athlets.get(i);
-=======
 	public Athlet getAthlete(int index) {
 	    return athlets.get(index);
->>>>>>> 61c1a6459e65b278bd9bb8c5b62281e235c5d90c
-	}
-	
-	public String toString(){
-	    return ""+squadId;
 	}
 
 

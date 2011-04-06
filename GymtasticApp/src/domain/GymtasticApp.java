@@ -24,7 +24,18 @@ public class GymtasticApp {
 	System.out.println("******** Squad Generator *************");
 	SquadCreator squadCreator = new SquadCreator(importList);
 	Map<Integer, Squad> squads = squadCreator.createSquads();
-	squadCreator.insertImportToDB();
+	
+	System.out.println("******** DB *************");
+	DBConnection db = new DBConnection();
+	
+	db.insert(squads);
+	db.closeConnection();
+	DBConnection db2 = new DBConnection();
+//	db.getAllSquads();
+//	db.closeConnection();
+	//db.getAllSquads();
+	System.out.println("DB Connection closed");
+	
 	
 	RoundAllocation ra = new RoundAllocation(squads);
 	System.out.println(ra.getRoundAllocation(0));

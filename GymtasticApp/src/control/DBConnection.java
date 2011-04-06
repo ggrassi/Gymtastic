@@ -27,14 +27,6 @@ public class DBConnection {
 		mark = new Mark(4, 5, 3, 5, 3, 4, 3);
 
 	}
-	
-	
-
-	public EntityManager getEm() {
-	    return em;
-	}
-
-
 
 	public void closeConnection() {
 
@@ -51,8 +43,8 @@ public class DBConnection {
 		return em.createQuery(sqlQuery);
 	}
 
-	public void commit() {
-		this.em.getTransaction().commit();
+	private void commit() {
+		em.getTransaction().commit();
 	}
 
 	public void insert(Map<Integer, Squad> squads) {
@@ -60,7 +52,7 @@ public class DBConnection {
 		Iterator<Squad> it = c.iterator();
 		while (it.hasNext()) {
 			Squad temp;
-			this.em.persist(temp=it.next());
+			em.persist(temp=it.next());
 		}
 		commit();
 
@@ -78,19 +70,11 @@ public class DBConnection {
 	private void connect(String path) {
 		this.emf = Persistence.createEntityManagerFactory(path);
 		this.em = emf.createEntityManager();
-		begin();
+		startTransaction();
 	}
 
-	public void begin() {
+	private void startTransaction() {
 		this.em.getTransaction().begin();
-	}
-
-	public void persist(Object o) {
-	    em.persist(o);
-	}
-
-	public <T> Object find(Class<T> class1, int id) {
-	    return em.find(class1, id);
 	}
 
 }
