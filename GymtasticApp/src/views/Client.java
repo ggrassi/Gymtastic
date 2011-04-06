@@ -13,6 +13,7 @@ import javax.swing.BoxLayout;
 import viewModels.ActualSquadTableModel;
 
 import network.RMIClient;
+import javax.swing.JScrollPane;
 
 public class Client {
 
@@ -84,12 +85,16 @@ public class Client {
 	JLabel lblNumberOfAthletes = new JLabel("");
 	panelSquadInformation.add(lblNumberOfAthletes);
 	
+	JPanel panelControl = new JPanel();
+	panelActualSquad.add(panelControl, BorderLayout.SOUTH);
+	
+	JScrollPane scrollPaneTableActualSquad = new JScrollPane();
+	scrollPaneTableActualSquad.setViewportView(tableActualSquad);
+	panelActualSquad.add(scrollPaneTableActualSquad, BorderLayout.CENTER);
+	
 	tableActualSquad = new JTable();
 	tableActualSquad.setModel(actualSquadTableModel);
 	panelActualSquad.add(tableActualSquad, BorderLayout.CENTER);
-	
-	JPanel panelControl = new JPanel();
-	panelActualSquad.add(panelControl, BorderLayout.SOUTH);
     }
 
 }
