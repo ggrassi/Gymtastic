@@ -1,5 +1,8 @@
 package domain;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Association {
 
 	private String name;
