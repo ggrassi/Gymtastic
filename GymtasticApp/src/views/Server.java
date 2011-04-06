@@ -4,11 +4,14 @@ import importer.ImportStartList;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.rmi.RemoteException;
 import java.util.GregorianCalendar;
@@ -22,19 +25,18 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import network.RMIServer;
-
 import view.editor.DeviceTypeEditor;
 import viewModels.DeviceTypeTableModel;
-import java.awt.Dimension;
-import javax.swing.SpinnerNumberModel;
 
 import com.itextpdf.text.DocumentException;
 
 import control.SquadCreator;
+import domain.ClientAllocation;
 import domain.Competition;
 import domain.Gymcup;
 import domain.RoundAllocation;
@@ -47,6 +49,7 @@ public class Server {
 	private JTable tableDevices;
 	private DeviceTypeTableModel deviceTypeTableModel;
 	private JComboBox cmbDeviceType = new JComboBox();
+	private ClientAllocation clientAllocation;
 
 	static Gymcup cup;
 
@@ -122,6 +125,12 @@ public class Server {
 		panelControl.setLayout(new BorderLayout(0, 0));
 
 		JButton btnAllocateAllDevices = new JButton("Alle Zuweisen");
+		btnAllocateAllDevices.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				clientAllocation = new ClientAllocation();
+				clientAllocation.addAll(rmiServer.getClientsWaitingForAllocation());
+			}
+		});
 		panelControl.add(btnAllocateAllDevices, BorderLayout.EAST);
 
 		JPanel RoundAllocatoin = new JPanel();
