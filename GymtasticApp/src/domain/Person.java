@@ -8,44 +8,44 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Person {
 
-	private String vorname;
-	private String nachname;
-	private String adresse;
+    private String firstName;
+    private String lastName;
+    private String address;
 
-	public Person() {
-		super();
+    public Person() {
+	super();
 
-	}
+    }
 
-	public Person(String vorname, String nachname, String adresse) {
-		super();
-		this.vorname = vorname;
-		this.nachname = nachname;
-		this.adresse = adresse;
-	}
+    public Person(String firstName, String lastName, String address) {
+	super();
+	this.firstName = firstName;
+	this.lastName = lastName;
+	this.address = address;
+    }
 
-	public String getVorname() {
-		return vorname;
-	}
+    public String getFirstName() {
+	return firstName;
+    }
 
-	public void setVorname(String vorname) {
-		this.vorname = vorname;
-	}
+    public void setFirstName(String firstName) {
+	this.firstName = firstName;
+    }
 
-	public String getNachname() {
-		return nachname;
-	}
+    public String getLastName() {
+	return lastName;
+    }
 
-	public void setNachname(String nachname) {
-		this.nachname = nachname;
-	}
+    public void setLastName(String lastNAme) {
+	this.lastName = lastName;
+    }
 
-	public String getAdresse() {
-		return adresse;
-	}
+    public String getAddress() {
+	return address;
+    }
 
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
-	}
+    public void setAddress(String address) {
+	this.address = address;
+    }
 
 }

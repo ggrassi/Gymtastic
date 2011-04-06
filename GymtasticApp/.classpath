@@ -3,6 +3,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="lib/iText-5.0.6.jar"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="/home/ggrassi/Dokumente/java/sep/Gymtastic/GymtasticApp/objectdb-2.2.0/jars/objectdb.jar"/>
+=======
+	<classpathentry kind="lib" path="G:/_hsr/schule/SE/SE2P/gymtastic/Gymtastic/GymtasticApp/objectdb-2.2.0/jars/objectdb.jar"/>
+>>>>>>> 61c1a6459e65b278bd9bb8c5b62281e235c5d90c
 	<classpathentry kind="output" path="bin"/>
 </classpath>
