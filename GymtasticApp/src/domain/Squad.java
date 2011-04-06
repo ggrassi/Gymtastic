@@ -35,7 +35,7 @@ public class Squad{
 	}
 
 	public void addAthlet(Athlet athlet) {
-		athlet.setSquad(this);
+//		athlet.setSquad(this);
 		athlets.add(athlet);
 		
 	}
@@ -62,6 +62,10 @@ public class Squad{
 
 	public void setAthlets(List<Athlet> athlets) {
 		this.athlets = athlets;
+	}
+
+	public Athlet getAthlet(int i){
+	    return athlets.get(i);
 	}
 
 
