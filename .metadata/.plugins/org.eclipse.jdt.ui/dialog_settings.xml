@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 =======
 	<item value="false" key="delegateUpdating"/>
+	<item value="/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/objectdb-2.2.0/jars" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="/Users/mathias/Documents/Dropbox/gymtastic/Dokumente/00_Projektantrag_Projektplan/Projektplan/10_Code Richtlinien" key="org.eclipse.jdt.ui.codeformatter.loadpath"/>
 	<section name="OptionalMessageDialog.hide.">
 		<item value="true" key="org.eclipse.jdt.ui.typecomment.deprecated"/>
@@ -14,19 +15,19 @@
 		<item value="true" key="showtypes"/>
 	</section>
 	<section name="SourceActionDialog.constructors">
-		<item value="1" key="VisibilityModifier"/>
 		<item value="false" key="Comments"/>
+		<item value="1" key="VisibilityModifier"/>
 		<item value="false" key="SynchronizedModifier"/>
 		<item value="false" key="FinalModifier"/>
 	</section>
 	<section name="BuildPathsPropertyPage">
-		<item value="3" key="pageIndex"/>
+		<item value="2" key="pageIndex"/>
 	</section>
 	<section name="DialogBounds_SuperInterfaceSelectionDialog">
 		<item value="374" key="DIALOG_WIDTH"/>
 		<item value="-42" key="DIALOG_Y_ORIGIN"/>
-		<item value="458" key="DIALOG_HEIGHT"/>
 		<item value="89" key="DIALOG_X_ORIGIN"/>
+		<item value="458" key="DIALOG_HEIGHT"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="RefactoringWizard.preview">
@@ -36,14 +37,14 @@
 	<section name="SourceActionDialog.methods">
 		<item value="false" key="SkipNull"/>
 		<item value="10" key="LimitValue"/>
-		<item value="false" key="Comments"/>
-		<item value="1" key="VisibilityModifier"/>
-		<item value="0" key="StringStyle"/>
 		<item value="0" key="ToStringTemplateSelected"/>
+		<item value="0" key="StringStyle"/>
+		<item value="1" key="VisibilityModifier"/>
+		<item value="false" key="Comments"/>
 		<item value="false" key="LimitElements"/>
 		<item value="false" key="SynchronizedModifier"/>
-		<item value="false" key="FinalModifier"/>
 		<item value="true" key="IgnoreDefault"/>
+		<item value="false" key="FinalModifier"/>
 	</section>
 	<section name="org.eclipse.jdt.internal.ui.dialogs.OpenTypeSelectionDialog2">
 		<item value="true" key="ShowStatusLine"/>
@@ -55,8 +56,8 @@
 		<section name="DialogBoundsSettings">
 			<item value="600" key="DIALOG_WIDTH"/>
 			<item value="-4" key="DIALOG_Y_ORIGIN"/>
-			<item value="500" key="DIALOG_HEIGHT"/>
 			<item value="-29" key="DIALOG_X_ORIGIN"/>
+			<item value="500" key="DIALOG_HEIGHT"/>
 			<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 		</section>
 	</section>
@@ -77,9 +78,9 @@
 	<section name="AddUnimplementedConstructorsDialog">
 		<item value="false" key="OmitCallToSuper"/>
 	</section>
-	<section name="RenameInformationPopup">
-	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
+	</section>
+	<section name="RenameInformationPopup">
 	</section>
 	<section name="AddGetterSetterDialog">
 		<item value="false" key="RemoveFinal"/>
