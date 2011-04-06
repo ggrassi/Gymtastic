@@ -1,0 +1,27 @@
+package network;
+
+import domain.DeviceType;
+
+public class ClientInformation {
+
+	private RMIClientInterface stub;
+	private String ipAddress;
+
+	public ClientInformation(RMIClientInterface stub, String host) {
+		this.stub = stub;
+		this.ipAddress = host;
+	}
+
+	public ClientInformation(RMIClientInterface client, String clientHost, DeviceType deviceType) {
+	    // TODO Auto-generated constructor stub
+	}
+
+	public String getHost() {
+		return ipAddress;
+	}
+
+	public RMIClientInterface getStub() {
+		return stub;
+	}
+
+}
