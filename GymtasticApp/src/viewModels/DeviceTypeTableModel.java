@@ -8,8 +8,10 @@ import javax.swing.table.AbstractTableModel;
 
 import network.ClientInformation;
 import network.RMIServer;
+import domain.DeviceType;
 
-public class DeviceTypeTableModel extends AbstractTableModel implements Observer {
+public class DeviceTypeTableModel extends AbstractTableModel implements
+		Observer {
 
 	/**
      * 
@@ -20,10 +22,10 @@ public class DeviceTypeTableModel extends AbstractTableModel implements Observer
 
 	public DeviceTypeTableModel(RMIServer rmiServer) {
 		this.rmiServer = rmiServer;
-	this.rmiServer.addObserver(this);
-    }
+		this.rmiServer.addObserver(this);
+	}
 
-    @Override
+	@Override
 	public int getColumnCount() {
 		return columns.length;
 	}
@@ -35,8 +37,7 @@ public class DeviceTypeTableModel extends AbstractTableModel implements Observer
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		ClientInformation client = rmiServer.getClientsWaitingForAllocation()
-				.get(rowIndex);
+		ClientInformation client = getClient(rowIndex);
 
 		switch (columnIndex) {
 		case 0:
@@ -47,10 +48,29 @@ public class DeviceTypeTableModel extends AbstractTableModel implements Observer
 		return "";
 	}
 
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		fireTableChanged(new TableModelEvent(this,TableModelEvent.INSERT));
+	private ClientInformation getClient(int rowIndex) {
+		ClientInformation client = rmiServer.getClientsWaitingForAllocation()
+				.get(rowIndex);
+		return client;
 	}
 
-}
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		fireTableChanged(new TableModelEvent(this, TableModelEvent.INSERT));
+	}
 
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		if (columnIndex == 1)
+			return true;
+		return false;
+
+	}
+
+	@Override
+	public void setValueAt(Object deviceType, int rowIndex, int columnIndex) {
+		getClient(rowIndex).setDeviceType((DeviceType) deviceType);
+	}
+	
+
+}
