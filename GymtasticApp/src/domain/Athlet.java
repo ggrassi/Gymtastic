@@ -25,8 +25,7 @@ public class Athlet extends Person {
     private Map<DeviceType, Mark> marks;
     @Embedded
     private Association association;
-    @ManyToOne
-    private Squad squad;
+
 
     public Athlet(int squadID, int athletID, String prgClass, String vorname, String name, String adresse,
 	    int yearOfBirth, Association association) {
@@ -46,14 +45,6 @@ public class Athlet extends Person {
 
     public Athlet(String vorname, String nachname, String adresse) {
 	super(vorname, nachname, adresse);
-    }
-
-    public Squad getSquad() {
-	return squad;
-    }
-
-    public void setSquad(Squad squad) {
-	this.squad = squad;
     }
 
     public long getId() {

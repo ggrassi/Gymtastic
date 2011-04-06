@@ -35,9 +35,7 @@ public class Squad{
 	}
 
 	public void addAthlet(Athlet athlet) {
-		athlet.setSquad(this);
 		athlets.add(athlet);
-		
 	}
 	
 	
