@@ -50,3 +50,16 @@
 [odb:store:info] Database '/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/db/gymtastic.odb' is closed by 1870@Mathias-MBP.local
 [odb:store:info] Database '/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/db/gymtastic.odb' is opened by 1870@Mathias-MBP.local
 [odb:store:info] Database '/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/db/gymtastic.odb' is closed by 1870@Mathias-MBP.local
+------------------------------------------------------------------------------------------------------------------------
+
+[odb:store:info] Database '/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/db/gymtastic.odb' is opened by 1939@Mathias-MBP.local
+[odb:type:warning] Type domain.Squad is not enhanced.
+[odb:type:warning] Type domain.Person is not enhanced.
+[odb:type:warning] Type domain.Athlet is not enhanced.
+[odb:type:warning] Type domain.Association is not enhanced.
+[odb:type:warning] Type domain.Mark is not enhanced.
+[odb:store:info] Database '/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/db/gymtastic.odb' is closed by 1939@Mathias-MBP.local
+[odb:store:info] Database '/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/db/gymtastic.odb' is opened by 1939@Mathias-MBP.local
+[odb:store:info] Database '/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/db/gymtastic.odb' is closed by 1939@Mathias-MBP.local
+[odb:store:info] Database '/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/db/gymtastic.odb' is opened by 1939@Mathias-MBP.local
+[odb:store:info] Database '/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/db/gymtastic.odb' is closed by 1939@Mathias-MBP.local
