@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #ignore Temp Files created by Word
 *~*
 #ignore thumbnails created by windows
@@ -19,3 +20,26 @@ log/
 db/
 #ignore temporary enterprise architect files
 .ldb
+=======
+#ignore Temp Files created by Word
+*~*
+#ignore thumbnails created by windows
+Thumbs.db
+#ignore Desktop Service Store files created by mac
+*.DS_Store
+#Ignore files built by Eclipse
+*.class
+*.pdf
+*.odb
+*.odf
+.metadata/
+.classpath
+.project
+.settings/
+bin/
+objectdb-2.2.0/
+log/
+db/
+#ignore temporary enterprise architect files
+.ldb
+>>>>>>> 5412c3ae9ff04aec17bca8c218bdc7db6534e9ed
