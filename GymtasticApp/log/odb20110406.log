@@ -1,11 +1,16 @@
 ------------------------------------------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 [odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 4724@jules-EliteBook
+=======
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 4864@nbmarco
+>>>>>>> a0f929d6e3266c1b6dbff3482af4c69fd293ebe8
 [odb:type:warning] Type domain.Squad is not enhanced.
 [odb:type:warning] Type domain.Person is not enhanced.
 [odb:type:warning] Type domain.Athlet is not enhanced.
 [odb:type:warning] Type domain.Association is not enhanced.
 [odb:type:warning] Type domain.Mark is not enhanced.
+<<<<<<< HEAD
 [odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 4724@jules-EliteBook
 [odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 4724@jules-EliteBook
 [odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 4724@jules-EliteBook
@@ -14,11 +19,22 @@
 ------------------------------------------------------------------------------------------------------------------------
 
 [odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 168@jules-EliteBook
+=======
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 4864@nbmarco
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 4864@nbmarco
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 4864@nbmarco
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 4864@nbmarco
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 4864@nbmarco
+------------------------------------------------------------------------------------------------------------------------
+
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 4568@nbmarco
+>>>>>>> a0f929d6e3266c1b6dbff3482af4c69fd293ebe8
 [odb:type:warning] Type domain.Squad is not enhanced.
 [odb:type:warning] Type domain.Person is not enhanced.
 [odb:type:warning] Type domain.Athlet is not enhanced.
 [odb:type:warning] Type domain.Association is not enhanced.
 [odb:type:warning] Type domain.Mark is not enhanced.
+<<<<<<< HEAD
 [odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 168@jules-EliteBook
 [odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 168@jules-EliteBook
 [odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 168@jules-EliteBook
@@ -27,13 +43,44 @@
 ------------------------------------------------------------------------------------------------------------------------
 
 [odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 5720@jules-EliteBook
+=======
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 4568@nbmarco
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 4568@nbmarco
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 4568@nbmarco
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 4568@nbmarco
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 4568@nbmarco
+------------------------------------------------------------------------------------------------------------------------
+
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 2912@nbmarco
+>>>>>>> a0f929d6e3266c1b6dbff3482af4c69fd293ebe8
 [odb:type:warning] Type domain.Squad is not enhanced.
 [odb:type:warning] Type domain.Person is not enhanced.
 [odb:type:warning] Type domain.Athlet is not enhanced.
 [odb:type:warning] Type domain.Association is not enhanced.
 [odb:type:warning] Type domain.Mark is not enhanced.
+<<<<<<< HEAD
 [odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 5720@jules-EliteBook
 [odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 5720@jules-EliteBook
 [odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 5720@jules-EliteBook
 [odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 5720@jules-EliteBook
 [odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 5720@jules-EliteBook
+=======
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 2912@nbmarco
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 2912@nbmarco
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 2912@nbmarco
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 2912@nbmarco
+[odb:store:info] Database 'D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 2912@nbmarco
+>>>>>>> a0f929d6e3266c1b6dbff3482af4c69fd293ebe8
+------------------------------------------------------------------------------------------------------------------------
+
+[odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 7992@jules-EliteBook
+[odb:type:warning] Type domain.Squad is not enhanced.
+[odb:type:warning] Type domain.Person is not enhanced.
+[odb:type:warning] Type domain.Athlet is not enhanced.
+[odb:type:warning] Type domain.Association is not enhanced.
+[odb:type:warning] Type domain.Mark is not enhanced.
+[odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 7992@jules-EliteBook
+[odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 7992@jules-EliteBook
+[odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 7992@jules-EliteBook
+[odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is opened by 7992@jules-EliteBook
+[odb:store:info] Database 'G:\_hsr\schule\SE\SE2P\gymtastic\Gymtastic\GymtasticApp\db\gymtastic.odb' is closed by 7992@jules-EliteBook
