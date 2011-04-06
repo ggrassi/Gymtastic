@@ -15,7 +15,7 @@ Thumbs.db
 .settings/
 #bin/
 objectdb-2.2.0/
-log/
+#log/
 #db/
 #ignore temporary enterprise architect files
 .ldb
