@@ -38,4 +38,8 @@ public class Gymcup {
 	return squads;
     }
     
+    public String toString(){
+	return name;	
+    }
+    
 }

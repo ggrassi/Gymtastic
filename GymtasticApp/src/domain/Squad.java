@@ -69,6 +69,10 @@ public class Squad{
 	public Athlet getAthlete(int index) {
 	    return athlets.get(index);
 	}
+	
+	public String toString(){
+	    return ""+squadId;
+	}
 
 
 }

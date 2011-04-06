@@ -39,6 +39,8 @@ import domain.Gymcup;
 import domain.RoundAllocation;
 import domain.Squad;
 import exporter.PdfExport;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Server {
 
@@ -47,7 +49,10 @@ public class Server {
     DeviceTypeTableModel deviceTypeTableModel;
 
     static Gymcup cup;
-
+    JButton btnStartCompetition;
+    JButton btnStopCompetition;
+    JButton btnDurchgangFreigeben;
+    
     RMIServer rmiServer;
 
     /**
@@ -167,7 +172,7 @@ public class Server {
 	gbc_lblCompetition.gridy = 0;
 	panelCompetitionControl.add(lblCompetition, gbc_lblCompetition);
 
-	JComboBox cmbCompetition = new JComboBox();
+	JComboBox cmbCompetition = new JComboBox(cup.getCompetitions().toArray());
 	cmbCompetition.setMinimumSize(new Dimension(100, 20));
 	GridBagConstraints gbc_cmbCompetition = new GridBagConstraints();
 	gbc_cmbCompetition.fill = GridBagConstraints.HORIZONTAL;
@@ -183,7 +188,15 @@ public class Server {
 	gbc_label.gridy = 0;
 	panelCompetitionControl.add(label, gbc_label);
 
-	JButton btnStartCompetition = new JButton("Wettkampf Starten");
+	btnStartCompetition = new JButton("Wettkampf Starten");
+	btnStartCompetition.setEnabled(true);
+	btnStartCompetition.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			btnStartCompetition.setEnabled(false);
+			btnStopCompetition.setEnabled(true);
+			btnDurchgangFreigeben.setEnabled(true);
+		}
+	});
 	GridBagConstraints gbc_btnStartCompetition = new GridBagConstraints();
 	gbc_btnStartCompetition.anchor = GridBagConstraints.EAST;
 	gbc_btnStartCompetition.insets = new Insets(0, 0, 0, 5);
@@ -191,7 +204,15 @@ public class Server {
 	gbc_btnStartCompetition.gridy = 0;
 	panelCompetitionControl.add(btnStartCompetition, gbc_btnStartCompetition);
 
-	JButton btnStopCompetition = new JButton("Wettkampf anhalten");
+	btnStopCompetition = new JButton("Wettkampf anhalten");
+	btnStopCompetition.setEnabled(false);
+	btnStopCompetition.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			btnStartCompetition.setEnabled(true);
+			btnStopCompetition.setEnabled(false);
+			btnDurchgangFreigeben.setEnabled(false);
+		}
+	});
 	GridBagConstraints gbc_btnStopCompetition = new GridBagConstraints();
 	gbc_btnStopCompetition.insets = new Insets(0, 0, 0, 5);
 	gbc_btnStopCompetition.anchor = GridBagConstraints.EAST;
@@ -357,7 +378,7 @@ public class Server {
 	panelRoundControl.add(labelRound, gbc_labelRound);
 
 	JSpinner spnRound = new JSpinner();
-	spnRound.setModel(new SpinnerNumberModel(0, 0, 6, 1));
+	spnRound.setModel(new SpinnerNumberModel(1, 1, 6, 1));
 	GridBagConstraints gbc_spnRound = new GridBagConstraints();
 	gbc_spnRound.insets = new Insets(0, 0, 0, 5);
 	gbc_spnRound.gridx = 1;
@@ -371,7 +392,12 @@ public class Server {
 	gbc_lblDescrRound.gridy = 0;
 	panelRoundControl.add(lblDescrRound, gbc_lblDescrRound);
 
-	JButton btnDurchgangFreigeben = new JButton("Durchgang Freigeben");
+	btnDurchgangFreigeben = new JButton("Durchgang Freigeben");
+	btnDurchgangFreigeben.setEnabled(false);
+	btnDurchgangFreigeben.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		}
+	});
 	GridBagConstraints gbc_btnDurchgangFreigeben = new GridBagConstraints();
 	gbc_btnDurchgangFreigeben.insets = new Insets(0, 0, 0, 5);
 	gbc_btnDurchgangFreigeben.gridx = 4;

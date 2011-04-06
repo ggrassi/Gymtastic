@@ -27,6 +27,11 @@ public class Competition {
 	
     }
     
+    public String toString(){
+	return name;
+	
+    }
+    
  
 
 }
