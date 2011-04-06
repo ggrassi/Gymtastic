@@ -1,5 +1,4 @@
 INDEX VERSION 1.126+/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/.metadata/.plugins/org.eclipse.jdt.core
-823750906.index
 909903858.index
 465338488.index
 1359709612.index
