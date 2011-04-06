@@ -9,21 +9,26 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
-import javax.swing.SwingConstants;
+
+import viewModels.ActualSquadTableModel;
+
+import network.RMIClient;
 
 public class Client {
 
     private JFrame frameClient;
     private JTable tableActualSquad;
+    RMIClient client;
+    ActualSquadTableModel actualSquadTableModel;
 
     /**
      * Launch the application.
      */
-    public static void main(String[] args) {
+    public static void newClientFrame(final RMIClient client) {
 	EventQueue.invokeLater(new Runnable() {
 	    public void run() {
 		try {
-		    Client window = new Client();
+		    Client window = new Client(client);
 		    window.frameClient.setVisible(true);
 		} catch (Exception e) {
 		    e.printStackTrace();
@@ -35,7 +40,9 @@ public class Client {
     /**
      * Create the application.
      */
-    public Client() {
+    public Client(RMIClient client) {
+	this.client = client;
+	actualSquadTableModel = new ActualSquadTableModel(client);
 	initialize();
     }
 
@@ -47,8 +54,8 @@ public class Client {
 	frameClient.setBounds(100, 100, 645, 424);
 	frameClient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frameClient.getContentPane().setLayout(new BorderLayout(0, 0));
-	
 	JPanel panelStatus = new JPanel();
+	
 	frameClient.getContentPane().add(panelStatus, BorderLayout.SOUTH);
 	
 	JPanel panelLogo = new JPanel();
@@ -65,10 +72,20 @@ public class Client {
 	panelActualSquad.add(panelSquadInformation, BorderLayout.NORTH);
 	panelSquadInformation.setLayout(new BoxLayout(panelSquadInformation, BoxLayout.X_AXIS));
 	
-	JLabel lblNewLabel = new JLabel("New label");
-	panelSquadInformation.add(lblNewLabel);
+	JLabel lblTextSquadName = new JLabel("Riegen Name: ");
+	panelSquadInformation.add(lblTextSquadName);
+	
+	JLabel lblSquadName = new JLabel(" ");
+	panelSquadInformation.add(lblSquadName);
+	
+	JLabel lblTextNumberOfAthletes = new JLabel("Anzahl Athleten: ");
+	panelSquadInformation.add(lblTextNumberOfAthletes);
+	
+	JLabel lblNumberOfAthletes = new JLabel("");
+	panelSquadInformation.add(lblNumberOfAthletes);
 	
 	tableActualSquad = new JTable();
+	tableActualSquad.setModel(actualSquadTableModel);
 	panelActualSquad.add(tableActualSquad, BorderLayout.CENTER);
 	
 	JPanel panelControl = new JPanel();

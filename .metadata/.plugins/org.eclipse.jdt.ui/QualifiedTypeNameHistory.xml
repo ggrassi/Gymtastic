@@ -12,7 +12,6 @@
 <fullyQualifiedTypeName name="java.util.Observer"/>
 <fullyQualifiedTypeName name="views.ServerPrototype"/>
 <fullyQualifiedTypeName name="javax.swing.JList"/>
-<fullyQualifiedTypeName name="java.util.Observable"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="network.RMIClientInterface"/>
 <fullyQualifiedTypeName name="domain.Dummy"/>
@@ -22,4 +21,10 @@
 <fullyQualifiedTypeName name="java.rmi.server.RemoteServer"/>
 <fullyQualifiedTypeName name="views.Server"/>
 <fullyQualifiedTypeName name="domain.DeviceType"/>
+<fullyQualifiedTypeName name="views.Client"/>
+<fullyQualifiedTypeName name="network.RMIClient"/>
+<fullyQualifiedTypeName name="java.util.Observable"/>
+<fullyQualifiedTypeName name="domain.Squad"/>
+<fullyQualifiedTypeName name="viewModels.ActualSquadTableModel"/>
+<fullyQualifiedTypeName name="domain.Athlet"/>
 </qualifiedTypeNameHistroy>
