@@ -9,6 +9,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Observable;
 import java.util.Vector;
 
+import domain.Athlet;
 import domain.ClientAllocation;
 import domain.DeviceType;
 import domain.Squad;
@@ -43,7 +44,10 @@ public class RMIServer extends Observable implements RMIServerInterface {
 
     @Override
     public void uploadSquadToServer(Squad squad) throws RemoteException {
-//	updateObservers();
+    //	updateObservers();
+	for (Athlet athlete : squad.getAthlets()) {
+	    System.out.println(athlete.getFirstName() + " " + athlete.getLastName());
+	}
     }
 
     public Vector<ClientInformation> getClientsWaitingForAllocation() {

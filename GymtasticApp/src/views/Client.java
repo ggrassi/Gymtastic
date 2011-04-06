@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.rmi.RemoteException;
 
 public class Client {
 
@@ -109,6 +110,11 @@ public class Client {
 	btn = new JButton("Durchgang Abschliessen");
 	btn.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
+		    try {
+			client.updateServer();
+		    } catch (RemoteException e) {
+			e.printStackTrace();
+		    }
 		    
 		}
 	});

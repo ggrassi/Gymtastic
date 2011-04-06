@@ -53,11 +53,12 @@ public class ActualSquadTableModel extends AbstractTableModel implements Observe
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-	Athlet athlete = rmiClient.getSquad().getAthlete(rowIndex);
 
 	if (columnIndex == 1) {
-	    athlete.setFirstName((String) aValue);
+	    rmiClient.getSquad().getAthlete(rowIndex).setFirstName((String)aValue);
 	}
+	
+	
 
     }
 

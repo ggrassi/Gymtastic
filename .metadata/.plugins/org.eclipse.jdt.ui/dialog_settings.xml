@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<item value="2" key="TypeHierarchyViewPart.hierarchyview"/>
 	<item value="false" key="delegateUpdating"/>
 	<item value="/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/lib" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="3" key="TypeHierarchyViewPart.orientation"/>
+	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
+	<item value="false" key="TypeHierarchyViewPart.linkeditors"/>
 	<item value="/Users/mathias/Documents/Dropbox/gymtastic/Dokumente/00_Projektantrag_Projektplan/Projektplan/10_Code Richtlinien" key="org.eclipse.jdt.ui.codeformatter.loadpath"/>
 	<section name="OptionalMessageDialog.hide.">
 		<item value="true" key="org.eclipse.jdt.ui.typecomment.deprecated"/>
