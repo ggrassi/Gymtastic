@@ -2,13 +2,12 @@ package domain;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import network.ClientInformation;
 
-public class ClientAllocation {
+public class ClientAllocation{
 
 	private Map<DeviceType, ClientInformation> alloc;
 
@@ -24,24 +23,29 @@ public class ClientAllocation {
 		alloc.remove(deviceType);
 	}
 
+
+	
+
 	public boolean isEmpty() {
-		return alloc.isEmpty();
+	    return alloc.isEmpty();
 	}
 
+
+
 	public int size() {
-		return alloc.size();
+	    return alloc.size();
 	}
 
 	public Set<Entry<DeviceType, ClientInformation>> entrySet() {
-		return alloc.entrySet();
+	    return alloc.entrySet();
 	}
 
-	public void addAllClients(Vector<ClientInformation> clients) {
-		for (ClientInformation c : clients) {
-			System.out.println("Allocating client: "+c.getHost()+ " at "+ c.getDeviceType());
-			alloc.put(c.getDeviceType(), c);
-		}
+	
 
-	}
+	
+	
+	
+
+	
 
 }
