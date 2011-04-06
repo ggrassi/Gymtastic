@@ -78,7 +78,6 @@ public class Server {
 		try {
 			rmiServer = new RMIServer();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
