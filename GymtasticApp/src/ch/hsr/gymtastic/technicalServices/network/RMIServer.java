@@ -9,8 +9,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Observable;
 import java.util.Vector;
 
+import ch.hsr.gymtastic.application.controller.ClientAllocation;
 import ch.hsr.gymtastic.domain.Athlet;
-import ch.hsr.gymtastic.domain.ClientAllocation;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;

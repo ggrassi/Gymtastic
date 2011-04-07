@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import ch.hsr.gymtastic.application.controller.RoundAllocation;
+
 public class Competition {
 
     private List<Squad> squads = new ArrayList<Squad>();

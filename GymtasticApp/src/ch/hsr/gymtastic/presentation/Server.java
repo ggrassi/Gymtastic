@@ -30,14 +30,14 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 
+import ch.hsr.gymtastic.application.controller.ClientAllocation;
+import ch.hsr.gymtastic.application.controller.RoundAllocation;
 import ch.hsr.gymtastic.application.controller.SquadCreator;
 import ch.hsr.gymtastic.application.editor.DeviceTypeEditor;
 import ch.hsr.gymtastic.application.models.DeviceTypeTableModel;
-import ch.hsr.gymtastic.domain.ClientAllocation;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Gymcup;
-import ch.hsr.gymtastic.domain.RoundAllocation;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 import ch.hsr.gymtastic.technicalServices.network.RMIClientInterface;
