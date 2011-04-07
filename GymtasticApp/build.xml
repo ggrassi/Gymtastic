@@ -6,12 +6,14 @@
               as the first entry and export the buildfile again. -->
 <project basedir="." default="build" name="GymtasticApp">
     <property environment="env"/>
-    <property name="ECLIPSE_HOME" value="../../eclipse/Java/eclipse-jee-helios-win32-x86_64forINTE/eclipse"/>
+    <property name="ECLIPSE_HOME" value="../../../../../../../usr/lib/eclipse"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
     <path id="GymtasticApp.classpath">
         <pathelement location="bin"/>
+        <pathelement location="lib/iText-5.0.6.jar"/>
+        <pathelement location="lib/objectdb.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
@@ -48,5 +50,20 @@
     <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
+    </target>
+    <target name="Gymtastic_Server">
+        <java classname="application.Gymtastic_Server" failonerror="true" fork="yes">
+            <classpath refid="GymtasticApp.classpath"/>
+        </java>
+    </target>
+    <target name="Main">
+        <java classname="domain.Main" failonerror="true" fork="yes">
+            <classpath refid="GymtasticApp.classpath"/>
+        </java>
+    </target>
+    <target name="Gymtastic_Client">
+        <java classname="application.Gymtastic_Client" failonerror="true" fork="yes">
+            <classpath refid="GymtasticApp.classpath"/>
+        </java>
     </target>
 </project>
