@@ -38,7 +38,7 @@ public class Athlet extends Person {
 	this.yearOfBirth = yearOfBirth;
 	this.association = association;
 	marks = new HashMap<DeviceType, Mark>();
-	marks.put(DeviceType.FLOOR_EXCERCISE, new Mark(4, 3, 4, 3, 4, 3, 4));
+	marks.put(DeviceType.FLOOR_EXCERCISE, new Mark(4, 3, 4, 3, 4, 3));
     }
 
     public Athlet() {
