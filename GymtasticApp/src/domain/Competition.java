@@ -6,7 +6,6 @@ import java.util.List;
 
 public class Competition {
 
-    private String prgClass;
     private List<Squad> squads = new ArrayList<Squad>();
     private String name;
     private String description;
