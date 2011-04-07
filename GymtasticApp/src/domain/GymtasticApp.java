@@ -1,10 +1,5 @@
 package domain;
 
-import importer.ImportStartList;
-import java.util.Map;
-
-import control.DBConnection;
-import control.SquadCreator;
 
 public class GymtasticApp {
 

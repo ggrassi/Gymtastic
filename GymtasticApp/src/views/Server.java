@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.rmi.RemoteException;
 import java.util.GregorianCalendar;
-import java.util.Set;
 import java.util.Map.Entry;
 
 import javax.swing.JButton;
@@ -40,7 +39,6 @@ import viewModels.DeviceTypeTableModel;
 import com.itextpdf.text.DocumentException;
 
 import control.SquadCreator;
-import domain.Athlet;
 import domain.ClientAllocation;
 import domain.Competition;
 import domain.DeviceType;
@@ -397,22 +395,15 @@ public class Server {
 	btnDurchgangFreigeben.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		try {
-//		    Athlet athlet1 = new Athlet("Mathias", "Fasser", "GUTACKER");
-//		    Athlet athlet2 = new Athlet("GIULIANO", "GRASSI", "GUTACKER");
-//		    Squad squad = new Squad(1);
-//		    squad.addAthlet(athlet1);
-//		    squad.addAthlet(athlet2);
-//			Set<Entry<DeviceType, ClientInformation>> deviceTypes = clientAllocation.entrySet();
-			for (Entry<DeviceType, ClientInformation> entry : clientAllocation.entrySet()) {
-			    
-//			    	entry.getValue().getStub().uploadSquadToClient(squad);
-				RMIClientInterface rmici = clientAllocation.getClientStub(entry.getValue().getDeviceType());
-				Competition competition = cup.getCompetitions().get(0);
-				RoundAllocation ra = competition.getRoundAllocation();
-				Squad squad = ra.getSquad(entry.getValue().getDeviceType(), 1);
-				rmici.uploadSquadToClient(squad);
-			}
-			
+		    for (Entry<DeviceType, ClientInformation> entry : clientAllocation.entrySet()) {
+
+			RMIClientInterface rmici = clientAllocation.getClientStub(entry.getValue().getDeviceType());
+			Competition competition = cup.getCompetitions().get(0);
+			RoundAllocation ra = competition.getRoundAllocation();
+			Squad squad = ra.getSquad(entry.getValue().getDeviceType(), 1);
+			rmici.uploadSquadToClient(squad);
+		    }
+
 		} catch (RemoteException e1) {
 		    e1.printStackTrace();
 		}

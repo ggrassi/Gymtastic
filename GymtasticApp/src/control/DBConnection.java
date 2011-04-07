@@ -24,7 +24,7 @@ public class DBConnection {
 	public DBConnection(String path) {
 		super();
 		connect(path);
-		mark = new Mark(4, 5, 3, 5, 3, 4, 3);
+		this.mark = new Mark(4, 5, 3, 5, 3, 4, 3);
 
 	}
 
