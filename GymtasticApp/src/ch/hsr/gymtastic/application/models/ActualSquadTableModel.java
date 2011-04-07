@@ -5,7 +5,7 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-import ch.hsr.gymtastic.domain.Athlet;
+import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.network.RMIClient;
 
@@ -68,7 +68,7 @@ public class ActualSquadTableModel extends AbstractTableModel implements Observe
 
 	if (squad != null) {
 
-	    Athlet athlet = squad.getAthlete(rowIndex);
+	    Athlete athlet = squad.getAthlete(rowIndex);
 
 	    switch (columnIndex) {
 	    case 0:

@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Athlet extends Person {
+public class Athlete extends Person {
 
     /**
      * 
@@ -29,7 +29,7 @@ public class Athlet extends Person {
     @Embedded
     private Association association;
 
-    public Athlet(int squadID, int athletID, String prgClass, String vorname, String name, String adresse,
+    public Athlete(int squadID, int athletID, String prgClass, String vorname, String name, String adresse,
 	    int yearOfBirth, Association association) {
 	super(name, vorname, adresse);
 	this.squadId = squadID;
@@ -41,11 +41,11 @@ public class Athlet extends Person {
 	marks.put(DeviceType.FLOOR_EXCERCISE, new Mark(4, 3, 4, 3, 4, 3));
     }
 
-    public Athlet() {
+    public Athlete() {
 	super();
     }
 
-    public Athlet(String vorname, String nachname, String adresse) {
+    public Athlete(String vorname, String nachname, String adresse) {
 	super(vorname, nachname, adresse);
     }
 
