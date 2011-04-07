@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Dummy implements Serializable{
 	/**
-	 * 
+	 * brauchts noch
 	 */
 	private static final long serialVersionUID = 1L;
 
