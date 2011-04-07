@@ -13,7 +13,7 @@ import ch.hsr.gymtastic.domain.Athlet;
 import ch.hsr.gymtastic.domain.ClientAllocation;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
-import ch.hsr.gymtastic.technicalServices.db.DBConnection;
+import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
 public class RMIServer extends Observable implements RMIServerInterface {
 

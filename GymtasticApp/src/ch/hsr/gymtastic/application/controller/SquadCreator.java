@@ -10,7 +10,7 @@ import java.util.TreeSet;
 import ch.hsr.gymtastic.domain.Association;
 import ch.hsr.gymtastic.domain.Athlet;
 import ch.hsr.gymtastic.domain.Squad;
-import ch.hsr.gymtastic.technicalServices.db.DBConnection;
+import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
 
 
