@@ -4,7 +4,7 @@ import java.util.*;
 
 import javax.persistence.TypedQuery;
 
-import ch.hsr.gymtastic.technicalServices.db.DBConnection;
+import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
 public class Gymcup {
 
