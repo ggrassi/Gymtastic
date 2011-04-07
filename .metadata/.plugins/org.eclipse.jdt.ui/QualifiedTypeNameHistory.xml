@@ -24,8 +24,8 @@
 <fullyQualifiedTypeName name="views.Client"/>
 <fullyQualifiedTypeName name="network.RMIClient"/>
 <fullyQualifiedTypeName name="java.util.Observable"/>
-<fullyQualifiedTypeName name="domain.Squad"/>
 <fullyQualifiedTypeName name="viewModels.ActualSquadTableModel"/>
 <fullyQualifiedTypeName name="views.ClientConnection"/>
 <fullyQualifiedTypeName name="domain.Athlet"/>
+<fullyQualifiedTypeName name="domain.Squad"/>
 </qualifiedTypeNameHistroy>
