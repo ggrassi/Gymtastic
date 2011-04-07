@@ -32,7 +32,7 @@ public class Mark implements Serializable{
 		this.finalMark = generateFinalMark();
 	}
 
-	public double generateFinalMark() {
+	private double generateFinalMark() {
 		double eMark;
 		eMark = (eMarkOne+eMarkTwo+eMarkThree)/3;
 		return eMark+dMark+bonus-penalty;

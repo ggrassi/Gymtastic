@@ -1,29 +1,27 @@
 package ch.hsr.gymtastic.domain;
 
-import static org.junit.Assert.*;
+//import static org.junit.Assert.assertEquals;
 
-import org.junit.*;
+import static junit.framework.Assert.*;
+import org.junit.Test;
 
 
 
 public class MarkTest {
-
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
+    Mark mark;
+    
+    
 
     @Test
-    public final void testMark() {
-	fail("Not yet implemented"); 
-    }
+    public final void testMarks() {
+	
+	assertEquals(4.5, mark.getdMark());
+	
+}
 
     @Test
-    public final void testGetFinalMark() {
-	fail("Not yet implemented"); 
+    public void testGetFinalMark() {
+	assertEquals(4.5,mark.getdMark());
     }
 
 }
