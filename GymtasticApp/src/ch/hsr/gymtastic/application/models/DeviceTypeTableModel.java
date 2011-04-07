@@ -17,7 +17,7 @@ public class DeviceTypeTableModel extends AbstractTableModel implements
      * 
      */
 	private static final long serialVersionUID = 1L;
-	private String[] columns = { "IP-Adresse", "Gewünschtes Gerät" };
+	private String[] columns = { "IP-Adresse", "GewÃ¼nschtes GerÃ¤t" };
 	private final RMIServer rmiServer;
 
 	@Override
