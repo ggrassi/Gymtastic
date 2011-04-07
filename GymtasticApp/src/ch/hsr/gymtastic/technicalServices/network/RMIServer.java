@@ -10,7 +10,7 @@ import java.util.Observable;
 import java.util.Vector;
 
 import ch.hsr.gymtastic.application.controller.ClientAllocation;
-import ch.hsr.gymtastic.domain.Athlet;
+import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
@@ -46,8 +46,8 @@ public class RMIServer extends Observable implements RMIServerInterface {
     public void uploadSquadToServer(Squad temp) throws RemoteException {
 
 	DBConnection db = new DBConnection();
-	for (Athlet athlet : temp.getAthlets()) {
-	    Athlet foundAthlete = db.getEm().find(Athlet.class, athlet.getAthletId());
+	for (Athlete athlet : temp.getAthlets()) {
+	    Athlete foundAthlete = db.getEm().find(Athlete.class, athlet.getAthletId());
 	    foundAthlete.setFirstName(athlet.getFirstName());
 	    System.out.println("Vorname: " + athlet.getFirstName() + " Nachname: " + athlet.getLastName());
 	}

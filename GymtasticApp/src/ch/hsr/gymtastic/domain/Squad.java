@@ -25,20 +25,20 @@ public class Squad implements Serializable {
     private int squadId;
     @OneToMany(cascade = CascadeType.ALL)
     @OrderBy("athleteId ASC")
-    private List<Athlet> athlets;
+    private List<Athlete> athlets;
 
     public Squad() {
 	super();
-	athlets = new LinkedList<Athlet>();
+	athlets = new LinkedList<Athlete>();
     }
 
     public Squad(int squadId) {
 	super();
 	this.squadId = squadId;
-	athlets = new LinkedList<Athlet>();
+	athlets = new LinkedList<Athlete>();
     }
 
-    public void addAthlet(Athlet athlet) {
+    public void addAthlet(Athlete athlet) {
 	athlets.add(athlet);
     }
 
@@ -58,15 +58,15 @@ public class Squad implements Serializable {
 	return squadId;
     }
 
-    public Collection<Athlet> getAthlets() {
+    public Collection<Athlete> getAthlets() {
 	return athlets;
     }
 
-    public void setAthlets(List<Athlet> athlets) {
+    public void setAthlets(List<Athlete> athlets) {
 	this.athlets = athlets;
     }
 
-    public Athlet getAthlete(int index) {
+    public Athlete getAthlete(int index) {
 	return athlets.get(index);
     }
 

@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Map;
 
-import ch.hsr.gymtastic.domain.Athlet;
+import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.Squad;
 
 import com.itextpdf.text.Document;
@@ -31,7 +31,7 @@ public class PdfExport {
 	for (Squad squad : squads.values()) {
 	    document.add(new Paragraph("\nRiege " + squad.getId()));
 	    for (int i = 0; i < squad.getSquadSize(); i++) {
-		Athlet athlet = squad.getAthlete(i);
+		Athlete athlet = squad.getAthlete(i);
 		document.add(new Paragraph(athlet.getAthletId() + " " + athlet.getFirstName() + " "
 			+ athlet.getLastName()));
 	    }
