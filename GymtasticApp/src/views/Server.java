@@ -393,40 +393,29 @@ public class Server {
 	gbc_lblDescrRound.gridy = 0;
 	panelRoundControl.add(lblDescrRound, gbc_lblDescrRound);
 
-	JButton btnDurchgangFreigeben = new JButton("Durchgang Freigeben");
+	JButton btnDurchgangFreigeben = new JButton("Durchgang Fr eigeben");
 	btnDurchgangFreigeben.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		try {
-			Set<Entry<DeviceType, ClientInformation>> deviceTypes = clientAllocation.entrySet();
-			for (Entry<DeviceType, ClientInformation> entry : deviceTypes) {
-				RMIClientInterface rmici = clientAllocation.getClientStub(entry.getKey());
+//		    Athlet athlet1 = new Athlet("Mathias", "Fasser", "GUTACKER");
+//		    Athlet athlet2 = new Athlet("GIULIANO", "GRASSI", "GUTACKER");
+//		    Squad squad = new Squad(1);
+//		    squad.addAthlet(athlet1);
+//		    squad.addAthlet(athlet2);
+//			Set<Entry<DeviceType, ClientInformation>> deviceTypes = clientAllocation.entrySet();
+			for (Entry<DeviceType, ClientInformation> entry : clientAllocation.entrySet()) {
+			    
+//			    	entry.getValue().getStub().uploadSquadToClient(squad);
+				RMIClientInterface rmici = clientAllocation.getClientStub(entry.getValue().getDeviceType());
 				Competition competition = cup.getCompetitions().get(0);
 				RoundAllocation ra = competition.getRoundAllocation();
-				Squad squad = ra.getSquad(entry.getKey(), 1);
+				Squad squad = ra.getSquad(entry.getValue().getDeviceType(), 1);
 				rmici.uploadSquadToClient(squad);
 			}
 			
 		} catch (RemoteException e1) {
 		    e1.printStackTrace();
 		}
-		// for (DeviceType device : DeviceType.values()) {
-		//
-		// try {
-		// clientAllocation.getClientStub(device).uploadSquadToClient(
-		// cup.getCompetitions().get(0).getRoundAllocation().getSquad(device,
-		// 1));
-		// } catch (RemoteException e1) {
-		// e1.printStackTrace();
-		// }
-		// }
-		// Squad squad = new Squad(1);
-		// squad.addAthlet(new Athlet("Fotze", "Muschi",
-		// "penissstrasse"));
-		// try {
-		// clientAllocation.getClientStub(DeviceType.FLOOR_EXCERCISE).uploadSquadToClient(squad);
-		// } catch (RemoteException e1) {
-		// e1.printStackTrace();
-		// }
 	    }
 	});
 	GridBagConstraints gbc_btnDurchgangFreigeben = new GridBagConstraints();
