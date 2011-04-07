@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="27" version="2.0">
+<workbench progressCount="13" version="2.0">
 <workbenchAdvisor/>
 <window height="960" maximized="true" width="840" x="0" y="22">
 <fastViewData fastViewLocation="1024"/>
@@ -27,7 +27,7 @@
 <coolItem id="org.eclipse.wb.core.guiEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -36,12 +36,26 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
 </folder>
 </info>
 </editorArea>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MarkTest.java" partName="MarkTest.java" path="/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/test/ch/hsr/gymtastic/domain/MarkTest.java" title="MarkTest.java" tooltip="GymtasticApp/test/ch/hsr/gymtastic/domain/MarkTest.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GymtasticApp/test/ch/hsr/gymtastic/domain/MarkTest.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="684" selectionTopPixel="53"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Mark.java" partName="Mark.java" path="/Users/mathias/Programming/JavaProgs/Gymtastic/Gymtastic/GymtasticApp/src/ch/hsr/gymtastic/domain/Mark.java" title="Mark.java" tooltip="GymtasticApp/src/ch/hsr/gymtastic/domain/Mark.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/GymtasticApp/src/ch/hsr/gymtastic/domain/Mark.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="606" selectionTopPixel="41"/>
+</editor>
 </editors>
 <views>
+<view id="org.eclipse.jdt.junit.ResultView" partName="JUnit">
+<viewState failuresOnly="false" layout="1" orientation="2" ratio="500" scroll="false" time="true"/>
+</view>
 <view id="org.eclipse.jdt.ui.TypeHierarchy" partName="Type Hierarchy">
 <viewState hidefields="false" hidelocaltypes="false" hidenonpublic="false" hidestatic="false" link_editors="0" mv_vertical_scroll="0" orientation="3" qualified_names="0" ratio="350" showinherited="false" sortbydefiningtype="false" vertical_scroll="0" view="2" workingSetName="Aggregate for window 1299068829843"/>
 </view>
@@ -104,7 +118,10 @@
 <view id="org.eclipse.ui.views.PropertySheet" partName="Properties"/>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
-<columnWidths org.eclipse.ui.ide.locationField="0" org.eclipse.ui.ide.markerType="0" org.eclipse.ui.ide.pathField="0" org.eclipse.ui.ide.resourceField="0" org.eclipse.ui.ide.severityAndDescriptionField="0"/>
+<expanded>
+<category IMemento.internal.id="Errors (4 items)"/>
+</expanded>
+<columnWidths org.eclipse.ui.ide.locationField="84" org.eclipse.ui.ide.markerType="114" org.eclipse.ui.ide.pathField="144" org.eclipse.ui.ide.resourceField="114" org.eclipse.ui.ide.severityAndDescriptionField="817"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
@@ -144,7 +161,9 @@
 <view id="org.eclipse.ui.console.ConsoleView" partName="Console">
 <viewState/>
 </view>
-<view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
+<view id="org.eclipse.jdt.ui.SourceView" partName="Declaration">
+<viewState/>
+</view>
 <view id="org.eclipse.jdt.ui.PackagesView" partName="Packages">
 <viewState org.eclipse.jdt.ui.PackagesView.viewState="0" org.eclipse.jdt.ui.browsing.packagestoeditor="1" workingSetName="Aggregate for window 1299068829843">
 <customFilters userDefinedPatternsEnabled="false">&#x0A;<xmlDefinedFilters>&#x0A;<child filterId="org.eclipse.jdt.internal.ui.PackagesView.EmptyPackageFilter" isEnabled="false"/>
@@ -154,7 +173,9 @@
 </customFilters>
 </viewState>
 </view>
-<view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
+<view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc">
+<viewState/>
+</view>
 </views>
 <perspectives activePart="org.eclipse.ui.console.ConsoleView" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
@@ -339,6 +360,7 @@
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
 <view id="org.eclipse.jdt.ui.PackageExplorer"/>
 <view id="org.eclipse.jdt.ui.TypeHierarchy"/>
+<view id="org.eclipse.jdt.junit.ResultView"/>
 <view id="org.eclipse.ui.views.ProblemView"/>
 <view id="org.eclipse.jdt.ui.JavadocView"/>
 <view id="org.eclipse.jdt.ui.SourceView"/>
@@ -348,17 +370,18 @@
 <layout>
 <mainWindow>
 <info folder="true" part="left">
-<folder activePageID="org.eclipse.jdt.ui.PackageExplorer" appearance="2" expanded="2">
+<folder activePageID="org.eclipse.jdt.junit.ResultView" appearance="2" expanded="2">
 <page content="org.eclipse.jdt.ui.PackageExplorer" label="Package Explorer"/>
 <page content="org.eclipse.jdt.ui.TypeHierarchy" label="Type Hierarchy"/>
+<page content="org.eclipse.jdt.junit.ResultView" label="JUnit"/>
 <page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
 <page content="org.eclipse.ui.navigator.ProjectExplorer" label="LabelNotFound"/>
 <page content="com.instantiations.designer.core.StructureView" label="LabelNotFound"/>
 <page content="com.instantiations.designer.core.PaletteView" label="LabelNotFound"/>
-<page content="org.eclipse.jdt.junit.ResultView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
+<part id="2"/>
 </presentation>
 </folder>
 </info>
@@ -370,7 +393,7 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.15638107" ratioLeft="261" ratioRight="1408" relationship="2" relative="left"/>
+<info part="org.eclipse.ui.editorss" ratio="0.23007789" ratioLeft="384" ratioRight="1285" relationship="2" relative="left"/>
 <info folder="true" part="bottom" ratio="0.7821101" ratioLeft="682" ratioRight="190" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
@@ -389,7 +412,7 @@
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@1df155b" ratio="0.8782918" ratioLeft="1234" ratioRight="171" relationship="2" relative="org.eclipse.ui.editorss">
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@1df155b" ratio="0.82683307" ratioLeft="1060" ratioRight="222" relationship="2" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.mylyn.tasks.ui.views.tasks" appearance="2" expanded="2">
 <page content="org.eclipse.mylyn.tasks.ui.views.tasks" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
@@ -597,7 +620,166 @@
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/test/ch/hsr/gymtastic/domain/MarkTest.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/domain/Athlet.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/domain/Main.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/GymtasticApp/src/ch/hsr/gymtastic/domain/Mark.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Test/src/Test.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/Test/src/Test2.java"/>
+</editors>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="Main.java" index="2">
+<position info="not_deleted" x="2019" y="0"/>
+</item>
+<item historyLabel="Athlet.java" index="1">
+<position info="not_deleted" x="1163" y="0"/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="483" y="0"/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="489" y="0"/>
+</item>
+<item historyLabel="Mark.java" index="3">
+<position info="not_deleted" x="473" y="0"/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="489" y="0"/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="898" y="0"/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="Test.java" index="4">
+<position info="not_deleted" x="34" y="0"/>
+</item>
+<item historyLabel="Test.java" index="4">
+<position info="not_deleted" x="101" y="0"/>
+</item>
+<item historyLabel="Test.java" index="4">
+<position info="not_deleted" x="103" y="0"/>
+</item>
+<item historyLabel="Test2.java" index="5">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Test2.java" index="5">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="886" y="0"/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="395" y="0"/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="241" y="6"/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="347" y="5"/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="307" y="0"/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="312" y="0"/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="317" y="0"/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="322" y="0"/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="327" y="0"/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="449" y="0"/>
+</item>
+<item historyLabel="Mark.java" index="3">
+<position info="not_deleted" x="473" y="0"/>
+</item>
+<item historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="611" y="0"/>
+</item>
+<item historyLabel="Mark.java" index="3">
+<position info="not_deleted" x="606" y="0"/>
+</item>
+<item active="true" historyLabel="MarkTest.java" index="0">
+<position info="not_deleted" x="611" y="0"/>
+</item>
+</navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
@@ -611,6 +793,18 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Test2.java" tooltip="Test/src/Test2.java">
+<persistable path="/Test/src/Test2.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Test.java" tooltip="Test/src/Test.java">
+<persistable path="/Test/src/Test.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Mark.java" tooltip="GymtasticApp/src/ch/hsr/gymtastic/domain/Mark.java">
+<persistable path="/GymtasticApp/src/ch/hsr/gymtastic/domain/Mark.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="MarkTest.java" tooltip="GymtasticApp/test/ch/hsr/gymtastic/domain/MarkTest.java">
+<persistable path="/GymtasticApp/test/ch/hsr/gymtastic/domain/MarkTest.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GymtasticApp.java" tooltip="GymtasticApp/src/domain/GymtasticApp.java">
 <persistable path="/GymtasticApp/src/domain/GymtasticApp.java"/>
 </file>
@@ -623,12 +817,6 @@
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Evaluation.java" tooltip="GymtasticApp/src/domain/Evaluation.java">
 <persistable path="/GymtasticApp/src/domain/Evaluation.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Competition.java" tooltip="GymtasticApp/src/domain/Competition.java">
-<persistable path="/GymtasticApp/src/domain/Competition.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DBConnection.java" tooltip="GymtasticApp/src/control/DBConnection.java">
-<persistable path="/GymtasticApp/src/control/DBConnection.java"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RoundAllocation.java" tooltip="GymtasticApp/src/domain/RoundAllocation.java">
 <persistable path="/GymtasticApp/src/domain/RoundAllocation.java"/>
 </file>
@@ -640,21 +828,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ClientAllocation.java" tooltip="GymtasticApp/src/domain/ClientAllocation.java">
 <persistable path="/GymtasticApp/src/domain/ClientAllocation.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RMIServer.java" tooltip="GymtasticApp/src/network/RMIServer.java">
-<persistable path="/GymtasticApp/src/network/RMIServer.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.wb.core.guiEditor" name="ClientPrototype.java" tooltip="GymtasticApp/src/views/ClientPrototype.java">
-<persistable path="/GymtasticApp/src/views/ClientPrototype.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Gymtastic_Client.java" tooltip="GymtasticApp/src/application/Gymtastic_Client.java">
-<persistable path="/GymtasticApp/src/application/Gymtastic_Client.java"/>
-</file>
-<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="Observable.class" tooltip="java.util.Observable">
-<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=GymtasticApp/\/System\/Library\/Java\/JavaVirtualMachines\/1.6.0.jdk\/Contents\/Classes\/classes.jar&lt;java.util(Observable.class"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RMIServerInterface.java" tooltip="GymtasticApp/src/network/RMIServerInterface.java">
-<persistable path="/GymtasticApp/src/network/RMIServerInterface.java"/>
 </file>
 </mruList>
 </workbench>

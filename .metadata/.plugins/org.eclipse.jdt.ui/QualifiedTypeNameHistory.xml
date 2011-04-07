@@ -28,4 +28,13 @@
 <fullyQualifiedTypeName name="views.ClientConnection"/>
 <fullyQualifiedTypeName name="domain.Athlet"/>
 <fullyQualifiedTypeName name="domain.Squad"/>
+<fullyQualifiedTypeName name="ch.hsr.gymtastic.domain.MarkTest"/>
+<fullyQualifiedTypeName name="junit.framework.Assert"/>
+<fullyQualifiedTypeName name="org.junit.Test"/>
+<fullyQualifiedTypeName name="domain.Mark"/>
+<fullyQualifiedTypeName name="org.junit.Assert"/>
+<fullyQualifiedTypeName name="java.lang.AssertionError"/>
+<fullyQualifiedTypeName name="org.junit.Before"/>
+<fullyQualifiedTypeName name="org.junit.After"/>
+<fullyQualifiedTypeName name="ch.hsr.gymtastic.domain.Mark"/>
 </qualifiedTypeNameHistroy>
