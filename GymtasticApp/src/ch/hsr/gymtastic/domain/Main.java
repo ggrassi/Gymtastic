@@ -20,7 +20,7 @@ public class Main {
 		em.getTransaction().begin();
 		for (int i = 0; i < 10; i++) {
 			Squad s = new Squad(i);
-			Athlet a = new Athlet(i, 3, "pg", "name", "vorname", "adresse",
+			Athlete a = new Athlete(i, 3, "pg", "name", "vorname", "adresse",
 					1900, new Association("name", "location"));
 			em.persist(s);
 			em.persist(a);
@@ -58,9 +58,9 @@ public class Main {
 		// Update an athlete mark
 		em.getTransaction().begin();
 		
-		Athlet temp = new Athlet();
+		Athlete temp = new Athlete();
 		temp.setAthletId(1);
-	    Athlet foundAthlete = em.find(Athlet.class, temp.getAthletId());
+	    Athlete foundAthlete = em.find(Athlete.class, temp.getAthletId());
 	    foundAthlete.addMark(DeviceType.POMMEL_HORSE,new Mark(4,4,4,4,4,4)); 
 	    em.getTransaction().commit();
 		
