@@ -21,7 +21,7 @@ public class Mark implements Serializable{
 	private double finalMark;
 
 	public Mark(double dMark, double eMarkOne, double emarkTwo, double eMarkThree,
-			double penalty, double bonus, double finalmark) {
+			double penalty, double bonus) {
 		super();
 		this.dMark = dMark;
 		this.eMarkOne = eMarkOne;
