@@ -7,6 +7,7 @@
 <project basedir="." default="build" name="GymtasticApp">
     <property environment="env"/>
     <property name="ECLIPSE_HOME" value="../../../../../../../usr/lib/eclipse"/>
+    <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
@@ -14,11 +15,18 @@
         <pathelement location="bin"/>
         <pathelement location="lib/iText-5.0.6.jar"/>
         <pathelement location="lib/objectdb.jar"/>
+        <pathelement location="lib/junit-4.8.1.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="test">
                 <exclude name="**/*.launch"/>
                 <exclude name="**/*.java"/>
             </fileset>
@@ -36,6 +44,10 @@
             <src path="src"/>
             <classpath refid="GymtasticApp.classpath"/>
         </javac>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="test"/>
+            <classpath refid="GymtasticApp.classpath"/>
+        </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
     <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
@@ -51,19 +63,20 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="Gymtastic_Server">
-        <java classname="application.Gymtastic_Server" failonerror="true" fork="yes">
+    <target name="MarkTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="ch.hsr.gymtastic.domain.MarkTest" todir="${junit.output.dir}"/>
             <classpath refid="GymtasticApp.classpath"/>
-        </java>
+        </junit>
     </target>
-    <target name="Main">
-        <java classname="domain.Main" failonerror="true" fork="yes">
-            <classpath refid="GymtasticApp.classpath"/>
-        </java>
-    </target>
-    <target name="Gymtastic_Client">
-        <java classname="application.Gymtastic_Client" failonerror="true" fork="yes">
-            <classpath refid="GymtasticApp.classpath"/>
-        </java>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
     </target>
 </project>
