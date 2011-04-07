@@ -29,9 +29,9 @@ public class Athlete extends Person {
     @Embedded
     private Association association;
 
-    public Athlete(int squadID, int athletID, String prgClass, String vorname, String name, String adresse,
+    public Athlete(int squadID, int athletID, String prgClass, String firstName, String lastName, String address,
 	    int yearOfBirth, Association association) {
-	super(name, vorname, adresse);
+	super(firstName, lastName, address);
 	this.squadId = squadID;
 	this.athletId = athletID;
 	this.prgClass = prgClass;
@@ -45,8 +45,8 @@ public class Athlete extends Person {
 	super();
     }
 
-    public Athlete(String vorname, String nachname, String adresse) {
-	super(vorname, nachname, adresse);
+    public Athlete(String fristName, String lastName, String address) {
+	super(fristName, lastName, address);
     }
 
     public long getId() {
