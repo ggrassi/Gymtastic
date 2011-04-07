@@ -19,51 +19,54 @@ import domain.Squad;
 
 public class RMIServer extends Observable implements RMIServerInterface {
 
-    Vector<ClientInformation> clientsWaitingForAllocation = new Vector<ClientInformation>();
-    // ClientAllocation clientsWaitingForAllocation = new ClientAllocation();
-    ClientAllocation clientsAllocated = new ClientAllocation();
+	Vector<ClientInformation> clientsWaitingForAllocation = new Vector<ClientInformation>();
+	// ClientAllocation clientsWaitingForAllocation = new ClientAllocation();
+	ClientAllocation clientsAllocated = new ClientAllocation();
 
-    public RMIServer() throws RemoteException {
-	RMIServerInterface stub = (RMIServerInterface) UnicastRemoteObject.exportObject(this, 0);
-	Registry registry = LocateRegistry.createRegistry(1099);
-	registry.rebind("Gymtastic", stub);
-    }
+	public RMIServer() throws RemoteException {
+		RMIServerInterface stub = (RMIServerInterface) UnicastRemoteObject
+				.exportObject(this, 0);
+		Registry registry = LocateRegistry.createRegistry(1099);
+		registry.rebind("Gymtastic", stub);
+	}
 
-    @Override
-    public void addClient(RMIClientInterface client, DeviceType deviceType) throws RemoteException,
-	    ServerNotActiveException {
-	clientsWaitingForAllocation.add(new ClientInformation(client, RemoteServer.getClientHost(), deviceType));
-	System.out.println("client added");
-	System.out.println(deviceType);
-	updateObservers();
+	@Override
+	public void addClient(RMIClientInterface client, DeviceType deviceType)
+			throws RemoteException, ServerNotActiveException {
+		clientsWaitingForAllocation.add(new ClientInformation(client,
+				RemoteServer.getClientHost(), deviceType));
+		System.out.println("client added");
+		System.out.println(deviceType);
+		updateObservers();
 
-    }
+	}
 
-    @Override
-    public void removeClient(RMIClientInterface client) throws RemoteException {
-	
-	updateObservers();
-    }
+	@Override
+	public void removeClient(RMIClientInterface client) throws RemoteException {
 
-    @Override
-    public void uploadSquadToServer(Squad temp) throws RemoteException {
-    
-    	DBConnection db = new DBConnection();
-    	for(Athlet athlet: temp.getAthlets()){
-    		Athlet foundAthlete = db.getEm().find(Athlet.class, athlet.getAthletId());
-    		foundAthlete.setFirstName( athlet.getFirstName() );
-    	}
-	    
-	    db.commit();
-    	db.closeConnection();
-    }
+		updateObservers();
+	}
 
-    public Vector<ClientInformation> getClientsWaitingForAllocation() {
-	return clientsWaitingForAllocation;
-    }
+	@Override
+	public void uploadSquadToServer(Squad temp) throws RemoteException {
 
-    private void updateObservers() {
-	setChanged();
-	notifyObservers();
-    }
+		DBConnection db = new DBConnection();
+		for (Athlet athlet : temp.getAthlets()) {
+			Athlet foundAthlete = db.getEm().find(Athlet.class,
+					athlet.getAthletId());
+			foundAthlete.setFirstName(athlet.getFirstName());
+		}
+
+		db.commit();
+		db.closeConnection();
+	}
+
+	public Vector<ClientInformation> getClientsWaitingForAllocation() {
+		return clientsWaitingForAllocation;
+	}
+
+	private void updateObservers() {
+		setChanged();
+		notifyObservers();
+	}
 }

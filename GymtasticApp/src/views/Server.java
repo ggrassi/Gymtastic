@@ -15,6 +15,8 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.rmi.RemoteException;
 import java.util.GregorianCalendar;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -29,6 +31,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import network.ClientInformation;
 import network.RMIClientInterface;
 import network.RMIServer;
 import view.editor.DeviceTypeEditor;
@@ -394,11 +397,15 @@ public class Server {
 	btnDurchgangFreigeben.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		try {
-		    RMIClientInterface rmici = clientAllocation.getClientStub(DeviceType.FLOOR_EXCERCISE);
-		    Competition competition = cup.getCompetitions().get(0);
-		    RoundAllocation ra = competition.getRoundAllocation();
-		    Squad squad = ra.getSquad(DeviceType.FLOOR_EXCERCISE, 1);
-		    rmici.uploadSquadToClient(squad);
+			Set<Entry<DeviceType, ClientInformation>> deviceTypes = clientAllocation.entrySet();
+			for (Entry<DeviceType, ClientInformation> entry : deviceTypes) {
+				RMIClientInterface rmici = clientAllocation.getClientStub(entry.getKey());
+				Competition competition = cup.getCompetitions().get(0);
+				RoundAllocation ra = competition.getRoundAllocation();
+				Squad squad = ra.getSquad(entry.getKey(), 1);
+				rmici.uploadSquadToClient(squad);
+			}
+			
 		} catch (RemoteException e1) {
 		    e1.printStackTrace();
 		}
