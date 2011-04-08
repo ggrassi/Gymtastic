@@ -47,7 +47,7 @@ public class Squad implements Serializable {
     }
 
     public int getId() {
-	return id;
+	return squadId;
     }
 
     public void setId(int id) {
