@@ -47,7 +47,7 @@ public class RMIServer extends Observable implements RMIServerInterface {
 
 	DBConnection db = new DBConnection();
 	for (Athlete athlet : temp.getAthlets()) {
-	    Athlete foundAthlete = db.getEm().find(Athlete.class, athlet.getAthletId());
+	    Athlete foundAthlete = db.getEm().find(Athlete.class, athlet.getAthleteId());
 	    foundAthlete.setFirstName(athlet.getFirstName());
 	    System.out.println("Vorname: " + athlet.getFirstName() + " Nachname: " + athlet.getLastName());
 	}

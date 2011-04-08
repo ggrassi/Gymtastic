@@ -38,7 +38,7 @@ public class AthleteTest {
     
     @Test
     public final void testAthleteAllInformations() {
-	assertEquals(33, athleteAllInformations.getAthletId());
+	assertEquals(33, athleteAllInformations.getAthleteId());
 	assertEquals("Jolly", athleteAllInformations.getFirstName());
 	assertEquals("Jumper", athleteAllInformations.getLastName());
 	assertEquals("Desertstreet 12", athleteAllInformations.getAddress());

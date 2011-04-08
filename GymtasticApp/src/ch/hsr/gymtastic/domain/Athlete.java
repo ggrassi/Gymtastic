@@ -21,7 +21,7 @@ public class Athlete extends Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private int squadId;
-    private int athletId;
+    private int athleteId;
     private String prgClass;
     private int yearOfBirth;
     @OneToMany
@@ -29,11 +29,11 @@ public class Athlete extends Person {
     @Embedded
     private Association association;
 
-    public Athlete(int squadID, int athletID, String prgClass, String firstName, String lastName, String address,
+    public Athlete(int squadID, int athleteID, String prgClass, String firstName, String lastName, String address,
 	    int yearOfBirth, Association association) {
 	super(firstName, lastName, address);
 	this.squadId = squadID;
-	this.athletId = athletID;
+	this.athleteId = athleteID;
 	this.prgClass = prgClass;
 	this.yearOfBirth = yearOfBirth;
 	this.association = association;
@@ -45,8 +45,8 @@ public class Athlete extends Person {
 	super();
     }
 
-    public Athlete(String fristName, String lastName, String address) {
-	super(fristName, lastName, address);
+    public Athlete(String firstName, String lastName, String address) {
+	super(firstName, lastName, address);
     }
 
     public long getId() {
@@ -65,12 +65,12 @@ public class Athlete extends Person {
 	this.squadId = squadId;
     }
 
-    public int getAthletId() {
-	return athletId;
+    public int getAthleteId() {
+	return athleteId;
     }
 
-    public void setAthletId(int athletId) {
-	this.athletId = athletId;
+    public void setAthleteId(int athletId) {
+	this.athleteId = athletId;
     }
 
     public String getPrgClass() {
@@ -107,7 +107,7 @@ public class Athlete extends Person {
 
     @Override
     public String toString() {
-	return String.format("(%d, %d)", this.squadId, this.athletId);
+	return String.format("(%d, %d)", this.squadId, this.athleteId);
     }
 
     public void addMark(DeviceType dt, Mark mark) {

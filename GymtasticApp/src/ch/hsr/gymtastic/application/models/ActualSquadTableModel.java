@@ -72,7 +72,7 @@ public class ActualSquadTableModel extends AbstractTableModel implements Observe
 
 	    switch (columnIndex) {
 	    case 0:
-		return athlet.getAthletId();
+		return athlet.getAthleteId();
 	    case 1:
 		return athlet.getFirstName();
 	    case 2:

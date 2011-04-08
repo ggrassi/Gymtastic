@@ -24,14 +24,13 @@ public abstract class Person implements Serializable {
     }
 
     public Person(String firstName, String lastName, String address) {
-	super();
 	this.firstName = firstName;
 	this.lastName = lastName;
 	this.address = address;
     }
 
     public String getFirstName() {
-	return firstName;
+	return this.firstName;
     }
 
     public void setFirstName(String firstName) {
@@ -39,7 +38,7 @@ public abstract class Person implements Serializable {
     }
 
     public String getLastName() {
-	return lastName;
+	return this.lastName;
     }
 
     public void setLastName(String lastName) {
@@ -47,7 +46,7 @@ public abstract class Person implements Serializable {
     }
 
     public String getAddress() {
-	return address;
+	return this.address;
     }
 
     public void setAddress(String address) {
