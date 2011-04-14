@@ -33,9 +33,7 @@ public class Mark implements Serializable{
 	}
 
 	private double generateFinalMark() {
-		double eMark;
-		eMark = (eMarkOne+eMarkTwo+eMarkThree)/3;
-		return eMark+dMark+bonus-penalty;
+		return ((eMarkOne+eMarkTwo+eMarkThree)/3)+dMark+bonus-penalty;
 	}
 
 	@Override

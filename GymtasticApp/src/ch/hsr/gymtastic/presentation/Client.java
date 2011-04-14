@@ -7,18 +7,21 @@ import javax.swing.JTabbedPane;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
+import ch.hsr.gymtastic.application.controller.NetworkClientController;
+import ch.hsr.gymtastic.application.controller.PresentationClientController;
 import ch.hsr.gymtastic.presentation.panels.EvaluationPanel;
 import ch.hsr.gymtastic.presentation.panels.OverviewPanel;
-import java.awt.GridBagLayout;
+
 
 public class Client {
 
     private JFrame frame;
-
+    private NetworkClientController networkController;
+    private PresentationClientController presentationController;
     /**
      * Launch the application.
      */
-    public static void main(String[] args) {
+    public static void newClientFrame() {
 	EventQueue.invokeLater(new Runnable() {
 	    public void run() {
 		try {
@@ -35,10 +38,18 @@ public class Client {
      * Create the application.
      */
     public Client() {
+    	try {
+			networkController = new NetworkClientController();
+			this.presentationController = new PresentationClientController(networkController);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	initialize();
     }
 
-    /**
+   
+
+	/**
      * Initialize the contents of the frame.
      */
     private void initialize() {
@@ -58,7 +69,8 @@ public class Client {
 	OverviewPanel panelOverview = new OverviewPanel();
 	tabbedPane.addTab("Übersicht", null, panelOverview, null);
 	
-	JPanel panelEvaluation = new JPanel();
+	 
+	EvaluationPanel panelEvaluation = new EvaluationPanel(this.presentationController);
 	tabbedPane.addTab("Bewertung", null, panelEvaluation, null);
     }
 

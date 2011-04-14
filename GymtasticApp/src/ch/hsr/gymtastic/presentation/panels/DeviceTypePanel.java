@@ -27,18 +27,19 @@ public class DeviceTypePanel extends JPanel {
 	private JComboBox cmbDeviceType = new JComboBox();
 	private JScrollPane scrollPaneTableDevices;
 
-	public DeviceTypePanel(DeviceTypeTableModel deviceTypeTableModel, final NetworkServerController networkController) {
+	public DeviceTypePanel(DeviceTypeTableModel deviceTypeTableModel,
+			final NetworkServerController networkController) {
 		super();
 		this.deviceTypeTableModel = deviceTypeTableModel;
 		this.networkController = networkController;
 		this.setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel panelControl = new JPanel();
 		this.add(panelControl, BorderLayout.SOUTH);
 		panelControl.setLayout(new BorderLayout(0, 0));
 		JButton btnAllocateAllDevices = new JButton("Alle Zuweisen");
 		btnAllocateAllDevices.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent arg0) {
 				Server.clientAllocation = new ClientAllocation();
 				Server.clientAllocation.addAll(networkController
@@ -49,13 +50,13 @@ public class DeviceTypePanel extends JPanel {
 
 		tableDevices = new JTable();
 		tableDevices.setModel(deviceTypeTableModel);
-		tableDevices.getColumnModel().getColumn(1).setCellEditor(
-				new DeviceTypeEditor(cmbDeviceType));
+		tableDevices.getColumnModel().getColumn(1)
+				.setCellEditor(new DeviceTypeEditor(cmbDeviceType));
 
 		scrollPaneTableDevices = new JScrollPane();
 		this.add(scrollPaneTableDevices, BorderLayout.CENTER);
 		scrollPaneTableDevices.setViewportView(tableDevices);
-		
+
 	}
 
 }
