@@ -31,6 +31,7 @@ public class RMIServer extends Observable implements RMIServerInterface {
 			throws RemoteException, ServerNotActiveException {
 		clientsWaitingForAllocation.add(new ClientInformation(client,
 				RemoteServer.getClientHost(), (DeviceType) deviceType));
+		System.out.println("Client added");
 
 		updateObservers();
 

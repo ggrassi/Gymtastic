@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Frame;
 import java.io.FileNotFoundException;
-import java.rmi.RemoteException;
+import java.net.ConnectException;
 import java.util.GregorianCalendar;
 
 import javax.swing.JFrame;
@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import ch.hsr.gymtastic.application.controller.ClientAllocation;
+import ch.hsr.gymtastic.application.controller.NetworkServerController;
 import ch.hsr.gymtastic.application.controller.RoundAllocation;
 import ch.hsr.gymtastic.application.controller.SquadCreator;
 import ch.hsr.gymtastic.application.models.DeviceTypeTableModel;
@@ -24,7 +25,6 @@ import ch.hsr.gymtastic.presentation.panels.DeviceTypePanel;
 import ch.hsr.gymtastic.presentation.panels.JudgePanel;
 import ch.hsr.gymtastic.presentation.panels.RankingPanel;
 import ch.hsr.gymtastic.presentation.panels.RoundAllocationPanel;
-import ch.hsr.gymtastic.technicalServices.network.RMIServer;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
 import ch.hsr.gymtastic.technicalServices.utils.PdfExport;
 
@@ -38,7 +38,7 @@ public class Server {
 
 	public static Gymcup cup;
 
-	RMIServer rmiServer;
+	private NetworkServerController networkController;
 
 	/**
 	 * Launch the application.
@@ -61,12 +61,12 @@ public class Server {
 	 */
 	public Server() {
 		try {
-			rmiServer = new RMIServer();
-		} catch (RemoteException e) {
+			networkController = new NetworkServerController();
+		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
 
-		deviceTypeTableModel = new DeviceTypeTableModel(rmiServer);
+		deviceTypeTableModel = new DeviceTypeTableModel(networkController);
 		initialize();
 	}
 
@@ -95,12 +95,17 @@ public class Server {
 		tabbedPane.addTab("Kampfrichter", null, panelJudge, null);
 
 		DeviceTypePanel panelDeviceType = new DeviceTypePanel(
-				deviceTypeTableModel, rmiServer);
+				deviceTypeTableModel, networkController);
 		tabbedPane.addTab("Ger\u00E4tezuweisung", null, panelDeviceType, null);
 
-		RoundAllocationPanel RoundAllocatoin = new RoundAllocationPanel(
-				clientAllocation);
-		tabbedPane.addTab("Durchgangssteuerung", null, RoundAllocatoin, null);
+		RoundAllocationPanel roundAllocation = null;
+		try {
+			roundAllocation = new RoundAllocationPanel(clientAllocation,
+					networkController);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		tabbedPane.addTab("Durchgangssteuerung", null, roundAllocation, null);
 
 		RankingPanel panelRanking = new RankingPanel();
 		tabbedPane.addTab("Ranglistengenerierung", null, panelRanking, null);

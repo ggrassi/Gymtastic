@@ -18,6 +18,7 @@ public class NetworkClientController extends Observable implements Observer {
 
 	public NetworkClientController() throws Exception {
 		rmiClient = new RMIClient();
+		rmiClient.addObserver(this);
 	}
 
 	public void setServerIP(String serverIP) {
@@ -44,11 +45,19 @@ public class NetworkClientController extends Observable implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		this.squad = (Squad) arg;
+		updateObservers();
 
+	}
+
+	private void updateObservers() {
+		setChanged();
+		notifyObservers();
+		
 	}
 
 	public Squad getSquad() {
 		return squad;
 	}
+	
 
 }

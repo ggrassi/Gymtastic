@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
 import ch.hsr.gymtastic.application.controller.ClientAllocation;
+import ch.hsr.gymtastic.application.controller.NetworkServerController;
 import ch.hsr.gymtastic.application.editor.DeviceTypeEditor;
 import ch.hsr.gymtastic.application.models.DeviceTypeTableModel;
 import ch.hsr.gymtastic.presentation.Server;
@@ -20,16 +21,16 @@ import ch.hsr.gymtastic.technicalServices.network.RMIServer;
 
 public class DeviceTypePanel extends JPanel {
 
-	private RMIServer rmiServer;
+	private NetworkServerController networkController;
 	private JTable tableDevices;
 	private TableModel deviceTypeTableModel;
 	private JComboBox cmbDeviceType = new JComboBox();
 	private JScrollPane scrollPaneTableDevices;
 
-	public DeviceTypePanel(DeviceTypeTableModel deviceTypeTableModel, RMIServer rmiServer2) {
+	public DeviceTypePanel(DeviceTypeTableModel deviceTypeTableModel, final NetworkServerController networkController) {
 		super();
 		this.deviceTypeTableModel = deviceTypeTableModel;
-		this.rmiServer = rmiServer2;
+		this.networkController = networkController;
 		this.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelControl = new JPanel();
@@ -40,7 +41,7 @@ public class DeviceTypePanel extends JPanel {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				Server.clientAllocation = new ClientAllocation();
-				Server.clientAllocation.addAll(rmiServer
+				Server.clientAllocation.addAll(networkController
 						.getClientsWaitingForAllocation());
 			}
 		});

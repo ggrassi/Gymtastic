@@ -5,9 +5,9 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
+import ch.hsr.gymtastic.application.controller.NetworkServerController;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
-import ch.hsr.gymtastic.technicalServices.network.RMIServer;
 
 
 public class DeviceTypeTableModel extends AbstractTableModel implements
@@ -18,16 +18,16 @@ public class DeviceTypeTableModel extends AbstractTableModel implements
      */
 	private static final long serialVersionUID = 1L;
 	private String[] columns = { "IP-Adresse", "Gewünschtes Gerät" };
-	private final RMIServer rmiServer;
+	private final NetworkServerController networkController;
 
 	@Override
 	public String getColumnName(int columnIndex) {
 		return columns[columnIndex];
 	}
 
-	public DeviceTypeTableModel(RMIServer rmiServer) {
-		this.rmiServer = rmiServer;
-		this.rmiServer.addObserver(this);
+	public DeviceTypeTableModel(NetworkServerController networkController) {
+		this.networkController = networkController;
+		this.networkController.addObserver(this);
 	}
 
 	@Override
@@ -37,8 +37,8 @@ public class DeviceTypeTableModel extends AbstractTableModel implements
 
 	@Override
 	public int getRowCount() {
-		if (rmiServer != null) {
-			return rmiServer.getClientsWaitingForAllocation().size();
+		if (networkController != null) {
+			return networkController.getClientsWaitingForAllocation().size();
 		} else {
 			return 0;
 		}
@@ -57,14 +57,16 @@ public class DeviceTypeTableModel extends AbstractTableModel implements
 	}
 
 	private ClientInformation getClient(int rowIndex) {
-		ClientInformation client = rmiServer.getClientsWaitingForAllocation()
+		ClientInformation client = networkController.getClientsWaitingForAllocation()
 				.get(rowIndex);
+		System.out.println(client.getHost());
 		return client;
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		fireTableDataChanged();
+		System.out.println("TABLE UPDATE");
 	}
 
 	@Override
