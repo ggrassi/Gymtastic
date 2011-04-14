@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import ch.hsr.gymtastic.application.controller.NetworkClientController;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.technicalServices.network.RMIClient;
 
@@ -36,7 +37,8 @@ public class ClientConnection {
 	private JButton btnConnect = new JButton("Verbinden");
 	private JButton btnAbbrechen = new JButton("Abbrechen");
 
-	private RMIClient client;
+//	private RMIClient client;
+	private NetworkClientController networkController;
 
 	/**
 	 * Launch the application.
@@ -62,7 +64,7 @@ public class ClientConnection {
 	 * @throws Exception
 	 */
 	public ClientConnection() throws Exception {
-		client = new RMIClient();
+		networkController = new NetworkClientController();
 		initialize();
 	}
 
@@ -145,13 +147,13 @@ public class ClientConnection {
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					client.setServerIP(txtIpAddress.getText());
-					client.connect((DeviceType) cmbDeviceType.getSelectedItem());
+					networkController.setServerIP(txtIpAddress.getText());
+					networkController.connect((DeviceType) cmbDeviceType.getSelectedItem());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				
-				Client.newClientFrame(client);
+				Client.newClientFrame(networkController);
 				frmClientConnection.dispose();
 
 			}

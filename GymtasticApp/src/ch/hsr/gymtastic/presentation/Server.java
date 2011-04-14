@@ -7,12 +7,9 @@ import java.io.FileNotFoundException;
 import java.rmi.RemoteException;
 import java.util.GregorianCalendar;
 
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 
 import ch.hsr.gymtastic.application.controller.ClientAllocation;
 import ch.hsr.gymtastic.application.controller.RoundAllocation;
@@ -97,10 +94,12 @@ public class Server {
 		JudgePanel panelJudge = new JudgePanel();
 		tabbedPane.addTab("Kampfrichter", null, panelJudge, null);
 
-		DeviceTypePanel panelDeviceType = new DeviceTypePanel(deviceTypeTableModel, rmiServer);
+		DeviceTypePanel panelDeviceType = new DeviceTypePanel(
+				deviceTypeTableModel, rmiServer);
 		tabbedPane.addTab("Ger\u00E4tezuweisung", null, panelDeviceType, null);
 
-		RoundAllocationPanel RoundAllocatoin = new RoundAllocationPanel(clientAllocation);
+		RoundAllocationPanel RoundAllocatoin = new RoundAllocationPanel(
+				clientAllocation);
 		tabbedPane.addTab("Durchgangssteuerung", null, RoundAllocatoin, null);
 
 		RankingPanel panelRanking = new RankingPanel();

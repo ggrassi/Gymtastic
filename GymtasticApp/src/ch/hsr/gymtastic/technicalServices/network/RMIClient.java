@@ -1,5 +1,6 @@
 package ch.hsr.gymtastic.technicalServices.network;
 
+import java.io.Serializable;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -10,73 +11,54 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Observable;
 
 import ch.hsr.gymtastic.domain.DeviceType;
-import ch.hsr.gymtastic.domain.Squad;
-
 
 public class RMIClient extends Observable implements RMIClientInterface {
 
-    private String serverIP = "localhost";
-    private RMIServerInterface rmiServerInterface;
-    private Squad squad;
+	private String serverIP = "localhost";
+	private RMIServerInterface rmiServerInterface;
 
-    @Override
-    public void uploadSquadToClient(Squad squad) throws RemoteException {
-	this.squad = squad;
-	updateObservers();
-    }
-
-    public RMIClient() throws Exception {
-    }
-
-
-    public RMIClient(String host) {
-	this.serverIP = host;
-    }
-
-    public void connect(DeviceType deviceType) throws RemoteException, NotBoundException, AccessException,
-	    ServerNotActiveException {
-	Registry registry = LocateRegistry.getRegistry(getServerIP());
-	rmiServerInterface = (RMIServerInterface) registry.lookup("Gymtastic");
-	RMIClientInterface stub = (RMIClientInterface) UnicastRemoteObject.exportObject(this, 0);
-	try {
-
-	    rmiServerInterface.addClient(stub, deviceType);
-	} catch (ServerNotActiveException e) {
-	    e.printStackTrace();
-
-	    rmiServerInterface.addClient(stub, deviceType);
+	@Override
+	public void uploadSquadToClient(Serializable object) throws RemoteException {
+		updateObservers(object);
 	}
-    }
 
-    public void disconnect() throws RemoteException {
-	rmiServerInterface.removeClient(this);
+	public RMIClient() throws Exception {
+	}
 
-    }
+	public RMIClient(String host) {
+		this.serverIP = host;
+	}
 
-    public void updateServer() throws RemoteException {
-	rmiServerInterface.uploadSquadToServer(squad);
-    }
+	public RMIServerInterface connect(Serializable deviceType) throws RemoteException,
+			NotBoundException, AccessException, ServerNotActiveException {
+		Registry registry = LocateRegistry.getRegistry(getServerIP());
+		rmiServerInterface = (RMIServerInterface) registry.lookup("Gymtastic");
+		RMIClientInterface stub = (RMIClientInterface) UnicastRemoteObject
+				.exportObject(this, 0);
+		rmiServerInterface.addClient(stub, deviceType);
+		return rmiServerInterface;
 
-    public void setServerIP(String serverIP) {
-	this.serverIP = serverIP;
-    }
+	}
 
-    public String getServerIP() {
-	return serverIP;
-    }
+	public void disconnect() throws RemoteException {
+		rmiServerInterface.removeClient(this);
+	}
 
-    public Squad getSquad() {
-	return squad;
-    }
-    
+	public void setServerIP(String serverIP) {
+		this.serverIP = serverIP;
+	}
 
-    public RMIServerInterface getRmiServerInterface() {
-	return rmiServerInterface;
-    }
+	public String getServerIP() {
+		return serverIP;
+	}
 
-    private void updateObservers() {
-	setChanged();
-	notifyObservers();
-    }
+	public RMIServerInterface getRmiServerInterface() {
+		return rmiServerInterface;
+	}
+
+	private void updateObservers(Serializable object) {
+		setChanged();
+		notifyObservers(object);
+	}
 
 }
