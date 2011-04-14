@@ -61,8 +61,7 @@ public class DBConnection {
 	public void getAllSquads() {
 		TypedQuery<Squad> query = em.createQuery("SELECT s FROM Squad s",
 				Squad.class);
-		List<Squad> results = query.getResultList();
-		for (Squad sq : results) {
+		for (Squad sq : query.getResultList()) {
 			System.out.println(sq);
 		}
 	}
