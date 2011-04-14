@@ -49,7 +49,7 @@ public class ClientAllocation {
 
 	}
 	
-	public RMIClientInterface getClientStub( DeviceType deviceType){
+	public RMIClientInterface getClientStub(DeviceType deviceType){
 	    return alloc.get(deviceType).getStub();
 	}
 

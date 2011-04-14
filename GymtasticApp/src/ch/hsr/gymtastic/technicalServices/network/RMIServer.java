@@ -16,53 +16,56 @@ import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
 public class RMIServer extends Observable implements RMIServerInterface {
+	Vector<ClientInformation> clientsWaitingForAllocation = new Vector<ClientInformation>();
+	ClientAllocation clientsAllocated = new ClientAllocation();
 
-    Vector<ClientInformation> clientsWaitingForAllocation = new Vector<ClientInformation>();
-    ClientAllocation clientsAllocated = new ClientAllocation();
-
-    public RMIServer() throws RemoteException {
-	RMIServerInterface stub = (RMIServerInterface) UnicastRemoteObject.exportObject(this, 0);
-	Registry registry = LocateRegistry.createRegistry(1099);
-	registry.rebind("Gymtastic", stub);
-    }
-
-    @Override
-    public void addClient(RMIClientInterface client, DeviceType deviceType) throws RemoteException,
-	    ServerNotActiveException {
-	clientsWaitingForAllocation.add(new ClientInformation(client, RemoteServer.getClientHost(), deviceType));
-	System.out.println("client added");
-	System.out.println(deviceType);
-	updateObservers();
-
-    }
-
-    @Override
-    public void removeClient(RMIClientInterface client) throws RemoteException {
-
-	updateObservers();
-    }
-
-    @Override
-    public void uploadSquadToServer(Squad temp) throws RemoteException {
-
-	DBConnection db = new DBConnection();
-	for (Athlete athlet : temp.getAthlets()) {
-	    Athlete foundAthlete = db.getEm().find(Athlete.class, athlet.getAthleteId());
-	    foundAthlete.setFirstName(athlet.getFirstName());
-	    System.out.println("Vorname: " + athlet.getFirstName() + " Nachname: " + athlet.getLastName());
+	public RMIServer() throws RemoteException {
+		RMIServerInterface stub = (RMIServerInterface) UnicastRemoteObject
+				.exportObject(this, 0);
+		Registry registry = LocateRegistry.createRegistry(1099);
+		registry.rebind("Gymtastic", stub);
 	}
 
-	db.commit();
-	db.closeConnection();
-	
-    }
+	@Override
+	public void addClient(RMIClientInterface client, DeviceType deviceType)
+			throws RemoteException, ServerNotActiveException {
+		clientsWaitingForAllocation.add(new ClientInformation(client,
+				RemoteServer.getClientHost(), deviceType));
+		System.out.println("client added");
+		System.out.println(deviceType);
+		updateObservers();
 
-    public Vector<ClientInformation> getClientsWaitingForAllocation() {
-	return clientsWaitingForAllocation;
-    }
+	}
 
-    private void updateObservers() {
-	setChanged();
-	notifyObservers();
-    }
+	@Override
+	public void removeClient(RMIClientInterface client) throws RemoteException {
+
+		updateObservers();
+	}
+
+	@Override
+	public void uploadSquadToServer(Squad temp) throws RemoteException {
+
+		DBConnection db = new DBConnection();
+		for (Athlete athlet : temp.getAthlets()) {
+			Athlete foundAthlete = db.getEm().find(Athlete.class,
+					athlet.getAthleteId());
+			foundAthlete.setFirstName(athlet.getFirstName());
+			System.out.println("Vorname: " + athlet.getFirstName()
+					+ " Nachname: " + athlet.getLastName());
+		}
+
+		db.commit();
+		db.closeConnection();
+
+	}
+
+	public Vector<ClientInformation> getClientsWaitingForAllocation() {
+		return clientsWaitingForAllocation;
+	}
+
+	private void updateObservers() {
+		setChanged();
+		notifyObservers();
+	}
 }
