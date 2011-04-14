@@ -146,7 +146,7 @@ public class ClientConnection {
 		    e.printStackTrace();
 		}
 
-		Client.newClientFrame(networkController);
+		ClientPrototype.newClientFrame(networkController);
 		frmClientConnection.dispose();
 
 	    }
