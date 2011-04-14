@@ -67,4 +67,8 @@ public class RMIServer extends Observable implements RMIServerInterface {
 		setChanged();
 		notifyObservers();
 	}
+
+	public Vector<ClientInformation> getClientsWaitingForAllocation() {
+		return clientsWaitingForAllocation;
+	}
 }
