@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.ConnectException;
 import java.rmi.RemoteException;
 import java.util.Map.Entry;
 
@@ -19,6 +20,7 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.application.controller.ClientAllocation;
+import ch.hsr.gymtastic.application.controller.NetworkServerController;
 import ch.hsr.gymtastic.application.controller.RoundAllocation;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.DeviceType;
@@ -28,44 +30,63 @@ import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 import ch.hsr.gymtastic.technicalServices.network.RMIClientInterface;
 
 public class RoundAllocationPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private NetworkServerController networkController;
 
-	public RoundAllocationPanel(final ClientAllocation clientAllocation){
+	public RoundAllocationPanel(final ClientAllocation clientAllocation, final NetworkServerController networkController)
+			throws ConnectException {
 		super();
+		this.networkController = networkController;
 		GridBagLayout gbl_RoundAllocatoin = new GridBagLayout();
 		gbl_RoundAllocatoin.columnWidths = new int[] { 0, 0 };
 		gbl_RoundAllocatoin.rowHeights = new int[] { 0, 0, 0, 0 };
-		gbl_RoundAllocatoin.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_RoundAllocatoin.rowWeights = new double[] { 0.0, 1.0, 0.0, Double.MIN_VALUE };
+		gbl_RoundAllocatoin.columnWeights = new double[] { 1.0,
+				Double.MIN_VALUE };
+		gbl_RoundAllocatoin.rowWeights = new double[] { 0.0, 1.0, 0.0,
+				Double.MIN_VALUE };
 		this.setLayout(gbl_RoundAllocatoin);
 
 		JPanel panelCompetitionControlBorder = new JPanel();
-		panelCompetitionControlBorder.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
-			"Aktueller Wettkampf", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelCompetitionControlBorder.setBorder(new TitledBorder(UIManager
+				.getBorder("TitledBorder.border"), "Aktueller Wettkampf",
+				TitledBorder.LEADING, TitledBorder.TOP, null,
+				new Color(0, 0, 0)));
 		GridBagConstraints gbc_panelCompetitionControlBorder = new GridBagConstraints();
 		gbc_panelCompetitionControlBorder.anchor = GridBagConstraints.NORTH;
 		gbc_panelCompetitionControlBorder.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panelCompetitionControlBorder.insets = new Insets(0, 0, 5, 0);
 		gbc_panelCompetitionControlBorder.gridx = 0;
 		gbc_panelCompetitionControlBorder.gridy = 0;
-		this.add(panelCompetitionControlBorder, gbc_panelCompetitionControlBorder);
+		this.add(panelCompetitionControlBorder,
+				gbc_panelCompetitionControlBorder);
 		GridBagLayout gbl_panelCompetitionControlBorder = new GridBagLayout();
 		gbl_panelCompetitionControlBorder.columnWidths = new int[] { 0, 0 };
 		gbl_panelCompetitionControlBorder.rowHeights = new int[] { 0, 0 };
-		gbl_panelCompetitionControlBorder.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_panelCompetitionControlBorder.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
-		panelCompetitionControlBorder.setLayout(gbl_panelCompetitionControlBorder);
+		gbl_panelCompetitionControlBorder.columnWeights = new double[] { 1.0,
+				Double.MIN_VALUE };
+		gbl_panelCompetitionControlBorder.rowWeights = new double[] { 0.0,
+				Double.MIN_VALUE };
+		panelCompetitionControlBorder
+				.setLayout(gbl_panelCompetitionControlBorder);
 
 		JPanel panelCompetitionControl = new JPanel();
 		GridBagConstraints gbc_panelCompetitionControl = new GridBagConstraints();
 		gbc_panelCompetitionControl.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panelCompetitionControl.gridx = 0;
 		gbc_panelCompetitionControl.gridy = 0;
-		panelCompetitionControlBorder.add(panelCompetitionControl, gbc_panelCompetitionControl);
+		panelCompetitionControlBorder.add(panelCompetitionControl,
+				gbc_panelCompetitionControl);
 		GridBagLayout gbl_panelCompetitionControl = new GridBagLayout();
-		gbl_panelCompetitionControl.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panelCompetitionControl.columnWidths = new int[] { 0, 0, 0, 0, 0,
+				0, 0 };
 		gbl_panelCompetitionControl.rowHeights = new int[] { 0, 0 };
-		gbl_panelCompetitionControl.columnWeights = new double[] { 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_panelCompetitionControl.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+		gbl_panelCompetitionControl.columnWeights = new double[] { 0.0, 1.0,
+				1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panelCompetitionControl.rowWeights = new double[] { 0.0,
+				Double.MIN_VALUE };
 		panelCompetitionControl.setLayout(gbl_panelCompetitionControl);
 
 		JLabel lblCompetition = new JLabel("Wettkampf: ");
@@ -98,7 +119,8 @@ public class RoundAllocationPanel extends JPanel {
 		gbc_btnStartCompetition.insets = new Insets(0, 0, 0, 5);
 		gbc_btnStartCompetition.gridx = 3;
 		gbc_btnStartCompetition.gridy = 0;
-		panelCompetitionControl.add(btnStartCompetition, gbc_btnStartCompetition);
+		panelCompetitionControl.add(btnStartCompetition,
+				gbc_btnStartCompetition);
 
 		JButton btnStopCompetition = new JButton("Wettkampf anhalten");
 		GridBagConstraints gbc_btnStopCompetition = new GridBagConstraints();
@@ -109,8 +131,10 @@ public class RoundAllocationPanel extends JPanel {
 		panelCompetitionControl.add(btnStopCompetition, gbc_btnStopCompetition);
 
 		JPanel panelClientStatusBorder = new JPanel();
-		panelClientStatusBorder.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
-			"Ger\u00E4testatus", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelClientStatusBorder.setBorder(new TitledBorder(UIManager
+				.getBorder("TitledBorder.border"), "Ger\u00E4testatus",
+				TitledBorder.LEADING, TitledBorder.TOP, null,
+				new Color(0, 0, 0)));
 		GridBagConstraints gbc_panelClientStatusBorder = new GridBagConstraints();
 		gbc_panelClientStatusBorder.fill = GridBagConstraints.BOTH;
 		gbc_panelClientStatusBorder.insets = new Insets(0, 0, 5, 0);
@@ -120,8 +144,10 @@ public class RoundAllocationPanel extends JPanel {
 		GridBagLayout gbl_panelClientStatusBorder = new GridBagLayout();
 		gbl_panelClientStatusBorder.columnWidths = new int[] { 0, 0 };
 		gbl_panelClientStatusBorder.rowHeights = new int[] { 0, 0 };
-		gbl_panelClientStatusBorder.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_panelClientStatusBorder.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panelClientStatusBorder.columnWeights = new double[] { 1.0,
+				Double.MIN_VALUE };
+		gbl_panelClientStatusBorder.rowWeights = new double[] { 1.0,
+				Double.MIN_VALUE };
 		panelClientStatusBorder.setLayout(gbl_panelClientStatusBorder);
 
 		JPanel panelClientStatus = new JPanel();
@@ -133,8 +159,10 @@ public class RoundAllocationPanel extends JPanel {
 		GridBagLayout gbl_panelClientStatus = new GridBagLayout();
 		gbl_panelClientStatus.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panelClientStatus.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-		gbl_panelClientStatus.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_panelClientStatus.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panelClientStatus.columnWeights = new double[] { 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panelClientStatus.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, Double.MIN_VALUE };
 		panelClientStatus.setLayout(gbl_panelClientStatus);
 
 		JLabel lblFloor = new JLabel("Boden");
@@ -145,7 +173,8 @@ public class RoundAllocationPanel extends JPanel {
 		gbc_lblFloor.gridy = 0;
 		panelClientStatus.add(lblFloor, gbc_lblFloor);
 
-		JLabel lblFloorStatusText = new JLabel("Ger\u00E4tedurchgang nicht gestartet");
+		JLabel lblFloorStatusText = new JLabel(
+				"Ger\u00E4tedurchgang nicht gestartet");
 		GridBagConstraints gbc_lblFloorStatusText = new GridBagConstraints();
 		gbc_lblFloorStatusText.anchor = GridBagConstraints.WEST;
 		gbc_lblFloorStatusText.insets = new Insets(0, 0, 5, 5);
@@ -161,12 +190,14 @@ public class RoundAllocationPanel extends JPanel {
 		gbc_lblPommelHorse.gridy = 1;
 		panelClientStatus.add(lblPommelHorse, gbc_lblPommelHorse);
 
-		JLabel lblPommelHorseStatusText = new JLabel("Ger\u00E4tedurchgang nicht gestartet");
+		JLabel lblPommelHorseStatusText = new JLabel(
+				"Ger\u00E4tedurchgang nicht gestartet");
 		GridBagConstraints gbc_lblPommelHorseStatusText = new GridBagConstraints();
 		gbc_lblPommelHorseStatusText.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPommelHorseStatusText.gridx = 2;
 		gbc_lblPommelHorseStatusText.gridy = 1;
-		panelClientStatus.add(lblPommelHorseStatusText, gbc_lblPommelHorseStatusText);
+		panelClientStatus.add(lblPommelHorseStatusText,
+				gbc_lblPommelHorseStatusText);
 
 		JLabel lblRings = new JLabel("Ring");
 		GridBagConstraints gbc_lblRings = new GridBagConstraints();
@@ -176,7 +207,8 @@ public class RoundAllocationPanel extends JPanel {
 		gbc_lblRings.gridy = 2;
 		panelClientStatus.add(lblRings, gbc_lblRings);
 
-		JLabel lblRingsStatusText = new JLabel("Ger\u00E4tedurchgang nicht gestartet");
+		JLabel lblRingsStatusText = new JLabel(
+				"Ger\u00E4tedurchgang nicht gestartet");
 		GridBagConstraints gbc_lblRingsStatusText = new GridBagConstraints();
 		gbc_lblRingsStatusText.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRingsStatusText.gridx = 2;
@@ -191,7 +223,8 @@ public class RoundAllocationPanel extends JPanel {
 		gbc_lblVault.gridy = 3;
 		panelClientStatus.add(lblVault, gbc_lblVault);
 
-		JLabel lblVaultStatusText = new JLabel("Ger\u00E4tedurchgang nicht gestartet");
+		JLabel lblVaultStatusText = new JLabel(
+				"Ger\u00E4tedurchgang nicht gestartet");
 		GridBagConstraints gbc_lblVaultStatusText = new GridBagConstraints();
 		gbc_lblVaultStatusText.anchor = GridBagConstraints.WEST;
 		gbc_lblVaultStatusText.insets = new Insets(0, 0, 5, 5);
@@ -207,13 +240,15 @@ public class RoundAllocationPanel extends JPanel {
 		gbc_lblParallelBars.gridy = 4;
 		panelClientStatus.add(lblParallelBars, gbc_lblParallelBars);
 
-		JLabel lblParallelBarsStatusText = new JLabel("Ger\u00E4tedurchgang nicht gestartet");
+		JLabel lblParallelBarsStatusText = new JLabel(
+				"Ger\u00E4tedurchgang nicht gestartet");
 		GridBagConstraints gbc_lblParallelBarsStatusText = new GridBagConstraints();
 		gbc_lblParallelBarsStatusText.anchor = GridBagConstraints.WEST;
 		gbc_lblParallelBarsStatusText.insets = new Insets(0, 0, 5, 5);
 		gbc_lblParallelBarsStatusText.gridx = 2;
 		gbc_lblParallelBarsStatusText.gridy = 4;
-		panelClientStatus.add(lblParallelBarsStatusText, gbc_lblParallelBarsStatusText);
+		panelClientStatus.add(lblParallelBarsStatusText,
+				gbc_lblParallelBarsStatusText);
 
 		JLabel lblHighBar = new JLabel("Reck");
 		GridBagConstraints gbc_lblHighBar = new GridBagConstraints();
@@ -223,7 +258,8 @@ public class RoundAllocationPanel extends JPanel {
 		gbc_lblHighBar.gridy = 5;
 		panelClientStatus.add(lblHighBar, gbc_lblHighBar);
 
-		JLabel lblHighBarStatusText = new JLabel("Ger\u00E4tedurchgang nicht gestartet");
+		JLabel lblHighBarStatusText = new JLabel(
+				"Ger\u00E4tedurchgang nicht gestartet");
 		GridBagConstraints gbc_lblHighBarStatusText = new GridBagConstraints();
 		gbc_lblHighBarStatusText.insets = new Insets(0, 0, 0, 5);
 		gbc_lblHighBarStatusText.anchor = GridBagConstraints.WEST;
@@ -232,8 +268,10 @@ public class RoundAllocationPanel extends JPanel {
 		panelClientStatus.add(lblHighBarStatusText, gbc_lblHighBarStatusText);
 
 		JPanel panelRoundControlBorder = new JPanel();
-		panelRoundControlBorder.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Steuerung",
-			TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelRoundControlBorder.setBorder(new TitledBorder(UIManager
+				.getBorder("TitledBorder.border"), "Steuerung",
+				TitledBorder.LEADING, TitledBorder.TOP, null,
+				new Color(0, 0, 0)));
 		GridBagConstraints gbc_panelRoundControlBorder = new GridBagConstraints();
 		gbc_panelRoundControlBorder.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panelRoundControlBorder.gridx = 0;
@@ -242,8 +280,10 @@ public class RoundAllocationPanel extends JPanel {
 		GridBagLayout gbl_panelRoundControlBorder = new GridBagLayout();
 		gbl_panelRoundControlBorder.columnWidths = new int[] { 0, 0 };
 		gbl_panelRoundControlBorder.rowHeights = new int[] { 0, 0 };
-		gbl_panelRoundControlBorder.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_panelRoundControlBorder.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panelRoundControlBorder.columnWeights = new double[] { 1.0,
+				Double.MIN_VALUE };
+		gbl_panelRoundControlBorder.rowWeights = new double[] { 1.0,
+				Double.MIN_VALUE };
 		panelRoundControlBorder.setLayout(gbl_panelRoundControlBorder);
 
 		JPanel panelRoundControl = new JPanel();
@@ -255,7 +295,8 @@ public class RoundAllocationPanel extends JPanel {
 		GridBagLayout gbl_panelRoundControl = new GridBagLayout();
 		gbl_panelRoundControl.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panelRoundControl.rowHeights = new int[] { 0, 0 };
-		gbl_panelRoundControl.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panelRoundControl.columnWeights = new double[] { 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_panelRoundControl.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		panelRoundControl.setLayout(gbl_panelRoundControl);
 
@@ -282,21 +323,26 @@ public class RoundAllocationPanel extends JPanel {
 
 		JButton btnDurchgangFreigeben = new JButton("Durchgang Freigeben");
 		btnDurchgangFreigeben.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-			try {
-			    for (Entry<DeviceType, ClientInformation> entry : Server.clientAllocation.entrySet()) {
 
-				RMIClientInterface rmici = Server.clientAllocation.getClientStub(entry.getValue().getDeviceType());
-				Competition competition = Server.cup.getCompetitions().get(0);
-				RoundAllocation ra = competition.getRoundAllocation();
-				Squad squad = ra.getSquad(entry.getValue().getDeviceType(), 1);
-				rmici.uploadSquadToClient(squad);
-			    }
+			public void actionPerformed(ActionEvent e) {
+				try {
+					for (Entry<DeviceType, ClientInformation> entry : Server.clientAllocation
+							.entrySet()) {
 
-			} catch (RemoteException e1) {
-			    e1.printStackTrace();
+						RMIClientInterface rmiClient = Server.clientAllocation
+								.getClientStub(entry.getValue().getDeviceType());
+						Competition competition = Server.cup.getCompetitions()
+								.get(0);
+						RoundAllocation ra = competition.getRoundAllocation();
+						Squad squad = ra.getSquad(entry.getValue()
+								.getDeviceType(), 1);
+						networkController.updateClient(rmiClient, squad);
+					}
+
+				} catch (ConnectException exception) {
+					exception.printStackTrace();
+				}
 			}
-		    }
 		});
 		GridBagConstraints gbc_btnDurchgangFreigeben = new GridBagConstraints();
 		gbc_btnDurchgangFreigeben.insets = new Insets(0, 0, 0, 5);
@@ -304,5 +350,5 @@ public class RoundAllocationPanel extends JPanel {
 		gbc_btnDurchgangFreigeben.gridy = 0;
 		panelRoundControl.add(btnDurchgangFreigeben, gbc_btnDurchgangFreigeben);
 	}
-	
+
 }
