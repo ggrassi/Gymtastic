@@ -1,5 +1,6 @@
 package ch.hsr.gymtastic.technicalServices.network;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -9,15 +10,14 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Observable;
 import java.util.Vector;
 
-import ch.hsr.gymtastic.application.controller.ClientAllocation;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
 public class RMIServer extends Observable implements RMIServerInterface {
+
 	Vector<ClientInformation> clientsWaitingForAllocation = new Vector<ClientInformation>();
-	ClientAllocation clientsAllocated = new ClientAllocation();
 
 	public RMIServer() throws RemoteException {
 		RMIServerInterface stub = (RMIServerInterface) UnicastRemoteObject
@@ -27,12 +27,11 @@ public class RMIServer extends Observable implements RMIServerInterface {
 	}
 
 	@Override
-	public void addClient(RMIClientInterface client, DeviceType deviceType)
+	public void addClient(RMIClientInterface client, Serializable deviceType)
 			throws RemoteException, ServerNotActiveException {
 		clientsWaitingForAllocation.add(new ClientInformation(client,
-				RemoteServer.getClientHost(), deviceType));
-		System.out.println("client added");
-		System.out.println(deviceType);
+				RemoteServer.getClientHost(), (DeviceType) deviceType));
+
 		updateObservers();
 
 	}
@@ -40,6 +39,10 @@ public class RMIServer extends Observable implements RMIServerInterface {
 	@Override
 	public void removeClient(RMIClientInterface client) throws RemoteException {
 
+		/*
+		 * TODO
+		 */
+		
 		updateObservers();
 	}
 
@@ -58,10 +61,6 @@ public class RMIServer extends Observable implements RMIServerInterface {
 		db.commit();
 		db.closeConnection();
 
-	}
-
-	public Vector<ClientInformation> getClientsWaitingForAllocation() {
-		return clientsWaitingForAllocation;
 	}
 
 	private void updateObservers() {
