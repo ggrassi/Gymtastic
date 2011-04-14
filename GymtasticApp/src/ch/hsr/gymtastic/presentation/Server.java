@@ -24,6 +24,7 @@ import ch.hsr.gymtastic.presentation.panels.DeviceTypePanel;
 import ch.hsr.gymtastic.presentation.panels.JudgePanel;
 import ch.hsr.gymtastic.presentation.panels.RankingPanel;
 import ch.hsr.gymtastic.presentation.panels.RoundAllocationPanel;
+import ch.hsr.gymtastic.presentation.panels.SquadPanel;
 import ch.hsr.gymtastic.technicalServices.network.RMIServer;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
 import ch.hsr.gymtastic.technicalServices.utils.PdfExport;
@@ -87,6 +88,9 @@ public class Server {
 
 		CompetitionPanel panelCompetition = new CompetitionPanel();
 		tabbedPane.addTab("Wettkampfverwaltung", null, panelCompetition, null);
+
+		SquadPanel panelSquad = new SquadPanel();
+		tabbedPane.addTab("Riege", null, panelSquad, null);
 
 		AthletePanel panelAthlete = new AthletePanel();
 		tabbedPane.addTab("Athleten", null, panelAthlete, null);
