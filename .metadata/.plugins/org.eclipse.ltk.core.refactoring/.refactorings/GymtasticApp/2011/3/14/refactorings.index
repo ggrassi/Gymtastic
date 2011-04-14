@@ -1,7 +1,0 @@
-1301322199874	Delete elements
-1301470249014	Extract method 'serverUpdate'
-1301473544123	Rename method 'updateServer'
-1301473564061	Rename method 'updateClient'
-1301474300916	Change method 'removeClient'
-1301491900940	Extract method 'updateObservers'
-1301563929117	Extract method 'generateDummies'
