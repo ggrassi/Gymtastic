@@ -24,7 +24,7 @@ import ch.hsr.gymtastic.application.controller.NetworkClientController;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.technicalServices.network.RMIClient;
 
-public class ClientConnection {
+public class ClientConnectionFrame {
 
     private JFrame frmClientConnection;
     private JLabel lblIpAddress = new JLabel("IP-Adresse:");
@@ -47,7 +47,7 @@ public class ClientConnection {
 	EventQueue.invokeLater(new Runnable() {
 	    public void run() {
 		try {
-		    ClientConnection window = new ClientConnection();
+		    ClientConnectionFrame window = new ClientConnectionFrame();
 		    window.frmClientConnection.setVisible(true);
 		} catch (Exception e) {
 		    e.printStackTrace();
@@ -61,8 +61,8 @@ public class ClientConnection {
      * 
      * @throws Exception
      */
-    public ClientConnection() throws Exception {
-	networkController = new NetworkClientController();
+    public ClientConnectionFrame() throws Exception {
+		networkController = new NetworkClientController();
 	initialize();
     }
 
@@ -146,8 +146,7 @@ public class ClientConnection {
 		    e.printStackTrace();
 		}
 
-//		ClientPrototype.newClientFrame(networkController);
-		Client.newClientFrame();
+		ClientFrame.newClientFrame(networkController);
 		frmClientConnection.dispose();
 
 	    }

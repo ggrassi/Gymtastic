@@ -48,8 +48,8 @@ public class RMIServer extends Observable implements RMIServerInterface {
 	}
 
 	@Override
-	public void uploadSquadToServer(Squad temp) throws RemoteException {
-
+	public void uploadSquadToServer(Serializable object) throws RemoteException {
+		Squad temp = (Squad) object;
 		DBConnection db = new DBConnection();
 		for (Athlete athlet : temp.getAthlets()) {
 			Athlete foundAthlete = db.getEm().find(Athlete.class,

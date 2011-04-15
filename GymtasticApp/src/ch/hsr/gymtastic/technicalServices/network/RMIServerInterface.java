@@ -13,5 +13,5 @@ public interface RMIServerInterface extends Remote {
 
     public void removeClient(RMIClientInterface client) throws RemoteException;
 
-    public void uploadSquadToServer(Squad squad) throws RemoteException;
+    public void uploadSquadToServer(Serializable object) throws RemoteException;
 }
