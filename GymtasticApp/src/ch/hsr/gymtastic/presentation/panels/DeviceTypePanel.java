@@ -34,11 +34,12 @@ public class DeviceTypePanel extends JPanel {
 	public DeviceTypePanel(DeviceTypeTableModel deviceTypeTableModel,
 			final NetworkServerController networkController) {
 
-		initGUI();
-		initListeners();
 		this.deviceTypeTableModel = deviceTypeTableModel;
 		this.networkController = networkController;
 		this.setLayout(new BorderLayout(0, 0));
+		
+		initGUI();
+		initListeners();
 	}
 
 	private void initListeners() {

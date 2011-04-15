@@ -140,7 +140,7 @@ public class ServerFrame {
 		squadCreator.insertImportToDB();
 		cup.importAllSquads();
 		// brauchts nur für Review damit Startliste generiert wird
-		// cup.addSquads(squadCreator.createSquads());
+		cup.addSquads(squadCreator.createSquads());
 
 		/* create a competition in the cup */
 		System.out.println("******** Competition *************");

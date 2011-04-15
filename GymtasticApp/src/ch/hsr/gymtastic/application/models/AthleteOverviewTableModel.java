@@ -1,6 +1,5 @@
 package ch.hsr.gymtastic.application.models;
 
-
 import java.util.Observable;
 import java.util.Observer;
 
@@ -10,17 +9,17 @@ import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
 
-
-public class AthleteOverviewTableModel extends AbstractTableModel implements Observer {
+public class AthleteOverviewTableModel extends AbstractTableModel implements
+		Observer {
 
 	/**
      * 
      */
 	private static final long serialVersionUID = 1L;
-	private String[] columns = { "Vorname", "Nachname","Jahrgang","Leistungsklasse","Endnote" };
+	private String[] columns = { "Vorname", "Nachname", "Jahrgang",
+			"Leistungsklasse", "Endnote" };
 	private final SquadController squadController;
 	private Squad squad = null;
-
 
 	public AthleteOverviewTableModel(SquadController squadController) {
 		this.squadController = squadController;
@@ -31,6 +30,7 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements Obs
 	public String getColumnName(int columnIndex) {
 		return columns[columnIndex];
 	}
+
 	@Override
 	public int getColumnCount() {
 		return columns.length;
@@ -47,7 +47,7 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements Obs
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Athlete athlete =squad.getAthlete(rowIndex);
+		Athlete athlete = squad.getAthlete(rowIndex);
 		switch (columnIndex) {
 		case 0:
 			return athlete.getFirstName();
@@ -58,7 +58,9 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements Obs
 		case 3:
 			return athlete.getPrgClass();
 		case 4:
-			return athlete.getMarks().get(DeviceType.FLOOR_EXCERCISE).getFinalMark();
+//			return athlete.getMarks().get(DeviceType.FLOOR_EXCERCISE)
+//					.getFinalMark();
+			return "";
 		}
 		return "";
 	}
@@ -68,5 +70,5 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements Obs
 		squad = squadController.getSquad();
 		fireTableDataChanged();
 	}
-	
+
 }
