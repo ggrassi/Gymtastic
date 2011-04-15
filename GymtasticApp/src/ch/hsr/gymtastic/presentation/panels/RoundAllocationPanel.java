@@ -36,7 +36,8 @@ public class RoundAllocationPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private NetworkServerController networkController;
 
-	public RoundAllocationPanel(final ClientAllocation clientAllocation, final NetworkServerController networkController)
+	public RoundAllocationPanel(final ClientAllocation clientAllocation,
+			final NetworkServerController networkController)
 			throws ConnectException {
 		super();
 		this.networkController = networkController;
