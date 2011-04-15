@@ -31,7 +31,7 @@ import ch.hsr.gymtastic.technicalServices.utils.PdfExport;
 
 import com.itextpdf.text.DocumentException;
 
-public class Server {
+public class ServerFrame {
 
 	private JFrame frameServer;
 	private DeviceTypeTableModel deviceTypeTableModel;
@@ -48,7 +48,7 @@ public class Server {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Server window = new Server();
+					ServerFrame window = new ServerFrame();
 					window.frameServer.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,7 +60,7 @@ public class Server {
 	/**
 	 * Create the application.
 	 */
-	public Server() {
+	public ServerFrame() {
 		try {
 			networkController = new NetworkServerController();
 		} catch (ConnectException e) {

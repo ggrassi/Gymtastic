@@ -15,7 +15,7 @@ import ch.hsr.gymtastic.application.controller.ClientAllocation;
 import ch.hsr.gymtastic.application.controller.NetworkServerController;
 import ch.hsr.gymtastic.application.editor.DeviceTypeEditor;
 import ch.hsr.gymtastic.application.models.DeviceTypeTableModel;
-import ch.hsr.gymtastic.presentation.Server;
+import ch.hsr.gymtastic.presentation.ServerFrame;
 
 public class DeviceTypePanel extends JPanel {
 
@@ -45,8 +45,8 @@ public class DeviceTypePanel extends JPanel {
 		btnAllocateAllDevices.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				Server.clientAllocation = new ClientAllocation();
-				Server.clientAllocation.addAll(networkController
+				ServerFrame.clientAllocation = new ClientAllocation();
+				ServerFrame.clientAllocation.addAll(networkController
 						.getClientsWaitingForAllocation());
 			}
 		});

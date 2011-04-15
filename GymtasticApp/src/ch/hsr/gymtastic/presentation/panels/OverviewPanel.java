@@ -9,12 +9,21 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import java.awt.Color;
 import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JLabel;
+
+import ch.hsr.gymtastic.application.controller.SquadController;
+import ch.hsr.gymtastic.application.models.AthleteOverviewTableModel;
 
 public class OverviewPanel extends JPanel {
-	private JTable table;
-	public OverviewPanel() {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTable tableOverview;
+	private SquadController squadController;
+	public OverviewPanel(SquadController squadController) {
+		this.squadController = squadController;
+		
+		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0};
@@ -57,15 +66,9 @@ public class OverviewPanel extends JPanel {
 		gbc_scrollPane.gridy = 0;
 		panelAthletes.add(scrollPane, gbc_scrollPane);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"New column", "New column", "New column", "New column", "New column"
-			}
-		));
-		scrollPane.setViewportView(table);
+		tableOverview = new JTable();
+		tableOverview.setModel(new AthleteOverviewTableModel(squadController));
+		scrollPane.setViewportView(tableOverview);
 		
 		JPanel panelAthleteInfoBorder = new JPanel();
 		panelAthleteInfoBorder.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Information", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
