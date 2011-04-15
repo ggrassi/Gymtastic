@@ -1,20 +1,20 @@
 package ch.hsr.gymtastic.application.controller;
 
+import java.io.Serializable;
 import java.net.ConnectException;
 import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;
 
 import ch.hsr.gymtastic.domain.DeviceType;
-import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.network.RMIClient;
 import ch.hsr.gymtastic.technicalServices.network.RMIServerInterface;
 
-public class NetworkClientController extends Observable implements Observer {
+public class NetworkClientController implements Observer {
 
 	private RMIClient rmiClient;
 	private RMIServerInterface rmiServer;
-	private Squad squad;
+	private SquadController squadController;
 
 	public NetworkClientController() throws Exception {
 		rmiClient = new RMIClient();
@@ -25,9 +25,9 @@ public class NetworkClientController extends Observable implements Observer {
 		rmiClient.setServerIP(serverIP);
 	}
 
-	public void updateServer() throws ConnectException {
+	public void updateServer(Serializable object) throws ConnectException {
 		try {
-			rmiServer.uploadSquadToServer(squad);
+			rmiServer.uploadSquadToServer(object);
 		} catch (RemoteException e) {
 			throw new ConnectException();
 		}
@@ -42,22 +42,14 @@ public class NetworkClientController extends Observable implements Observer {
 		rmiClient.disconnect();
 	}
 
+	public void setSquadController(SquadController squadController) {
+		this.squadController = squadController;
+	}
+
 	@Override
 	public void update(Observable o, Object arg) {
-		this.squad = (Squad) arg;
-		updateObservers();
+		squadController.setSquad(arg);
 
 	}
-
-	private void updateObservers() {
-		setChanged();
-		notifyObservers();
-		
-	}
-
-	public Squad getSquad() {
-		return squad;
-	}
-	
 
 }

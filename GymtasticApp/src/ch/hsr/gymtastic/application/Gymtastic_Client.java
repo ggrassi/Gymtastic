@@ -1,6 +1,6 @@
 package ch.hsr.gymtastic.application;
 
-import ch.hsr.gymtastic.presentation.ClientConnection;
+import ch.hsr.gymtastic.presentation.ClientConnectionFrame;
 
 public class Gymtastic_Client {
 
@@ -9,7 +9,7 @@ public class Gymtastic_Client {
 	 */
 	public static void main(String[] args) {
 
-		ClientConnection.newClientConnectionFrame();
+		ClientConnectionFrame.newClientConnectionFrame();
 
 	}
 

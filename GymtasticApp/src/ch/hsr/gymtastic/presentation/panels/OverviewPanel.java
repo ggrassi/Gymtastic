@@ -10,7 +10,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
+
+import ch.hsr.gymtastic.application.controller.SquadController;
+import ch.hsr.gymtastic.application.models.AthleteOverviewTableModel;
 
 public class OverviewPanel extends JPanel {
     /**
@@ -18,14 +20,17 @@ public class OverviewPanel extends JPanel {
      */
     private static final long serialVersionUID = 9138092871453323277L;
 
-    private JTable table;
+    private JTable tableOverview;
     private JPanel panelAthletesBorder;
     private JPanel panelAthletes;
     private JScrollPane scrollPane;
     private JPanel panelAthleteInfoBorder;
     private JPanel panelAthleteInfo;
 
-    public OverviewPanel() {
+    private SquadController squadController;
+
+    public OverviewPanel(SquadController squadController) {
+	this.squadController = squadController;
 	initGUI();
 	initListeners();
     }
@@ -75,10 +80,8 @@ public class OverviewPanel extends JPanel {
 	gbc_scrollPane.gridy = 0;
 	panelAthletes.add(scrollPane, gbc_scrollPane);
 
-	table = new JTable();
-	table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "New column", "New column",
-		"New column", "New column", "New column" }));
-	scrollPane.setViewportView(table);
+	tableOverview = new JTable();
+	tableOverview.setModel(new AthleteOverviewTableModel(squadController));
 
 	panelAthleteInfoBorder = new JPanel();
 	panelAthleteInfoBorder.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Information",
