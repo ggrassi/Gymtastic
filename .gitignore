@@ -9,7 +9,7 @@ Thumbs.db
 *.pdf
 *.odb
 *.odf
-.bat
+*.bat
 .metadata/
 .classpath
 .project
