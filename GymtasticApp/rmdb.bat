@@ -1,1 +1,0 @@
-del D:\_Schule\_HSR\Informatik\SE2P\gymTastic\Gymtastic\GymtasticApp\db\gymtastic.odb
