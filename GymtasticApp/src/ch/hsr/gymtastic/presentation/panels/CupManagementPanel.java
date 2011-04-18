@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -16,6 +17,11 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+
+import ch.hsr.gymtastic.application.controller.SquadCreator;
+import ch.hsr.gymtastic.presentation.ServerFrame;
+import ch.hsr.gymtastic.presentation.imports.FileExtensionFilter;
+import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
 
 public class CupManagementPanel extends JPanel {
 	/**
@@ -36,7 +42,7 @@ public class CupManagementPanel extends JPanel {
 	private JLabel lblDescription;
 	private JTextArea txtAreaDescr;
 	private JLabel lblSponsers;
-	private JTextArea txtAreaSponsers;
+	private JTextArea txtAreaSponsors;
 	private JPanel panelImportBorder;
 	private JPanel panelImport;
 	private JLabel lblChoseCup;
@@ -54,6 +60,7 @@ public class CupManagementPanel extends JPanel {
 	private JPanel panelSaveCancel;
 	private JButton btnCancel;
 	private JButton btnSave;
+	protected JFileChooser chooser;
 
 	public CupManagementPanel() {
 
@@ -209,12 +216,12 @@ public class CupManagementPanel extends JPanel {
 		gbc_lblSponsers.gridy = 5;
 		panelGeneralInfo.add(lblSponsers, gbc_lblSponsers);
 
-		txtAreaSponsers = new JTextArea();
+		txtAreaSponsors = new JTextArea();
 		GridBagConstraints gbc_txtAreaSponsers = new GridBagConstraints();
 		gbc_txtAreaSponsers.fill = GridBagConstraints.BOTH;
 		gbc_txtAreaSponsers.gridx = 1;
 		gbc_txtAreaSponsers.gridy = 5;
-		panelGeneralInfo.add(txtAreaSponsers, gbc_txtAreaSponsers);
+		panelGeneralInfo.add(txtAreaSponsors, gbc_txtAreaSponsers);
 
 		panelImportBorder = new JPanel();
 		panelImportBorder.setBorder(new TitledBorder(UIManager
@@ -288,6 +295,31 @@ public class CupManagementPanel extends JPanel {
 		panelImport.add(lblStatusImport, gbc_lblStatusImport);
 
 		btnImportStartList = new JButton("Importieren...");
+		btnImportStartList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				chooser = new JFileChooser();
+			    FileExtensionFilter filter = new FileExtensionFilter();
+			    filter.addExtension("txt");
+			    chooser.addChoosableFileFilter(filter);
+			    chooser.setAcceptAllFileFilterUsed(true);
+			    int returnVal = chooser.showOpenDialog(panelImport);
+			    if(returnVal == JFileChooser.APPROVE_OPTION) {
+			    	String path = chooser.getSelectedFile().getAbsolutePath();
+			    	System.out.println(path);
+			    	lblChoseImport.setText(path);
+			    	ImportStartList startList = new ImportStartList(path);
+			    	startList.readImport();
+			    	startList.toString();
+			    	SquadCreator squadCreator = new SquadCreator(startList);
+					squadCreator.insertImportToDB();
+					ServerFrame.cup.importAllSquads();
+					ServerFrame.cup.addSquads(squadCreator.createSquads());
+
+			    }
+				
+			}
+		});
+		
 		GridBagConstraints gbc_btnImportStartList = new GridBagConstraints();
 		gbc_btnImportStartList.anchor = GridBagConstraints.EAST;
 		gbc_btnImportStartList.gridx = 2;

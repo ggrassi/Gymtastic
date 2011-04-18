@@ -128,19 +128,19 @@ public class ServerFrame {
 		cup = new Gymcup("HSR Cup", "Rapperswil");
 
 		/* Import the starter file */
-		ImportStartList importList = new ImportStartList(
-				"src/ch/hsr/gymtastic/technicalServices/utils/Startliste_Bsp.txt");
-		System.out.println("******** Import *************");
-		importList.readImport();
-		importList.toString();
+//		ImportStartList importList = new ImportStartList(
+//				"src/ch/hsr/gymtastic/technicalServices/utils/Startliste_Bsp.txt");
+//		System.out.println("******** Import *************");
+//		importList.readImport();
+//		importList.toString();
 
-		/* generate Squads with importlist */
-		System.out.println("******** Squad Generator *************");
-		SquadCreator squadCreator = new SquadCreator(importList);
-		squadCreator.insertImportToDB();
-		cup.importAllSquads();
-		// brauchts nur für Review damit Startliste generiert wird
-		cup.addSquads(squadCreator.createSquads());
+//		/* generate Squads with importlist */
+//		System.out.println("******** Squad Generator *************");
+//		SquadCreator squadCreator = new SquadCreator(importList);
+//		squadCreator.insertImportToDB();
+//		cup.importAllSquads();
+//		// brauchts nur für Review damit Startliste generiert wird
+//		cup.addSquads(squadCreator.createSquads());
 
 		/* create a competition in the cup */
 		System.out.println("******** Competition *************");

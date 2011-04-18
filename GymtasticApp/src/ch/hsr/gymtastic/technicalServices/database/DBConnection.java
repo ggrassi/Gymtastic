@@ -1,8 +1,8 @@
 package ch.hsr.gymtastic.technicalServices.database;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -13,7 +13,6 @@ import javax.persistence.TypedQuery;
 
 import ch.hsr.gymtastic.domain.Mark;
 import ch.hsr.gymtastic.domain.Squad;
-
 
 public class DBConnection {
 	private EntityManager em;
@@ -52,7 +51,7 @@ public class DBConnection {
 		Iterator<Squad> it = c.iterator();
 		while (it.hasNext()) {
 			Squad temp;
-			em.persist(temp=it.next());
+			em.persist(temp = it.next());
 		}
 		commit();
 
@@ -75,18 +74,17 @@ public class DBConnection {
 	private void startTransaction() {
 		this.em.getTransaction().begin();
 	}
-	
-	public void persist(Object o){
-	    em.persist(o);
+
+	public void persist(Object o) {
+		em.persist(o);
 	}
 
 	public EntityManager getEm() {
-	    return em;
+		return em;
 	}
 
 	public <T> TypedQuery<T> createQuery(String str, Class<T> cla) {
 		return em.createQuery(str, cla);
 	}
-	
 
 }
