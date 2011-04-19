@@ -5,20 +5,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import java.awt.BorderLayout;
-import java.util.Observable;
-import java.util.Observer;
-
 import javax.swing.JPanel;
 
 import ch.hsr.gymtastic.application.controller.NetworkClientController;
 import ch.hsr.gymtastic.application.controller.SquadController;
 import ch.hsr.gymtastic.domain.DeviceType;
-import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.presentation.panels.EvaluationPanel;
 import ch.hsr.gymtastic.presentation.panels.ActualSquadPanel;
 import ch.hsr.gymtastic.presentation.panels.OverviewPanel;
 
-public class ClientFrame implements Observer {
+public class ClientFrame {
 
 	private JFrame frame;
 	private NetworkClientController networkController;
@@ -37,11 +33,13 @@ public class ClientFrame implements Observer {
 	 * @param networkController
 	 */
 	public static void newClientFrame(
-			final NetworkClientController networkController, final DeviceType deviceType) {
+			final NetworkClientController networkController,
+			final DeviceType deviceType) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ClientFrame window = new ClientFrame(networkController, deviceType);
+					ClientFrame window = new ClientFrame(networkController,
+							deviceType);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +51,8 @@ public class ClientFrame implements Observer {
 	/**
 	 * Create the application.
 	 */
-	public ClientFrame(NetworkClientController networkController, DeviceType deviceType) {
+	public ClientFrame(NetworkClientController networkController,
+			DeviceType deviceType) {
 		try {
 			this.squadController = new SquadController();
 			this.networkController = networkController;
@@ -84,17 +83,16 @@ public class ClientFrame implements Observer {
 
 		panelOverview = new OverviewPanel();
 		tabbedPane.addTab("†bersicht", null, panelOverview, null);
-		
+
 		panelActualSquad = new ActualSquadPanel(squadController);
 		tabbedPane.addTab("Aktuelle Riege", null, panelActualSquad, null);
 
 		panelEvaluation = new EvaluationPanel(this.squadController);
 		tabbedPane.addTab("Bewertung", null, panelEvaluation, null);
-	}
 
-	@Override
-	public void update(Observable o, Object object) {
-		squadController.setSquad((Squad) object);
+		// TO BE DELETED--------------------------
+		tabbedPane.setEnabledAt(1, false);
+		tabbedPane.setEnabledAt(2, false);
 	}
 
 }

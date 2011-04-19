@@ -11,6 +11,10 @@ import javax.swing.border.TitledBorder;
 import java.awt.BorderLayout;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JLabel;
+import javax.swing.JButton;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class OverviewPanel extends JPanel {
 	/**
@@ -34,6 +38,10 @@ public class OverviewPanel extends JPanel {
 	private JLabel lblActualCompetitionText;
 	private JLabel lblActualSquad;
 	private JLabel lblActualSquadText;
+	private JLabel lblDevice;
+	private JLabel lblDeviceText;
+	private JPanel panelControl;
+	private JButton btnNewButton;
 
 	/**
      * 
@@ -69,10 +77,10 @@ public class OverviewPanel extends JPanel {
 		panelOverview.add(panelCupInformation, gbc_panelCupInformation);
 		GridBagLayout gbl_panelCupInformation = new GridBagLayout();
 		gbl_panelCupInformation.columnWidths = new int[] { 0, 0, 0, 0 };
-		gbl_panelCupInformation.rowHeights = new int[] { 0, 0, 0, 0, 0 };
+		gbl_panelCupInformation.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panelCupInformation.columnWeights = new double[] { 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
-		gbl_panelCupInformation.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
+		gbl_panelCupInformation.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
 		panelCupInformation.setLayout(gbl_panelCupInformation);
 
@@ -84,7 +92,7 @@ public class OverviewPanel extends JPanel {
 		gbc_lblCupName.gridy = 0;
 		panelCupInformation.add(lblCupName, gbc_lblCupName);
 
-		lblCupNameText = new JLabel("name");
+		lblCupNameText = new JLabel("TV Rheintal");
 		GridBagConstraints gbc_lblCupNameText = new GridBagConstraints();
 		gbc_lblCupNameText.anchor = GridBagConstraints.WEST;
 		gbc_lblCupNameText.insets = new Insets(0, 0, 5, 5);
@@ -100,7 +108,7 @@ public class OverviewPanel extends JPanel {
 		gbc_lblCupLocation.gridy = 1;
 		panelCupInformation.add(lblCupLocation, gbc_lblCupLocation);
 
-		lblCupLocationText = new JLabel("ort");
+		lblCupLocationText = new JLabel("St. Gallen");
 		GridBagConstraints gbc_lblCupLocationText = new GridBagConstraints();
 		gbc_lblCupLocationText.anchor = GridBagConstraints.WEST;
 		gbc_lblCupLocationText.insets = new Insets(0, 0, 5, 5);
@@ -126,7 +134,7 @@ public class OverviewPanel extends JPanel {
 
 		lblEndDate = new JLabel("Enddatum:");
 		GridBagConstraints gbc_lblEndDate = new GridBagConstraints();
-		gbc_lblEndDate.insets = new Insets(0, 0, 0, 5);
+		gbc_lblEndDate.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEndDate.anchor = GridBagConstraints.WEST;
 		gbc_lblEndDate.gridx = 0;
 		gbc_lblEndDate.gridy = 3;
@@ -135,10 +143,26 @@ public class OverviewPanel extends JPanel {
 		lblEndDateText = new JLabel("12.11.2011");
 		GridBagConstraints gbc_lblEndDateText = new GridBagConstraints();
 		gbc_lblEndDateText.anchor = GridBagConstraints.WEST;
-		gbc_lblEndDateText.insets = new Insets(0, 0, 0, 5);
+		gbc_lblEndDateText.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEndDateText.gridx = 1;
 		gbc_lblEndDateText.gridy = 3;
 		panelCupInformation.add(lblEndDateText, gbc_lblEndDateText);
+		
+		lblDevice = new JLabel("Ger\u00E4t:");
+		GridBagConstraints gbc_lblDevice = new GridBagConstraints();
+		gbc_lblDevice.anchor = GridBagConstraints.WEST;
+		gbc_lblDevice.insets = new Insets(0, 0, 0, 5);
+		gbc_lblDevice.gridx = 0;
+		gbc_lblDevice.gridy = 5;
+		panelCupInformation.add(lblDevice, gbc_lblDevice);
+		
+		lblDeviceText = new JLabel("Barren");
+		GridBagConstraints gbc_lblDeviceText = new GridBagConstraints();
+		gbc_lblDeviceText.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblDeviceText.insets = new Insets(0, 0, 0, 5);
+		gbc_lblDeviceText.gridx = 1;
+		gbc_lblDeviceText.gridy = 5;
+		panelCupInformation.add(lblDeviceText, gbc_lblDeviceText);
 
 		panelCompetitionInformation = new JPanel();
 		panelCompetitionInformation.setBorder(new TitledBorder(
@@ -154,11 +178,11 @@ public class OverviewPanel extends JPanel {
 				gbc_panelCompetitionInformation);
 		GridBagLayout gbl_panelCompetitionInformation = new GridBagLayout();
 		gbl_panelCompetitionInformation.columnWidths = new int[] { 0, 0, 0 };
-		gbl_panelCompetitionInformation.rowHeights = new int[] { 0, 0, 0, 0 };
+		gbl_panelCompetitionInformation.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
 		gbl_panelCompetitionInformation.columnWeights = new double[] { 0.0,
 				0.0, Double.MIN_VALUE };
 		gbl_panelCompetitionInformation.rowWeights = new double[] { 0.0, 0.0,
-				0.0, Double.MIN_VALUE };
+				0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panelCompetitionInformation.setLayout(gbl_panelCompetitionInformation);
 
 		lblActualCup = new JLabel("Wettkampf:");
@@ -198,18 +222,35 @@ public class OverviewPanel extends JPanel {
 		lblActualSquad = new JLabel("Riege:");
 		GridBagConstraints gbc_lblActualSquad = new GridBagConstraints();
 		gbc_lblActualSquad.anchor = GridBagConstraints.WEST;
-		gbc_lblActualSquad.insets = new Insets(0, 0, 0, 5);
+		gbc_lblActualSquad.insets = new Insets(0, 0, 5, 5);
 		gbc_lblActualSquad.gridx = 0;
 		gbc_lblActualSquad.gridy = 2;
 		panelCompetitionInformation.add(lblActualSquad, gbc_lblActualSquad);
 
 		lblActualSquadText = new JLabel("Riege 4");
 		GridBagConstraints gbc_lblActualSquadText = new GridBagConstraints();
+		gbc_lblActualSquadText.insets = new Insets(0, 0, 5, 0);
 		gbc_lblActualSquadText.anchor = GridBagConstraints.WEST;
 		gbc_lblActualSquadText.gridx = 1;
 		gbc_lblActualSquadText.gridy = 2;
 		panelCompetitionInformation.add(lblActualSquadText,
 				gbc_lblActualSquadText);
+		
+		panelControl = new JPanel();
+		GridBagConstraints gbc_panelControl = new GridBagConstraints();
+		gbc_panelControl.anchor = GridBagConstraints.SOUTH;
+		gbc_panelControl.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panelControl.gridx = 0;
+		gbc_panelControl.gridy = 2;
+		panelOverview.add(panelControl, gbc_panelControl);
+		panelControl.setLayout(new BorderLayout(0, 0));
+		
+		btnNewButton = new JButton("Durchgang starten");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		panelControl.add(btnNewButton, BorderLayout.EAST);
 
 	}
 
