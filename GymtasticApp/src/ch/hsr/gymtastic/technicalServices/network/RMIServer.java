@@ -32,6 +32,7 @@ public class RMIServer extends Observable implements RMIServerInterface {
 		clientsWaitingForAllocation.add(new ClientInformation(client,
 				RemoteServer.getClientHost(), (DeviceType) deviceType));
 		System.out.println("Client added");
+		client.uploadCupInformation("SuperDuperCup", "Rapperswil", "Fasser AG", "01.01.2011", "02.02.2011");
 
 		updateObservers();
 

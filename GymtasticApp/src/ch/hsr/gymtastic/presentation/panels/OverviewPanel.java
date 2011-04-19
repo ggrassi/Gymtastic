@@ -6,115 +6,211 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
-import ch.hsr.gymtastic.application.controller.SquadController;
-import ch.hsr.gymtastic.application.models.AthleteOverviewTableModel;
+import java.awt.BorderLayout;
+import javax.swing.border.EtchedBorder;
+import javax.swing.JLabel;
 
 public class OverviewPanel extends JPanel {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel panelOverview;
+	private JPanel panelCupInformation;
+	private JLabel lblCupName;
+	private JLabel lblCupNameText;
+	private JLabel lblCupLocation;
+	private JLabel lblCupLocationText;
+	private JLabel lblStartDate;
+	private JLabel lblStartDateText;
+	private JLabel lblEndDate;
+	private JLabel lblEndDateText;
+	private JPanel panelCompetitionInformation;
+	private JLabel lblActualCup;
+	private JLabel lblActualCupText;
+	private JLabel lblActualCompetition;
+	private JLabel lblActualCompetitionText;
+	private JLabel lblActualSquad;
+	private JLabel lblActualSquadText;
+
+	/**
      * 
      */
-	private static final long serialVersionUID = 9138092871453323277L;
 
-	private JTable tableOverview;
-	private JPanel panelAthletesBorder;
-	private JPanel panelAthletes;
-	private JScrollPane scrollPane;
-	private JPanel panelAthleteInfoBorder;
-	private JPanel panelAthleteInfo;
-	private SquadController squadController;
-
-	private AthleteOverviewTableModel tableOverviewModel;
-
-	public OverviewPanel(SquadController squadController) {
-		this.squadController = squadController;
+	public OverviewPanel() {
 		initGUI();
 		initListeners();
+
 	}
 
 	private void initGUI() {
+		setLayout(new BorderLayout(0, 0));
 
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 0, 0, 0 };
-		gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
-		setLayout(gridBagLayout);
+		panelOverview = new JPanel();
+		add(panelOverview);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[] { 0, 0 };
+		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0 };
+		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
+		panelOverview.setLayout(gbl_panel);
 
-		panelAthletesBorder = new JPanel();
-		panelAthletesBorder.setBorder(new TitledBorder(UIManager
-				.getBorder("TitledBorder.border"), "Athleten",
-				TitledBorder.LEADING, TitledBorder.TOP, null,
-				new Color(0, 0, 0)));
-		GridBagConstraints gbc_panelAthletesBorder = new GridBagConstraints();
-		gbc_panelAthletesBorder.fill = GridBagConstraints.BOTH;
-		gbc_panelAthletesBorder.insets = new Insets(0, 0, 5, 0);
-		gbc_panelAthletesBorder.gridx = 0;
-		gbc_panelAthletesBorder.gridy = 0;
-		add(panelAthletesBorder, gbc_panelAthletesBorder);
-		GridBagLayout gbl_panelAthletesBorder = new GridBagLayout();
-		gbl_panelAthletesBorder.columnWidths = new int[] { 0, 0 };
-		gbl_panelAthletesBorder.rowHeights = new int[] { 0, 0 };
-		gbl_panelAthletesBorder.columnWeights = new double[] { 1.0,
+		panelCupInformation = new JPanel();
+		panelCupInformation.setBorder(new TitledBorder(null,
+				"Turncup Informationen", TitledBorder.LEADING,
+				TitledBorder.TOP, null, null));
+		GridBagConstraints gbc_panelCupInformation = new GridBagConstraints();
+		gbc_panelCupInformation.insets = new Insets(0, 0, 5, 0);
+		gbc_panelCupInformation.fill = GridBagConstraints.BOTH;
+		gbc_panelCupInformation.gridx = 0;
+		gbc_panelCupInformation.gridy = 0;
+		panelOverview.add(panelCupInformation, gbc_panelCupInformation);
+		GridBagLayout gbl_panelCupInformation = new GridBagLayout();
+		gbl_panelCupInformation.columnWidths = new int[] { 0, 0, 0, 0 };
+		gbl_panelCupInformation.rowHeights = new int[] { 0, 0, 0, 0, 0 };
+		gbl_panelCupInformation.columnWeights = new double[] { 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
-		gbl_panelAthletesBorder.rowWeights = new double[] { 1.0,
+		gbl_panelCupInformation.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
-		panelAthletesBorder.setLayout(gbl_panelAthletesBorder);
+		panelCupInformation.setLayout(gbl_panelCupInformation);
 
-		panelAthletes = new JPanel();
-		GridBagConstraints gbc_panelAthletes = new GridBagConstraints();
-		gbc_panelAthletes.fill = GridBagConstraints.BOTH;
-		gbc_panelAthletes.gridx = 0;
-		gbc_panelAthletes.gridy = 0;
-		panelAthletesBorder.add(panelAthletes, gbc_panelAthletes);
-		GridBagLayout gbl_panelAthletes = new GridBagLayout();
-		gbl_panelAthletes.columnWidths = new int[] { 0, 0 };
-		gbl_panelAthletes.rowHeights = new int[] { 0, 0 };
-		gbl_panelAthletes.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_panelAthletes.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
-		panelAthletes.setLayout(gbl_panelAthletes);
+		lblCupName = new JLabel("Veranstaltungsname:");
+		GridBagConstraints gbc_lblCupName = new GridBagConstraints();
+		gbc_lblCupName.anchor = GridBagConstraints.WEST;
+		gbc_lblCupName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCupName.gridx = 0;
+		gbc_lblCupName.gridy = 0;
+		panelCupInformation.add(lblCupName, gbc_lblCupName);
 
-		scrollPane = new JScrollPane();
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 0;
-		gbc_scrollPane.gridy = 0;
-		panelAthletes.add(scrollPane, gbc_scrollPane);
+		lblCupNameText = new JLabel("name");
+		GridBagConstraints gbc_lblCupNameText = new GridBagConstraints();
+		gbc_lblCupNameText.anchor = GridBagConstraints.WEST;
+		gbc_lblCupNameText.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCupNameText.gridx = 1;
+		gbc_lblCupNameText.gridy = 0;
+		panelCupInformation.add(lblCupNameText, gbc_lblCupNameText);
 
-		tableOverview = new JTable();
-		tableOverviewModel = new AthleteOverviewTableModel(squadController);
-		tableOverview.setModel(tableOverviewModel);
-		scrollPane.setViewportView(tableOverview);
+		lblCupLocation = new JLabel("Veranstaltungsort:");
+		GridBagConstraints gbc_lblCupLocation = new GridBagConstraints();
+		gbc_lblCupLocation.anchor = GridBagConstraints.WEST;
+		gbc_lblCupLocation.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCupLocation.gridx = 0;
+		gbc_lblCupLocation.gridy = 1;
+		panelCupInformation.add(lblCupLocation, gbc_lblCupLocation);
 
-		panelAthleteInfoBorder = new JPanel();
-		panelAthleteInfoBorder.setBorder(new TitledBorder(UIManager
-				.getBorder("TitledBorder.border"), "Information",
-				TitledBorder.LEADING, TitledBorder.TOP, null,
-				new Color(0, 0, 0)));
-		GridBagConstraints gbc_panelAthleteInfoBorder = new GridBagConstraints();
-		gbc_panelAthleteInfoBorder.fill = GridBagConstraints.BOTH;
-		gbc_panelAthleteInfoBorder.gridx = 0;
-		gbc_panelAthleteInfoBorder.gridy = 1;
-		add(panelAthleteInfoBorder, gbc_panelAthleteInfoBorder);
-		GridBagLayout gbl_panelAthleteInfoBorder = new GridBagLayout();
-		gbl_panelAthleteInfoBorder.columnWidths = new int[] { 0, 0 };
-		gbl_panelAthleteInfoBorder.rowHeights = new int[] { 0, 0 };
-		gbl_panelAthleteInfoBorder.columnWeights = new double[] { 1.0,
-				Double.MIN_VALUE };
-		gbl_panelAthleteInfoBorder.rowWeights = new double[] { 1.0,
-				Double.MIN_VALUE };
-		panelAthleteInfoBorder.setLayout(gbl_panelAthleteInfoBorder);
+		lblCupLocationText = new JLabel("ort");
+		GridBagConstraints gbc_lblCupLocationText = new GridBagConstraints();
+		gbc_lblCupLocationText.anchor = GridBagConstraints.WEST;
+		gbc_lblCupLocationText.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCupLocationText.gridx = 1;
+		gbc_lblCupLocationText.gridy = 1;
+		panelCupInformation.add(lblCupLocationText, gbc_lblCupLocationText);
 
-		panelAthleteInfo = new JPanel();
-		GridBagConstraints gbc_panelAthleteInfo = new GridBagConstraints();
-		gbc_panelAthleteInfo.fill = GridBagConstraints.BOTH;
-		gbc_panelAthleteInfo.gridx = 0;
-		gbc_panelAthleteInfo.gridy = 0;
-		panelAthleteInfoBorder.add(panelAthleteInfo, gbc_panelAthleteInfo);
+		lblStartDate = new JLabel("Startdatum:");
+		GridBagConstraints gbc_lblStartDate = new GridBagConstraints();
+		gbc_lblStartDate.anchor = GridBagConstraints.WEST;
+		gbc_lblStartDate.insets = new Insets(0, 0, 5, 5);
+		gbc_lblStartDate.gridx = 0;
+		gbc_lblStartDate.gridy = 2;
+		panelCupInformation.add(lblStartDate, gbc_lblStartDate);
+
+		lblStartDateText = new JLabel("11.11.2011");
+		GridBagConstraints gbc_lblStartDateText = new GridBagConstraints();
+		gbc_lblStartDateText.anchor = GridBagConstraints.WEST;
+		gbc_lblStartDateText.insets = new Insets(0, 0, 5, 5);
+		gbc_lblStartDateText.gridx = 1;
+		gbc_lblStartDateText.gridy = 2;
+		panelCupInformation.add(lblStartDateText, gbc_lblStartDateText);
+
+		lblEndDate = new JLabel("Enddatum:");
+		GridBagConstraints gbc_lblEndDate = new GridBagConstraints();
+		gbc_lblEndDate.insets = new Insets(0, 0, 0, 5);
+		gbc_lblEndDate.anchor = GridBagConstraints.WEST;
+		gbc_lblEndDate.gridx = 0;
+		gbc_lblEndDate.gridy = 3;
+		panelCupInformation.add(lblEndDate, gbc_lblEndDate);
+
+		lblEndDateText = new JLabel("12.11.2011");
+		GridBagConstraints gbc_lblEndDateText = new GridBagConstraints();
+		gbc_lblEndDateText.anchor = GridBagConstraints.WEST;
+		gbc_lblEndDateText.insets = new Insets(0, 0, 0, 5);
+		gbc_lblEndDateText.gridx = 1;
+		gbc_lblEndDateText.gridy = 3;
+		panelCupInformation.add(lblEndDateText, gbc_lblEndDateText);
+
+		panelCompetitionInformation = new JPanel();
+		panelCompetitionInformation.setBorder(new TitledBorder(
+				new EtchedBorder(EtchedBorder.LOWERED, null, null),
+				"Wettkampf Informationen", TitledBorder.LEADING,
+				TitledBorder.TOP, null, new Color(0, 0, 0)));
+		GridBagConstraints gbc_panelCompetitionInformation = new GridBagConstraints();
+		gbc_panelCompetitionInformation.insets = new Insets(0, 0, 5, 0);
+		gbc_panelCompetitionInformation.fill = GridBagConstraints.BOTH;
+		gbc_panelCompetitionInformation.gridx = 0;
+		gbc_panelCompetitionInformation.gridy = 1;
+		panelOverview.add(panelCompetitionInformation,
+				gbc_panelCompetitionInformation);
+		GridBagLayout gbl_panelCompetitionInformation = new GridBagLayout();
+		gbl_panelCompetitionInformation.columnWidths = new int[] { 0, 0, 0 };
+		gbl_panelCompetitionInformation.rowHeights = new int[] { 0, 0, 0, 0 };
+		gbl_panelCompetitionInformation.columnWeights = new double[] { 0.0,
+				0.0, Double.MIN_VALUE };
+		gbl_panelCompetitionInformation.rowWeights = new double[] { 0.0, 0.0,
+				0.0, Double.MIN_VALUE };
+		panelCompetitionInformation.setLayout(gbl_panelCompetitionInformation);
+
+		lblActualCup = new JLabel("Wettkampf:");
+		GridBagConstraints gbc_lblActualCup = new GridBagConstraints();
+		gbc_lblActualCup.anchor = GridBagConstraints.WEST;
+		gbc_lblActualCup.insets = new Insets(0, 0, 5, 5);
+		gbc_lblActualCup.gridx = 0;
+		gbc_lblActualCup.gridy = 0;
+		panelCompetitionInformation.add(lblActualCup, gbc_lblActualCup);
+
+		lblActualCupText = new JLabel("Wettkampf 1");
+		GridBagConstraints gbc_lblActualCupText = new GridBagConstraints();
+		gbc_lblActualCupText.anchor = GridBagConstraints.WEST;
+		gbc_lblActualCupText.insets = new Insets(0, 0, 5, 0);
+		gbc_lblActualCupText.gridx = 1;
+		gbc_lblActualCupText.gridy = 0;
+		panelCompetitionInformation.add(lblActualCupText, gbc_lblActualCupText);
+
+		lblActualCompetition = new JLabel("Durchgang:");
+		GridBagConstraints gbc_lblActualCompetition = new GridBagConstraints();
+		gbc_lblActualCompetition.anchor = GridBagConstraints.WEST;
+		gbc_lblActualCompetition.insets = new Insets(0, 0, 5, 5);
+		gbc_lblActualCompetition.gridx = 0;
+		gbc_lblActualCompetition.gridy = 1;
+		panelCompetitionInformation.add(lblActualCompetition,
+				gbc_lblActualCompetition);
+
+		lblActualCompetitionText = new JLabel("Durchgang 2");
+		GridBagConstraints gbc_lblActualCompetitionText = new GridBagConstraints();
+		gbc_lblActualCompetitionText.anchor = GridBagConstraints.WEST;
+		gbc_lblActualCompetitionText.insets = new Insets(0, 0, 5, 0);
+		gbc_lblActualCompetitionText.gridx = 1;
+		gbc_lblActualCompetitionText.gridy = 1;
+		panelCompetitionInformation.add(lblActualCompetitionText,
+				gbc_lblActualCompetitionText);
+
+		lblActualSquad = new JLabel("Riege:");
+		GridBagConstraints gbc_lblActualSquad = new GridBagConstraints();
+		gbc_lblActualSquad.anchor = GridBagConstraints.WEST;
+		gbc_lblActualSquad.insets = new Insets(0, 0, 0, 5);
+		gbc_lblActualSquad.gridx = 0;
+		gbc_lblActualSquad.gridy = 2;
+		panelCompetitionInformation.add(lblActualSquad, gbc_lblActualSquad);
+
+		lblActualSquadText = new JLabel("Riege 4");
+		GridBagConstraints gbc_lblActualSquadText = new GridBagConstraints();
+		gbc_lblActualSquadText.anchor = GridBagConstraints.WEST;
+		gbc_lblActualSquadText.gridx = 1;
+		gbc_lblActualSquadText.gridy = 2;
+		panelCompetitionInformation.add(lblActualSquadText,
+				gbc_lblActualSquadText);
+
 	}
 
 	private void initListeners() {
