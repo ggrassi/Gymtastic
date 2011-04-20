@@ -6,12 +6,15 @@ import java.awt.Frame;
 import java.io.FileNotFoundException;
 import java.net.ConnectException;
 import java.util.GregorianCalendar;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import ch.hsr.gymtastic.application.controller.ClientAllocation;
+import ch.hsr.gymtastic.application.controller.GymCupController;
 import ch.hsr.gymtastic.application.controller.NetworkServerController;
 import ch.hsr.gymtastic.application.controller.RoundAllocation;
 import ch.hsr.gymtastic.application.controller.SquadCreator;
@@ -31,7 +34,7 @@ import ch.hsr.gymtastic.technicalServices.utils.PdfExport;
 
 import com.itextpdf.text.DocumentException;
 
-public class ServerFrame {
+public class ServerFrame  {
 
 	private JFrame frameServer;
 	private DeviceTypeTableModel deviceTypeTableModel;
@@ -40,27 +43,34 @@ public class ServerFrame {
 	public static Gymcup cup;
 
 	private NetworkServerController networkController;
+	private CupManagementPanel panelGymCup;
+	private GymCupController gymCupController;
+
 
 	/**
 	 * Launch the application.
+	 * @param gymCupController 
 	 */
 	public static void newServerFrame() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ServerFrame window = new ServerFrame();
+					
+					ServerFrame window = new ServerFrame(new GymCupController());
 					window.frameServer.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		
 	}
 
 	/**
 	 * Create the application.
 	 */
-	public ServerFrame() {
+	public ServerFrame(GymCupController gymCupController) {
+		this.gymCupController = gymCupController;
 		try {
 			networkController = new NetworkServerController();
 		} catch (ConnectException e) {
@@ -70,6 +80,7 @@ public class ServerFrame {
 		deviceTypeTableModel = new DeviceTypeTableModel(networkController);
 		initialize();
 	}
+
 
 	/**
 	 * Initialize the contents of the frame.
@@ -83,7 +94,7 @@ public class ServerFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frameServer.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
-		CupManagementPanel panelGymCup = new CupManagementPanel();
+		panelGymCup = new CupManagementPanel(gymCupController);
 		tabbedPane.addTab("Cupverwaltung", null, panelGymCup, null);
 
 		CompetitionPanel panelCompetition = new CompetitionPanel();

@@ -8,6 +8,8 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.ConnectException;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Map.Entry;
 
 import javax.swing.JButton;
@@ -28,7 +30,7 @@ import ch.hsr.gymtastic.presentation.ServerFrame;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 import ch.hsr.gymtastic.technicalServices.network.RMIClientInterface;
 
-public class RoundAllocationPanel extends JPanel {
+public class RoundAllocationPanel extends JPanel implements Observer{
 	/**
 	 * 
 	 */
@@ -385,6 +387,12 @@ public class RoundAllocationPanel extends JPanel {
 		gbc_btnDurchgangFreigeben.gridy = 0;
 		panelRoundControl.add(btnDurchgangFreigeben, gbc_btnDurchgangFreigeben);
 
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

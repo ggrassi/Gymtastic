@@ -7,6 +7,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -18,12 +20,14 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import ch.hsr.gymtastic.application.controller.GymCupController;
 import ch.hsr.gymtastic.application.controller.SquadCreator;
+import ch.hsr.gymtastic.domain.Gymcup;
 import ch.hsr.gymtastic.presentation.ServerFrame;
 import ch.hsr.gymtastic.presentation.imports.FileExtensionFilter;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
 
-public class CupManagementPanel extends JPanel {
+public class CupManagementPanel extends JPanel implements Observer {
 	/**
 	 * 
 	 */
@@ -61,9 +65,11 @@ public class CupManagementPanel extends JPanel {
 	private JButton btnCancel;
 	private JButton btnSave;
 	protected JFileChooser chooser;
+	private GymCupController gymCupController;
 
-	public CupManagementPanel() {
-
+	public CupManagementPanel(GymCupController gymCupController) {
+		this.gymCupController = gymCupController;
+		this.gymCupController.addObserver(this);
 		initGUI();
 		initListeners();
 
@@ -298,28 +304,28 @@ public class CupManagementPanel extends JPanel {
 		btnImportStartList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				chooser = new JFileChooser();
-			    FileExtensionFilter filter = new FileExtensionFilter();
-			    filter.addExtension("txt");
-			    chooser.addChoosableFileFilter(filter);
-			    chooser.setAcceptAllFileFilterUsed(true);
-			    int returnVal = chooser.showOpenDialog(panelImport);
-			    if(returnVal == JFileChooser.APPROVE_OPTION) {
-			    	String path = chooser.getSelectedFile().getAbsolutePath();
-			    	System.out.println(path);
-			    	lblChoseImport.setText(path);
-			    	ImportStartList startList = new ImportStartList(path);
-			    	startList.readImport();
-			    	startList.toString();
-			    	SquadCreator squadCreator = new SquadCreator(startList);
+				FileExtensionFilter filter = new FileExtensionFilter();
+				filter.addExtension("txt");
+				chooser.addChoosableFileFilter(filter);
+				chooser.setAcceptAllFileFilterUsed(true);
+				int returnVal = chooser.showOpenDialog(panelImport);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					String path = chooser.getSelectedFile().getAbsolutePath();
+					System.out.println(path);
+					lblChoseImport.setText(path);
+					ImportStartList startList = new ImportStartList(path);
+					startList.readImport();
+					startList.toString();
+					SquadCreator squadCreator = new SquadCreator(startList);
 					squadCreator.insertImportToDB();
 					ServerFrame.cup.importAllSquads();
 					ServerFrame.cup.addSquads(squadCreator.createSquads());
 
-			    }
-				
+				}
+
 			}
 		});
-		
+
 		GridBagConstraints gbc_btnImportStartList = new GridBagConstraints();
 		gbc_btnImportStartList.anchor = GridBagConstraints.EAST;
 		gbc_btnImportStartList.gridx = 2;
@@ -397,6 +403,22 @@ public class CupManagementPanel extends JPanel {
 		gbc_btnSave.gridx = 1;
 		gbc_btnSave.gridy = 0;
 		panelSaveCancel.add(btnSave, gbc_btnSave);
+		btnSave.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Gymcup gc = new Gymcup(txtFieldName.getText(), txtFieldPlace.getText());
+				gymCupController.setGymcup(gc);
+			}
+		});
+
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		btnCancel.setEnabled(false);
+		System.out.println("cupmngmtpanel update");
 
 	}
 
