@@ -2,6 +2,7 @@ package ch.hsr.gymtastic.application.controller;
 
 import java.io.Serializable;
 import java.net.ConnectException;
+import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;
@@ -9,6 +10,8 @@ import java.util.Observer;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.technicalServices.network.RMIClient;
 import ch.hsr.gymtastic.technicalServices.network.RMIServerInterface;
+import ch.hsr.gymtastic.technicalServices.network.exceptions.ConnectionFailedException;
+import ch.hsr.gymtastic.technicalServices.network.exceptions.TransmissionException;
 
 public class NetworkClientController implements Observer {
 
@@ -25,21 +28,28 @@ public class NetworkClientController implements Observer {
 		rmiClient.setServerIP(serverIP);
 	}
 
-	public void updateServer(Serializable object) throws ConnectException {
+	public void updateServer(Serializable object) throws TransmissionException {
 		try {
 			rmiServer.uploadSquadToServer(object);
 		} catch (RemoteException e) {
-			throw new ConnectException();
+			throw new TransmissionException();
 		}
 	}
 
-	public void connect(DeviceType deviceType) throws Exception {
-		rmiServer = rmiClient.connect(deviceType);
-
+	public void connect(DeviceType deviceType) throws ConnectionFailedException {
+		try {
+			rmiServer = rmiClient.connect(deviceType);
+		} catch (Exception e) {
+			throw new ConnectionFailedException();
+		}
 	}
 
-	public void disconnect() throws RemoteException {
-		rmiClient.disconnect();
+	public void disconnect() throws TransmissionException {
+		try {
+			rmiClient.disconnect();
+		} catch (RemoteException e) {
+			throw new TransmissionException();
+		}
 	}
 
 	public void setSquadController(SquadController squadController) {
@@ -49,7 +59,5 @@ public class NetworkClientController implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		squadController.setSquad(arg);
-
 	}
-
 }
