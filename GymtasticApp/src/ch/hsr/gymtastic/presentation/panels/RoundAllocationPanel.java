@@ -30,13 +30,9 @@ import ch.hsr.gymtastic.presentation.ServerFrame;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 import ch.hsr.gymtastic.technicalServices.network.RMIClientInterface;
 
-<<<<<<< HEAD
+
 public class RoundAllocationPanel extends JPanel implements Observer{
 	/**
-=======
-public class RoundAllocationPanel extends JPanel {
-    /**
->>>>>>> 8d9ded07701fd36a6db3a7f979e74f794d092cfa
 	 * 
 	 */
     private static final long serialVersionUID = 1L;
