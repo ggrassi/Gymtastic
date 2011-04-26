@@ -30,7 +30,7 @@ import ch.hsr.gymtastic.presentation.ServerFrame;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 import ch.hsr.gymtastic.technicalServices.network.RMIClientInterface;
 
-<<<<<<< HEAD
+
 public class RoundAllocationPanel extends JPanel implements Observer{
 	/**
 =======
