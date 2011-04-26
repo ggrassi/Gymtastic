@@ -2,11 +2,20 @@ package ch.hsr.gymtastic.presentation.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
+import java.text.AttributedCharacterIterator;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -49,14 +58,14 @@ public class CupManagementPanel extends JPanel implements Observer {
 	private JTextArea txtAreaSponsors;
 	private JPanel panelImportBorder;
 	private JPanel panelImport;
-	private JLabel lblChoseCup;
+	private JTextField txtChoseCup;
 	private JLabel lblStatusCup;
 	private JButton btnOpenCup;
-	private JLabel lblChoseImport;
-	private JLabel lblStatusImport;
+	private JTextField txtChoseImport;
+	private JLabel txtStatusImport;
 	private JButton btnImportStartList;
 	private JPanel panelLogoBorder;
-	private JPanel panelLogo;
+	private ImagePanel panelLogo;
 	private JPanel panelLogoDescr;
 	private JButton btnOpenPic;
 	private JLabel lblChoseLogo;
@@ -262,12 +271,12 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbl_panelImport.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		panelImport.setLayout(gbl_panelImport);
 
-		lblChoseCup = new JLabel("Datei auswählen");
+		txtChoseCup = new JTextField("Dateipfad auswählen");
 		GridBagConstraints gbc_lblChoseCup = new GridBagConstraints();
 		gbc_lblChoseCup.insets = new Insets(0, 0, 5, 5);
 		gbc_lblChoseCup.gridx = 0;
 		gbc_lblChoseCup.gridy = 0;
-		panelImport.add(lblChoseCup, gbc_lblChoseCup);
+		panelImport.add(txtChoseCup, gbc_lblChoseCup);
 
 		lblStatusCup = new JLabel("status");
 		GridBagConstraints gbc_lblStatusCup = new GridBagConstraints();
@@ -284,21 +293,43 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_btnOpenCup.gridx = 2;
 		gbc_btnOpenCup.gridy = 0;
 		panelImport.add(btnOpenCup, gbc_btnOpenCup);
+		btnOpenCup.addActionListener(new ActionListener() {
 
-		lblChoseImport = new JLabel("Datei auswählen");
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				chooser = new JFileChooser();
+				FileExtensionFilter filter = new FileExtensionFilter();
+				filter.addExtension("odb");
+				chooser.addChoosableFileFilter(filter);
+				chooser.setAcceptAllFileFilterUsed(true);
+				int returnVal = chooser.showOpenDialog(panelImport);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					String path = chooser.getSelectedFile().getAbsolutePath();
+					System.out.println(path);
+					txtChoseCup.setText(path);
+					txtChoseCup.setEnabled(false);
+					btnOpenCup.setEnabled(false);
+				}
+			}
+		});
+
+		txtChoseImport = new JTextField("Dateipfad auswählen");
+		txtChoseImport.setMaximumSize(new Dimension(25, 1));
 		GridBagConstraints gbc_lblChoseImport = new GridBagConstraints();
 		gbc_lblChoseImport.insets = new Insets(0, 0, 0, 5);
 		gbc_lblChoseImport.gridx = 0;
 		gbc_lblChoseImport.gridy = 1;
-		panelImport.add(lblChoseImport, gbc_lblChoseImport);
+		panelImport.add(txtChoseImport, gbc_lblChoseImport);
 
-		lblStatusImport = new JLabel("status");
+		txtStatusImport = new JLabel("status");
+		txtStatusImport
+				.setSize(panelImport.getWidth(), panelImport.getHeight());
 		GridBagConstraints gbc_lblStatusImport = new GridBagConstraints();
 		gbc_lblStatusImport.anchor = GridBagConstraints.EAST;
 		gbc_lblStatusImport.insets = new Insets(0, 0, 0, 5);
 		gbc_lblStatusImport.gridx = 1;
 		gbc_lblStatusImport.gridy = 1;
-		panelImport.add(lblStatusImport, gbc_lblStatusImport);
+		panelImport.add(txtStatusImport, gbc_lblStatusImport);
 
 		btnImportStartList = new JButton("Importieren...");
 		btnImportStartList.addActionListener(new ActionListener() {
@@ -312,7 +343,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					String path = chooser.getSelectedFile().getAbsolutePath();
 					System.out.println(path);
-					lblChoseImport.setText(path);
+					txtChoseImport.setText(path);
 					ImportStartList startList = new ImportStartList(path);
 					startList.readImport();
 					startList.toString();
@@ -351,7 +382,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbl_panelLogoBorder.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
 		panelLogoBorder.setLayout(gbl_panelLogoBorder);
 
-		panelLogo = new JPanel();
+		panelLogo = new ImagePanel();
 		GridBagConstraints gbc_panelLogo = new GridBagConstraints();
 		gbc_panelLogo.fill = GridBagConstraints.BOTH;
 		gbc_panelLogo.gridx = 0;
@@ -364,6 +395,252 @@ public class CupManagementPanel extends JPanel implements Observer {
 		panelLogoDescr.setLayout(new BorderLayout(0, 0));
 
 		btnOpenPic = new JButton("Bild Öffnen...");
+		btnOpenPic.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				chooser = new JFileChooser();
+				FileExtensionFilter filter = new FileExtensionFilter();
+				filter.addExtension("jpeg");
+				chooser.addChoosableFileFilter(filter);
+				chooser.setAcceptAllFileFilterUsed(true);
+				int returnVal = chooser.showOpenDialog(panelImport);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					String path = chooser.getSelectedFile().getAbsolutePath();
+					System.out.println(path);
+					panelLogo.generateImage(path);
+					panelLogo.paint(new Graphics() {
+						
+						@Override
+						public void translate(int arg0, int arg1) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void setXORMode(Color arg0) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void setPaintMode() {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void setFont(Font arg0) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void setColor(Color arg0) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void setClip(int arg0, int arg1, int arg2, int arg3) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void setClip(Shape arg0) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public FontMetrics getFontMetrics(Font arg0) {
+							// TODO Auto-generated method stub
+							return null;
+						}
+						
+						@Override
+						public Font getFont() {
+							// TODO Auto-generated method stub
+							return null;
+						}
+						
+						@Override
+						public Color getColor() {
+							// TODO Auto-generated method stub
+							return null;
+						}
+						
+						@Override
+						public Rectangle getClipBounds() {
+							// TODO Auto-generated method stub
+							return null;
+						}
+						
+						@Override
+						public Shape getClip() {
+							// TODO Auto-generated method stub
+							return null;
+						}
+						
+						@Override
+						public void fillRoundRect(int arg0, int arg1, int arg2, int arg3, int arg4,
+								int arg5) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void fillRect(int arg0, int arg1, int arg2, int arg3) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void fillPolygon(int[] arg0, int[] arg1, int arg2) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void fillOval(int arg0, int arg1, int arg2, int arg3) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void fillArc(int arg0, int arg1, int arg2, int arg3, int arg4,
+								int arg5) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void drawString(AttributedCharacterIterator arg0, int arg1, int arg2) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void drawString(String arg0, int arg1, int arg2) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void drawRoundRect(int arg0, int arg1, int arg2, int arg3, int arg4,
+								int arg5) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void drawPolyline(int[] arg0, int[] arg1, int arg2) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void drawPolygon(int[] arg0, int[] arg1, int arg2) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void drawOval(int arg0, int arg1, int arg2, int arg3) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void drawLine(int arg0, int arg1, int arg2, int arg3) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public boolean drawImage(Image arg0, int arg1, int arg2, int arg3,
+								int arg4, int arg5, int arg6, int arg7, int arg8, Color arg9,
+								ImageObserver arg10) {
+							// TODO Auto-generated method stub
+							return false;
+						}
+						
+						@Override
+						public boolean drawImage(Image arg0, int arg1, int arg2, int arg3,
+								int arg4, int arg5, int arg6, int arg7, int arg8, ImageObserver arg9) {
+							// TODO Auto-generated method stub
+							return false;
+						}
+						
+						@Override
+						public boolean drawImage(Image arg0, int arg1, int arg2, int arg3,
+								int arg4, Color arg5, ImageObserver arg6) {
+							// TODO Auto-generated method stub
+							return false;
+						}
+						
+						@Override
+						public boolean drawImage(Image arg0, int arg1, int arg2, int arg3,
+								int arg4, ImageObserver arg5) {
+							// TODO Auto-generated method stub
+							return false;
+						}
+						
+						@Override
+						public boolean drawImage(Image arg0, int arg1, int arg2, Color arg3,
+								ImageObserver arg4) {
+							// TODO Auto-generated method stub
+							return false;
+						}
+						
+						@Override
+						public boolean drawImage(Image arg0, int arg1, int arg2, ImageObserver arg3) {
+							// TODO Auto-generated method stub
+							return false;
+						}
+						
+						@Override
+						public void drawArc(int arg0, int arg1, int arg2, int arg3, int arg4,
+								int arg5) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void dispose() {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public Graphics create() {
+							// TODO Auto-generated method stub
+							return null;
+						}
+						
+						@Override
+						public void copyArea(int arg0, int arg1, int arg2, int arg3, int arg4,
+								int arg5) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void clipRect(int arg0, int arg1, int arg2, int arg3) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void clearRect(int arg0, int arg1, int arg2, int arg3) {
+							// TODO Auto-generated method stub
+							
+						}
+					});
+				
+			}}
+		});
 
 		panelLogoDescr.add(btnOpenPic, BorderLayout.EAST);
 
@@ -407,8 +684,9 @@ public class CupManagementPanel extends JPanel implements Observer {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
-				Gymcup gc = new Gymcup(txtFieldName.getText(), txtFieldPlace.getText());
+
+				Gymcup gc = new Gymcup(txtFieldName.getText(), txtFieldPlace
+						.getText());
 				gymCupController.setGymcup(gc);
 			}
 		});

@@ -1,6 +1,5 @@
 package ch.hsr.gymtastic.technicalServices.database;
 
-import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
