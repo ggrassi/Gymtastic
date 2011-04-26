@@ -8,6 +8,7 @@ import java.util.TreeSet;
 
 import ch.hsr.gymtastic.domain.Association;
 import ch.hsr.gymtastic.domain.Athlete;
+import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
@@ -26,9 +27,11 @@ public class SquadCreator {
 
 	private ImportStartList startList;
 	private DBConnection db;
+	private GymCup gymCup;
 
-	public SquadCreator(ImportStartList importStartList) {
+	public SquadCreator(ImportStartList importStartList, GymCup gymCup) {
 		this.startList = importStartList;
+		this.gymCup = gymCup;
 	}
 
 	public Map<Integer, Squad> createSquads() {
@@ -42,7 +45,8 @@ public class SquadCreator {
 		}
 
 		for (List<String> line : importList) {
-			squadMap.get(Integer.parseInt(line.get(squadPositionImport)))
+			squadMap
+					.get(Integer.parseInt(line.get(squadPositionImport)))
 					.addAthlet(
 							new Athlete(
 									Integer.parseInt(line
@@ -56,8 +60,10 @@ public class SquadCreator {
 									Integer.parseInt(line
 											.get(yearPositionImport)),
 									new Association(
-											line.get(associationNamePositionImport),
-											line.get(associationPlacePositionImport))));
+											line
+													.get(associationNamePositionImport),
+											line
+													.get(associationPlacePositionImport))));
 		}
 
 		return squadMap;
@@ -77,27 +83,27 @@ public class SquadCreator {
 		List<List<String>> importList = startList.getImportList();
 		Set<Integer> squadsNrList = findSquadNumbers(importList);
 		for (Integer squadNr : squadsNrList) {
-			db.persist(new Squad(squadNr));
+			Squad tempSquad = new Squad(squadNr);
+			db.persist(tempSquad);
 		}
 		db.commit();
 		db.closeConnection();
 		db = new DBConnection();
 		for (List<String> line : importList) {
-			// db.begin();
 			Squad temp = new Squad(Integer.parseInt(line
 					.get(squadPositionImport)));
 			temp = db.getEm().find(Squad.class, temp.getSquadId());
 
 			Athlete atemp = new Athlete(Integer.parseInt(line
 					.get(squadPositionImport)), Integer.parseInt(line
-					.get(startNrPositionImport)),
-					line.get(progClassPositionImport),
-					line.get(firstNamePositionImport),
-					line.get(lastNamePositionImport),
-					line.get(addressPositionImport), Integer.parseInt(line
-							.get(yearPositionImport)), new Association(
-							line.get(associationNamePositionImport),
-							line.get(associationPlacePositionImport)));
+					.get(startNrPositionImport)), line
+					.get(progClassPositionImport), line
+					.get(firstNamePositionImport), line
+					.get(lastNamePositionImport), line
+					.get(addressPositionImport), Integer.parseInt(line
+					.get(yearPositionImport)), new Association(line
+					.get(associationNamePositionImport), line
+					.get(associationPlacePositionImport)));
 			db.persist(atemp);
 			temp.addAthlet(atemp);
 			db.persist(temp);
@@ -106,6 +112,7 @@ public class SquadCreator {
 		db.commit();
 
 		db.closeConnection();
+		gymCup.importAllSquads();
 	}
 
 }

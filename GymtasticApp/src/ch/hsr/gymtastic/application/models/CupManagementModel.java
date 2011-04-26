@@ -12,6 +12,10 @@ public class CupManagementModel extends Observable {
 	this.gymCup = gymCup;
 	changedNotifyObservers();
     }
+    
+    public GymCup getGymCup(){
+    	return gymCup;
+    }
 
     private void changedNotifyObservers() {
 	setChanged();

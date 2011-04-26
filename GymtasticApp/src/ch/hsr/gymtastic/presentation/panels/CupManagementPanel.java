@@ -26,6 +26,7 @@ import ch.hsr.gymtastic.application.models.CupManagementModel;
 import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.presentation.ServerFrame;
 import ch.hsr.gymtastic.presentation.imports.FileExtensionFilter;
+import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
 
 public class CupManagementPanel extends JPanel implements Observer {
@@ -328,11 +329,10 @@ public class CupManagementPanel extends JPanel implements Observer {
 		    ImportStartList startList = new ImportStartList(path);
 		    startList.readImport();
 		    startList.toString();
-		    SquadCreator squadCreator = new SquadCreator(startList);
+		    SquadCreator squadCreator = new SquadCreator(startList, cupManagementModel.getGymCup());
 		    squadCreator.insertImportToDB();
-		    ServerFrame.cup.importAllSquads();
-		    ServerFrame.cup.addSquads(squadCreator.createSquads());
-
+		    cupManagementModel.getGymCup().importAllSquads();
+		    cupManagementModel.getGymCup().setSquads(squadCreator.createSquads());
 		}
 
 	    }

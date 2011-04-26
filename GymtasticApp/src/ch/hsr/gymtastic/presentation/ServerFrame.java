@@ -127,7 +127,7 @@ public class ServerFrame {
 
 	/* create a cup */
 	System.out.println("******** Cup *************");
-	cup = new GymCup("HSR Cup", "Rapperswil");
+//	cup = new GymCup("HSR Cup", "Rapperswil");
 
 	/* Import the starter file */
 	// ImportStartList importList = new ImportStartList(
@@ -145,23 +145,23 @@ public class ServerFrame {
 	// cup.addSquads(squadCreator.createSquads());
 
 	/* create a competition in the cup */
-	System.out.println("******** Competition *************");
-	Competition competition1 = new Competition("Wettkampf1", new GregorianCalendar(2011, 04, 04, 16, 0, 0),
-		"Wettkampf Programm 1");
-	cup.addCompetition(competition1);
+//	System.out.println("******** Competition *************");
+//	Competition competition1 = new Competition("Wettkampf1", new GregorianCalendar(2011, 04, 04, 16, 0, 0),
+//		"Wettkampf Programm 1");
+//	cup.addCompetition(competition1);
 
 	/* Riegeneinteilung - die ersten 6 Riegen zum Wettkampf1 hinzuf�gen */
-	System.out.println("******** Add squads to Competition *************");
-	competition1.addSquad(cup.getSquad(1));
-	competition1.addSquad(cup.getSquad(2));
-	competition1.addSquad(cup.getSquad(3));
-	competition1.addSquad(cup.getSquad(4));
-	competition1.addSquad(cup.getSquad(5));
-	competition1.addSquad(cup.getSquad(6));
-
-	/* create the round allocation for the competition */
-	RoundAllocation ra = new RoundAllocation(competition1.getSquads());
-	competition1.addRoundAllocation(ra);
+//	System.out.println("******** Add squads to Competition *************");
+//	competition1.addSquad(cup.getSquad(1));
+//	competition1.addSquad(cup.getSquad(2));
+//	competition1.addSquad(cup.getSquad(3));
+//	competition1.addSquad(cup.getSquad(4));
+//	competition1.addSquad(cup.getSquad(5));
+//	competition1.addSquad(cup.getSquad(6));
+//
+//	/* create the round allocation for the competition */
+//	RoundAllocation ra = new RoundAllocation(competition1.getSquads());
+//	competition1.addRoundAllocation(ra);
 
 	// System.out.println("******** Round Allocation Generator *************");
 	// RoundAllocation ra = new RoundAllocation(squads);

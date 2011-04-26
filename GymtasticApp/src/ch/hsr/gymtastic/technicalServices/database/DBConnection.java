@@ -10,6 +10,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.domain.Mark;
 import ch.hsr.gymtastic.domain.Squad;
 
@@ -43,6 +44,11 @@ public class DBConnection {
 
 	public void commit() {
 		em.getTransaction().commit();
+	}
+	
+	public void insert(Object ob){
+		em.persist(ob);
+		commit();
 	}
 
 	public void insert(Map<Integer, Squad> squads) {
