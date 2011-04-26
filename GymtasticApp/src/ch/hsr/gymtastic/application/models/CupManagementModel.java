@@ -17,5 +17,4 @@ public class CupManagementModel extends Observable {
 	setChanged();
 	notifyObservers();
     }
-
 }
