@@ -112,7 +112,6 @@ public class SquadCreator {
 		db.commit();
 
 		db.closeConnection();
-		gymCup.importAllSquads();
 	}
 
 }

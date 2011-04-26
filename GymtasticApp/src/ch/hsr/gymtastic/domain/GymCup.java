@@ -50,10 +50,19 @@ public class GymCup {
 		TypedQuery<Squad> query = db.getEm().createQuery(
 				"SELECT p FROM Squad p", Squad.class);
 		List<Squad> results = query.getResultList();
+		GymCup tmpCup;
+		Squad tmpSquad;
 		for (Squad p : results) {
+			
+			tmpCup = db.getEm().find(GymCup.class, this.getId());
+			tmpSquad = db.getEm().find(Squad.class, p.getId());
+			tmpCup.addSquad(tmpSquad.getSquadId(), tmpSquad);
+			db.persist(tmpCup);
 			squads.put(p.getSquadId(), p);
 			
 		}
+		
+		
 		db.commit();
 		db.closeConnection();
 
