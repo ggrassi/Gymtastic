@@ -11,7 +11,7 @@ public class Gymtastic_Server {
      * @param args
      */
     public static void main(String[] args) {
-	// ServerFrame.emulateCup();
+//	 ServerFrame.emulateCup();
 	// ch.hsr.gymtastic.presentation.ServerFrame.newServerFrame();
 	try {
 	    ServerFrame serverFrame = new ServerFrame(new NetworkServerController());

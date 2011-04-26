@@ -28,6 +28,8 @@ import ch.hsr.gymtastic.presentation.ServerFrame;
 import ch.hsr.gymtastic.presentation.imports.FileExtensionFilter;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class CupManagementPanel extends JPanel implements Observer {
     /**
@@ -135,6 +137,14 @@ public class CupManagementPanel extends JPanel implements Observer {
 	panelGeneralInfo.add(lblName, gbc_lblName);
 
 	txtFieldName = new JTextField();
+	txtFieldName.addKeyListener(new KeyAdapter() {
+	    @Override
+	    public void keyReleased(KeyEvent e) {
+		if (cupManagementModel.getGymCup() != null) {
+		    changesCupInformation();
+		}
+	    }
+	});
 	GridBagConstraints gbc_txtFieldName = new GridBagConstraints();
 	gbc_txtFieldName.insets = new Insets(0, 0, 5, 0);
 	gbc_txtFieldName.fill = GridBagConstraints.HORIZONTAL;
@@ -416,12 +426,17 @@ public class CupManagementPanel extends JPanel implements Observer {
 	panelSaveCancel.setLayout(gbl_panelSaveCancel);
 
 	btnCancel = new JButton("Abbrechen");
+	btnCancel.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+	    }
+	});
 	GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 	gbc_btnCancel.anchor = GridBagConstraints.EAST;
 	gbc_btnCancel.insets = new Insets(0, 0, 0, 5);
 	gbc_btnCancel.gridx = 0;
 	gbc_btnCancel.gridy = 0;
 	panelSaveCancel.add(btnCancel, gbc_btnCancel);
+	btnCancel.setEnabled(false);
 
 	btnSave = new JButton("Speichern");
 	GridBagConstraints gbc_btnSave = new GridBagConstraints();
@@ -436,9 +451,19 @@ public class CupManagementPanel extends JPanel implements Observer {
 
 		GymCup gymCup = new GymCup(txtFieldName.getText(), txtFieldPlace.getText());
 		cupManagementModel.setGymcup(gymCup);
+
+		btnCancel.setEnabled(false);
 	    }
 	});
 
+    }
+
+    private void changesCupInformation() {
+	if (txtFieldName.getText().equals(cupManagementModel.getGymCup().getName())) {
+	    btnCancel.setEnabled(false);
+	} else {
+	    btnCancel.setEnabled(true);
+	}
     }
 
     @Override
