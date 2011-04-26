@@ -7,7 +7,7 @@ import javax.persistence.TypedQuery;
 import ch.hsr.gymtastic.application.controller.ClientAllocation;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
-public class Gymcup {
+public class GymCup {
 
 	private List<Competition> competitions = new ArrayList<Competition>();
 	private Map<Integer, Squad> squads;
@@ -18,7 +18,7 @@ public class Gymcup {
 	private String ort;
 	private String name;
 
-	public Gymcup(String name, String ort) {
+	public GymCup(String name, String ort) {
 		this.name = name;
 		this.ort = ort;
 		squads = new HashMap<Integer, Squad>();

@@ -33,10 +33,6 @@ import ch.hsr.gymtastic.technicalServices.network.RMIClientInterface;
 
 public class RoundAllocationPanel extends JPanel implements Observer{
 	/**
-=======
-public class RoundAllocationPanel extends JPanel {
-    /**
->>>>>>> 8d9ded07701fd36a6db3a7f979e74f794d092cfa
 	 * 
 	 */
     private static final long serialVersionUID = 1L;
