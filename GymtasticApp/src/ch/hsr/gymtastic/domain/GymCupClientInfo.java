@@ -1,8 +1,9 @@
 package ch.hsr.gymtastic.domain;
 
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 
-public class GymCupClientInfo {
+public class GymCupClientInfo implements Serializable {
 
     private GregorianCalendar startDate;
     private GregorianCalendar endDate;

@@ -9,6 +9,7 @@ import java.util.Observer;
 
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.GymCupClientInfo;
+import ch.hsr.gymtastic.domain.RoundInfo;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.network.RMIClient;
 import ch.hsr.gymtastic.technicalServices.network.RMIServerInterface;
