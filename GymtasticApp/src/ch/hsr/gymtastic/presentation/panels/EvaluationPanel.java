@@ -72,18 +72,6 @@ public class EvaluationPanel extends JPanel {
 	private void initListeners() {
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// if(++actualAthleteIndex ==
-				// this.presentationController.getNumberOfAthletes())
-				// {
-				// actualAthlete =
-				// presentationController.getAthlete(actualAthleteIndex);
-				// btnNext.setEnabled(false);
-				// }
-				// else
-				// {
-				// actualAthlete =
-				// presentationController.getAthlete(actualAthleteIndex);
-				// }
 			}
 		});
 

@@ -5,7 +5,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.border.TitledBorder;
-import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -23,6 +22,17 @@ public class RankingPanel extends JPanel {
 	private JTable table;
 
 	public RankingPanel() {
+
+		initGUI();
+		initListeners();
+	}
+
+	private void initListeners() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void initGUI() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0};
@@ -132,17 +142,6 @@ public class RankingPanel extends JPanel {
 		gbc_btnPrint.gridx = 1;
 		gbc_btnPrint.gridy = 1;
 		panel.add(btnPrint, gbc_btnPrint);
-		initGUI();
-		initListeners();
-	}
-
-	private void initListeners() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void initGUI() {
-		// TODO Auto-generated method stub
 		
 	}
 
