@@ -11,9 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import ch.hsr.gymtastic.application.controller.ClientAllocation;
+import ch.hsr.gymtastic.application.controller.ClientAllocator;
 import ch.hsr.gymtastic.application.controller.NetworkServerController;
-import ch.hsr.gymtastic.application.controller.RoundAllocation;
+import ch.hsr.gymtastic.application.controller.RoundAllocator;
 import ch.hsr.gymtastic.application.models.CupManagementModel;
 import ch.hsr.gymtastic.application.models.DeviceTypeTableModel;
 import ch.hsr.gymtastic.domain.Competition;
@@ -33,7 +33,7 @@ public class ServerFrame {
 
     private JFrame frameServer;
     private DeviceTypeTableModel deviceTypeTableModel;
-    public static ClientAllocation clientAllocation;
+    public static ClientAllocator clientAllocation;
 
     public static GymCup cup;
 

@@ -16,7 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.TypedQuery;
 
-import ch.hsr.gymtastic.application.controller.ClientAllocation;
+import ch.hsr.gymtastic.application.controller.ClientAllocator;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 @Entity
 public class GymCup {
@@ -26,7 +26,7 @@ public class GymCup {
 	private List<Competition> competitions = new ArrayList<Competition>();
 	@OneToMany(cascade = CascadeType.ALL)
 	private Map<Integer, Squad> squads = new HashMap<Integer, Squad>();
-	private ClientAllocation clientAlloc;
+	private ClientAllocator clientAlloc;
 	private GregorianCalendar startDate;
 	private GregorianCalendar endDate;
 	private String sponsers;
@@ -93,11 +93,11 @@ public class GymCup {
 		this.squads = squads;
 	}
 
-	public ClientAllocation getClientAlloc() {
+	public ClientAllocator getClientAlloc() {
 		return clientAlloc;
 	}
 
-	public void setClientAlloc(ClientAllocation clientAlloc) {
+	public void setClientAlloc(ClientAllocator clientAlloc) {
 		this.clientAlloc = clientAlloc;
 	}
 
