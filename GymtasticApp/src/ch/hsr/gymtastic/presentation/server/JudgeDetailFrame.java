@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.presentation;
+package ch.hsr.gymtastic.presentation.server;
 
 import java.awt.EventQueue;
 

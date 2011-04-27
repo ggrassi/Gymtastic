@@ -8,7 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-import ch.hsr.gymtastic.application.controller.RoundAllocator;
+import ch.hsr.gymtastic.application.controller.server.RoundAllocator;
 @Entity
 public class Competition {
 	@OneToMany(cascade = CascadeType.ALL)

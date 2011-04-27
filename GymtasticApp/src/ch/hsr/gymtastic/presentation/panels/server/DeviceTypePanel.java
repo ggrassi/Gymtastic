@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.presentation.panels;
+package ch.hsr.gymtastic.presentation.panels.server;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -11,11 +11,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
-import ch.hsr.gymtastic.application.controller.ClientAllocator;
-import ch.hsr.gymtastic.application.controller.NetworkServerController;
+import ch.hsr.gymtastic.application.controller.server.ClientAllocator;
+import ch.hsr.gymtastic.application.controller.server.NetworkServerController;
 import ch.hsr.gymtastic.application.editor.DeviceTypeEditor;
 import ch.hsr.gymtastic.application.models.DeviceTypeTableModel;
-import ch.hsr.gymtastic.presentation.ServerFrame;
+import ch.hsr.gymtastic.presentation.server.ServerFrame;
 
 public class DeviceTypePanel extends JPanel {
 

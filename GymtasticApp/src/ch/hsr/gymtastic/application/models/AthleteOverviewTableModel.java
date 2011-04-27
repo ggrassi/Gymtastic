@@ -4,9 +4,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
-import ch.hsr.gymtastic.application.controller.SquadController;
+
+import ch.hsr.gymtastic.application.controller.client.SquadController;
 import ch.hsr.gymtastic.domain.Athlete;
-import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
 
 public class AthleteOverviewTableModel extends AbstractTableModel implements

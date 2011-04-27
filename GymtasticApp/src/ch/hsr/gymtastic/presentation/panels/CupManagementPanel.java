@@ -27,10 +27,11 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DateFormatter;
 
-import ch.hsr.gymtastic.application.controller.SquadCreator;
+import ch.hsr.gymtastic.application.controller.server.SquadCreator;
 import ch.hsr.gymtastic.application.models.CupManagementModel;
 import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.presentation.imports.FileExtensionFilter;
+import ch.hsr.gymtastic.presentation.panels.server.ImagePanel;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
 

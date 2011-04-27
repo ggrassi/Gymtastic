@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.presentation;
+package ch.hsr.gymtastic.presentation.server;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -11,20 +11,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import ch.hsr.gymtastic.application.controller.ClientAllocator;
-import ch.hsr.gymtastic.application.controller.NetworkServerController;
-import ch.hsr.gymtastic.application.controller.RoundAllocator;
+import ch.hsr.gymtastic.application.controller.server.ClientAllocator;
+import ch.hsr.gymtastic.application.controller.server.NetworkServerController;
+import ch.hsr.gymtastic.application.controller.server.RoundAllocator;
 import ch.hsr.gymtastic.application.models.CupManagementModel;
 import ch.hsr.gymtastic.application.models.DeviceTypeTableModel;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.GymCup;
-import ch.hsr.gymtastic.presentation.panels.AthletePanel;
-import ch.hsr.gymtastic.presentation.panels.CompetitionPanel;
-import ch.hsr.gymtastic.presentation.panels.CupManagementPanel;
-import ch.hsr.gymtastic.presentation.panels.DeviceTypePanel;
-import ch.hsr.gymtastic.presentation.panels.JudgePanel;
-import ch.hsr.gymtastic.presentation.panels.RankingPanel;
-import ch.hsr.gymtastic.presentation.panels.RoundAllocationPanel;
+import ch.hsr.gymtastic.presentation.panels.server.AthletePanel;
+import ch.hsr.gymtastic.presentation.panels.server.CompetitionPanel;
+import ch.hsr.gymtastic.presentation.panels.server.CupManagementPanel;
+import ch.hsr.gymtastic.presentation.panels.server.DeviceTypePanel;
+import ch.hsr.gymtastic.presentation.panels.server.JudgePanel;
+import ch.hsr.gymtastic.presentation.panels.server.RankingPanel;
+import ch.hsr.gymtastic.presentation.panels.server.RoundAllocationPanel;
 import ch.hsr.gymtastic.technicalServices.utils.PdfExport;
 
 import com.itextpdf.text.DocumentException;
