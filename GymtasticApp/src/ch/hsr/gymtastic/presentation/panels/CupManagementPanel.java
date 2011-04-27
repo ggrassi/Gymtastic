@@ -480,12 +480,12 @@ public class CupManagementPanel extends JPanel implements Observer {
 	    btnCancel.setEnabled(true);
 	}
     }
-    
+
     private void updateAllInfos() {
 	txtAreaDescr.setText(cupManagementModel.getGymCup().getDescription());
 	txtAreaSponsors.setText(cupManagementModel.getGymCup().getSponsors());
 	txtFieldEndDate.setText(cupManagementModel.getGymCup().getEndDate().toString());
-	
+
     }
 
     @Override
