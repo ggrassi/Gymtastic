@@ -82,7 +82,7 @@ public class ClientFrame {
 		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
 		panelOverview = new OverviewPanel();
-		tabbedPane.addTab("†bersicht", null, panelOverview, null);
+		tabbedPane.addTab("ï¿½bersicht", null, panelOverview, null);
 
 		panelActualSquad = new ActualSquadPanel(squadController);
 		tabbedPane.addTab("Aktuelle Riege", null, panelActualSquad, null);
@@ -91,8 +91,8 @@ public class ClientFrame {
 		tabbedPane.addTab("Bewertung", null, panelEvaluation, null);
 
 		// TO BE DELETED--------------------------
-		tabbedPane.setEnabledAt(1, false);
-		tabbedPane.setEnabledAt(2, false);
+//		tabbedPane.setEnabledAt(1, false);
+//		tabbedPane.setEnabledAt(2, false);
 	}
 
 }

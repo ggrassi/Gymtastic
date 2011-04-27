@@ -61,11 +61,11 @@ public class RMIClient extends Observable implements RMIClientInterface {
 		notifyObservers(object);
 	}
 
-	@Override
-	public void uploadCupInformation(Serializable name, Serializable location,
-			Serializable sponsors, Serializable startDate, Serializable endDate) {
-		
-		
-	}
+//	@Override
+//	public void uploadCupInformation(Serializable name, Serializable location,
+//			Serializable sponsors, Serializable startDate, Serializable endDate) {
+//		
+//		
+//	}
 
 }
