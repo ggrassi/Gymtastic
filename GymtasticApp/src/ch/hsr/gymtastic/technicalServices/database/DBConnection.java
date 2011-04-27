@@ -27,6 +27,9 @@ public class DBConnection {
 		this.mark = new Mark(4, 5, 3, 5, 3, 4);
 	}
 
+	public void merge(Object o ){
+		em.merge(o);
+	}
 	public void closeConnection() {
 
 		em.close();

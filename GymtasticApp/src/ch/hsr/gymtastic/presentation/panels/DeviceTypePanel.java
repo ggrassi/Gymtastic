@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
-import ch.hsr.gymtastic.application.controller.ClientAllocation;
+import ch.hsr.gymtastic.application.controller.ClientAllocator;
 import ch.hsr.gymtastic.application.controller.NetworkServerController;
 import ch.hsr.gymtastic.application.editor.DeviceTypeEditor;
 import ch.hsr.gymtastic.application.models.DeviceTypeTableModel;
@@ -46,7 +46,7 @@ public class DeviceTypePanel extends JPanel {
 		btnAllocateAllDevices.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				ServerFrame.clientAllocation = new ClientAllocation();
+				ServerFrame.clientAllocation = new ClientAllocator();
 				ServerFrame.clientAllocation.addAll(networkController
 						.getClientsWaitingForAllocation());
 			}

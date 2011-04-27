@@ -15,7 +15,7 @@ public class NetworkServerController extends Observable implements Observer {
 
 	private RMIServer rmiServer;
 	private Squad squad;
-	private ClientAllocation clientsAllocated = new ClientAllocation();
+	private ClientAllocator clientsAllocated = new ClientAllocator();
 
 	public NetworkServerController() throws ConnectException {
 		try {

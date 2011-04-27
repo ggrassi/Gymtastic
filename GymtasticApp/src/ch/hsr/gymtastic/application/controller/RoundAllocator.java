@@ -8,7 +8,7 @@ import java.util.Map;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
 
-public class RoundAllocation {
+public class RoundAllocator {
 
     private List<Map<DeviceType, Squad>> roundlist = new ArrayList<Map<DeviceType, Squad>>();
 
@@ -16,7 +16,7 @@ public class RoundAllocation {
 	return roundlist.get(roundNr);
     }
 
-    public RoundAllocation(List<Squad> squads) {
+    public RoundAllocator(List<Squad> squads) {
 	Map<DeviceType, Squad> map = new HashMap<DeviceType, Squad>();
 	int j = 0;
 	for (DeviceType device : DeviceType.values()) {
