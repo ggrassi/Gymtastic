@@ -17,14 +17,12 @@ import ch.hsr.gymtastic.domain.Squad;
 public class DBConnection {
 	private EntityManager em;
 	private EntityManagerFactory emf;
-	private String path = "$objectdb/db/gymtastic.odb";
-	private Query query;
-	private Mark mark;
+	private static String path = "$objectdb/db/gymtastic.odb";
+
 
 	public DBConnection(String path) {
 		super();
 		connect(path);
-		this.mark = new Mark(4, 5, 3, 5, 3, 4);
 	}
 
 	public void merge(Object o ){
@@ -95,4 +93,10 @@ public class DBConnection {
 		return em.createQuery(str, cla);
 	}
 
+	public static void setPath(String path) {
+		DBConnection.path = path;
+	}
+	public static String getPath() {
+		return path;
+	}
 }
