@@ -8,6 +8,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import ch.hsr.gymtastic.domain.DeviceType;
+import ch.hsr.gymtastic.domain.GymCupClientInfo;
+import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.network.RMIClient;
 import ch.hsr.gymtastic.technicalServices.network.RMIServerInterface;
 import ch.hsr.gymtastic.technicalServices.network.exceptions.ConnectionFailedException;
@@ -15,49 +17,55 @@ import ch.hsr.gymtastic.technicalServices.network.exceptions.TransmissionExcepti
 
 public class NetworkClientController implements Observer {
 
-	private RMIClient rmiClient;
-	private RMIServerInterface rmiServer;
-	private SquadController squadController;
+    private RMIClient rmiClient;
+    private RMIServerInterface rmiServer;
+    private SquadController squadController;
 
-	public NetworkClientController() throws Exception {
-		rmiClient = new RMIClient();
-		rmiClient.addObserver(this);
-	}
+    public NetworkClientController() throws Exception {
+	rmiClient = new RMIClient();
+	rmiClient.addObserver(this);
+    }
 
-	public void setServerIP(String serverIP) {
-		rmiClient.setServerIP(serverIP);
-	}
+    public void setServerIP(String serverIP) {
+	rmiClient.setServerIP(serverIP);
+    }
 
-	public void updateServer(Serializable object) throws TransmissionException {
-		try {
-			rmiServer.uploadSquadToServer(object);
-		} catch (RemoteException e) {
-			throw new TransmissionException();
-		}
+    public void updateServer(Serializable object) throws TransmissionException {
+	try {
+	    rmiServer.uploadSquadToServer(object);
+	} catch (RemoteException e) {
+	    throw new TransmissionException();
 	}
+    }
 
-	public void connect(DeviceType deviceType) throws ConnectionFailedException {
-		try {
-			rmiServer = rmiClient.connect(deviceType);
-		} catch (Exception e) {
-			throw new ConnectionFailedException();
-		}
+    public void connect(DeviceType deviceType) throws ConnectionFailedException {
+	try {
+	    rmiServer = rmiClient.connect(deviceType);
+	} catch (Exception e) {
+	    throw new ConnectionFailedException();
 	}
+    }
 
-	public void disconnect() throws TransmissionException {
-		try {
-			rmiClient.disconnect();
-		} catch (RemoteException e) {
-			throw new TransmissionException();
-		}
+    public void disconnect() throws TransmissionException {
+	try {
+	    rmiClient.disconnect();
+	} catch (RemoteException e) {
+	    throw new TransmissionException();
 	}
+    }
 
-	public void setSquadController(SquadController squadController) {
-		this.squadController = squadController;
-	}
+    public void setSquadController(SquadController squadController) {
+	this.squadController = squadController;
+    }
 
-	@Override
-	public void update(Observable o, Object arg) {
-		squadController.setSquad(arg);
+    @Override
+    public void update(Observable o, Object arg) {
+	if (arg instanceof Squad) {
+	    squadController.setSquad(arg);
+//	} else if (arg instanceof GymCupClientInfo) {
+//	    squadController.setGymCupInfo(arg);
+//	} else if (arg instanceof RoundInfo) {
+//	    squadController.setRoundInfo(arg);
 	}
+    }
 }
