@@ -12,11 +12,20 @@ public class ImagePanel extends JPanel{
 
     private BufferedImage image;
 
-    public ImagePanel() {
+    public BufferedImage getImage() {
+		return image;
+	}
+
+	public void setImage(BufferedImage image) {
+		this.image = image;
+		repaint();
+	}
+
+	public ImagePanel() {
       
     }
 
-	public void generateImage(String path) {
+	public BufferedImage generateImage(String path) {
 		try {                
 		      image = ImageIO.read(new File(path));
 		      if ( image != null ){
@@ -25,6 +34,7 @@ public class ImagePanel extends JPanel{
 		   } catch (IOException ex) {
 		        // handle exception...
 		   }
+		return image;
 	}
 
     @Override

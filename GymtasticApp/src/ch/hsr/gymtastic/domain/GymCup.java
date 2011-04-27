@@ -1,5 +1,6 @@
 package ch.hsr.gymtastic.domain;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -31,6 +32,7 @@ public class GymCup {
 	private String sponsers;
 	private String ort;
 	private String name;
+	private BufferedImage logoImage;
 
 	public GymCup(String name, String ort) {
 		this.name = name;
@@ -44,7 +46,7 @@ public class GymCup {
 		db.commit();
 		db.closeConnection();
 	}
-
+	
 	public void importAllSquads() {
 		DBConnection db = new DBConnection();
 		TypedQuery<Squad> query = db.getEm().createQuery(
@@ -106,6 +108,24 @@ public class GymCup {
 	public void setStartDate(GregorianCalendar startDate) {
 		this.startDate = startDate;
 	}
+	
+	public void setStartDateStr(String strStartDate) {
+		DBConnection db = new DBConnection();
+		GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
+		extractDateInto(strStartDate, tmpCup);
+		db.commit();
+		db.closeConnection();
+	}
+
+	private void extractDateInto(String strDate, GymCup tmpCup) {
+		if(!strDate.equals(null)){
+		String[] tmp = strDate.split("\\.");
+		
+		tmpCup.setStartDate(new GregorianCalendar(Integer.parseInt(tmp[2]), Integer.parseInt(tmp[1]), Integer.parseInt(tmp[0])));
+		}else{
+			tmpCup.setStartDate(new GregorianCalendar());
+		}
+	}
 
 	public GregorianCalendar getEndDate() {
 		return endDate;
@@ -113,6 +133,14 @@ public class GymCup {
 
 	public void setEndDate(GregorianCalendar endDate) {
 		this.endDate = endDate;
+	}
+
+	public void setEndDateStr(String strEndDate) {
+		DBConnection db = new DBConnection();
+		GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
+		extractDateInto(strEndDate, tmpCup);
+		db.commit();
+		db.closeConnection();
 	}
 
 	public String getSponsers() {
@@ -145,6 +173,21 @@ public class GymCup {
 
 	public Squad getSquad(int index) {
 		return squads.get(index);
+	}
+
+	
+	
+	public void setImage(BufferedImage image) {
+		
+		
+	}
+
+	public void setLogoImage(BufferedImage logoImage) {
+		this.logoImage = logoImage;
+	}
+
+	public BufferedImage getLogoImage() {
+		return logoImage;
 	}
 
 
