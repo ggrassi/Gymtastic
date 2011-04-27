@@ -15,59 +15,59 @@ import javax.persistence.OrderBy;
 
 @Entity
 public class Squad implements Serializable {
-    /**
+	/**
      * 
      */
-    private static final long serialVersionUID = 3240358878521229793L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private int squadId;
-    @OneToMany(cascade = CascadeType.ALL)
-    @OrderBy("athleteId ASC")
-    private List<Athlete> athlets;
+	private static final long serialVersionUID = 3240358878521229793L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	private int squadId;
+	@OneToMany(cascade = CascadeType.ALL)
+	@OrderBy("athleteId ASC")
+	private List<Athlete> athlets;
 
-    public Squad() {
-	super();
-	athlets = new LinkedList<Athlete>();
-    }
+	public Squad() {
+		super();
+		athlets = new LinkedList<Athlete>();
+	}
 
-    public Squad(int squadId) {
-	super();
-	this.squadId = squadId;
-	athlets = new LinkedList<Athlete>();
-    }
+	public Squad(int squadId) {
+		super();
+		this.squadId = squadId;
+		athlets = new LinkedList<Athlete>();
+	}
 
-    public void addAthlet(Athlete athlet) {
-	athlets.add(athlet);
-    }
+	public void addAthlet(Athlete athlet) {
+		athlets.add(athlet);
+	}
 
-    public int getSquadSize() {
-	return athlets.size();
-    }
+	public int getSquadSize() {
+		return athlets.size();
+	}
 
-    public int getId() {
-	return squadId;
-    }
+	public int getId() {
+		return squadId;
+	}
 
-    public void setId(int id) {
-	this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public int getSquadId() {
-	return squadId;
-    }
+	public int getSquadId() {
+		return squadId;
+	}
 
-    public Collection<Athlete> getAthlets() {
-	return athlets;
-    }
+	public Collection<Athlete> getAthlets() {
+		return athlets;
+	}
 
-    public void setAthlets(List<Athlete> athlets) {
-	this.athlets = athlets;
-    }
+	public void setAthlets(List<Athlete> athlets) {
+		this.athlets = athlets;
+	}
 
-    public Athlete getAthlete(int index) {
-	return athlets.get(index);
-    }
+	public Athlete getAthlete(int index) {
+		return athlets.get(index);
+	}
 
 }
