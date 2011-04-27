@@ -53,7 +53,6 @@ public class GymCup {
 		GymCup tmpCup;
 		Squad tmpSquad;
 		for (Squad p : results) {
-			
 			tmpCup = db.getEm().find(GymCup.class, this.getId());
 			tmpSquad = db.getEm().find(Squad.class, p.getId());
 			tmpCup.addSquad(tmpSquad.getSquadId(), tmpSquad);
