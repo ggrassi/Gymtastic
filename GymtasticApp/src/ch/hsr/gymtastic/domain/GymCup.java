@@ -175,7 +175,8 @@ public class GymCup {
     }
 
     private void extractDateInto(String strDate, GymCup tmpCup) {
-	if (!strDate.equals(null)) {
+	// if (!strDate.equals(null)) {
+	if (!strDate.equals("")) {
 	    String[] tmp = strDate.split("\\.");
 
 	    tmpCup.setStartDate(new GregorianCalendar(Integer.parseInt(tmp[2]), Integer.parseInt(tmp[1]), Integer
