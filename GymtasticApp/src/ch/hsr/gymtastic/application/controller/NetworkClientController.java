@@ -1,8 +1,6 @@
 package ch.hsr.gymtastic.application.controller;
 
 import java.io.Serializable;
-import java.net.ConnectException;
-import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;
@@ -21,6 +19,9 @@ public class NetworkClientController implements Observer {
     private RMIClient rmiClient;
     private RMIServerInterface rmiServer;
     private SquadController squadController;
+    private GymCupInfoController gymCupInfoController;
+    private RoundInfoController roundInfoController;
+    
 
     public NetworkClientController() throws Exception {
 	rmiClient = new RMIClient();
@@ -63,10 +64,10 @@ public class NetworkClientController implements Observer {
     public void update(Observable o, Object arg) {
 	if (arg instanceof Squad) {
 	    squadController.setSquad(arg);
-//	} else if (arg instanceof GymCupClientInfo) {
-//	    squadController.setGymCupInfo(arg);
-//	} else if (arg instanceof RoundInfo) {
-//	    squadController.setRoundInfo(arg);
+	} else if (arg instanceof GymCupClientInfo) {
+	    gymCupInfoController.setGymCupInfo(arg);
+	} else if (arg instanceof RoundInfo) {
+	    roundInfoController.setRoundInfo(arg);
 	}
     }
 }

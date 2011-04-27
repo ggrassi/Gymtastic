@@ -3,6 +3,10 @@ package ch.hsr.gymtastic.domain;
 import java.io.Serializable;
 
 public class RoundInfo implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private int round;
     private boolean competitionIsRunning;
     public int getRound() {
