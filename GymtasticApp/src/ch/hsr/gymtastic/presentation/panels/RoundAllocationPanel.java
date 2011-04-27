@@ -20,9 +20,9 @@ import javax.swing.JSpinner;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
-import ch.hsr.gymtastic.application.controller.ClientAllocation;
+import ch.hsr.gymtastic.application.controller.ClientAllocator;
 import ch.hsr.gymtastic.application.controller.NetworkServerController;
-import ch.hsr.gymtastic.application.controller.RoundAllocation;
+import ch.hsr.gymtastic.application.controller.RoundAllocator;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
@@ -65,7 +65,7 @@ public class RoundAllocationPanel extends JPanel implements Observer{
     private JLabel lblDescrRound;
     private JButton btnDurchgangFreigeben;
 
-    public RoundAllocationPanel(final ClientAllocation clientAllocation, final NetworkServerController networkController)
+    public RoundAllocationPanel(final ClientAllocator clientAllocation, final NetworkServerController networkController)
 	    throws ConnectException {
 	this.networkController = networkController;
 	initGUI();
@@ -83,7 +83,7 @@ public class RoundAllocationPanel extends JPanel implements Observer{
 			RMIClientInterface rmiClient = ServerFrame.clientAllocation.getClientStub(entry.getValue()
 				.getDeviceType());
 			Competition competition = ServerFrame.cup.getCompetitions().get(0);
-			RoundAllocation ra = competition.getRoundAllocation();
+			RoundAllocator ra = competition.getRoundAllocation();
 			Squad squad = ra.getSquad(entry.getValue().getDeviceType(), 1);
 			networkController.updateClient(rmiClient, squad);
 		    }

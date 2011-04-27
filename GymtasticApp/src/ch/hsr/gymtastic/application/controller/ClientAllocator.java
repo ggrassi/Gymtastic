@@ -11,11 +11,11 @@ import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 import ch.hsr.gymtastic.technicalServices.network.RMIClientInterface;
 
 
-public class ClientAllocation {
+public class ClientAllocator {
 
 	private Map<DeviceType, ClientInformation> alloc;
 
-	public ClientAllocation() {
+	public ClientAllocator() {
 		alloc = new HashMap<DeviceType, ClientInformation>();
 	}
 
