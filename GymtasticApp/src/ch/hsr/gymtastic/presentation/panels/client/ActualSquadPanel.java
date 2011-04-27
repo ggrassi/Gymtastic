@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.presentation.panels;
+package ch.hsr.gymtastic.presentation.panels.client;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -11,7 +11,7 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
-import ch.hsr.gymtastic.application.controller.SquadController;
+import ch.hsr.gymtastic.application.controller.client.SquadController;
 import ch.hsr.gymtastic.application.models.AthleteOverviewTableModel;
 
 public class ActualSquadPanel extends JPanel {

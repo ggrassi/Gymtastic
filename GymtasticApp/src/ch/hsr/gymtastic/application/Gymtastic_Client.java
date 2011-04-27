@@ -1,6 +1,6 @@
 package ch.hsr.gymtastic.application;
 
-import ch.hsr.gymtastic.presentation.ClientConnectionFrame;
+import ch.hsr.gymtastic.presentation.client.ClientConnectionFrame;
 
 public class Gymtastic_Client {
 

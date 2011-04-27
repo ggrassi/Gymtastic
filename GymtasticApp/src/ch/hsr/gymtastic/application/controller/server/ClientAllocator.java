@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.application.controller;
+package ch.hsr.gymtastic.application.controller.server;
 
 import java.util.HashMap;
 import java.util.Map;

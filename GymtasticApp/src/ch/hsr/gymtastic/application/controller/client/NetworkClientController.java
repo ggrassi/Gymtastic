@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.application.controller;
+package ch.hsr.gymtastic.application.controller.client;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;

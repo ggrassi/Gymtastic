@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.presentation.panels;
+package ch.hsr.gymtastic.presentation.panels.server;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,13 +20,13 @@ import javax.swing.JSpinner;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
-import ch.hsr.gymtastic.application.controller.ClientAllocator;
-import ch.hsr.gymtastic.application.controller.NetworkServerController;
-import ch.hsr.gymtastic.application.controller.RoundAllocator;
+import ch.hsr.gymtastic.application.controller.server.ClientAllocator;
+import ch.hsr.gymtastic.application.controller.server.NetworkServerController;
+import ch.hsr.gymtastic.application.controller.server.RoundAllocator;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
-import ch.hsr.gymtastic.presentation.ServerFrame;
+import ch.hsr.gymtastic.presentation.server.ServerFrame;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 import ch.hsr.gymtastic.technicalServices.network.RMIClientInterface;
 

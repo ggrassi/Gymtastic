@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.presentation.panels;
+package ch.hsr.gymtastic.presentation.panels.client;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -13,8 +13,8 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
-import ch.hsr.gymtastic.application.controller.GymCupInfoController;
-import ch.hsr.gymtastic.application.controller.RoundInfoController;
+import ch.hsr.gymtastic.application.controller.client.GymCupInfoController;
+import ch.hsr.gymtastic.application.controller.client.RoundInfoController;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

@@ -5,7 +5,7 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-import ch.hsr.gymtastic.application.controller.NetworkServerController;
+import ch.hsr.gymtastic.application.controller.server.NetworkServerController;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 

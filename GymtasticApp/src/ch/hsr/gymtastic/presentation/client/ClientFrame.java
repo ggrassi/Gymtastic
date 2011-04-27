@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.presentation;
+package ch.hsr.gymtastic.presentation.client;
 
 import java.awt.EventQueue;
 
@@ -7,14 +7,14 @@ import javax.swing.JTabbedPane;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
-import ch.hsr.gymtastic.application.controller.GymCupInfoController;
-import ch.hsr.gymtastic.application.controller.NetworkClientController;
-import ch.hsr.gymtastic.application.controller.RoundInfoController;
-import ch.hsr.gymtastic.application.controller.SquadController;
+import ch.hsr.gymtastic.application.controller.client.GymCupInfoController;
+import ch.hsr.gymtastic.application.controller.client.NetworkClientController;
+import ch.hsr.gymtastic.application.controller.client.RoundInfoController;
+import ch.hsr.gymtastic.application.controller.client.SquadController;
 import ch.hsr.gymtastic.domain.DeviceType;
-import ch.hsr.gymtastic.presentation.panels.EvaluationPanel;
-import ch.hsr.gymtastic.presentation.panels.ActualSquadPanel;
-import ch.hsr.gymtastic.presentation.panels.OverviewPanel;
+import ch.hsr.gymtastic.presentation.panels.client.ActualSquadPanel;
+import ch.hsr.gymtastic.presentation.panels.client.EvaluationPanel;
+import ch.hsr.gymtastic.presentation.panels.client.OverviewPanel;
 
 public class ClientFrame {
 

@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.TypedQuery;
 
-import ch.hsr.gymtastic.application.controller.ClientAllocator;
+import ch.hsr.gymtastic.application.controller.server.ClientAllocator;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
 @Entity

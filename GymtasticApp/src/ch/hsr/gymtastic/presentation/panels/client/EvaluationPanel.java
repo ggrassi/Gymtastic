@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.presentation.panels;
+package ch.hsr.gymtastic.presentation.panels.client;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -14,7 +14,8 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import ch.hsr.gymtastic.application.controller.SquadController;
+
+import ch.hsr.gymtastic.application.controller.client.SquadController;
 import ch.hsr.gymtastic.domain.Athlete;
 
 public class EvaluationPanel extends JPanel {
