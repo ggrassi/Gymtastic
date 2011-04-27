@@ -58,11 +58,13 @@ public class ClientFrame {
 	public ClientFrame(NetworkClientController networkController,
 			DeviceType deviceType) {
 		try {
-			this.squadController = new SquadController();
 			this.networkController = networkController;
-			this.networkController.setSquadController(squadController);
-			this.gymCupInfoController = new GymCupInfoController();
-			this.roundInfoController = new RoundInfoController();
+			squadController = new SquadController();
+			networkController.setSquadController(squadController);
+			gymCupInfoController = new GymCupInfoController();
+			networkController.setGymCupInfoController(gymCupInfoController);
+			roundInfoController = new RoundInfoController();
+			networkController.setRoundInfoController(roundInfoController);
 			this.deviceType = deviceType;
 		} catch (Exception e) {
 			e.printStackTrace();

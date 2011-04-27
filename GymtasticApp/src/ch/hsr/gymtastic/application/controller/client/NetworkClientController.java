@@ -70,4 +70,12 @@ public class NetworkClientController implements Observer {
 	    roundInfoController.setRoundInfo(arg);
 	}
     }
+
+    public void setGymCupInfoController(GymCupInfoController gymCupInfoController) {
+	this.gymCupInfoController = gymCupInfoController;	
+    }
+
+    public void setRoundInfoController(RoundInfoController roundInfoController) {
+	this.roundInfoController = roundInfoController;
+    }
 }

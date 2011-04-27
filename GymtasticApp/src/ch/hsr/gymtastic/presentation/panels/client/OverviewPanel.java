@@ -279,13 +279,13 @@ public class OverviewPanel extends JPanel implements Observer {
 				.setText(gymCupInfoController.getGymCupClientInfo().getName());
 		lblCupLocation.setText(gymCupInfoController.getGymCupClientInfo()
 				.getLocation());
-		lblStartDate.setText(gymCupInfoController.getGymCupClientInfo()
-				.getStartDate().toString());
-		lblEndDate.setText(gymCupInfoController.getGymCupClientInfo()
-				.getEndDate().toString());
+//		lblStartDate.setText(gymCupInfoController.getGymCupClientInfo()
+//				.getStartDate().toString());
+//		lblEndDate.setText(gymCupInfoController.getGymCupClientInfo()
+//				.getEndDate().toString());
 
-		lblRoundInfo.setText(roundInfoController.getRoundInfo()
-				.getCompetition());
+//		lblRoundInfo.setText(roundInfoController.getRoundInfo()
+//				.getCompetition());
 	}
 
 }

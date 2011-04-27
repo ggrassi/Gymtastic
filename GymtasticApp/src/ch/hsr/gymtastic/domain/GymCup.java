@@ -129,7 +129,7 @@ public class GymCup {
     public void setStartDate(GregorianCalendar startDate) {
 	this.startDate = startDate;
     }
-    
+
     public GregorianCalendar getEndDate() {
 	return endDate;
     }
@@ -137,7 +137,7 @@ public class GymCup {
     public void setEndDate(GregorianCalendar endDate) {
 	this.endDate = endDate;
     }
-    
+
     public String getName() {
 	return name;
     }
@@ -185,7 +185,6 @@ public class GymCup {
 	}
     }
 
-
     public void setEndDateStr(String strEndDate) {
 	DBConnection db = new DBConnection();
 	GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
@@ -193,7 +192,5 @@ public class GymCup {
 	db.commit();
 	db.closeConnection();
     }
-
-   
 
 }
