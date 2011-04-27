@@ -1,19 +1,19 @@
 package ch.hsr.gymtastic.presentation.panels;
 
-import javax.swing.JPanel;
-import java.awt.GridBagLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
-import javax.swing.border.TitledBorder;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JLabel;
-import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
-import java.awt.Color;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.BoxLayout;
 
 public class CompetitionPanel extends JPanel {
 
