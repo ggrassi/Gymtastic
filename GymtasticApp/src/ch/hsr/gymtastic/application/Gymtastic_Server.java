@@ -2,6 +2,7 @@ package ch.hsr.gymtastic.application;
 
 import java.net.ConnectException;
 
+import ch.hsr.gymtastic.application.controller.server.ModelController;
 import ch.hsr.gymtastic.application.controller.server.NetworkServerController;
 import ch.hsr.gymtastic.application.models.CompetitionModel;
 import ch.hsr.gymtastic.application.models.CupManagementModel;
@@ -16,9 +17,12 @@ public class Gymtastic_Server {
 	// ServerFrame.emulateCup();
 	// ch.hsr.gymtastic.presentation.ServerFrame.newServerFrame();
 	try {
-	    ServerFrame serverFrame = new ServerFrame(new NetworkServerController(), new CupManagementModel(), new CompetitionModel());
+	    CupManagementModel cupManagementModel = new CupManagementModel();
+	    CompetitionModel competitionModel = new CompetitionModel();
+	    ModelController modelController = new ModelController(cupManagementModel, competitionModel);
+	    modelController.setModelControllerToModels();
+	    ServerFrame serverFrame = new ServerFrame(new NetworkServerController(), cupManagementModel, competitionModel);
 	} catch (ConnectException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 

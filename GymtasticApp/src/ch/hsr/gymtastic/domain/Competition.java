@@ -21,10 +21,12 @@ public class Competition {
     private String programClass;
     private RoundAllocator roundAllocation;
 
-    public Competition(String description, GregorianCalendar date, String startTime) {
+    public Competition(String description, GregorianCalendar date, String startTime, String endTime, String programClass) {
 	this.description = description;
 	this.date = date;
 	this.startTime = startTime;
+	this.endTime = endTime;
+	this.programClass = programClass;
     }
 
     public void importAllSquads() {

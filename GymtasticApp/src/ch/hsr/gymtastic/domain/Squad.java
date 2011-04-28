@@ -69,5 +69,9 @@ public class Squad implements Serializable {
 	public Athlete getAthlete(int index) {
 		return athlets.get(index);
 	}
+	
+	public String toString(){
+	    return ""+squadId;
+	}
 
 }
