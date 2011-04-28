@@ -20,8 +20,7 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.application.controller.client.SquadController;
-import ch.hsr.gymtastic.domain.Athlete;
-import ch.hsr.gymtastic.domain.DeviceType;
+import ch.hsr.gymtastic.application.models.ClientModel;
 import ch.hsr.gymtastic.domain.Mark;
 
 public class EvaluationPanel extends JPanel implements Observer {
@@ -37,7 +36,6 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private JTextField txtFieldEMark1;
 	private JTextField txtFieldDMark;
 	private SquadController squadController;
-	private Athlete actualAthlete;
 	private JButton btnNext;
 	private JPanel panelSouth;
 	private JButton btnPrevious;
@@ -67,12 +65,12 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private JLabel lblBonus;
 	private JLabel lblFinalMark;
 	private ButtonGroup buttonGroupParticipation;
-	private DeviceType deviceType;
-
+	private ClientModel clientModel;
+	
 	public EvaluationPanel(final SquadController squadController,
-			DeviceType deviceType) {
+			ClientModel clientModel) {
 		this.squadController = squadController;
-		this.deviceType = deviceType;
+		this.clientModel = clientModel;
 		initGUI();
 		initListeners();
 	}
@@ -433,17 +431,17 @@ public class EvaluationPanel extends JPanel implements Observer {
 		/*
 		 * TODO: Mark richtig setzen
 		 */
-		actualAthlete.addMark(deviceType, new Mark());
+		clientModel.getAthlete().addMark(clientModel.getDeviceType(), new Mark());
 
 	}
 
 	private void loadAthleteFields() {
-		if (actualAthlete != null) {
-			lblFirstNameField.setText(actualAthlete.getFirstName());
-			lblLastNameField.setText(actualAthlete.getLastName());
-			lblPrgClassField.setText(actualAthlete.getPrgClass());
-			lblSquadField.setText("" + actualAthlete.getSquadId());
-			lblStartNrField.setText("" + actualAthlete.getStartNr());
+		if (clientModel.getAthlete() != null) {
+			lblFirstNameField.setText(clientModel.getAthlete().getFirstName());
+			lblLastNameField.setText(clientModel.getAthlete().getLastName());
+			lblPrgClassField.setText(clientModel.getAthlete().getPrgClass());
+			lblSquadField.setText("" + clientModel.getAthlete().getSquadId());
+			lblStartNrField.setText("" + clientModel.getAthlete().getStartNr());
 		}
 	}
 
@@ -468,12 +466,12 @@ public class EvaluationPanel extends JPanel implements Observer {
 
 	private void getNextAthlete() {
 		if (squadController.hasNextAthlete())
-			actualAthlete = squadController.getNextAthlete();
+			clientModel.setAthlete(squadController.getNextAthlete());
 	}
 
 	private void getPreviousAthlete() {
 		if (squadController.hasPreviousAthlete())
-			actualAthlete = squadController.getPreviousAthlete();
+			clientModel.setAthlete(squadController.getPreviousAthlete());
 	}
 
 }

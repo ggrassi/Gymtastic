@@ -13,8 +13,6 @@ import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.application.controller.client.SquadController;
 import ch.hsr.gymtastic.application.models.AthleteOverviewTableModel;
-import ch.hsr.gymtastic.domain.Athlete;
-import ch.hsr.gymtastic.domain.Squad;
 
 public class ActualSquadPanel extends JPanel {
 	/**

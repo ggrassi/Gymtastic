@@ -4,6 +4,11 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,13 +20,13 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import ch.hsr.gymtastic.application.models.CupManagementModel;
+import ch.hsr.gymtastic.application.models.CompetitionModel;
+import ch.hsr.gymtastic.application.models.CompetitionOverviewTableModel;
 import ch.hsr.gymtastic.domain.Competition;
+import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class CompetitionPanel extends JPanel {
+public class CompetitionPanel extends JPanel implements Observer {
 
     /**
 	 * 
@@ -34,10 +39,12 @@ public class CompetitionPanel extends JPanel {
     private JTextField txtFieldDate;
     private JTextField txtFieldDescription;
     private JTable table;
-    private CupManagementModel cupManagementModel;
+    private CompetitionModel competitionModel;
+    private CompetitionOverviewTableModel competitionOverviewTableModel;
 
-    public CompetitionPanel(CupManagementModel cupManagementModel) {
-	this.cupManagementModel = cupManagementModel;
+    public CompetitionPanel(CompetitionModel competitionModel) {
+	this.competitionModel = competitionModel;
+	this.competitionModel.addObserver(this);
 	initGUI();
 	initListeners();
     }
@@ -191,10 +198,19 @@ public class CompetitionPanel extends JPanel {
 	JButton btnAdd = new JButton("Hinzufügen");
 	btnAdd.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
-		// Competition competition = new
-		// Competition(txtFieldDescription.getText(),
-		// txtFieldDate.getText(), txtFieldStartTime.getText());
-		// cupManagementModel.getGymCup().addCompetition(competition);
+		Competition competition = null;
+		try {
+		    competition = new Competition(txtFieldDescription.getText(), DateFormatConverter
+			    .convertStringToDate(txtFieldDate.getText()), DateFormatConverter
+			    .convertStringToDate(txtFieldStartTime.getText()));
+		} catch (ParseException e1) {
+		    e1.printStackTrace();
+		}
+		if (competitionModel.addCompetitionToGymCup(competition)) {
+		    System.out.println("Wettkampf erfolgreich hinzugefuegt");
+		} else {
+		    System.out.println("Wettkampf konnte nicht hinzugefuegt werden");
+		}
 	    }
 	});
 	GridBagConstraints gbc_btnAdd = new GridBagConstraints();
@@ -227,10 +243,11 @@ public class CompetitionPanel extends JPanel {
 	panelOverviewBorder.add(scrollPaneOverview, gbc_scrollPaneOverview);
 
 	tableCompetitions = new JTable();
-	tableCompetitions.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Wettkampf", "New column",
-		"New column" }));
+//	competitionOverviewTableModel = new CompetitionOverviewTableModel(competitionModel);
+//	tableCompetitions.setModel(competitionOverviewTableModel);
 	scrollPaneOverview.setViewportView(tableCompetitions);
 
+	
 	JPanel panelSquadsBorder = new JPanel();
 	panelSquadsBorder.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Riegen",
 		TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -273,6 +290,11 @@ public class CompetitionPanel extends JPanel {
 	gbc_btnHinzufgen.gridx = 1;
 	gbc_btnHinzufgen.gridy = 1;
 	panelSquadsBorder.add(btnHinzufgen, gbc_btnHinzufgen);
+
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
 
     }
 
