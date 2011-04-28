@@ -1,25 +1,24 @@
 package ch.hsr.gymtastic.presentation.panels.client;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
-
-import java.awt.BorderLayout;
-import javax.swing.border.EtchedBorder;
-import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.application.controller.client.GymCupInfoController;
 import ch.hsr.gymtastic.application.controller.client.RoundInfoController;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.Observable;
-import java.util.Observer;
+import ch.hsr.gymtastic.application.models.ClientModel;
 
 public class OverviewPanel extends JPanel implements Observer {
 	/**
@@ -50,9 +49,11 @@ public class OverviewPanel extends JPanel implements Observer {
 	private GymCupInfoController gymCupInfoController;
 	private RoundInfoController roundInfoController;
 	private JLabel lblRoundInfo;
+	private ClientModel clientModel;
 
-	public OverviewPanel(GymCupInfoController gymCupInfoController,
+	public OverviewPanel(ClientModel clientModel, GymCupInfoController gymCupInfoController,
 			RoundInfoController roundInfoController) {
+		this.clientModel = clientModel;
 		this.gymCupInfoController = gymCupInfoController;
 		gymCupInfoController.addObserver(this);
 		roundInfoController.addObserver(this);
@@ -164,7 +165,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblDeviceText.gridy = 5;
 		panelCupInformation.add(lblDeviceText, gbc_lblDeviceText);
 
-		lblDevice = new JLabel("Barren");
+		lblDevice = new JLabel(""+ clientModel.getDeviceType());
 		GridBagConstraints gbc_lblDevice = new GridBagConstraints();
 		gbc_lblDevice.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblDevice.insets = new Insets(0, 0, 0, 5);

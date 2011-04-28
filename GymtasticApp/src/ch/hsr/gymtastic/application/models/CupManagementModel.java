@@ -6,7 +6,6 @@ import java.util.Observable;
 import javax.persistence.TypedQuery;
 
 import ch.hsr.gymtastic.domain.GymCup;
-import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
 public class CupManagementModel extends Observable {

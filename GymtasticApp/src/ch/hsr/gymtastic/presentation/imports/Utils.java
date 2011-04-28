@@ -1,6 +1,5 @@
 package ch.hsr.gymtastic.presentation.imports;
 
-import java.awt.List;
 import java.io.File;
 import java.util.ArrayList;
 

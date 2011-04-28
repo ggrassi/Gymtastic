@@ -29,8 +29,8 @@ public class Athlete extends Person {
 	@Embedded
 	private Association association;
 
-	public Athlete(int squadID, int startNr, String prgClass,
-			String firstName, String lastName, String address, int yearOfBirth,
+	public Athlete(int squadID, int startNr, String prgClass, String firstName,
+			String lastName, String address, int yearOfBirth,
 			Association association) {
 		super(firstName, lastName, address);
 		this.squadId = squadID;
@@ -114,12 +114,11 @@ public class Athlete extends Person {
 		marks.put(dt, mark);
 
 	}
-	
-	public double getSumOfEndMarks()
-	{
+
+	public double getSumOfEndMarks() {
 		double sumOfEndMarks = 0.0;
-		for(int i = 0; i< marks.size(); i++) {
-			sumOfEndMarks = sumOfEndMarks + marks.get(i).getFinalMark();
+		for (DeviceType deviceType: DeviceType.values()) {
+			sumOfEndMarks = sumOfEndMarks + marks.get(deviceType).getFinalMark();
 		}
 		return sumOfEndMarks;
 	}

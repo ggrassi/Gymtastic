@@ -2,9 +2,9 @@ package ch.hsr.gymtastic.application.controller.server;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.Vector;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
