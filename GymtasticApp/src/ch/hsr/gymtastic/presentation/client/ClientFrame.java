@@ -79,6 +79,7 @@ public class ClientFrame {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Gymtastic Client");
 
 		panelStatus = new JPanel();
 		frame.getContentPane().add(panelStatus, BorderLayout.SOUTH);

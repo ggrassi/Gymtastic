@@ -67,7 +67,8 @@ public class ServerFrame {
 	frameServer = new JFrame();
 	frameServer.setBounds(100, 100, 638, 474);
 	frameServer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	frameServer.setExtendedState(Frame.MAXIMIZED_BOTH);
+	frameServer.setTitle("Gymtastic Server");
+//	frameServer.setExtendedState(Frame.MAXIMIZED_BOTH);
 
 	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	frameServer.getContentPane().add(tabbedPane, BorderLayout.CENTER);
