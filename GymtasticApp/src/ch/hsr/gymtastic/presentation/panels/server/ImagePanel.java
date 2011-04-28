@@ -8,15 +8,18 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class ImagePanel extends JPanel{
+import ch.hsr.gymtastic.domain.MyBufferedImage;
 
-    private BufferedImage image;
+public class ImagePanel extends JPanel{
+	
+    private BufferedImage image = null;
+	private String path;
 
     public BufferedImage getImage() {
 		return image;
 	}
 
-	public void setImage(BufferedImage image) {
+	public void setImage(MyBufferedImage image) {
 		this.image = image;
 		repaint();
 	}
@@ -26,8 +29,10 @@ public class ImagePanel extends JPanel{
     }
 
 	public BufferedImage generateImage(String path) {
+		this.path = path;
 		try {                
 		      image = ImageIO.read(new File(path));
+		      this.image = image;
 		      if ( image != null ){
 		          repaint();
 		      }
@@ -42,5 +47,20 @@ public class ImagePanel extends JPanel{
         g.drawImage(image, 0, 0, null); // see javadoc for more info on the parameters
 
     }
+
+	public boolean isGenerated() {
+	
+		return !(image.equals(null));
+	}
+
+	public String getPath() {
+		// TODO Auto-generated method stub
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+		generateImage(path);
+	}
 
 }

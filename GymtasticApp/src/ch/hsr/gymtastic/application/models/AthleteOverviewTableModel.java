@@ -23,7 +23,7 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements
 
 	public AthleteOverviewTableModel(SquadController squadController) {
 		this.squadController = squadController;
-		squadController.addObserver(this);
+		this.squadController.addObserver(this);
 	}
 
 	@Override

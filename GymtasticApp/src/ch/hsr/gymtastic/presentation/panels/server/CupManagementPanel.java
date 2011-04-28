@@ -359,7 +359,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 	gbc_btnImportStartList.gridx = 2;
 	gbc_btnImportStartList.gridy = 1;
 	panelImport.add(btnImportStartList, gbc_btnImportStartList);
-	btnImportStartList.setEnabled(false);
 
 	panelLogoBorder = new JPanel();
 	panelLogoBorder.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Logo",
@@ -465,6 +464,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		    String path = chooser.getSelectedFile().getAbsolutePath();
 		    DBConnection.setPath(path);
 		    cupManagementModel.setExistingGymcup();
+		   
 		    System.out.println(path);
 		    txtChoseCup.setText(path);
 		    txtChoseCup.setEnabled(false);
@@ -485,13 +485,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 		    String path = chooser.getSelectedFile().getAbsolutePath();
 		    System.out.println(path);
 		    txtChoseImport.setText(path);
-		    ImportStartList startList = new ImportStartList(path);
-		    startList.readImport();
-		    startList.toString();
-		    SquadCreator squadCreator = new SquadCreator(startList, cupManagementModel.getGymCup());
-		    squadCreator.insertImportToDB();
-		    cupManagementModel.getGymCup().importAllSquads();
-		    cupManagementModel.getGymCup().setSquads(squadCreator.createSquads());
 		}
 
 	    }
@@ -519,16 +512,27 @@ public class CupManagementPanel extends JPanel implements Observer {
 	btnSave.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent arg0) {
+	    	
 		GymCup gymCup = new GymCup(txtFieldName.getText(), txtFieldLocation.getText());
 		gymCup.setName(txtFieldName.getText());
 		gymCup.setLocation(txtFieldLocation.getText());
-		gymCup.setStartDateStr(txtFieldStartDate.getText());
-		gymCup.setEndDateStr(txtFieldEndDate.getText());
 		gymCup.setSponsors(txtAreaSponsors.getText());
 		gymCup.setDescription(txtAreaDescr.getText());
+		if(panelLogo.isGenerated()){
+			gymCup.setLogoImagePath(panelLogo.getPath());
+		}
+		gymCup.importGymCupToDB();
+		gymCup.setStartDateStr(txtFieldStartDate.getText());
+		gymCup.setEndDateStr(txtFieldEndDate.getText());
 		cupManagementModel.setGymcup(gymCup);
-		btnSave.setEnabled(false);
-		btnImportStartList.setEnabled(true);
+		
+		ImportStartList startList = new ImportStartList(txtChoseImport.getText());
+		startList.readImport();
+		startList.toString();
+		SquadCreator squadCreator = new SquadCreator(startList, cupManagementModel.getGymCup());
+		squadCreator.insertImportToDB();
+		cupManagementModel.getGymCup().importAllSquads();
+		cupManagementModel.getGymCup().setSquads(squadCreator.createSquads());
 	    }
 	});
 

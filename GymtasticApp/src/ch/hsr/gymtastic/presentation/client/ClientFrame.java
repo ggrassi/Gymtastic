@@ -1,17 +1,19 @@
 package ch.hsr.gymtastic.presentation.client;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JTabbedPane;
-import java.awt.BorderLayout;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 import ch.hsr.gymtastic.application.controller.client.GymCupInfoController;
 import ch.hsr.gymtastic.application.controller.client.NetworkClientController;
 import ch.hsr.gymtastic.application.controller.client.RoundInfoController;
 import ch.hsr.gymtastic.application.controller.client.SquadController;
+import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
+import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.presentation.panels.client.ActualSquadPanel;
 import ch.hsr.gymtastic.presentation.panels.client.EvaluationPanel;
 import ch.hsr.gymtastic.presentation.panels.client.OverviewPanel;
@@ -79,6 +81,7 @@ public class ClientFrame {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Gymtastic Client");
 
 		panelStatus = new JPanel();
 		frame.getContentPane().add(panelStatus, BorderLayout.SOUTH);
@@ -89,15 +92,19 @@ public class ClientFrame {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
-		panelOverview = new OverviewPanel(gymCupInfoController, roundInfoController);
+		panelOverview = new OverviewPanel(gymCupInfoController,
+				roundInfoController);
 		tabbedPane.addTab("�bersicht", null, panelOverview, null);
 
 		panelActualSquad = new ActualSquadPanel(squadController);
 		tabbedPane.addTab("Aktuelle Riege", null, panelActualSquad, null);
 
-		panelEvaluation = new EvaluationPanel(this.squadController);
+		panelEvaluation = new EvaluationPanel(squadController, deviceType);
 		tabbedPane.addTab("Bewertung", null, panelEvaluation, null);
 
+		// TO BE DELETED--------------------------
+		// tabbedPane.setEnabledAt(1, false);
+		// tabbedPane.setEnabledAt(2, false);
 	}
 
 }

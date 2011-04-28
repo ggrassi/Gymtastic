@@ -26,6 +26,7 @@ public class CupManagementModel extends Observable {
 		
 		db.commit();
 		db.closeConnection();
+		changedNotifyObservers();
 	}
 
 	public void setGymcup(GymCup gymCup) {
@@ -40,5 +41,10 @@ public class CupManagementModel extends Observable {
 	private void changedNotifyObservers() {
 		setChanged();
 		notifyObservers();
+	}
+
+	public void setPanel() {
+		
+		
 	}
 }

@@ -59,8 +59,8 @@ public class Main {
 		em.getTransaction().begin();
 		
 		Athlete temp = new Athlete();
-		temp.setAthleteId(1);
-	    Athlete foundAthlete = em.find(Athlete.class, temp.getAthleteId());
+		temp.setStartNr(1);
+	    Athlete foundAthlete = em.find(Athlete.class, temp.getStartNr());
 	    foundAthlete.addMark(DeviceType.POMMEL_HORSE,new Mark(4,4,4,4,4,4)); 
 	    em.getTransaction().commit();
 		
