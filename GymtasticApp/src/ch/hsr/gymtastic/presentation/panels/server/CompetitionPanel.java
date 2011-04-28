@@ -23,7 +23,10 @@ import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.text.ParseException;
+import java.util.GregorianCalendar;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -125,6 +128,19 @@ public class CompetitionPanel extends JPanel implements Observer {
 	gbc_txtFieldDate.gridy = 1;
 	panelInfo.add(txtFieldDate, gbc_txtFieldDate);
 	txtFieldDate.setColumns(10);
+	txtFieldDate.addFocusListener(new FocusAdapter() {
+	    public void focusLost(FocusEvent e) {
+		GregorianCalendar date = null;
+		try {
+		    date = DateFormatConverter.convertStringToDate(txtFieldDate.getText());
+		} catch (ParseException e1) {
+		    if (date != new GregorianCalendar()) {
+			txtFieldDate.setToolTipText("Bitte Format richtig eingeben: '01.02.2011'");
+			txtFieldDate.setText("");
+		    }
+		}
+	    }
+	});
 
 	JLabel lblStartTime = new JLabel("Startzeit: ");
 	GridBagConstraints gbc_lblStartTime = new GridBagConstraints();
@@ -202,8 +218,7 @@ public class CompetitionPanel extends JPanel implements Observer {
 		Competition competition = null;
 		try {
 		    competition = new Competition(txtFieldDescription.getText(), DateFormatConverter
-			    .convertStringToDate(txtFieldDate.getText()), DateFormatConverter
-			    .convertStringToDate(txtFieldStartTime.getText()));
+			    .convertStringToDate(txtFieldDate.getText()), txtFieldStartTime.getText());
 		} catch (ParseException e1) {
 		    e1.printStackTrace();
 		}
@@ -244,11 +259,10 @@ public class CompetitionPanel extends JPanel implements Observer {
 	panelOverviewBorder.add(scrollPaneOverview, gbc_scrollPaneOverview);
 
 	tableCompetitions = new JTable();
-//	competitionOverviewTableModel = new CompetitionOverviewTableModel(competitionModel);
-//	tableCompetitions.setModel(competitionOverviewTableModel);
+	competitionOverviewTableModel = new CompetitionOverviewTableModel(competitionModel);
+	tableCompetitions.setModel(competitionOverviewTableModel);
 	scrollPaneOverview.setViewportView(tableCompetitions);
 
-	
 	JPanel panelSquadsBorder = new JPanel();
 	panelSquadsBorder.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Riegen",
 		TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
