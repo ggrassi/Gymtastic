@@ -35,7 +35,7 @@ public class SquadControllerTest {
 	}
 	@After
 	public void initSquadController(){
-		squadController.initialize();
+		squadController.reset();
 	}
 	
 	@Test

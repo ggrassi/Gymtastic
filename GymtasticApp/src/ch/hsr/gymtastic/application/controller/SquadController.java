@@ -14,7 +14,7 @@ public class SquadController extends Observable {
 	}
 
 	public boolean hasNextAthlete() {
-		if (index < numberOfAthletes -1)
+		if (index < numberOfAthletes - 1)
 			return true;
 		return false;
 	}
@@ -55,9 +55,8 @@ public class SquadController extends Observable {
 		notifyObservers();
 	}
 
-	public void initialize() {
+	public void reset() {
 		index = 0;
-
 	}
 
 }

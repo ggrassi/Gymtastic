@@ -5,11 +5,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import java.awt.BorderLayout;
+import java.rmi.RMISecurityException;
+
 import javax.swing.JPanel;
 
 import ch.hsr.gymtastic.application.controller.NetworkClientController;
 import ch.hsr.gymtastic.application.controller.SquadController;
+import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
+import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.presentation.panels.EvaluationPanel;
 import ch.hsr.gymtastic.presentation.panels.ActualSquadPanel;
 import ch.hsr.gymtastic.presentation.panels.OverviewPanel;
@@ -87,12 +91,27 @@ public class ClientFrame {
 		panelActualSquad = new ActualSquadPanel(squadController);
 		tabbedPane.addTab("Aktuelle Riege", null, panelActualSquad, null);
 
-		panelEvaluation = new EvaluationPanel(this.squadController);
+		panelEvaluation = new EvaluationPanel(squadController);
 		tabbedPane.addTab("Bewertung", null, panelEvaluation, null);
 
 		// TO BE DELETED--------------------------
-//		tabbedPane.setEnabledAt(1, false);
-//		tabbedPane.setEnabledAt(2, false);
+		// tabbedPane.setEnabledAt(1, false);
+		// tabbedPane.setEnabledAt(2, false);
+		generateSquad();
+	}
+	/*
+	 * TODO: Delete generateSquad / use Network Layer
+	 */
+
+	private void generateSquad() {
+		Squad squad = new Squad();
+		squadController = new SquadController();
+		squad.addAthlet(new Athlete("Marco", "Pfiffner", "Vilters"));
+		squad.addAthlet(new Athlete("Giuliano", "Grassi", "Savognin"));
+		squad.addAthlet(new Athlete("Mathias", "Fasser", "Schellenberg"));
+		squad.addAthlet(new Athlete("Jules", "Weder", "Au"));
+		squadController.setSquad(squad);
+
 	}
 
 }
