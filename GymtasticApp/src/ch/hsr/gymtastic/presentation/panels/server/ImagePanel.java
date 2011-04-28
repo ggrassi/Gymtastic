@@ -55,7 +55,7 @@ public class ImagePanel extends JPanel{
 
 	public String getPath() {
 		// TODO Auto-generated method stub
-		return null;
+		return path;
 	}
 
 	public void setPath(String path) {
