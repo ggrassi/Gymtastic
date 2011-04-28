@@ -1,25 +1,23 @@
 package ch.hsr.gymtastic.presentation.panels.client;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
-
-import java.awt.BorderLayout;
-import javax.swing.border.EtchedBorder;
-import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.application.controller.client.GymCupInfoController;
 import ch.hsr.gymtastic.application.controller.client.RoundInfoController;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.Observable;
-import java.util.Observer;
 
 public class OverviewPanel extends JPanel implements Observer {
 	/**

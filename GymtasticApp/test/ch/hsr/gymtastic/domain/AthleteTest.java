@@ -3,7 +3,6 @@ package ch.hsr.gymtastic.domain;
 
 import static junit.framework.Assert.assertEquals;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,18 +1,19 @@
 package ch.hsr.gymtastic.presentation.panels.server;
 
-import javax.swing.JPanel;
-import java.awt.GridBagLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
-import javax.swing.border.TitledBorder;
+
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
-import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JRadioButton;
+import javax.swing.border.TitledBorder;
 
 public class RankingPanel extends JPanel {
 	/**

@@ -2,10 +2,8 @@ package ch.hsr.gymtastic.presentation.server;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.Frame;
 import java.io.FileNotFoundException;
 import java.net.ConnectException;
-import java.util.GregorianCalendar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,11 +11,9 @@ import javax.swing.JTabbedPane;
 
 import ch.hsr.gymtastic.application.controller.server.ClientAllocator;
 import ch.hsr.gymtastic.application.controller.server.NetworkServerController;
-import ch.hsr.gymtastic.application.controller.server.RoundAllocator;
 import ch.hsr.gymtastic.application.models.CompetitionModel;
 import ch.hsr.gymtastic.application.models.CupManagementModel;
 import ch.hsr.gymtastic.application.models.DeviceTypeTableModel;
-import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.presentation.panels.server.AthletePanel;
 import ch.hsr.gymtastic.presentation.panels.server.CompetitionPanel;

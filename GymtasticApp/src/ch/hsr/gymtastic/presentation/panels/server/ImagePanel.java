@@ -8,8 +8,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import ch.hsr.gymtastic.domain.MyBufferedImage;
-
 public class ImagePanel extends JPanel {
 
 	private BufferedImage image = null;

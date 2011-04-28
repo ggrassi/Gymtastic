@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,13 +20,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import ch.hsr.gymtastic.application.models.CompetitionModel;
-import ch.hsr.gymtastic.application.models.CupManagementModel;
-import ch.hsr.gymtastic.domain.Competition;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.Observable;
-import java.util.Observer;
 
 public class CompetitionPanel extends JPanel implements Observer {
 

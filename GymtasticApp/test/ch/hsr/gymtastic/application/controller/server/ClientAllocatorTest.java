@@ -1,6 +1,6 @@
 package ch.hsr.gymtastic.application.controller.server;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
