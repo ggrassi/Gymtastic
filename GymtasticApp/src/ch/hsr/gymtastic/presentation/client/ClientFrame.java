@@ -99,27 +99,12 @@ public class ClientFrame {
 		panelActualSquad = new ActualSquadPanel(squadController);
 		tabbedPane.addTab("Aktuelle Riege", null, panelActualSquad, null);
 
-		panelEvaluation = new EvaluationPanel(squadController);
+		panelEvaluation = new EvaluationPanel(squadController, deviceType);
 		tabbedPane.addTab("Bewertung", null, panelEvaluation, null);
 
 		// TO BE DELETED--------------------------
 		// tabbedPane.setEnabledAt(1, false);
 		// tabbedPane.setEnabledAt(2, false);
-		generateSquad();
 	}
 
-	/*
-	 * TODO: Delete generateSquad / use Network Layer
-	 */
-
-	private void generateSquad() {
-		Squad squad = new Squad();
-		squadController = new SquadController();
-		squad.addAthlet(new Athlete("Marco", "Pfiffner", "Vilters"));
-		squad.addAthlet(new Athlete("Giuliano", "Grassi", "Savognin"));
-		squad.addAthlet(new Athlete("Mathias", "Fasser", "Schellenberg"));
-		squad.addAthlet(new Athlete("Jules", "Weder", "Au"));
-		squadController.setSquad(squad);
-
-	}
 }
