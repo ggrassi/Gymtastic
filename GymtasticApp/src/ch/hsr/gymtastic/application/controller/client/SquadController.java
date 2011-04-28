@@ -43,6 +43,7 @@ public class SquadController extends Observable {
 	public void setSquad(Object squad) {
 		this.squad = (Squad) squad;
 		numberOfAthletes = this.squad.getSquadSize();
+		reset();
 		updateObservers();
 	}
 

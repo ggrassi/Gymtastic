@@ -1,24 +1,30 @@
 package ch.hsr.gymtastic.presentation.panels.client;
 
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import java.awt.GridBagLayout;
-import javax.swing.JButton;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.border.TitledBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.application.controller.client.SquadController;
 import ch.hsr.gymtastic.domain.Athlete;
+import ch.hsr.gymtastic.domain.DeviceType;
+import ch.hsr.gymtastic.domain.Mark;
 
-public class EvaluationPanel extends JPanel {
+public class EvaluationPanel extends JPanel implements Observer {
 	/**
 	 * 
 	 */
@@ -30,14 +36,12 @@ public class EvaluationPanel extends JPanel {
 	private JTextField txtFieldEMark2;
 	private JTextField txtFieldEMark1;
 	private JTextField txtFieldDMark;
-	private SquadController presentationController;
-	private int actualAthleteIndex = 0;
+	private SquadController squadController;
 	private Athlete actualAthlete;
 	private JButton btnNext;
 	private JPanel panelSouth;
 	private JButton btnPrevious;
 	private JPanel panelSouthCenter;
-	private JButton btnFinishRound;
 	private JPanel panelCenter;
 	private JPanel panelAthleteInfoBorder;
 	private JPanel panelAthleteInfo;
@@ -62,18 +66,37 @@ public class EvaluationPanel extends JPanel {
 	private JLabel lblPenalty;
 	private JLabel lblBonus;
 	private JLabel lblFinalMark;
+	private ButtonGroup buttonGroupParticipation;
+	private DeviceType deviceType;
 
-	public EvaluationPanel(
-			final SquadController presentationController) {
-		this.presentationController = presentationController;
+	public EvaluationPanel(final SquadController squadController,
+			DeviceType deviceType) {
+		this.squadController = squadController;
+		this.deviceType = deviceType;
 		initGUI();
 		initListeners();
 	}
 
 	private void initListeners() {
 		btnNext.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
+				setMark();
+				getNextAthlete();
+				loadAthleteFields();
+				checkButtons();
 			}
+
+		});
+		btnPrevious.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				setMark();
+				getPreviousAthlete();
+				loadAthleteFields();
+				checkButtons();
+			}
+
 		});
 
 	}
@@ -101,12 +124,6 @@ public class EvaluationPanel extends JPanel {
 				Double.MIN_VALUE };
 		gbl_panelSouthCenter.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		panelSouthCenter.setLayout(gbl_panelSouthCenter);
-
-		btnFinishRound = new JButton("Durchgang Abschliessen");
-		GridBagConstraints gbc_btnFinishRound = new GridBagConstraints();
-		gbc_btnFinishRound.gridx = 0;
-		gbc_btnFinishRound.gridy = 0;
-		panelSouthCenter.add(btnFinishRound, gbc_btnFinishRound);
 
 		panelCenter = new JPanel();
 		add(panelCenter, BorderLayout.CENTER);
@@ -169,6 +186,11 @@ public class EvaluationPanel extends JPanel {
 		gbc_rdbtnInvalid.gridy = 1;
 		panelAthleteInfo.add(rdbtnInvalid, gbc_rdbtnInvalid);
 
+		buttonGroupParticipation = new ButtonGroup();
+		buttonGroupParticipation.add(rdbtnValid);
+		buttonGroupParticipation.add(rdbtnInvalid);
+		rdbtnValid.setSelected(true);
+
 		lblFirstName = new JLabel("Vorname:");
 		GridBagConstraints gbc_lblFirstName = new GridBagConstraints();
 		gbc_lblFirstName.anchor = GridBagConstraints.WEST;
@@ -177,7 +199,7 @@ public class EvaluationPanel extends JPanel {
 		gbc_lblFirstName.gridy = 2;
 		panelAthleteInfo.add(lblFirstName, gbc_lblFirstName);
 
-		lblFirstNameField = new JLabel("New label");
+		lblFirstNameField = new JLabel("");
 		GridBagConstraints gbc_lblFirstNameField = new GridBagConstraints();
 		gbc_lblFirstNameField.anchor = GridBagConstraints.WEST;
 		gbc_lblFirstNameField.insets = new Insets(0, 0, 5, 0);
@@ -193,7 +215,7 @@ public class EvaluationPanel extends JPanel {
 		gbc_lblLastName.gridy = 3;
 		panelAthleteInfo.add(lblLastName, gbc_lblLastName);
 
-		lblLastNameField = new JLabel("New label");
+		lblLastNameField = new JLabel("");
 		GridBagConstraints gbc_lblLastNameField = new GridBagConstraints();
 		gbc_lblLastNameField.anchor = GridBagConstraints.WEST;
 		gbc_lblLastNameField.insets = new Insets(0, 0, 5, 0);
@@ -209,7 +231,7 @@ public class EvaluationPanel extends JPanel {
 		gbc_lblSquad.gridy = 4;
 		panelAthleteInfo.add(lblSquad, gbc_lblSquad);
 
-		lblSquadField = new JLabel("New label");
+		lblSquadField = new JLabel("");
 		GridBagConstraints gbc_lblSquadField = new GridBagConstraints();
 		gbc_lblSquadField.anchor = GridBagConstraints.WEST;
 		gbc_lblSquadField.insets = new Insets(0, 0, 5, 0);
@@ -225,7 +247,7 @@ public class EvaluationPanel extends JPanel {
 		gbc_lblPrgClass.gridy = 5;
 		panelAthleteInfo.add(lblPrgClass, gbc_lblPrgClass);
 
-		lblPrgClassField = new JLabel("New label");
+		lblPrgClassField = new JLabel("");
 		GridBagConstraints gbc_lblPrgClassField = new GridBagConstraints();
 		gbc_lblPrgClassField.anchor = GridBagConstraints.WEST;
 		gbc_lblPrgClassField.insets = new Insets(0, 0, 5, 0);
@@ -241,7 +263,7 @@ public class EvaluationPanel extends JPanel {
 		gbc_lblStartNr.gridy = 6;
 		panelAthleteInfo.add(lblStartNr, gbc_lblStartNr);
 
-		lblStartNrField = new JLabel("New label");
+		lblStartNrField = new JLabel("");
 		GridBagConstraints gbc_lblStartNrField = new GridBagConstraints();
 		gbc_lblStartNrField.anchor = GridBagConstraints.WEST;
 		gbc_lblStartNrField.gridx = 1;
@@ -405,6 +427,53 @@ public class EvaluationPanel extends JPanel {
 		gbc_txtFieldFinalMark.gridy = 6;
 		panelMarks.add(txtFieldFinalMark, gbc_txtFieldFinalMark);
 		txtFieldFinalMark.setColumns(10);
+	}
+
+	private void setMark() {
+		/*
+		 * TODO: Mark richtig setzen
+		 */
+		actualAthlete.addMark(deviceType, new Mark());
+
+	}
+
+	private void loadAthleteFields() {
+		if (actualAthlete != null) {
+			lblFirstNameField.setText(actualAthlete.getFirstName());
+			lblLastNameField.setText(actualAthlete.getLastName());
+			lblPrgClassField.setText(actualAthlete.getPrgClass());
+			lblSquadField.setText("" + actualAthlete.getSquadId());
+			lblStartNrField.setText("" + actualAthlete.getStartNr());
+		}
+	}
+
+	private void checkButtons() {
+		if (squadController.hasNextAthlete()) {
+			btnNext.setEnabled(true);
+		} else {
+			btnNext.setEnabled(false);
+		}
+		if (squadController.hasPreviousAthlete()) {
+			btnPrevious.setEnabled(true);
+		} else {
+			btnPrevious.setEnabled(false);
+		}
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		getNextAthlete();
+
+	}
+
+	private void getNextAthlete() {
+		if (squadController.hasNextAthlete())
+			actualAthlete = squadController.getNextAthlete();
+	}
+
+	private void getPreviousAthlete() {
+		if (squadController.hasPreviousAthlete())
+			actualAthlete = squadController.getPreviousAthlete();
 	}
 
 }

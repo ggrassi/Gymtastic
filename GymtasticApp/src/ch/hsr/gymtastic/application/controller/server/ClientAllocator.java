@@ -10,7 +10,6 @@ import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 import ch.hsr.gymtastic.technicalServices.network.RMIClientInterface;
 
-
 public class ClientAllocator {
 
 	private Map<DeviceType, ClientInformation> alloc;
@@ -48,9 +47,14 @@ public class ClientAllocator {
 		}
 
 	}
-	
-	public RMIClientInterface getClientStub(DeviceType deviceType){
-	    return alloc.get(deviceType).getStub();
+
+	public RMIClientInterface getClientStub(DeviceType deviceType) {
+		return alloc.get(deviceType).getStub();
+	}
+
+	public void clear() {
+		alloc.clear();
+
 	}
 
 }

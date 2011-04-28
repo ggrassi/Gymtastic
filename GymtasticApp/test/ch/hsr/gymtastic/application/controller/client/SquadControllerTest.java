@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.application.controller;
+package ch.hsr.gymtastic.application.controller.client;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -35,7 +35,7 @@ public class SquadControllerTest {
 		squadController.setSquad(squad);
 	}
 	@After
-	public void initSquadController(){
+	public void tearDown(){
 		squadController.reset();
 	}
 	
