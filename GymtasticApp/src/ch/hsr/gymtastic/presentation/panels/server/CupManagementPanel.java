@@ -332,7 +332,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 	gbc_btnImportStartList.gridx = 2;
 	gbc_btnImportStartList.gridy = 1;
 	panelImport.add(btnImportStartList, gbc_btnImportStartList);
-	btnImportStartList.setEnabled(false);
 
 	panelLogoBorder = new JPanel();
 	panelLogoBorder.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Logo",
@@ -495,10 +494,14 @@ public class CupManagementPanel extends JPanel implements Observer {
 		GymCup gymCup = new GymCup(txtFieldName.getText(), txtFieldLocation.getText());
 		gymCup.setName(txtFieldName.getText());
 		gymCup.setLocation(txtFieldLocation.getText());
-		gymCup.setStartDateStr(txtFieldStartDate.getText());
-		gymCup.setEndDateStr(txtFieldEndDate.getText());
 		gymCup.setSponsors(txtAreaSponsors.getText());
 		gymCup.setDescription(txtAreaDescr.getText());
+		if(panelLogo.isGenerated()){
+			gymCup.setLogoImagePath(panelLogo.getPath());
+		}
+		gymCup.importGymCupToDB();
+		gymCup.setStartDateStr(txtFieldStartDate.getText());
+		gymCup.setEndDateStr(txtFieldEndDate.getText());
 		cupManagementModel.setGymcup(gymCup);
 		btnSave.setEnabled(false);
 		btnImportStartList.setEnabled(true);
