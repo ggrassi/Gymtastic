@@ -114,4 +114,13 @@ public class Athlete extends Person {
 		marks.put(dt, mark);
 
 	}
+	
+	public double getSumOfEndMarks()
+	{
+		double sumOfEndMarks = 0.0;
+		for(int i = 0; i< marks.size(); i++) {
+			sumOfEndMarks = sumOfEndMarks + marks.get(i).getFinalMark();
+		}
+		return sumOfEndMarks;
+	}
 }
