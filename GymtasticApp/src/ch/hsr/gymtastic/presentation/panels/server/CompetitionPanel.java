@@ -15,13 +15,16 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import ch.hsr.gymtastic.application.models.CompetitionModel;
 import ch.hsr.gymtastic.application.models.CupManagementModel;
 import ch.hsr.gymtastic.domain.Competition;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Observable;
+import java.util.Observer;
 
-public class CompetitionPanel extends JPanel {
+public class CompetitionPanel extends JPanel implements Observer {
 
     /**
 	 * 
@@ -34,10 +37,11 @@ public class CompetitionPanel extends JPanel {
     private JTextField txtFieldDate;
     private JTextField txtFieldDescription;
     private JTable table;
-    private CupManagementModel cupManagementModel;
+    private CompetitionModel competitionModel;
 
-    public CompetitionPanel(CupManagementModel cupManagementModel) {
-	this.cupManagementModel = cupManagementModel;
+    public CompetitionPanel(CompetitionModel competitionModel) {
+	this.competitionModel = competitionModel;
+	this.competitionModel.addObserver(this);
 	initGUI();
 	initListeners();
     }
@@ -274,6 +278,11 @@ public class CompetitionPanel extends JPanel {
 	gbc_btnHinzufgen.gridy = 1;
 	panelSquadsBorder.add(btnHinzufgen, gbc_btnHinzufgen);
 
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+	
     }
 
 }
