@@ -2,10 +2,8 @@ package ch.hsr.gymtastic.presentation.server;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.Frame;
 import java.io.FileNotFoundException;
 import java.net.ConnectException;
-import java.util.GregorianCalendar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,10 +11,9 @@ import javax.swing.JTabbedPane;
 
 import ch.hsr.gymtastic.application.controller.server.ClientAllocator;
 import ch.hsr.gymtastic.application.controller.server.NetworkServerController;
-import ch.hsr.gymtastic.application.controller.server.RoundAllocator;
+import ch.hsr.gymtastic.application.models.CompetitionModel;
 import ch.hsr.gymtastic.application.models.CupManagementModel;
 import ch.hsr.gymtastic.application.models.DeviceTypeTableModel;
-import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.presentation.panels.server.AthletePanel;
 import ch.hsr.gymtastic.presentation.panels.server.CompetitionPanel;
@@ -40,15 +37,17 @@ public class ServerFrame {
     private NetworkServerController networkController;
     private CupManagementPanel panelGymCup;
     private CupManagementModel cupManagementModel;
+    private CompetitionModel competitionModel;
 
     /**
      * Create the application.
      * 
      * @param networkServerController
      */
-    public ServerFrame(NetworkServerController networkServerController, CupManagementModel cupManagementModel) {
+    public ServerFrame(NetworkServerController networkServerController, CupManagementModel cupManagementModel, CompetitionModel competitionModel) {
 	networkController = networkServerController;
 	this.cupManagementModel = cupManagementModel;
+	this.competitionModel = competitionModel;
 	deviceTypeTableModel = new DeviceTypeTableModel(networkController);
 	initialize();
 	invokeFrame();
@@ -78,7 +77,7 @@ public class ServerFrame {
 	panelGymCup = new CupManagementPanel(cupManagementModel);
 	tabbedPane.addTab("Cupverwaltung", null, panelGymCup, null);
 
-	CompetitionPanel panelCompetition = new CompetitionPanel(cupManagementModel);
+	CompetitionPanel panelCompetition = new CompetitionPanel(competitionModel);
 	tabbedPane.addTab("Wettkampfverwaltung", null, panelCompetition, null);
 
 	AthletePanel panelAthlete = new AthletePanel();

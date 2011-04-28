@@ -4,8 +4,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.ServerNotActiveException;
 
-import ch.hsr.gymtastic.domain.Squad;
-
 
 
 public interface RMIServerInterface extends Remote {

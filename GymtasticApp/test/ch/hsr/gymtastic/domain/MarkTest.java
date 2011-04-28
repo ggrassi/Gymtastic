@@ -2,7 +2,7 @@ package ch.hsr.gymtastic.domain;
 
 //import static org.junit.Assert.assertEquals;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;

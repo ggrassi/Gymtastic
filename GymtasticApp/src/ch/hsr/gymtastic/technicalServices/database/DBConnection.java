@@ -10,8 +10,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import ch.hsr.gymtastic.domain.GymCup;
-import ch.hsr.gymtastic.domain.Mark;
 import ch.hsr.gymtastic.domain.Squad;
 
 public class DBConnection {
