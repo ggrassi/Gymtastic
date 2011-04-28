@@ -18,6 +18,7 @@ import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.application.controller.client.GymCupInfoController;
 import ch.hsr.gymtastic.application.controller.client.RoundInfoController;
+import ch.hsr.gymtastic.application.models.ClientModel;
 
 public class OverviewPanel extends JPanel implements Observer {
 	/**
@@ -48,9 +49,11 @@ public class OverviewPanel extends JPanel implements Observer {
 	private GymCupInfoController gymCupInfoController;
 	private RoundInfoController roundInfoController;
 	private JLabel lblRoundInfo;
+	private ClientModel clientModel;
 
-	public OverviewPanel(GymCupInfoController gymCupInfoController,
+	public OverviewPanel(ClientModel clientModel, GymCupInfoController gymCupInfoController,
 			RoundInfoController roundInfoController) {
+		this.clientModel = clientModel;
 		this.gymCupInfoController = gymCupInfoController;
 		gymCupInfoController.addObserver(this);
 		roundInfoController.addObserver(this);
@@ -162,7 +165,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblDeviceText.gridy = 5;
 		panelCupInformation.add(lblDeviceText, gbc_lblDeviceText);
 
-		lblDevice = new JLabel("Barren");
+		lblDevice = new JLabel(""+ clientModel.getDeviceType());
 		GridBagConstraints gbc_lblDevice = new GridBagConstraints();
 		gbc_lblDevice.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblDevice.insets = new Insets(0, 0, 0, 5);

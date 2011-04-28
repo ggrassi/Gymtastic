@@ -21,6 +21,7 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.application.controller.client.NetworkClientController;
+import ch.hsr.gymtastic.application.models.ClientModel;
 import ch.hsr.gymtastic.domain.DeviceType;
 
 public class ClientConnectionFrame {
@@ -34,6 +35,7 @@ public class ClientConnectionFrame {
 	private JPanel panelConnection = new JPanel();
 	private JButton btnConnect = new JButton("Verbinden");
 	private JButton btnAbbrechen = new JButton("Abbrechen");
+	private ClientModel clientModel;
 
 	// private RMIClient client;
 	private NetworkClientController networkController;
@@ -42,11 +44,11 @@ public class ClientConnectionFrame {
 	 * Launch the application.
 	 */
 
-	public static void newClientConnectionFrame() {
+	public static void newClientConnectionFrame(final ClientModel clientModel) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ClientConnectionFrame window = new ClientConnectionFrame();
+					ClientConnectionFrame window = new ClientConnectionFrame(clientModel);
 					window.frmClientConnection.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -60,7 +62,8 @@ public class ClientConnectionFrame {
 	 * 
 	 * @throws Exception
 	 */
-	public ClientConnectionFrame() throws Exception {
+	public ClientConnectionFrame(ClientModel clientModel) throws Exception {
+		this.clientModel = clientModel;
 		networkController = new NetworkClientController();
 		initialize();
 	}
@@ -150,8 +153,9 @@ public class ClientConnectionFrame {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				clientModel.setDeviceType((DeviceType) cmbDeviceType.getSelectedItem());
 
-				ClientFrame.newClientFrame(networkController, (DeviceType) cmbDeviceType.getSelectedItem());
+				ClientFrame.newClientFrame(networkController, clientModel);
 				frmClientConnection.dispose();
 
 			}
