@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.presentation.panels;
+package ch.hsr.gymtastic.presentation.panels.client;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -13,24 +13,29 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
+import ch.hsr.gymtastic.application.controller.client.GymCupInfoController;
+import ch.hsr.gymtastic.application.controller.client.RoundInfoController;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Observable;
+import java.util.Observer;
 
-public class OverviewPanel extends JPanel {
+public class OverviewPanel extends JPanel implements Observer {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel panelOverview;
 	private JPanel panelCupInformation;
-	private JLabel lblCupName;
 	private JLabel lblCupNameText;
-	private JLabel lblCupLocation;
+	private JLabel lblCupName;
 	private JLabel lblCupLocationText;
-	private JLabel lblStartDate;
+	private JLabel lblCupLocation;
 	private JLabel lblStartDateText;
-	private JLabel lblEndDate;
+	private JLabel lblStartDate;
 	private JLabel lblEndDateText;
+	private JLabel lblEndDate;
 	private JPanel panelCompetitionInformation;
 	private JLabel lblActualCup;
 	private JLabel lblActualCupText;
@@ -38,16 +43,19 @@ public class OverviewPanel extends JPanel {
 	private JLabel lblActualCompetitionText;
 	private JLabel lblActualSquad;
 	private JLabel lblActualSquadText;
-	private JLabel lblDevice;
 	private JLabel lblDeviceText;
+	private JLabel lblDevice;
 	private JPanel panelControl;
 	private JButton btnNewButton;
+	private GymCupInfoController gymCupInfoController;
+	private RoundInfoController roundInfoController;
+	private JLabel lblRoundInfo;
 
-	/**
-     * 
-     */
-
-	public OverviewPanel() {
+	public OverviewPanel(GymCupInfoController gymCupInfoController,
+			RoundInfoController roundInfoController) {
+		this.gymCupInfoController = gymCupInfoController;
+		gymCupInfoController.addObserver(this);
+		roundInfoController.addObserver(this);
 		initGUI();
 		initListeners();
 
@@ -80,89 +88,89 @@ public class OverviewPanel extends JPanel {
 		gbl_panelCupInformation.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panelCupInformation.columnWeights = new double[] { 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
-		gbl_panelCupInformation.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				Double.MIN_VALUE };
+		gbl_panelCupInformation.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, Double.MIN_VALUE };
 		panelCupInformation.setLayout(gbl_panelCupInformation);
 
-		lblCupName = new JLabel("Veranstaltungsname:");
-		GridBagConstraints gbc_lblCupName = new GridBagConstraints();
-		gbc_lblCupName.anchor = GridBagConstraints.WEST;
-		gbc_lblCupName.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCupName.gridx = 0;
-		gbc_lblCupName.gridy = 0;
-		panelCupInformation.add(lblCupName, gbc_lblCupName);
-
-		lblCupNameText = new JLabel("TV Rheintal");
+		lblCupNameText = new JLabel("Veranstaltungsname:");
 		GridBagConstraints gbc_lblCupNameText = new GridBagConstraints();
 		gbc_lblCupNameText.anchor = GridBagConstraints.WEST;
 		gbc_lblCupNameText.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCupNameText.gridx = 1;
+		gbc_lblCupNameText.gridx = 0;
 		gbc_lblCupNameText.gridy = 0;
 		panelCupInformation.add(lblCupNameText, gbc_lblCupNameText);
 
-		lblCupLocation = new JLabel("Veranstaltungsort:");
-		GridBagConstraints gbc_lblCupLocation = new GridBagConstraints();
-		gbc_lblCupLocation.anchor = GridBagConstraints.WEST;
-		gbc_lblCupLocation.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCupLocation.gridx = 0;
-		gbc_lblCupLocation.gridy = 1;
-		panelCupInformation.add(lblCupLocation, gbc_lblCupLocation);
+		lblCupName = new JLabel("");
+		GridBagConstraints gbc_lblCupName = new GridBagConstraints();
+		gbc_lblCupName.anchor = GridBagConstraints.WEST;
+		gbc_lblCupName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCupName.gridx = 1;
+		gbc_lblCupName.gridy = 0;
+		panelCupInformation.add(lblCupName, gbc_lblCupName);
 
-		lblCupLocationText = new JLabel("St. Gallen");
+		lblCupLocationText = new JLabel("Veranstaltungsort:");
 		GridBagConstraints gbc_lblCupLocationText = new GridBagConstraints();
 		gbc_lblCupLocationText.anchor = GridBagConstraints.WEST;
 		gbc_lblCupLocationText.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCupLocationText.gridx = 1;
+		gbc_lblCupLocationText.gridx = 0;
 		gbc_lblCupLocationText.gridy = 1;
 		panelCupInformation.add(lblCupLocationText, gbc_lblCupLocationText);
 
-		lblStartDate = new JLabel("Startdatum:");
-		GridBagConstraints gbc_lblStartDate = new GridBagConstraints();
-		gbc_lblStartDate.anchor = GridBagConstraints.WEST;
-		gbc_lblStartDate.insets = new Insets(0, 0, 5, 5);
-		gbc_lblStartDate.gridx = 0;
-		gbc_lblStartDate.gridy = 2;
-		panelCupInformation.add(lblStartDate, gbc_lblStartDate);
+		lblCupLocation = new JLabel("");
+		GridBagConstraints gbc_lblCupLocation = new GridBagConstraints();
+		gbc_lblCupLocation.anchor = GridBagConstraints.WEST;
+		gbc_lblCupLocation.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCupLocation.gridx = 1;
+		gbc_lblCupLocation.gridy = 1;
+		panelCupInformation.add(lblCupLocation, gbc_lblCupLocation);
 
-		lblStartDateText = new JLabel("11.11.2011");
+		lblStartDateText = new JLabel("Startdatum:");
 		GridBagConstraints gbc_lblStartDateText = new GridBagConstraints();
 		gbc_lblStartDateText.anchor = GridBagConstraints.WEST;
 		gbc_lblStartDateText.insets = new Insets(0, 0, 5, 5);
-		gbc_lblStartDateText.gridx = 1;
+		gbc_lblStartDateText.gridx = 0;
 		gbc_lblStartDateText.gridy = 2;
 		panelCupInformation.add(lblStartDateText, gbc_lblStartDateText);
 
-		lblEndDate = new JLabel("Enddatum:");
+		lblStartDate = new JLabel("");
+		GridBagConstraints gbc_lblStartDate = new GridBagConstraints();
+		gbc_lblStartDate.anchor = GridBagConstraints.WEST;
+		gbc_lblStartDate.insets = new Insets(0, 0, 5, 5);
+		gbc_lblStartDate.gridx = 1;
+		gbc_lblStartDate.gridy = 2;
+		panelCupInformation.add(lblStartDate, gbc_lblStartDate);
+
+		lblEndDateText = new JLabel("Enddatum:");
+		GridBagConstraints gbc_lblEndDateText = new GridBagConstraints();
+		gbc_lblEndDateText.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEndDateText.anchor = GridBagConstraints.WEST;
+		gbc_lblEndDateText.gridx = 0;
+		gbc_lblEndDateText.gridy = 3;
+		panelCupInformation.add(lblEndDateText, gbc_lblEndDateText);
+
+		lblEndDate = new JLabel("");
 		GridBagConstraints gbc_lblEndDate = new GridBagConstraints();
-		gbc_lblEndDate.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEndDate.anchor = GridBagConstraints.WEST;
-		gbc_lblEndDate.gridx = 0;
+		gbc_lblEndDate.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEndDate.gridx = 1;
 		gbc_lblEndDate.gridy = 3;
 		panelCupInformation.add(lblEndDate, gbc_lblEndDate);
 
-		lblEndDateText = new JLabel("12.11.2011");
-		GridBagConstraints gbc_lblEndDateText = new GridBagConstraints();
-		gbc_lblEndDateText.anchor = GridBagConstraints.WEST;
-		gbc_lblEndDateText.insets = new Insets(0, 0, 5, 5);
-		gbc_lblEndDateText.gridx = 1;
-		gbc_lblEndDateText.gridy = 3;
-		panelCupInformation.add(lblEndDateText, gbc_lblEndDateText);
-		
-		lblDevice = new JLabel("Ger\u00E4t:");
-		GridBagConstraints gbc_lblDevice = new GridBagConstraints();
-		gbc_lblDevice.anchor = GridBagConstraints.WEST;
-		gbc_lblDevice.insets = new Insets(0, 0, 0, 5);
-		gbc_lblDevice.gridx = 0;
-		gbc_lblDevice.gridy = 5;
-		panelCupInformation.add(lblDevice, gbc_lblDevice);
-		
-		lblDeviceText = new JLabel("Barren");
+		lblDeviceText = new JLabel("Ger\u00E4t:");
 		GridBagConstraints gbc_lblDeviceText = new GridBagConstraints();
-		gbc_lblDeviceText.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblDeviceText.anchor = GridBagConstraints.WEST;
 		gbc_lblDeviceText.insets = new Insets(0, 0, 0, 5);
-		gbc_lblDeviceText.gridx = 1;
+		gbc_lblDeviceText.gridx = 0;
 		gbc_lblDeviceText.gridy = 5;
 		panelCupInformation.add(lblDeviceText, gbc_lblDeviceText);
+
+		lblDevice = new JLabel("Barren");
+		GridBagConstraints gbc_lblDevice = new GridBagConstraints();
+		gbc_lblDevice.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_lblDevice.insets = new Insets(0, 0, 0, 5);
+		gbc_lblDevice.gridx = 1;
+		gbc_lblDevice.gridy = 5;
+		panelCupInformation.add(lblDevice, gbc_lblDevice);
 
 		panelCompetitionInformation = new JPanel();
 		panelCompetitionInformation.setBorder(new TitledBorder(
@@ -178,7 +186,8 @@ public class OverviewPanel extends JPanel {
 				gbc_panelCompetitionInformation);
 		GridBagLayout gbl_panelCompetitionInformation = new GridBagLayout();
 		gbl_panelCompetitionInformation.columnWidths = new int[] { 0, 0, 0 };
-		gbl_panelCompetitionInformation.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
+		gbl_panelCompetitionInformation.rowHeights = new int[] { 0, 0, 0, 0, 0,
+				0 };
 		gbl_panelCompetitionInformation.columnWeights = new double[] { 0.0,
 				0.0, Double.MIN_VALUE };
 		gbl_panelCompetitionInformation.rowWeights = new double[] { 0.0, 0.0,
@@ -235,7 +244,14 @@ public class OverviewPanel extends JPanel {
 		gbc_lblActualSquadText.gridy = 2;
 		panelCompetitionInformation.add(lblActualSquadText,
 				gbc_lblActualSquadText);
-		
+
+		lblRoundInfo = new JLabel("New label");
+		GridBagConstraints gbc_lblRoundInfo = new GridBagConstraints();
+		gbc_lblRoundInfo.insets = new Insets(0, 0, 0, 5);
+		gbc_lblRoundInfo.gridx = 0;
+		gbc_lblRoundInfo.gridy = 4;
+		panelCompetitionInformation.add(lblRoundInfo, gbc_lblRoundInfo);
+
 		panelControl = new JPanel();
 		GridBagConstraints gbc_panelControl = new GridBagConstraints();
 		gbc_panelControl.anchor = GridBagConstraints.SOUTH;
@@ -244,7 +260,7 @@ public class OverviewPanel extends JPanel {
 		gbc_panelControl.gridy = 2;
 		panelOverview.add(panelControl, gbc_panelControl);
 		panelControl.setLayout(new BorderLayout(0, 0));
-		
+
 		btnNewButton = new JButton("Durchgang starten");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -255,6 +271,21 @@ public class OverviewPanel extends JPanel {
 	}
 
 	private void initListeners() {
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		lblCupName
+				.setText(gymCupInfoController.getGymCupClientInfo().getName());
+		lblCupLocation.setText(gymCupInfoController.getGymCupClientInfo()
+				.getLocation());
+//		lblStartDate.setText(gymCupInfoController.getGymCupClientInfo()
+//				.getStartDate().toString());
+//		lblEndDate.setText(gymCupInfoController.getGymCupClientInfo()
+//				.getEndDate().toString());
+
+//		lblRoundInfo.setText(roundInfoController.getRoundInfo()
+//				.getCompetition());
 	}
 
 }

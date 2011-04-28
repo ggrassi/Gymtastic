@@ -2,8 +2,8 @@ package ch.hsr.gymtastic.application;
 
 import java.net.ConnectException;
 
-import ch.hsr.gymtastic.application.controller.NetworkServerController;
-import ch.hsr.gymtastic.presentation.ServerFrame;
+import ch.hsr.gymtastic.application.controller.server.NetworkServerController;
+import ch.hsr.gymtastic.presentation.server.ServerFrame;
 
 public class Gymtastic_Server {
 

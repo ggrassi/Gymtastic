@@ -1,14 +1,13 @@
-package ch.hsr.gymtastic.application.controller;
+package ch.hsr.gymtastic.application.controller.client;
 
 import java.io.Serializable;
-import java.net.ConnectException;
-import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;
 
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.GymCupClientInfo;
+import ch.hsr.gymtastic.domain.RoundInfo;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.network.RMIClient;
 import ch.hsr.gymtastic.technicalServices.network.RMIServerInterface;
@@ -20,6 +19,9 @@ public class NetworkClientController implements Observer {
     private RMIClient rmiClient;
     private RMIServerInterface rmiServer;
     private SquadController squadController;
+    private GymCupInfoController gymCupInfoController;
+    private RoundInfoController roundInfoController;
+    
 
     public NetworkClientController() throws Exception {
 	rmiClient = new RMIClient();
@@ -62,10 +64,18 @@ public class NetworkClientController implements Observer {
     public void update(Observable o, Object arg) {
 	if (arg instanceof Squad) {
 	    squadController.setSquad(arg);
-//	} else if (arg instanceof GymCupClientInfo) {
-//	    squadController.setGymCupInfo(arg);
-//	} else if (arg instanceof RoundInfo) {
-//	    squadController.setRoundInfo(arg);
+	} else if (arg instanceof GymCupClientInfo) {
+	    gymCupInfoController.setGymCupInfo(arg);
+	} else if (arg instanceof RoundInfo) {
+	    roundInfoController.setRoundInfo(arg);
 	}
+    }
+
+    public void setGymCupInfoController(GymCupInfoController gymCupInfoController) {
+	this.gymCupInfoController = gymCupInfoController;	
+    }
+
+    public void setRoundInfoController(RoundInfoController roundInfoController) {
+	this.roundInfoController = roundInfoController;
     }
 }

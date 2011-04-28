@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.presentation;
+package ch.hsr.gymtastic.presentation.client;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
-import ch.hsr.gymtastic.application.controller.NetworkClientController;
+import ch.hsr.gymtastic.application.controller.client.NetworkClientController;
 import ch.hsr.gymtastic.domain.DeviceType;
 
 public class ClientConnectionFrame {

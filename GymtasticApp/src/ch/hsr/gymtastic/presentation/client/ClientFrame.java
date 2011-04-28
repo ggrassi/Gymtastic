@@ -1,22 +1,22 @@
-package ch.hsr.gymtastic.presentation;
+package ch.hsr.gymtastic.presentation.client;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JTabbedPane;
-import java.awt.BorderLayout;
-import java.rmi.RMISecurityException;
-
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
-import ch.hsr.gymtastic.application.controller.NetworkClientController;
-import ch.hsr.gymtastic.application.controller.SquadController;
+import ch.hsr.gymtastic.application.controller.client.GymCupInfoController;
+import ch.hsr.gymtastic.application.controller.client.NetworkClientController;
+import ch.hsr.gymtastic.application.controller.client.RoundInfoController;
+import ch.hsr.gymtastic.application.controller.client.SquadController;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
-import ch.hsr.gymtastic.presentation.panels.EvaluationPanel;
-import ch.hsr.gymtastic.presentation.panels.ActualSquadPanel;
-import ch.hsr.gymtastic.presentation.panels.OverviewPanel;
+import ch.hsr.gymtastic.presentation.panels.client.ActualSquadPanel;
+import ch.hsr.gymtastic.presentation.panels.client.EvaluationPanel;
+import ch.hsr.gymtastic.presentation.panels.client.OverviewPanel;
 
 public class ClientFrame {
 
@@ -30,6 +30,8 @@ public class ClientFrame {
 	private EvaluationPanel panelEvaluation;
 	private OverviewPanel panelOverview;
 	private DeviceType deviceType;
+	private GymCupInfoController gymCupInfoController;
+	private RoundInfoController roundInfoController;
 
 	/**
 	 * Launch the application.
@@ -58,9 +60,13 @@ public class ClientFrame {
 	public ClientFrame(NetworkClientController networkController,
 			DeviceType deviceType) {
 		try {
-			this.squadController = new SquadController();
 			this.networkController = networkController;
-			this.networkController.setSquadController(squadController);
+			squadController = new SquadController();
+			networkController.setSquadController(squadController);
+			gymCupInfoController = new GymCupInfoController();
+			networkController.setGymCupInfoController(gymCupInfoController);
+			roundInfoController = new RoundInfoController();
+			networkController.setRoundInfoController(roundInfoController);
 			this.deviceType = deviceType;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -75,6 +81,7 @@ public class ClientFrame {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Gymtastic Client");
 
 		panelStatus = new JPanel();
 		frame.getContentPane().add(panelStatus, BorderLayout.SOUTH);
@@ -85,7 +92,8 @@ public class ClientFrame {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
-		panelOverview = new OverviewPanel();
+		panelOverview = new OverviewPanel(gymCupInfoController,
+				roundInfoController);
 		tabbedPane.addTab("�bersicht", null, panelOverview, null);
 
 		panelActualSquad = new ActualSquadPanel(squadController);
@@ -99,6 +107,7 @@ public class ClientFrame {
 		// tabbedPane.setEnabledAt(2, false);
 		generateSquad();
 	}
+
 	/*
 	 * TODO: Delete generateSquad / use Network Layer
 	 */
@@ -113,5 +122,4 @@ public class ClientFrame {
 		squadController.setSquad(squad);
 
 	}
-
 }

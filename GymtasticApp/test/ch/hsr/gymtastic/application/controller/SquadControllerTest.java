@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.hsr.gymtastic.application.controller.client.SquadController;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.Squad;
 
