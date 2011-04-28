@@ -51,6 +51,7 @@ public class ServerFrame {
     public ServerFrame(NetworkServerController networkServerController, CupManagementModel cupManagementModel, CompetitionModel competitionModel) {
 	networkController = networkServerController;
 	this.cupManagementModel = cupManagementModel;
+	this.competitionModel = competitionModel;
 	deviceTypeTableModel = new DeviceTypeTableModel(networkController);
 	initialize();
 	invokeFrame();

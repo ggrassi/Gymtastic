@@ -17,177 +17,184 @@ import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
 @Entity
 public class GymCup {
-	@Id
-	private int id;
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Competition> competitions = new ArrayList<Competition>();
-	@OneToMany(cascade = CascadeType.ALL)
-	private Map<Integer, Squad> squads = new HashMap<Integer, Squad>();
-	private ClientAllocator clientAlloc;
-	private GregorianCalendar startDate;
-	private GregorianCalendar endDate;
-	private String sponsors;
-	private String location;
-	private String name;
-	private String description;
-	private String logoImagePath;
+    @Id
+    private int id;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Competition> competitions = new ArrayList<Competition>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private Map<Integer, Squad> squads = new HashMap<Integer, Squad>();
+    private ClientAllocator clientAlloc;
+    private GregorianCalendar startDate;
+    private GregorianCalendar endDate;
+    private String sponsors;
+    private String location;
+    private String name;
+    private String description;
+    private String logoImagePath;
 
-	public String getSponsors() {
-		return sponsors;
-	}
+    public String getSponsors() {
+	return sponsors;
+    }
 
-	public void setSponsors(String sponsors) {
-		this.sponsors = sponsors;
-	}
+    public void setSponsors(String sponsors) {
+	this.sponsors = sponsors;
+    }
 
-	public String getLocation() {
-		return location;
-	}
+    public String getLocation() {
+	return location;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public void setLocation(String location) {
+	this.location = location;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+	return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+	this.description = description;
+    }
 
-	public GymCup(String name, String ort) {
-		this.name = name;
-		this.location = ort;
+    public GymCup(String name, String ort) {
+	this.name = name;
+	this.location = ort;
 
-	}
+    }
 
-	public void importGymCupToDB() {
-		DBConnection db = new DBConnection();
-		db.persist(this);
-		db.commit();
-		db.closeConnection();
-	}
+    public void importGymCupToDB() {
+	DBConnection db = new DBConnection();
+	db.persist(this);
+	db.commit();
+	db.closeConnection();
+    }
 
-	public void importAllSquads() {
-		DBConnection db = new DBConnection();
-		TypedQuery<Squad> query = db.getEm().createQuery(
-				"SELECT p FROM Squad p", Squad.class);
-		List<Squad> results = query.getResultList();
-		GymCup tmpCup;
-		Squad tmpSquad;
-		for (Squad p : results) {
-			tmpCup = db.getEm().find(GymCup.class, this.getId());
-			tmpSquad = db.getEm().find(Squad.class, p.getId());
-			tmpCup.addSquad(tmpSquad.getSquadId(), tmpSquad);
-			db.persist(tmpCup);
-			squads.put(p.getSquadId(), p);
-
-		}
-
-		db.commit();
-		db.closeConnection();
+    public void importAllSquads() {
+	DBConnection db = new DBConnection();
+	TypedQuery<Squad> query = db.getEm().createQuery("SELECT p FROM Squad p", Squad.class);
+	List<Squad> results = query.getResultList();
+	GymCup tmpCup;
+	Squad tmpSquad;
+	for (Squad p : results) {
+	    tmpCup = db.getEm().find(GymCup.class, this.getId());
+	    tmpSquad = db.getEm().find(Squad.class, p.getId());
+	    tmpCup.addSquad(tmpSquad.getSquadId(), tmpSquad);
+	    db.persist(tmpCup);
+	    squads.put(p.getSquadId(), p);
 
 	}
 
-	public int getId() {
-		return id;
-	}
+	db.commit();
+	db.closeConnection();
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    }
 
-	public List<Competition> getCompetitions() {
-		return competitions;
-	}
+    public int getId() {
+	return id;
+    }
 
-	public void setCompetitions(List<Competition> competitions) {
-		this.competitions = competitions;
-	}
+    public void setId(int id) {
+	this.id = id;
+    }
 
-	public Map<Integer, Squad> getSquads() {
-		return squads;
-	}
+    public List<Competition> getCompetitions() {
+	return competitions;
+    }
 
-	public void setSquads(Map<Integer, Squad> squads) {
-		this.squads = squads;
-	}
+    public void setCompetitions(List<Competition> competitions) {
+	this.competitions = competitions;
+    }
 
-	public ClientAllocator getClientAlloc() {
-		return clientAlloc;
-	}
+    public Map<Integer, Squad> getSquads() {
+	return squads;
+    }
 
-	public void setClientAlloc(ClientAllocator clientAlloc) {
-		this.clientAlloc = clientAlloc;
-	}
+    public void setSquads(Map<Integer, Squad> squads) {
+	this.squads = squads;
+    }
 
-	public GregorianCalendar getStartDate() {
-		return startDate;
-	}
+    public ClientAllocator getClientAlloc() {
+	return clientAlloc;
+    }
 
-	public void setStartDate(GregorianCalendar startDate) {
-		this.startDate = startDate;
-	}
+    public void setClientAlloc(ClientAllocator clientAlloc) {
+	this.clientAlloc = clientAlloc;
+    }
 
-	public GregorianCalendar getEndDate() {
-		return endDate;
-	}
+    public GregorianCalendar getStartDate() {
+	return startDate;
+    }
 
-	public void setEndDate(GregorianCalendar endDate) {
-		this.endDate = endDate;
-	}
+    public void setStartDate(GregorianCalendar startDate) {
+	this.startDate = startDate;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public GregorianCalendar getEndDate() {
+	return endDate;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setEndDate(GregorianCalendar endDate) {
+	this.endDate = endDate;
+    }
 
-	public void addSquad(int index, Squad squad) {
-		squads.put(index, squad);
-	}
+    public String getName() {
+	return name;
+    }
 
-	public Squad getSquad(int index) {
-		return squads.get(index);
-	}
+    public void setName(String name) {
+	this.name = name;
+    }
 
-	public String getLogoImagePath() {
-		return logoImagePath;
-	}
+    public void addSquad(int index, Squad squad) {
+	squads.put(index, squad);
+    }
 
-	public void setLogoImagePath(String logoImagePath) {
-		this.logoImagePath = logoImagePath;
-	}
+    public Squad getSquad(int index) {
+	return squads.get(index);
+    }
 
-	public void setStartDateStr(String strStartDate) {
-		DBConnection db = new DBConnection();
-		GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
-		extractDateInto(strStartDate, tmpCup);
-		db.commit();
-		db.closeConnection();
-	}
+    public String getLogoImagePath() {
+	return logoImagePath;
+    }
 
-	private void extractDateInto(String strDate, GymCup tmpCup) {
-		// if (!strDate.equals(null)) {
-		if (!strDate.equals("")) {
-			String[] tmp = strDate.split("\\.");
+    public void setLogoImagePath(String logoImagePath) {
+	this.logoImagePath = logoImagePath;
+    }
 
-			tmpCup.setStartDate(new GregorianCalendar(Integer.parseInt(tmp[2]),
-					Integer.parseInt(tmp[1]), Integer.parseInt(tmp[0])));
-		} else {
-			tmpCup.setStartDate(new GregorianCalendar());
-		}
-	}
+    public void setStartDateStr(String strStartDate) {
+	DBConnection db = new DBConnection();
+	GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
+	extractDateInto(strStartDate, tmpCup);
+	db.commit();
+	db.closeConnection();
+    }
 
-	public void setEndDateStr(String strEndDate) {
-		DBConnection db = new DBConnection();
-		GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
-		extractDateInto(strEndDate, tmpCup);
-		db.commit();
-		db.closeConnection();
+    private void extractDateInto(String strDate, GymCup tmpCup) {
+	// if (!strDate.equals(null)) {
+	if (!strDate.equals("")) {
+	    String[] tmp = strDate.split("\\.");
+
+	    tmpCup.setStartDate(new GregorianCalendar(Integer.parseInt(tmp[2]), Integer.parseInt(tmp[1]), Integer
+		    .parseInt(tmp[0])));
+	} else {
+	    tmpCup.setStartDate(new GregorianCalendar());
 	}
+    }
+
+    public void setEndDateStr(String strEndDate) {
+	DBConnection db = new DBConnection();
+	GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
+	extractDateInto(strEndDate, tmpCup);
+	db.commit();
+	db.closeConnection();
+    }
+
+    public Boolean addCompetition(Competition competition) {
+	if (competition != null) {
+	    return competitions.add(competition);
+	} else {
+	    return false;
+	}
+    }
 
 }
