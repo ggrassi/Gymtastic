@@ -39,14 +39,16 @@ public class ServerFrame {
 
     private NetworkServerController networkController;
     private CupManagementPanel panelGymCup;
+    private CupManagementModel cupManagementModel;
 
     /**
      * Create the application.
      * 
      * @param networkServerController
      */
-    public ServerFrame(NetworkServerController networkServerController) {
+    public ServerFrame(NetworkServerController networkServerController, CupManagementModel cupManagementModel) {
 	networkController = networkServerController;
+	this.cupManagementModel = cupManagementModel;
 	deviceTypeTableModel = new DeviceTypeTableModel(networkController);
 	initialize();
 	invokeFrame();
@@ -72,10 +74,10 @@ public class ServerFrame {
 	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	frameServer.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
-	panelGymCup = new CupManagementPanel(new CupManagementModel());
+	panelGymCup = new CupManagementPanel(cupManagementModel);
 	tabbedPane.addTab("Cupverwaltung", null, panelGymCup, null);
 
-	CompetitionPanel panelCompetition = new CompetitionPanel();
+	CompetitionPanel panelCompetition = new CompetitionPanel(cupManagementModel);
 	tabbedPane.addTab("Wettkampfverwaltung", null, panelCompetition, null);
 
 	AthletePanel panelAthlete = new AthletePanel();
