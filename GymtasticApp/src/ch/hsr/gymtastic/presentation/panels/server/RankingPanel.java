@@ -15,12 +15,23 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+
 public class RankingPanel extends JPanel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTable table;
+	private JPanel panel_2;
+	private JPanel panel_1;
+	private JLabel lblCompetition;
+	private JComboBox comboBox;
+	private JRadioButton rdbtnStartliste;
+	private JRadioButton rdbtnRangliste;
+	private JPanel panel_3;
+	private JPanel panel;
+	private JScrollPane scrollPane;
+	private JButton btnPrint;
 
 	public RankingPanel() {
 		initGUI();
@@ -28,6 +39,7 @@ public class RankingPanel extends JPanel {
 	}
 
 	private void initListeners() {
+		
 	}
 
 	private void initGUI() {
@@ -38,7 +50,7 @@ public class RankingPanel extends JPanel {
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
-		JPanel panel_2 = new JPanel();
+		panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(UIManager
 				.getBorder("TitledBorder.border"), "Auswahl",
 				TitledBorder.LEADING, TitledBorder.TOP, null,
@@ -56,7 +68,7 @@ public class RankingPanel extends JPanel {
 		gbl_panel_2.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		panel_2.setLayout(gbl_panel_2);
 
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 0;
@@ -70,7 +82,7 @@ public class RankingPanel extends JPanel {
 		gbl_panel_1.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		panel_1.setLayout(gbl_panel_1);
 
-		JLabel lblCompetition = new JLabel("Wettkampf: ");
+		lblCompetition = new JLabel("Wettkampf: ");
 		GridBagConstraints gbc_lblCompetition = new GridBagConstraints();
 		gbc_lblCompetition.insets = new Insets(0, 0, 0, 5);
 		gbc_lblCompetition.anchor = GridBagConstraints.EAST;
@@ -78,7 +90,7 @@ public class RankingPanel extends JPanel {
 		gbc_lblCompetition.gridy = 0;
 		panel_1.add(lblCompetition, gbc_lblCompetition);
 
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 0, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -86,20 +98,20 @@ public class RankingPanel extends JPanel {
 		gbc_comboBox.gridy = 0;
 		panel_1.add(comboBox, gbc_comboBox);
 
-		JRadioButton rdbtnStartliste = new JRadioButton("Startliste");
+		rdbtnStartliste = new JRadioButton("Startliste");
 		GridBagConstraints gbc_rdbtnStartliste = new GridBagConstraints();
 		gbc_rdbtnStartliste.insets = new Insets(0, 0, 0, 5);
 		gbc_rdbtnStartliste.gridx = 3;
 		gbc_rdbtnStartliste.gridy = 0;
 		panel_1.add(rdbtnStartliste, gbc_rdbtnStartliste);
 
-		JRadioButton rdbtnRangliste = new JRadioButton("Rangliste");
+		rdbtnRangliste = new JRadioButton("Rangliste");
 		GridBagConstraints gbc_rdbtnRangliste = new GridBagConstraints();
 		gbc_rdbtnRangliste.gridx = 4;
 		gbc_rdbtnRangliste.gridy = 0;
 		panel_1.add(rdbtnRangliste, gbc_rdbtnRangliste);
 
-		JPanel panel_3 = new JPanel();
+		panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(UIManager
 				.getBorder("TitledBorder.border"), "Liste",
 				TitledBorder.LEADING, TitledBorder.TOP, null,
@@ -116,7 +128,7 @@ public class RankingPanel extends JPanel {
 		gbl_panel_3.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
 		panel_3.setLayout(gbl_panel_3);
 
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
@@ -129,7 +141,7 @@ public class RankingPanel extends JPanel {
 		gbl_panel.rowWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridwidth = 2;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
@@ -141,7 +153,8 @@ public class RankingPanel extends JPanel {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 
-		JButton btnPrint = new JButton("Drucken...");
+		btnPrint = new JButton("Drucken...");
+
 		GridBagConstraints gbc_btnPrint = new GridBagConstraints();
 		gbc_btnPrint.anchor = GridBagConstraints.EAST;
 		gbc_btnPrint.gridx = 1;

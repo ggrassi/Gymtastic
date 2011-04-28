@@ -11,6 +11,7 @@ import ch.hsr.gymtastic.application.controller.client.GymCupInfoController;
 import ch.hsr.gymtastic.application.controller.client.NetworkClientController;
 import ch.hsr.gymtastic.application.controller.client.RoundInfoController;
 import ch.hsr.gymtastic.application.controller.client.SquadController;
+import ch.hsr.gymtastic.application.models.ClientModel;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.presentation.panels.client.ActualSquadPanel;
 import ch.hsr.gymtastic.presentation.panels.client.EvaluationPanel;
@@ -30,6 +31,7 @@ public class ClientFrame {
 	private DeviceType deviceType;
 	private GymCupInfoController gymCupInfoController;
 	private RoundInfoController roundInfoController;
+	private ClientModel clientModel;
 
 	/**
 	 * Launch the application.
@@ -38,12 +40,12 @@ public class ClientFrame {
 	 */
 	public static void newClientFrame(
 			final NetworkClientController networkController,
-			final DeviceType deviceType) {
+			final ClientModel clientModel) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					ClientFrame window = new ClientFrame(networkController,
-							deviceType);
+							clientModel);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,16 +58,17 @@ public class ClientFrame {
 	 * Create the application.
 	 */
 	public ClientFrame(NetworkClientController networkController,
-			DeviceType deviceType) {
+			ClientModel clientModel) {
 		try {
 			this.networkController = networkController;
+			this.clientModel = clientModel;
 			squadController = new SquadController();
 			networkController.setSquadController(squadController);
 			gymCupInfoController = new GymCupInfoController();
 			networkController.setGymCupInfoController(gymCupInfoController);
 			roundInfoController = new RoundInfoController();
 			networkController.setRoundInfoController(roundInfoController);
-			this.deviceType = deviceType;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -90,14 +93,14 @@ public class ClientFrame {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
-		panelOverview = new OverviewPanel(gymCupInfoController,
+		panelOverview = new OverviewPanel(clientModel, gymCupInfoController,
 				roundInfoController);
 		tabbedPane.addTab("�bersicht", null, panelOverview, null);
 
 		panelActualSquad = new ActualSquadPanel(squadController);
 		tabbedPane.addTab("Aktuelle Riege", null, panelActualSquad, null);
 
-		panelEvaluation = new EvaluationPanel(squadController, deviceType);
+		panelEvaluation = new EvaluationPanel(squadController, clientModel);
 		tabbedPane.addTab("Bewertung", null, panelEvaluation, null);
 
 		// TO BE DELETED--------------------------

@@ -30,8 +30,11 @@ public class CompetitionOverviewTableModel extends AbstractTableModel implements
 
     @Override
     public int getRowCount() {
-	if (competitionModel.getGymCup().getCompetitions() != null) {
-	    return competitionModel.getGymCup().getCompetitions().size();
+	if (competitionModel.getGymCup() != null) {
+	    if (competitionModel.getGymCup().getCompetitions() != null) {
+		return competitionModel.getGymCup().getCompetitions().size();
+	    } else
+		return 0;
 	} else {
 	    return 0;
 	}
