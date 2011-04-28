@@ -8,10 +8,12 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Observable;
@@ -34,6 +36,7 @@ import ch.hsr.gymtastic.application.models.CupManagementModel;
 import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.presentation.imports.FileExtensionFilter;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
+import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
 
 public class CupManagementPanel extends JPanel implements Observer {
@@ -82,7 +85,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 	this.cupManagementModel.addObserver(this);
 	initGUI();
 	initListeners();
-
     }
 
     private void initGUI() {
@@ -151,12 +153,24 @@ public class CupManagementPanel extends JPanel implements Observer {
 	gbc_lblStartDate.gridy = 1;
 	panelGeneralInfo.add(lblStartDate, gbc_lblStartDate);
 
-	txtFieldStartDate = new JFormattedTextField(new DateFormatter(DateFormat.getDateInstance(DateFormat.SHORT,
-		Locale.GERMAN)));
+	txtFieldStartDate = new JTextField();
 	txtFieldStartDate.addKeyListener(new KeyAdapter() {
 	    @Override
 	    public void keyReleased(KeyEvent e) {
 		changesCupInformation();
+	    }
+	});
+	txtFieldStartDate.addFocusListener(new FocusAdapter() {
+	    public void focusLost(FocusEvent e) {
+		GregorianCalendar date = null;
+		try {
+		    date = DateFormatConverter.convertStringToDate(txtFieldStartDate.getText());
+		} catch (ParseException e1) {
+		    if (date != new GregorianCalendar()) {
+			txtFieldStartDate.setToolTipText("Bitte Format richtig eingeben: '01.02.2011'");
+			txtFieldStartDate.setText("");
+		    }
+		}
 	    }
 	});
 	GridBagConstraints gbc_txtFieldStartDate = new GridBagConstraints();
@@ -181,6 +195,19 @@ public class CupManagementPanel extends JPanel implements Observer {
 	    @Override
 	    public void keyReleased(KeyEvent e) {
 		changesCupInformation();
+	    }
+	});
+	txtFieldEndDate.addFocusListener(new FocusAdapter() {
+	    public void focusLost(FocusEvent e) {
+		GregorianCalendar date = null;
+		try {
+		    date = DateFormatConverter.convertStringToDate(txtFieldStartDate.getText());
+		} catch (ParseException e1) {
+		    if (date != new GregorianCalendar()) {
+			txtFieldStartDate.setToolTipText("Bitte Format richtig eingeben: '01.02.2011'");
+			txtFieldStartDate.setText("");
+		    }
+		}
 	    }
 	});
 	GridBagConstraints gbc_txtFieldEndDate = new GridBagConstraints();
@@ -437,6 +464,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		    String path = chooser.getSelectedFile().getAbsolutePath();
 		    DBConnection.setPath(path);
 		    cupManagementModel.setExistingGymcup();
+		   
 		    System.out.println(path);
 		    txtChoseCup.setText(path);
 		    txtChoseCup.setEnabled(false);
@@ -457,13 +485,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 		    String path = chooser.getSelectedFile().getAbsolutePath();
 		    System.out.println(path);
 		    txtChoseImport.setText(path);
-		    ImportStartList startList = new ImportStartList(path);
-		    startList.readImport();
-		    startList.toString();
-		    SquadCreator squadCreator = new SquadCreator(startList, cupManagementModel.getGymCup());
-		    squadCreator.insertImportToDB();
-		    cupManagementModel.getGymCup().importAllSquads();
-		    cupManagementModel.getGymCup().setSquads(squadCreator.createSquads());
 		}
 
 	    }
@@ -491,6 +512,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 	btnSave.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent arg0) {
+	    	
 		GymCup gymCup = new GymCup(txtFieldName.getText(), txtFieldLocation.getText());
 		gymCup.setName(txtFieldName.getText());
 		gymCup.setLocation(txtFieldLocation.getText());
@@ -503,8 +525,14 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gymCup.setStartDateStr(txtFieldStartDate.getText());
 		gymCup.setEndDateStr(txtFieldEndDate.getText());
 		cupManagementModel.setGymcup(gymCup);
-		btnSave.setEnabled(false);
-		btnImportStartList.setEnabled(true);
+		
+		ImportStartList startList = new ImportStartList(txtChoseImport.getText());
+		startList.readImport();
+		startList.toString();
+		SquadCreator squadCreator = new SquadCreator(startList, cupManagementModel.getGymCup());
+		squadCreator.insertImportToDB();
+		cupManagementModel.getGymCup().importAllSquads();
+		cupManagementModel.getGymCup().setSquads(squadCreator.createSquads());
 	    }
 	});
 
@@ -526,9 +554,10 @@ public class CupManagementPanel extends JPanel implements Observer {
 	return txtFieldName.getText().equals(cupManagementModel.getGymCup().getName())
 		&& txtAreaDescr.getText().equals(cupManagementModel.getGymCup().getDescription())
 		&& txtAreaSponsors.getText().equals(cupManagementModel.getGymCup().getSponsors())
-		&& (txtFieldStartDate.getText().equals(convertDateToString(cupManagementModel.getGymCup()
-			.getStartDate())))
-		&& txtFieldEndDate.getText().equals(convertDateToString(cupManagementModel.getGymCup().getEndDate()))
+		&& (txtFieldStartDate.getText().equals(DateFormatConverter.convertDateToString(cupManagementModel
+			.getGymCup().getStartDate())))
+		&& txtFieldEndDate.getText().equals(
+			DateFormatConverter.convertDateToString(cupManagementModel.getGymCup().getEndDate()))
 		&& txtFieldLocation.getText().equals(cupManagementModel.getGymCup().getLocation());
     }
 
@@ -536,20 +565,13 @@ public class CupManagementPanel extends JPanel implements Observer {
 	txtFieldName.setText(cupManagementModel.getGymCup().getName());
 	txtAreaDescr.setText(cupManagementModel.getGymCup().getDescription());
 	txtAreaSponsors.setText(cupManagementModel.getGymCup().getSponsors());
-	txtFieldEndDate.setText(convertDateToString(cupManagementModel.getGymCup().getEndDate()));
-	txtFieldStartDate.setText(convertDateToString(cupManagementModel.getGymCup().getStartDate()));
+	txtFieldEndDate.setText(DateFormatConverter.convertDateToString(cupManagementModel.getGymCup().getEndDate()));
+	txtFieldStartDate.setText(DateFormatConverter
+		.convertDateToString(cupManagementModel.getGymCup().getStartDate()));
 	txtFieldLocation.setText(cupManagementModel.getGymCup().getLocation());
 	btnSave.setEnabled(false);
 	btnCancel.setEnabled(false);
 
-    }
-
-    private String convertDateToString(GregorianCalendar date) {
-	if (date != null) {
-	    DateFormat f = SimpleDateFormat.getDateInstance();
-	    return f.format(date.getTime());
-	}
-	return "";
     }
 
     @Override

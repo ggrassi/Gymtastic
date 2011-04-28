@@ -9,63 +9,82 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import ch.hsr.gymtastic.application.controller.server.RoundAllocator;
+
 @Entity
 public class Competition {
-	@OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Squad> squads = new ArrayList<Squad>();
-    private String name;
     private String description;
-    private GregorianCalendar start;
+    private GregorianCalendar startTime;
+    private GregorianCalendar endTime;
+    private GregorianCalendar date;
+    private String programClass;
     private RoundAllocator roundAllocation;
 
-    public Competition(String name, GregorianCalendar start, String description) {
-	this.name = name;
-	this.start = start;
+    public Competition(String description, GregorianCalendar date, GregorianCalendar startTime) {
 	this.description = description;
+	this.date = date;
+	this.startTime = startTime;
     }
 
     public void importAllSquads() {
-    	
+
     }
 
-	public List<Squad> getSquads() {
-		return squads;
-	}
+    public List<Squad> getSquads() {
+	return squads;
+    }
 
-	public void setSquads(List<Squad> squads) {
-		this.squads = squads;
-	}
+    public void setSquads(List<Squad> squads) {
+	this.squads = squads;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getDescription() {
+	return description;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setDescription(String description) {
+	this.description = description;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public RoundAllocator getRoundAllocation() {
+	return roundAllocation;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setRoundAllocation(RoundAllocator roundAllocation) {
+	this.roundAllocation = roundAllocation;
+    }
 
-	public GregorianCalendar getStart() {
-		return start;
-	}
+    public GregorianCalendar getStartTime() {
+	return startTime;
+    }
 
-	public void setStart(GregorianCalendar start) {
-		this.start = start;
-	}
+    public void setStartTime(GregorianCalendar startTime) {
+	this.startTime = startTime;
+    }
 
-	public RoundAllocator getRoundAllocation() {
-		return roundAllocation;
-	}
+    public GregorianCalendar getEndTime() {
+	return endTime;
+    }
 
-	public void setRoundAllocation(RoundAllocator roundAllocation) {
-		this.roundAllocation = roundAllocation;
-	}
+    public void setEndTime(GregorianCalendar endTime) {
+	this.endTime = endTime;
+    }
+
+    public GregorianCalendar getDate() {
+	return date;
+    }
+
+    public void setDate(GregorianCalendar date) {
+	this.date = date;
+    }
+
+    public String getProgramClass() {
+	return programClass;
+    }
+
+    public void setProgramClass(String programClass) {
+	this.programClass = programClass;
+    }
 
 }
