@@ -14,6 +14,7 @@ import javax.swing.JTabbedPane;
 import ch.hsr.gymtastic.application.controller.server.ClientAllocator;
 import ch.hsr.gymtastic.application.controller.server.NetworkServerController;
 import ch.hsr.gymtastic.application.controller.server.RoundAllocator;
+import ch.hsr.gymtastic.application.models.CompetitionModel;
 import ch.hsr.gymtastic.application.models.CupManagementModel;
 import ch.hsr.gymtastic.application.models.DeviceTypeTableModel;
 import ch.hsr.gymtastic.domain.Competition;
@@ -39,14 +40,17 @@ public class ServerFrame {
 
     private NetworkServerController networkController;
     private CupManagementPanel panelGymCup;
+    private CupManagementModel cupManagementModel;
+    private CompetitionModel competitionModel;
 
     /**
      * Create the application.
      * 
      * @param networkServerController
      */
-    public ServerFrame(NetworkServerController networkServerController) {
+    public ServerFrame(NetworkServerController networkServerController, CupManagementModel cupManagementModel, CompetitionModel competitionModel) {
 	networkController = networkServerController;
+	this.cupManagementModel = cupManagementModel;
 	deviceTypeTableModel = new DeviceTypeTableModel(networkController);
 	initialize();
 	invokeFrame();
@@ -73,10 +77,10 @@ public class ServerFrame {
 	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	frameServer.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
-	panelGymCup = new CupManagementPanel(new CupManagementModel());
+	panelGymCup = new CupManagementPanel(cupManagementModel);
 	tabbedPane.addTab("Cupverwaltung", null, panelGymCup, null);
 
-	CompetitionPanel panelCompetition = new CompetitionPanel();
+	CompetitionPanel panelCompetition = new CompetitionPanel(competitionModel);
 	tabbedPane.addTab("Wettkampfverwaltung", null, panelCompetition, null);
 
 	AthletePanel panelAthlete = new AthletePanel();
