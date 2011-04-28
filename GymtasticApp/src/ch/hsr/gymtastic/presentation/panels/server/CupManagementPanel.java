@@ -447,7 +447,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_btnCancel.gridx = 0;
 		gbc_btnCancel.gridy = 0;
 		panelSaveCancel.add(btnCancel, gbc_btnCancel);
-		btnCancel.setEnabled(false);
 
 		btnSave = new JButton("Speichern");
 		GridBagConstraints gbc_btnSave = new GridBagConstraints();
@@ -459,11 +458,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 	}
 
 	private void initListeners() {
-		btnOpenPic.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-
 		txtFieldName.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -486,12 +480,9 @@ public class CupManagementPanel extends JPanel implements Observer {
 					txtChoseCup.setText(path);
 					isNewCup = false;
 					System.out.println(path);
-					txtChoseCup.setEnabled(false);
-					btnOpenCup.setEnabled(false);
-					btnOpenPic.setEnabled(false);
-					btnImportStartList.setEnabled(false);
 				}
 			}
+
 		});
 
 		btnImportStartList.addActionListener(new ActionListener() {
@@ -568,6 +559,18 @@ public class CupManagementPanel extends JPanel implements Observer {
 		});
 
 	}
+	private void setEnabledAllComponents(Boolean bool) {
+		txtFieldName.setEnabled(bool);
+		txtFieldLocation.setEnabled(bool);
+		txtAreaDescr.setEnabled(bool);
+		txtAreaSponsors.setEnabled(bool);
+		txtFieldEndDate.setEnabled(bool);
+		txtFieldStartDate.setEnabled(bool);
+		txtChoseCup.setEnabled(bool);
+		btnOpenCup.setEnabled(bool);
+		btnOpenPic.setEnabled(bool);
+		btnImportStartList.setEnabled(bool);
+	}
 
 	private void changesCupInformation() {
 		if (cupManagementModel.getGymCup() != null) {
@@ -616,10 +619,17 @@ public class CupManagementPanel extends JPanel implements Observer {
 	}
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		txtAreaDescr.setText(cupManagementModel.getGymCup().getDescription());
+    public void update(Observable arg0, Object arg1) {
+		updateContent();
+    }
+
+	private void updateContent() {
+		txtFieldName.setText(cupManagementModel.getGymCup().getName());
+		txtFieldLocation.setText(cupManagementModel.getGymCup().getLocation());
+    	txtAreaDescr.setText(cupManagementModel.getGymCup().getDescription());
 		txtAreaSponsors.setText(cupManagementModel.getGymCup().getSponsors());
-		// txtFieldStartDate.setText(cupManagementModel.getGymCup());
+		txtFieldStartDate.setText(DateFormatConverter.convertDateToString(cupManagementModel.getGymCup().getStartDate()));
+		txtFieldEndDate.setText(DateFormatConverter.convertDateToString(cupManagementModel.getGymCup().getEndDate()));
 		panelLogo.setPath(cupManagementModel.getGymCup().getLogoImagePath());
 	}
 
