@@ -39,13 +39,14 @@ public class SquadsCompetitionTableModel extends AbstractTableModel implements O
     public Object getValueAt(int rowIndex, int columnIndex) {
 	switch (columnIndex) {
 	case 0:
-	    return competitionModel.getGymCup().getCompetitions().get(index).getSquads().get(rowIndex + 1);
+	    return competitionModel.getActualCompetition().getSquads().get(rowIndex);
 	}
 	return "";
     }
 
     @Override
     public void update(Observable arg0, Object arg1) {
+	
 	fireTableDataChanged();
     }
 

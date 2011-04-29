@@ -3,6 +3,7 @@ package ch.hsr.gymtastic.application.models;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 
 import ch.hsr.gymtastic.domain.Competition;
@@ -57,5 +58,6 @@ public class CompetitionOverviewTableModel extends AbstractTableModel implements
     public void update(Observable arg0, Object arg1) {
 	fireTableDataChanged();
     }
+    
 
 }

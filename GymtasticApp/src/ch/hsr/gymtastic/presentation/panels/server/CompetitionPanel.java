@@ -264,12 +264,6 @@ public class CompetitionPanel extends JPanel implements Observer {
 	panelOverviewBorder.add(scrollPaneOverview, gbc_scrollPaneOverview);
 
 	tableCompetitions = new JTable();
-	tableCompetitions.addFocusListener(new FocusAdapter() {
-	    @Override
-	    public void focusGained(FocusEvent e) {
-		updateCompetitionInfos();
-	    }
-	});
 
 	tableCompetitions.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 	    public void valueChanged(ListSelectionEvent event) {
@@ -338,22 +332,23 @@ public class CompetitionPanel extends JPanel implements Observer {
 
     private void updateCompetitionInfos() {
 	int position = tableCompetitions.convertRowIndexToModel(tableCompetitions.getSelectedRow());
-	Competition competition = competitionModel.getGymCup().getCompetitions().get(position);
-	txtFieldDescription.setText(competition.getDescription());
-	txtFieldDate.setText(DateFormatConverter.convertDateToString(competition.getDate()));
-	txtFieldStartTime.setText(competition.getStartTime());
-	txtFieldEndTime.setText(competition.getEndTime());
-	txtFieldProgramClass.setText(competition.getProgramClass());
-//	competitionModel.setActualCompetition(competition);
+	competitionModel.setActualCompetition(competitionModel.getGymCup().getCompetitions().get(position));
+	
+	
+	txtFieldDescription.setText(competitionModel.getActualCompetition().getDescription());
+	txtFieldDate.setText(DateFormatConverter.convertDateToString(competitionModel.getActualCompetition().getDate()));
+	txtFieldStartTime.setText(competitionModel.getActualCompetition().getStartTime());
+	txtFieldEndTime.setText(competitionModel.getActualCompetition().getEndTime());
+	txtFieldProgramClass.setText(competitionModel.getActualCompetition().getProgramClass());
     }
     
     private void cleanCompetitionInfos() {
+//	competitionModel.setActualCompetition(null);
 	txtFieldDescription.setText("");
 	txtFieldDate.setText("");
 	txtFieldStartTime.setText("");
 	txtFieldEndTime.setText("");
 	txtFieldProgramClass.setText("");	
-//	competitionModel.setActualCompetition(null);
     }
 
     @Override
