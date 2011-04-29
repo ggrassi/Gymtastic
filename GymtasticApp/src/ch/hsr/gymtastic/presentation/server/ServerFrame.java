@@ -43,6 +43,7 @@ public class ServerFrame {
      * Create the application.
      * 
      * @param networkServerController
+     * @param competitionController 
      */
     public ServerFrame(NetworkServerController networkServerController, CupManagementModel cupManagementModel, CompetitionModel competitionModel) {
 	networkController = networkServerController;

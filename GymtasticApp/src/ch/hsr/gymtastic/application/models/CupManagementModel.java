@@ -28,13 +28,13 @@ public class CupManagementModel extends Observable implements Observer {
 	db.commit();
 	db.closeConnection();
 	modelController.setGymCup(gymCup);
-	changedNotifyObservers();
+	updateObservers();
     }
 
     public void setGymCup(GymCup gymCup) {
 	// this.gymCup = gymCup;
 	modelController.setGymCup(gymCup);
-	changedNotifyObservers();
+	updateObservers();
     }
 
     public GymCup getGymCup() {
@@ -54,7 +54,7 @@ public class CupManagementModel extends Observable implements Observer {
 	this.modelController = modelController;
     }
 
-    private void changedNotifyObservers() {
+    private void updateObservers() {
 	setChanged();
 	notifyObservers();
     }

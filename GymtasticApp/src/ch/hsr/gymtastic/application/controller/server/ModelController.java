@@ -20,7 +20,7 @@ public class ModelController extends Observable {
 
     public void setGymCup(GymCup gymCup) {
 	this.gymCup = gymCup;
-	changedNotifyObservers();
+	updateObservers();
     }
 
     public GymCup getGymCup() {
@@ -32,7 +32,7 @@ public class ModelController extends Observable {
 	competitionModel.setModelController(this);
     }
 
-    private void changedNotifyObservers() {
+    private void updateObservers() {
 	setChanged();
 	notifyObservers();
     }

@@ -2,6 +2,8 @@ package ch.hsr.gymtastic.presentation.server;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -9,6 +11,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import ch.hsr.gymtastic.application.models.CompetitionModel;
 import ch.hsr.gymtastic.application.models.SquadSelectionListModel;
@@ -21,20 +25,22 @@ public class SquadsSelectionFrame {
     private int index;
     private JTable tableSquads;
     private SquadSelectionTableModel squadSelectionTableModel;
+    private JButton btnAddSelectedSquads;
 
     /**
      * Create the application.
      */
     public SquadsSelectionFrame(CompetitionModel competitionModel) {
 	this.competitionModel = competitionModel;
-	initialize();
+	initGUI();
+	initListeners();
 	invokeFrame();
     }
 
     /**
      * Initialize the contents of the frame.
      */
-    private void initialize() {
+    private void initGUI() {
 	frame = new JFrame();
 	frame.setBounds(100, 100, 450, 300);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,6 +53,7 @@ public class SquadsSelectionFrame {
 	tableSquads.setModel(squadSelectionTableModel);
 	scrollPaneSquads.setViewportView(tableSquads);
 
+
 	// würde auch funktionier anstatt dem JTable
 	// JList listSquads = new JList();
 	// SquadSelectionListModel listModel = new
@@ -58,7 +65,7 @@ public class SquadsSelectionFrame {
 	frame.getContentPane().add(panelSouth, BorderLayout.SOUTH);
 	panelSouth.setLayout(new BorderLayout(0, 0));
 
-	JButton btnAddSelectedSquads = new JButton("Selektierte Hinzufügen");
+	btnAddSelectedSquads = new JButton("Selektierte Hinzufügen");
 	panelSouth.add(btnAddSelectedSquads, BorderLayout.EAST);
     }
 
@@ -74,6 +81,31 @@ public class SquadsSelectionFrame {
 		}
 	    }
 	});
+    }
+
+    private void initListeners() {
+	btnAddSelectedSquads.addActionListener(new ActionListener() {
+	    
+//		int modelRow = 0;
+//		for (int i = 0; i < rows.length; i++) {
+//		    modelRow = tableBooks.convertRowIndexToModel(rows[i]);
+//		    W02BookDetail.open(bookTableModel.getBook(modelRow), false);
+//		}
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		if (tableSquads.getSelectedRows().length > 0) {
+		    int[] rows = tableSquads.getSelectedRows();
+		    for (int i : rows) {
+			int modelRow = tableSquads.convertRowIndexToModel(rows[i]);
+//			competitionModel.addSquadToCompetition(modelRow);
+			competitionModel.getActualCompetition().addSquad(competitionModel.getGymCup().getSquads().get(modelRow));
+		    }
+		}
+		
+	    }
+	});
+	
+
     }
 
 }
