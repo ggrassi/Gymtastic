@@ -14,7 +14,6 @@ import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 public class CompetitionModel extends Observable implements Observer {
     private GymCup gymCup;
     private ModelController modelController;
-    private Competition selectedCompetition;
     private Competition actualCompetition;
 
     public void setExistingGymcup() {
@@ -33,7 +32,7 @@ public class CompetitionModel extends Observable implements Observer {
     }
 
     public void setGymCup(GymCup gymCup) {
-//	this.gymCup = gymCup;
+	// this.gymCup = gymCup;
 	modelController.setGymCup(gymCup);
 	updateObservers();
     }
@@ -55,7 +54,7 @@ public class CompetitionModel extends Observable implements Observer {
     public Competition getCompetition(int index) {
 	return gymCup.getCompetitions().get(index);
     }
-    
+
     public void setModelController(ModelController modelController) {
 	this.modelController = modelController;
     }
@@ -63,7 +62,7 @@ public class CompetitionModel extends Observable implements Observer {
     private void setModelControllerUpdates() {
 	gymCup = modelController.getGymCup();
     }
-    
+
     private void updateObservers() {
 	setChanged();
 	notifyObservers();
@@ -74,22 +73,12 @@ public class CompetitionModel extends Observable implements Observer {
 	setModelControllerUpdates();
     }
 
-    public void addSquadToCompetition(int modelRow) {
-//	welche Competition?
-	
-    }
-    
-    public void setSelectedCompetition(int index){
-	selectedCompetition = gymCup.getCompetitions().get(index);
-	updateObservers();
-    }
-
     public void setActualCompetition(Competition competition) {
 	actualCompetition = competition;
 	updateObservers();
     }
-    
-    public Competition getActualCompetition(){
+
+    public Competition getActualCompetition() {
 	return actualCompetition;
     }
 
