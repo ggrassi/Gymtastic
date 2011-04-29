@@ -47,6 +47,8 @@ public class PdfExporter {
 		document = new Document();
 		PdfWriter.getInstance(document, new FileOutputStream(path));
 		document.open();
+		
+		
 	}
 
 	private void writeTotalContent() throws DocumentException {

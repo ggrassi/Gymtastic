@@ -16,7 +16,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JList;
 
 import ch.hsr.gymtastic.application.models.RankingModel;
-import ch.hsr.gymtastic.domain.DeviceType;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
@@ -45,8 +44,6 @@ public class RankingPanel extends JPanel implements Observer{
 	private JButton btnPreview;
 	private JButton btnSave;
 	private JPanel panelPreview;
-	private JScrollPane scrollPane;
-	private JList list;
 	private JFileChooser chooser;
 	private ButtonGroup buttonGroupParticipation;
 	private RankingModel rankingModel;
@@ -259,12 +256,6 @@ public class RankingPanel extends JPanel implements Observer{
 		gbc_panelPreview.gridwidth = 3;
 		panel.add(panelPreview, gbc_panelPreview);
 		panelPreview.setLayout(new BorderLayout(0, 0));
-
-		scrollPane = new JScrollPane();
-		panelPreview.add(scrollPane, BorderLayout.CENTER);
-
-		list = new JList();
-		scrollPane.setViewportView(list);
 
 	}
 
