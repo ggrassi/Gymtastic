@@ -15,7 +15,7 @@ import ch.hsr.gymtastic.domain.Squad;
 public class DBConnection {
 	private EntityManager em;
 	private EntityManagerFactory emf;
-	private static String path = "$objectdb/db/gymtastic.odb";
+	private static String path = "$objectdb/db/gymtastic_"+System.currentTimeMillis()+".odb";
 
 
 	public DBConnection(String path) {

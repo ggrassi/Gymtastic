@@ -1,3 +1,4 @@
+
 package ch.hsr.gymtastic.application.models;
 
 import java.util.Observable;
@@ -5,16 +6,12 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-import ch.hsr.gymtastic.domain.Competition;
-import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
+public class SquadSelectionTableModel extends AbstractTableModel implements Observer {
 
-public class CompetitionOverviewTableModel extends AbstractTableModel implements Observer {
-
-    private static final long serialVersionUID = 1L;
-    private String[] columns = { "Beschreibung", "Datum" };
+    private String[] columns = { "Riege" };
     private final CompetitionModel competitionModel;
 
-    public CompetitionOverviewTableModel(CompetitionModel competitionModel) {
+    public SquadSelectionTableModel(CompetitionModel competitionModel) {
 	this.competitionModel = competitionModel;
 	this.competitionModel.addObserver(this);
     }
@@ -32,8 +29,8 @@ public class CompetitionOverviewTableModel extends AbstractTableModel implements
     @Override
     public int getRowCount() {
 	if (competitionModel.getGymCup() != null) {
-	    if (competitionModel.getGymCup().getCompetitions() != null) {
-		return competitionModel.getGymCup().getCompetitions().size();
+	    if (competitionModel.getGymCup().getSquads() != null) {
+		return competitionModel.getGymCup().getSquads().size();
 	    } else
 		return 0;
 	} else {
@@ -43,12 +40,9 @@ public class CompetitionOverviewTableModel extends AbstractTableModel implements
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-	Competition competition = competitionModel.getCompetition(rowIndex);
 	switch (columnIndex) {
 	case 0:
-	    return competition.getDescription();
-	case 1:
-	    return DateFormatConverter.convertDateToString(competition.getDate());
+	    return competitionModel.getGymCup().getSquads().get(rowIndex+1);
 	}
 	return "";
     }

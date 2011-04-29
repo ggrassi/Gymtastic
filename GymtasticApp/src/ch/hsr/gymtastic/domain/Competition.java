@@ -15,16 +15,18 @@ public class Competition {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Squad> squads = new ArrayList<Squad>();
     private String description;
-    private GregorianCalendar startTime;
-    private GregorianCalendar endTime;
+    private String startTime;
+    private String endTime;
     private GregorianCalendar date;
     private String programClass;
     private RoundAllocator roundAllocation;
 
-    public Competition(String description, GregorianCalendar date, GregorianCalendar startTime) {
+    public Competition(String description, GregorianCalendar date, String startTime, String endTime, String programClass) {
 	this.description = description;
 	this.date = date;
 	this.startTime = startTime;
+	this.endTime = endTime;
+	this.programClass = programClass;
     }
 
     public void importAllSquads() {
@@ -55,19 +57,19 @@ public class Competition {
 	this.roundAllocation = roundAllocation;
     }
 
-    public GregorianCalendar getStartTime() {
+    public String getStartTime() {
 	return startTime;
     }
 
-    public void setStartTime(GregorianCalendar startTime) {
+    public void setStartTime(String startTime) {
 	this.startTime = startTime;
     }
 
-    public GregorianCalendar getEndTime() {
+    public String getEndTime() {
 	return endTime;
     }
 
-    public void setEndTime(GregorianCalendar endTime) {
+    public void setEndTime(String endTime) {
 	this.endTime = endTime;
     }
 
