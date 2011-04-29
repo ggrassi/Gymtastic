@@ -28,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
 
 import ch.hsr.gymtastic.application.models.CompetitionModel;
 import ch.hsr.gymtastic.application.models.CompetitionOverviewTableModel;
+import ch.hsr.gymtastic.application.models.SquadsCompetitionTableModel;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.presentation.server.SquadsSelectionFrame;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
@@ -44,9 +45,10 @@ public class CompetitionPanel extends JPanel implements Observer {
     private JTextField txtFieldStartTime;
     private JTextField txtFieldDate;
     private JTextField txtFieldDescription;
-    private JTable table;
+    private JTable tableSquadsCompetition;
     private CompetitionModel competitionModel;
     private CompetitionOverviewTableModel competitionOverviewTableModel;
+    private SquadsCompetitionTableModel squadsTableModel;
     private SquadsSelectionFrame squadsSelectionFrame;
 
     public CompetitionPanel(CompetitionModel competitionModel) {
@@ -271,8 +273,10 @@ public class CompetitionPanel extends JPanel implements Observer {
 
 	tableCompetitions.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 	    public void valueChanged(ListSelectionEvent event) {
-		if(tableCompetitions.getSelectedRows().length > 0){   
+		if(tableCompetitions.getSelectedRowCount() > 0){   
 		    updateCompetitionInfos();
+		}else{
+		    cleanCompetitionInfos();
 		}
 	    }
 	});
@@ -297,18 +301,19 @@ public class CompetitionPanel extends JPanel implements Observer {
 	gbl_panelSquadsBorder.rowWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
 	panelSquadsBorder.setLayout(gbl_panelSquadsBorder);
 
-	JScrollPane scrollPane = new JScrollPane();
-	GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-	gbc_scrollPane.gridwidth = 2;
-	gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-	gbc_scrollPane.fill = GridBagConstraints.BOTH;
-	gbc_scrollPane.gridx = 0;
-	gbc_scrollPane.gridy = 0;
-	panelSquadsBorder.add(scrollPane, gbc_scrollPane);
+	JScrollPane scrollPaneSquadsCompetition = new JScrollPane();
+	GridBagConstraints gbc_scrollPaneSquadsCompetition = new GridBagConstraints();
+	gbc_scrollPaneSquadsCompetition.gridwidth = 2;
+	gbc_scrollPaneSquadsCompetition.insets = new Insets(0, 0, 5, 5);
+	gbc_scrollPaneSquadsCompetition.fill = GridBagConstraints.BOTH;
+	gbc_scrollPaneSquadsCompetition.gridx = 0;
+	gbc_scrollPaneSquadsCompetition.gridy = 0;
+	panelSquadsBorder.add(scrollPaneSquadsCompetition, gbc_scrollPaneSquadsCompetition);
 
-	table = new JTable();
-	table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Riege" }));
-	scrollPane.setViewportView(table);
+	tableSquadsCompetition = new JTable();
+	squadsTableModel = new SquadsCompetitionTableModel(competitionModel);
+	tableSquadsCompetition.setModel(squadsTableModel);
+	scrollPaneSquadsCompetition.setViewportView(tableSquadsCompetition);
 
 	JButton btnEntfernen = new JButton("Entfernen");
 	GridBagConstraints gbc_btnEntfernen = new GridBagConstraints();
@@ -332,18 +337,27 @@ public class CompetitionPanel extends JPanel implements Observer {
     }
 
     private void updateCompetitionInfos() {
-	int position = tableCompetitions.getSelectedRow();
+	int position = tableCompetitions.convertRowIndexToModel(tableCompetitions.getSelectedRow());
 	Competition competition = competitionModel.getGymCup().getCompetitions().get(position);
 	txtFieldDescription.setText(competition.getDescription());
 	txtFieldDate.setText(DateFormatConverter.convertDateToString(competition.getDate()));
 	txtFieldStartTime.setText(competition.getStartTime());
 	txtFieldEndTime.setText(competition.getEndTime());
 	txtFieldProgramClass.setText(competition.getProgramClass());
+//	competitionModel.setActualCompetition(competition);
+    }
+    
+    private void cleanCompetitionInfos() {
+	txtFieldDescription.setText("");
+	txtFieldDate.setText("");
+	txtFieldStartTime.setText("");
+	txtFieldEndTime.setText("");
+	txtFieldProgramClass.setText("");	
+//	competitionModel.setActualCompetition(null);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-
     }
 
 }

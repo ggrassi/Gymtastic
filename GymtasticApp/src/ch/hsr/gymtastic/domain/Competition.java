@@ -89,4 +89,8 @@ public class Competition {
 	this.programClass = programClass;
     }
 
+    public void addSquad(Squad squad) {
+	squads.add(squad);	
+    }
+
 }

@@ -12,65 +12,74 @@ import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
 public class CompetitionModel extends Observable implements Observer {
-	private GymCup gymCup;
-	private ModelController modelController;
+    private GymCup gymCup;
+    private ModelController modelController;
+    private Competition actualCompetition;
 
-	public void setExistingGymcup() {
-		DBConnection db = new DBConnection();
-		System.out.println(DBConnection.getPath());
-		TypedQuery<GymCup> query = db.getEm().createQuery(
-				"SELECT p FROM GymCup p", GymCup.class);
-		List<GymCup> result = query.getResultList();
-		if (result.size() == 1) {
-			int first = 0;
-			this.gymCup = result.get(first);
-		}
-
-		db.commit();
-		db.closeConnection();
-		changedNotifyObservers();
+    public void setExistingGymcup() {
+	DBConnection db = new DBConnection();
+	System.out.println(DBConnection.getPath());
+	TypedQuery<GymCup> query = db.getEm().createQuery("SELECT p FROM GymCup p", GymCup.class);
+	List<GymCup> result = query.getResultList();
+	if (result.size() == 1) {
+	    int first = 0;
+	    this.gymCup = result.get(first);
 	}
 
-	public void setGymCup(GymCup gymCup) {
-		// this.gymCup = gymCup;
-		modelController.setGymCup(gymCup);
-		changedNotifyObservers();
+	db.commit();
+	db.closeConnection();
+	updateObservers();
+    }
+
+    public void setGymCup(GymCup gymCup) {
+	// this.gymCup = gymCup;
+	modelController.setGymCup(gymCup);
+	updateObservers();
+    }
+
+    public GymCup getGymCup() {
+	return gymCup;
+    }
+
+    public boolean addCompetitionToGymCup(Competition competition) {
+	if (gymCup.addCompetition(competition)) {
+	    setGymCup(gymCup);
+	    return true;
+	} else {
+	    return false;
 	}
 
-	public GymCup getGymCup() {
-		return gymCup;
-	}
+    }
 
-	public boolean addCompetitionToGymCup(Competition competition) {
-		if (gymCup.addCompetition(competition)) {
-			setGymCup(gymCup);
-			return true;
-		} else {
-			return false;
-		}
+    public Competition getCompetition(int index) {
+	return gymCup.getCompetitions().get(index);
+    }
 
-	}
+    public void setModelController(ModelController modelController) {
+	this.modelController = modelController;
+    }
 
-	public Competition getCompetition(int index) {
-		return gymCup.getCompetitions().get(index);
-	}
+    private void setModelControllerUpdates() {
+	gymCup = modelController.getGymCup();
+    }
 
-	public void setModelController(ModelController modelController) {
-		this.modelController = modelController;
-	}
+    private void updateObservers() {
+	setChanged();
+	notifyObservers();
+    }
 
-	private void setModelControllerUpdates() {
-		gymCup = modelController.getGymCup();
-	}
+    @Override
+    public void update(Observable o, Object arg) {
+	setModelControllerUpdates();
+    }
 
-	private void changedNotifyObservers() {
-		setChanged();
-		notifyObservers();
-	}
+    public void setActualCompetition(Competition competition) {
+	actualCompetition = competition;
+	updateObservers();
+    }
 
-	@Override
-	public void update(Observable o, Object arg) {
-		setModelControllerUpdates();
-	}
+    public Competition getActualCompetition() {
+	return actualCompetition;
+    }
 
 }
