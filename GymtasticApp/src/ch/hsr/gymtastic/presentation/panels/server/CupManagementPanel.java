@@ -31,6 +31,7 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DateFormatter;
 
+import ch.hsr.gymtastic.application.controller.server.ModelController;
 import ch.hsr.gymtastic.application.controller.server.SquadCreator;
 import ch.hsr.gymtastic.application.models.CupManagementModel;
 import ch.hsr.gymtastic.domain.GymCup;
@@ -535,11 +536,12 @@ public class CupManagementPanel extends JPanel implements Observer {
 					if (panelLogo.isGenerated()) {
 						gymCup.setLogoImagePath(panelLogo.getPath());
 					}
+
 					if (isNewImportList) {
 						gymCup.importGymCupToDB();
 						gymCup.setStartDateStr(txtFieldStartDate.getText());
 						gymCup.setEndDateStr(txtFieldEndDate.getText());
-						cupManagementModel.setGymcup(gymCup);
+						cupManagementModel.setGymCup(gymCup);
 
 						ImportStartList startList = new ImportStartList(
 								txtChoseImport.getText());
@@ -552,6 +554,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 						cupManagementModel.getGymCup().setSquads(
 								squadCreator.createSquads());
 					}
+
 				} else {
 					DBConnection.setPath(txtChoseCup.getText());
 					cupManagementModel.setExistingGymcup();

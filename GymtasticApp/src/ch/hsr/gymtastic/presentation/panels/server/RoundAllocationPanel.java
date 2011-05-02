@@ -44,7 +44,6 @@ public class RoundAllocationPanel extends JPanel implements Observer {
     private JPanel panelCompetitionControl;
     private JLabel lblCompetition;
     private JComboBox cmbCompetition;
-    private JLabel label;
     private JButton btnStartCompetition;
     private JButton btnStopCompetition;
     private JPanel panelClientStatusBorder;
@@ -154,13 +153,6 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 	gbc_cmbCompetition.gridx = 1;
 	gbc_cmbCompetition.gridy = 0;
 	panelCompetitionControl.add(cmbCompetition, gbc_cmbCompetition);
-
-	label = new JLabel("New label");
-	GridBagConstraints gbc_label = new GridBagConstraints();
-	gbc_label.insets = new Insets(0, 0, 0, 5);
-	gbc_label.gridx = 2;
-	gbc_label.gridy = 0;
-	panelCompetitionControl.add(label, gbc_label);
 
 	btnStartCompetition = new JButton("Wettkampf Starten");
 	GridBagConstraints gbc_btnStartCompetition = new GridBagConstraints();
