@@ -6,6 +6,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observer;
+import java.util.Observable;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,11 +17,12 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
 
+import ch.hsr.gymtastic.application.models.AthleteDataTableModel;
+import ch.hsr.gymtastic.application.models.AthleteModel;
 import ch.hsr.gymtastic.presentation.server.AthleteDetailFrame;
 
-public class AthletePanel extends JPanel {
+public class AthletePanel extends JPanel implements Observer{
 
 	/**
 	 * 
@@ -27,9 +30,11 @@ public class AthletePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFieldSearchAthlete;
 	private JTable tableAthletes;
+	private AthleteModel athleteModel;
 
-	public AthletePanel() {
-
+	public AthletePanel(AthleteModel athleteModel) {
+		this.athleteModel = athleteModel;
+		this.athleteModel.addObserver(this);
 		initGUI();
 		initListeners();
 	}
@@ -205,12 +210,14 @@ public class AthletePanel extends JPanel {
 
 		tableAthletes = new JTable();
 		tableAthletes
-				.setModel(new DefaultTableModel(new Object[][] {},
-						new String[] { "Name", "New column", "New column",
-								"New column", "New column", "New column",
-								"New column" }));
+				.setModel(new AthleteDataTableModel(athleteModel));
 		scrollPaneAthletes.setViewportView(tableAthletes);
 
+	}
+	
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		
 	}
 
 }

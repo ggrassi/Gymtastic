@@ -48,6 +48,11 @@ public class ClientModel extends Observable implements Observer {
 
 	}
 
+	public void setAthlete(Athlete athlete) {
+		this.athlete = athlete;
+		updateObservers();
+	}
+	
 	private void updateObservers() {
 		setChanged();
 		notifyObservers();

@@ -108,6 +108,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 		panelSouth.setLayout(new BorderLayout(0, 0));
 
 		btnPrevious = new JButton("Vorheriger Athlet");
+		btnPrevious.setEnabled(false);
 		panelSouth.add(btnPrevious, BorderLayout.WEST);
 
 		btnNext = new JButton("Nächster Athlet");

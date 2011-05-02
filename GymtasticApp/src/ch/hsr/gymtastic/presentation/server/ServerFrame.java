@@ -11,6 +11,7 @@ import javax.swing.JTabbedPane;
 
 import ch.hsr.gymtastic.application.controller.server.ClientAllocator;
 import ch.hsr.gymtastic.application.controller.server.NetworkServerController;
+import ch.hsr.gymtastic.application.models.AthleteModel;
 import ch.hsr.gymtastic.application.models.CompetitionModel;
 import ch.hsr.gymtastic.application.models.CupManagementModel;
 import ch.hsr.gymtastic.application.models.DeviceTypeTableModel;
@@ -40,6 +41,7 @@ public class ServerFrame {
 	private CupManagementModel cupManagementModel;
 	private CompetitionModel competitionModel;
 	private RankingModel rankingModel;
+	private AthleteModel athleteModel;
 
 	/**
 	 * Create the application.
@@ -48,12 +50,13 @@ public class ServerFrame {
 	 */
 	public ServerFrame(NetworkServerController networkServerController,
 			CupManagementModel cupManagementModel,
-			CompetitionModel competitionModel, RankingModel rankingModel) {
+			CompetitionModel competitionModel, RankingModel rankingModel, AthleteModel athleteModel) {
 		networkController = networkServerController;
 		this.cupManagementModel = cupManagementModel;
 		this.competitionModel = competitionModel;
 		deviceTypeTableModel = new DeviceTypeTableModel(networkController);
 		this.rankingModel = rankingModel;
+		this.athleteModel = athleteModel;
 		initialize();
 		invokeFrame();
 	}
@@ -83,7 +86,7 @@ public class ServerFrame {
 				competitionModel);
 		tabbedPane.addTab("Wettkampfverwaltung", null, panelCompetition, null);
 
-		AthletePanel panelAthlete = new AthletePanel();
+		AthletePanel panelAthlete = new AthletePanel(athleteModel);
 		tabbedPane.addTab("Athleten", null, panelAthlete, null);
 
 		JudgePanel panelJudge = new JudgePanel();

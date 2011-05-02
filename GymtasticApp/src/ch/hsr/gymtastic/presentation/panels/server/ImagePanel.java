@@ -48,7 +48,7 @@ public class ImagePanel extends JPanel {
 
 	public boolean isGenerated() {
 
-		return !(image.equals(null));
+		return image != null;
 	}
 
 	public String getPath() {
