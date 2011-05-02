@@ -26,7 +26,6 @@ public class AthleteDataTableModel extends AbstractTableModel implements
 	public AthleteDataTableModel(AthleteModel athleteModel) {
 		this.athleteModel = athleteModel;
 		this.athleteModel.addObserver(this);
-		getAthletes();
 	}
 	
 	@Override
