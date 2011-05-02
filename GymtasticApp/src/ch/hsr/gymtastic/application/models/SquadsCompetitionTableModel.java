@@ -9,7 +9,6 @@ public class SquadsCompetitionTableModel extends AbstractTableModel implements O
 
     private String[] columns = { "Riege" };
     private final CompetitionModel competitionModel;
-    private int index;
 
     public SquadsCompetitionTableModel(CompetitionModel competitionModel) {
 	this.competitionModel = competitionModel;

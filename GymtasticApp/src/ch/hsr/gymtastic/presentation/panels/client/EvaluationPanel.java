@@ -71,6 +71,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 			ClientModel clientModel) {
 		this.squadController = squadController;
 		this.clientModel = clientModel;
+		this.clientModel.addObserver(this);
 		initGUI();
 		initListeners();
 	}
@@ -107,6 +108,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 		panelSouth.setLayout(new BorderLayout(0, 0));
 
 		btnPrevious = new JButton("Vorheriger Athlet");
+		btnPrevious.setEnabled(false);
 		panelSouth.add(btnPrevious, BorderLayout.WEST);
 
 		btnNext = new JButton("Nächster Athlet");
@@ -460,17 +462,16 @@ public class EvaluationPanel extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		getNextAthlete();
+		loadAthleteFields();
+		this.repaint();
 
 	}
 
 	private void getNextAthlete() {
-		if (squadController.hasNextAthlete())
 			clientModel.setAthlete(squadController.getNextAthlete());
 	}
 
 	private void getPreviousAthlete() {
-		if (squadController.hasPreviousAthlete())
 			clientModel.setAthlete(squadController.getPreviousAthlete());
 	}
 

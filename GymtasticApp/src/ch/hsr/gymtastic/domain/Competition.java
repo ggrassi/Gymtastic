@@ -93,4 +93,9 @@ public class Competition {
 	squads.add(squad);	
     }
 
+	@Override
+	public String toString() {
+		return description;
+	}
+
 }

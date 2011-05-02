@@ -3,7 +3,6 @@ package ch.hsr.gymtastic.application.models;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 
 import ch.hsr.gymtastic.domain.Competition;

@@ -2,47 +2,42 @@ package ch.hsr.gymtastic.application.models;
 
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Vector;
 
 import ch.hsr.gymtastic.application.controller.server.ModelController;
-import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.GymCup;
 
-public class RankingModel extends Observable implements Observer {
+public class AthleteModel extends Observable implements Observer {
+
 	private GymCup gymCup;
 	private ModelController modelController;
 
 
+	public void setGymCup(GymCup gymCup) {
+		modelController.setGymCup(gymCup);
+
+	}
 
 	public GymCup getGymCup() {
 		return gymCup;
 	}
 
+	// private void setControllerUpdates(GymCup gymCup) {
+	// this.gymCup = gymCup;
+	// changedNotifyObservers();
+	// }
 
-	public Competition getCompetition(int index) {
-		return gymCup.getCompetitions().get(index);
-	}
-	
-	public Vector<Competition> getCompetitions()
-	{
-		Vector<Competition> vector = new Vector<Competition>();
-		for (Competition competition : gymCup.getCompetitions()) {
-			vector.add(competition);
-		}
-		return vector;
+	private void setModelControllerUpdates() {
+		gymCup = modelController.getGymCup();
 	}
 
 	public void setModelController(ModelController modelController) {
 		this.modelController = modelController;
-		updateObservers();
+		setGymCup(modelController.getGymCup());
 	}
 
-	private void setModelControllerUpdates() {
-		gymCup = modelController.getGymCup();
-		updateObservers();
-		
+	public ModelController getModelController() {
+		return modelController;
 	}
-
 	private void updateObservers() {
 		setChanged();
 		notifyObservers();
@@ -51,6 +46,7 @@ public class RankingModel extends Observable implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		setModelControllerUpdates();
+		updateObservers();
 	}
 
 }

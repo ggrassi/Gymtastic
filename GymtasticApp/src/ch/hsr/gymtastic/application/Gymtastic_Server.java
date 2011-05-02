@@ -6,6 +6,7 @@ import javax.swing.UIManager;
 
 import ch.hsr.gymtastic.application.controller.server.ModelController;
 import ch.hsr.gymtastic.application.controller.server.NetworkServerController;
+import ch.hsr.gymtastic.application.models.AthleteModel;
 import ch.hsr.gymtastic.application.models.CompetitionModel;
 import ch.hsr.gymtastic.application.models.CupManagementModel;
 import ch.hsr.gymtastic.application.models.RankingModel;
@@ -24,13 +25,15 @@ public class Gymtastic_Server {
 		try {
 			CupManagementModel cupManagementModel = new CupManagementModel();
 			CompetitionModel competitionModel = new CompetitionModel();
-			ModelController modelController = new ModelController(
-					cupManagementModel, competitionModel);
-			modelController.setModelControllerToModels();
 			RankingModel rankingModel = new RankingModel();
+			AthleteModel athleteModel = new AthleteModel();
+			ModelController modelController = new ModelController(
+					cupManagementModel, competitionModel, rankingModel,
+					athleteModel);
+			modelController.setModelControllerToModels();
 			ServerFrame serverFrame = new ServerFrame(
 					new NetworkServerController(), cupManagementModel,
-					competitionModel, rankingModel);
+					competitionModel, rankingModel, athleteModel);
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
