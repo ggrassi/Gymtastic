@@ -69,7 +69,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 	private JLabel txtStatusImport;
 	private JButton btnImportStartList;
 	private JPanel panelLogoBorder;
-	private ImagePanel panelLogo;
+	private ImagePanel panelLogo = new ImagePanel();
 	private JPanel panelLogoDescr;
 	private JButton btnOpenPic;
 	private JLabel lblChoseLogo;
@@ -80,6 +80,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 	protected JFileChooser chooser;
 	private CupManagementModel cupManagementModel;
 	protected boolean isNewCup = true;
+	protected boolean isNewImportList = false;
 
 	public CupManagementPanel(CupManagementModel cupManagementModel) {
 		this.cupManagementModel = cupManagementModel;
@@ -482,7 +483,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 					System.out.println(path);
 				}
 			}
-
 		});
 
 		btnImportStartList.addActionListener(new ActionListener() {
@@ -497,6 +497,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 					String path = chooser.getSelectedFile().getAbsolutePath();
 					System.out.println(path);
 					txtChoseImport.setText(path);
+					isNewImportList = true;
 				}
 
 			}
@@ -534,22 +535,23 @@ public class CupManagementPanel extends JPanel implements Observer {
 					if (panelLogo.isGenerated()) {
 						gymCup.setLogoImagePath(panelLogo.getPath());
 					}
+					if (isNewImportList) {
+						gymCup.importGymCupToDB();
+						gymCup.setStartDateStr(txtFieldStartDate.getText());
+						gymCup.setEndDateStr(txtFieldEndDate.getText());
+						cupManagementModel.setGymcup(gymCup);
 
-					gymCup.importGymCupToDB();
-					gymCup.setStartDateStr(txtFieldStartDate.getText());
-					gymCup.setEndDateStr(txtFieldEndDate.getText());
-					cupManagementModel.setGymcup(gymCup);
-
-					ImportStartList startList = new ImportStartList(
-							txtChoseImport.getText());
-					startList.readImport();
-					startList.toString();
-					SquadCreator squadCreator = new SquadCreator(startList,
-							cupManagementModel.getGymCup());
-					squadCreator.insertImportToDB();
-					cupManagementModel.getGymCup().importAllSquads();
-					cupManagementModel.getGymCup().setSquads(
-							squadCreator.createSquads());
+						ImportStartList startList = new ImportStartList(
+								txtChoseImport.getText());
+						startList.readImport();
+						// startList.toString();
+						SquadCreator squadCreator = new SquadCreator(startList,
+								cupManagementModel.getGymCup());
+						squadCreator.insertImportToDB();
+						cupManagementModel.getGymCup().importAllSquads();
+						cupManagementModel.getGymCup().setSquads(
+								squadCreator.createSquads());
+					}
 				} else {
 					DBConnection.setPath(txtChoseCup.getText());
 					cupManagementModel.setExistingGymcup();
@@ -559,6 +561,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		});
 
 	}
+
 	private void setEnabledAllComponents(Boolean bool) {
 		txtFieldName.setEnabled(bool);
 		txtFieldLocation.setEnabled(bool);
@@ -619,18 +622,26 @@ public class CupManagementPanel extends JPanel implements Observer {
 	}
 
 	@Override
-    public void update(Observable arg0, Object arg1) {
+	public void update(Observable arg0, Object arg1) {
 		updateContent();
-    }
+	}
 
 	private void updateContent() {
+
 		txtFieldName.setText(cupManagementModel.getGymCup().getName());
 		txtFieldLocation.setText(cupManagementModel.getGymCup().getLocation());
-    	txtAreaDescr.setText(cupManagementModel.getGymCup().getDescription());
+		txtAreaDescr.setText(cupManagementModel.getGymCup().getDescription());
 		txtAreaSponsors.setText(cupManagementModel.getGymCup().getSponsors());
-		txtFieldStartDate.setText(DateFormatConverter.convertDateToString(cupManagementModel.getGymCup().getStartDate()));
-		txtFieldEndDate.setText(DateFormatConverter.convertDateToString(cupManagementModel.getGymCup().getEndDate()));
-		panelLogo.setPath(cupManagementModel.getGymCup().getLogoImagePath());
+		txtFieldStartDate.setText(DateFormatConverter
+				.convertDateToString(cupManagementModel.getGymCup()
+						.getStartDate()));
+		txtFieldEndDate.setText(DateFormatConverter
+				.convertDateToString(cupManagementModel.getGymCup()
+						.getEndDate()));
+		if (panelLogo.isGenerated()) {
+			panelLogo
+					.setPath(cupManagementModel.getGymCup().getLogoImagePath());
+		}
 	}
 
 }
