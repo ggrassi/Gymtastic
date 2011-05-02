@@ -1,4 +1,3 @@
-
 package ch.hsr.gymtastic.application.models;
 
 import java.util.Observable;
@@ -29,8 +28,8 @@ public class SquadSelectionTableModel extends AbstractTableModel implements Obse
     @Override
     public int getRowCount() {
 	if (competitionModel.getGymCup() != null) {
-	    if (competitionModel.getGymCup().getSquads() != null) {
-		return competitionModel.getGymCup().getSquads().size();
+	    if (competitionModel.getGymCup().getSquadsUnallocated() != null) {
+		return competitionModel.getGymCup().getSquadsUnallocated().size();
 	    } else
 		return 0;
 	} else {
@@ -42,7 +41,7 @@ public class SquadSelectionTableModel extends AbstractTableModel implements Obse
     public Object getValueAt(int rowIndex, int columnIndex) {
 	switch (columnIndex) {
 	case 0:
-	    return competitionModel.getGymCup().getSquads().get(rowIndex+1);
+	    return competitionModel.getGymCup().getSquadsUnallocated().get(rowIndex);
 	}
 	return "";
     }

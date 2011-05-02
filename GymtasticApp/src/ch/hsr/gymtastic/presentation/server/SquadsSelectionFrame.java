@@ -15,7 +15,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import ch.hsr.gymtastic.application.models.CompetitionModel;
-import ch.hsr.gymtastic.application.models.SquadSelectionListModel;
 import ch.hsr.gymtastic.application.models.SquadSelectionTableModel;
 
 public class SquadsSelectionFrame {
@@ -53,7 +52,6 @@ public class SquadsSelectionFrame {
 	tableSquads.setModel(squadSelectionTableModel);
 	scrollPaneSquads.setViewportView(tableSquads);
 
-
 	// würde auch funktionier anstatt dem JTable
 	// JList listSquads = new JList();
 	// SquadSelectionListModel listModel = new
@@ -85,26 +83,21 @@ public class SquadsSelectionFrame {
 
     private void initListeners() {
 	btnAddSelectedSquads.addActionListener(new ActionListener() {
-	    
-//		int modelRow = 0;
-//		for (int i = 0; i < rows.length; i++) {
-//		    modelRow = tableBooks.convertRowIndexToModel(rows[i]);
-//		    W02BookDetail.open(bookTableModel.getBook(modelRow), false);
-//		}
+
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 		if (tableSquads.getSelectedRows().length > 0) {
 		    int[] rows = tableSquads.getSelectedRows();
-		    for (int i : rows) {
+		    for (int i = 0; i < rows.length; i++) {
 			int modelRow = tableSquads.convertRowIndexToModel(rows[i]);
-//			competitionModel.addSquadToCompetition(modelRow);
-			competitionModel.getActualCompetition().addSquad(competitionModel.getGymCup().getSquads().get(modelRow));
+			// competitionModel.getActualCompetition().addSquad(competitionModel.getGymCup().getSquadsUnallocated().get(modelRow));
+			competitionModel.addSquadToCompetition(competitionModel.getGymCup().getSquadsUnallocated().get(
+				modelRow), competitionModel.getActualCompetition());
 		    }
 		}
-		
+
 	    }
 	});
-	
 
     }
 

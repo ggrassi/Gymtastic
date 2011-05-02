@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import ch.hsr.gymtastic.application.controller.server.ModelController;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.GymCup;
+import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
 public class CompetitionModel extends Observable implements Observer {
@@ -80,6 +81,11 @@ public class CompetitionModel extends Observable implements Observer {
 
     public Competition getActualCompetition() {
 	return actualCompetition;
+    }
+
+    public void addSquadToCompetition(Squad squad, Competition competition) {
+	competition.addSquad(squad);
+	updateObservers();
     }
 
 }

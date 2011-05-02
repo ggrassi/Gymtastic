@@ -22,7 +22,9 @@ public class GymCup {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Competition> competitions = new ArrayList<Competition>();
     @OneToMany(cascade = CascadeType.ALL)
-    private Map<Integer, Squad> squads = new HashMap<Integer, Squad>();
+    private Map<Integer, Squad> squads = new HashMap<Integer, Squad>(); 
+    @OneToMany(cascade = CascadeType.ALL)
+    private ArrayList<Squad> squadsUnallocated = new ArrayList<Squad>();
     private ClientAllocator clientAlloc;
     private GregorianCalendar startDate;
     private GregorianCalendar endDate;
@@ -79,8 +81,10 @@ public class GymCup {
 	    tmpCup = db.getEm().find(GymCup.class, this.getId());
 	    tmpSquad = db.getEm().find(Squad.class, p.getId());
 	    tmpCup.addSquad(tmpSquad.getSquadId(), tmpSquad);
+	    tmpCup.addSquadUnallocated(tmpSquad);
 	    db.persist(tmpCup);
 	    squads.put(p.getSquadId(), p);
+	    squadsUnallocated.add(p);
 
 	}
 
@@ -88,6 +92,11 @@ public class GymCup {
 	db.closeConnection();
 
     }
+
+    private void addSquadUnallocated(Squad s) {
+	squadsUnallocated.add(s);	
+    }
+
 
     public int getId() {
 	return id;
@@ -107,6 +116,10 @@ public class GymCup {
 
     public Map<Integer, Squad> getSquads() {
 	return squads;
+    }
+    
+    public ArrayList<Squad> getSquadsUnallocated(){
+	return squadsUnallocated;
     }
 
     public void setSquads(Map<Integer, Squad> squads) {
@@ -191,10 +204,12 @@ public class GymCup {
 
     public Boolean addCompetition(Competition competition) {
 	if (competition != null) {
-	    return competitions.add(competition);
+	    Boolean b = competitions.add(competition);
+	    return b;
 	} else {
 	    return false;
 	}
     }
+
 
 }
