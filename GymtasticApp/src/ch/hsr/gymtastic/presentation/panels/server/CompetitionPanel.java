@@ -19,12 +19,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 
 import ch.hsr.gymtastic.application.models.CompetitionModel;
 import ch.hsr.gymtastic.application.models.CompetitionOverviewTableModel;
@@ -269,6 +267,7 @@ public class CompetitionPanel extends JPanel implements Observer {
 	    public void valueChanged(ListSelectionEvent event) {
 		if(tableCompetitions.getSelectedRowCount() > 0){   
 		    updateCompetitionInfos();
+//		    tableCompetitions.
 		}else{
 		    cleanCompetitionInfos();
 		}
