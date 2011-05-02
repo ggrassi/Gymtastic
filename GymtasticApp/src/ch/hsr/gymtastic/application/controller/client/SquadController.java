@@ -20,7 +20,6 @@ public class SquadController extends Observable {
 	}
 
 	public Athlete getNextAthlete() {
-		updateObservers();
 		return squad.getAthlete(index++);
 	}
 
@@ -48,7 +47,7 @@ public class SquadController extends Observable {
 	}
 
 	public Squad getSquad() {
-		return this.squad;
+		return squad;
 	}
 
 	private void updateObservers() {

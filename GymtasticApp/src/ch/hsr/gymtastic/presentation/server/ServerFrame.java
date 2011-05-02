@@ -96,7 +96,7 @@ public class ServerFrame {
 		RoundAllocationPanel roundAllocation = null;
 		try {
 			roundAllocation = new RoundAllocationPanel(clientAllocation,
-					networkController);
+					networkController, rankingModel);
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
@@ -178,7 +178,8 @@ public class ServerFrame {
 		/* create a startlist pdf */
 		PdfExport export = new PdfExport(cup.getSquads());
 		try {
-			export.createStartList("src/ch/hsr/gymtastic/technicalServices/utils/Startliste.pdf");
+			export
+					.createStartList("src/ch/hsr/gymtastic/technicalServices/utils/Startliste.pdf");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (DocumentException e) {

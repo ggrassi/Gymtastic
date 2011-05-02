@@ -7,7 +7,11 @@ import javax.swing.table.AbstractTableModel;
 
 public class SquadSelectionTableModel extends AbstractTableModel implements Observer {
 
-    private String[] columns = { "Riege" };
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String[] columns = { "Riege" };
     private final CompetitionModel competitionModel;
 
     public SquadSelectionTableModel(CompetitionModel competitionModel) {

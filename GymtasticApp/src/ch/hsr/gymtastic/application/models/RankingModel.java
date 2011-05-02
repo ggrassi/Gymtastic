@@ -1,16 +1,12 @@
 package ch.hsr.gymtastic.application.models;
 
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
-import javax.persistence.TypedQuery;
-
 import ch.hsr.gymtastic.application.controller.server.ModelController;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.GymCup;
-import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
 public class RankingModel extends Observable implements Observer {
 	private GymCup gymCup;

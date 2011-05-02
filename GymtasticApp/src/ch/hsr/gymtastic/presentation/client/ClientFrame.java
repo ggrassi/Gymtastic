@@ -12,7 +12,6 @@ import ch.hsr.gymtastic.application.controller.client.NetworkClientController;
 import ch.hsr.gymtastic.application.controller.client.RoundInfoController;
 import ch.hsr.gymtastic.application.controller.client.SquadController;
 import ch.hsr.gymtastic.application.models.ClientModel;
-import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.presentation.panels.client.ActualSquadPanel;
 import ch.hsr.gymtastic.presentation.panels.client.EvaluationPanel;
 import ch.hsr.gymtastic.presentation.panels.client.OverviewPanel;
@@ -28,7 +27,6 @@ public class ClientFrame {
 	private ActualSquadPanel panelActualSquad;
 	private EvaluationPanel panelEvaluation;
 	private OverviewPanel panelOverview;
-	private DeviceType deviceType;
 	private GymCupInfoController gymCupInfoController;
 	private RoundInfoController roundInfoController;
 	private ClientModel clientModel;
@@ -62,7 +60,7 @@ public class ClientFrame {
 		try {
 			this.networkController = networkController;
 			this.clientModel = clientModel;
-			squadController = new SquadController();
+			squadController = clientModel.getSquadController();
 			networkController.setSquadController(squadController);
 			gymCupInfoController = new GymCupInfoController();
 			networkController.setGymCupInfoController(gymCupInfoController);
@@ -97,7 +95,7 @@ public class ClientFrame {
 				roundInfoController);
 		tabbedPane.addTab("�bersicht", null, panelOverview, null);
 
-		panelActualSquad = new ActualSquadPanel(squadController);
+		panelActualSquad = new ActualSquadPanel(clientModel);
 		tabbedPane.addTab("Aktuelle Riege", null, panelActualSquad, null);
 
 		panelEvaluation = new EvaluationPanel(squadController, clientModel);
