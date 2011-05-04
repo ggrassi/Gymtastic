@@ -19,6 +19,8 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+
+
 public class PdfExporter {
 	private GymCup gymCup = null;
 	private String path = "";
