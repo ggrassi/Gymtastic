@@ -39,6 +39,8 @@ import ch.hsr.gymtastic.presentation.imports.FileExtensionFilter;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
+import java.awt.Component;
+import javax.swing.Box;
 
 public class CupManagementPanel extends JPanel implements Observer {
 	/**
@@ -63,11 +65,8 @@ public class CupManagementPanel extends JPanel implements Observer {
 	private JTextArea txtAreaSponsors;
 	private JPanel panelImportBorder;
 	private JPanel panelImport;
-	private JTextField txtChoseCup;
-	private JLabel lblStatusCup;
 	private JButton btnOpenCup;
-	private JTextField txtChoseImport;
-	private JLabel txtStatusImport;
+	private JLabel lblChoseImport;
 	private JButton btnImportStartList;
 	private JPanel panelLogoBorder;
 	private ImagePanel panelLogo = new ImagePanel();
@@ -82,6 +81,11 @@ public class CupManagementPanel extends JPanel implements Observer {
 	private CupManagementModel cupManagementModel;
 	protected boolean isNewCup = true;
 	protected boolean isNewImportList = false;
+	private JPanel panelNorth;
+	private String pathCup;
+	private String pathImport;
+	private Component verticalStrutMarginNoth;
+	private Component verticalStrutMarginSouth;
 
 	public CupManagementPanel(CupManagementModel cupManagementModel) {
 		this.cupManagementModel = cupManagementModel;
@@ -93,11 +97,30 @@ public class CupManagementPanel extends JPanel implements Observer {
 	private void initGUI() {
 		gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, 0.0,
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, 0.0,
 				Double.MIN_VALUE };
 		setLayout(gridBagLayout);
+		
+		panelNorth = new JPanel();
+		GridBagConstraints gbc_panelNorth = new GridBagConstraints();
+		gbc_panelNorth.gridwidth = 2;
+		gbc_panelNorth.insets = new Insets(0, 0, 5, 5);
+		gbc_panelNorth.fill = GridBagConstraints.BOTH;
+		gbc_panelNorth.gridx = 0;
+		gbc_panelNorth.gridy = 0;
+		add(panelNorth, gbc_panelNorth);
+				panelNorth.setLayout(new BorderLayout(0, 0));
+		
+				btnOpenCup = new JButton("Cup Öffnen...");
+				panelNorth.add(btnOpenCup, BorderLayout.WEST);
+				
+				verticalStrutMarginNoth = Box.createVerticalStrut(10);
+				panelNorth.add(verticalStrutMarginNoth, BorderLayout.NORTH);
+				
+				verticalStrutMarginSouth = Box.createVerticalStrut(10);
+				panelNorth.add(verticalStrutMarginSouth, BorderLayout.SOUTH);
 
 		panelGeneralInfoBorder = new JPanel();
 		panelGeneralInfoBorder.setBorder(new TitledBorder(UIManager
@@ -109,7 +132,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_panelGeneralInfoBorder.gridheight = 2;
 		gbc_panelGeneralInfoBorder.insets = new Insets(0, 0, 5, 5);
 		gbc_panelGeneralInfoBorder.gridx = 0;
-		gbc_panelGeneralInfoBorder.gridy = 0;
+		gbc_panelGeneralInfoBorder.gridy = 1;
 		add(panelGeneralInfoBorder, gbc_panelGeneralInfoBorder);
 		GridBagLayout gbl_panelGeneralInfoBorder = new GridBagLayout();
 		gbl_panelGeneralInfoBorder.columnWidths = new int[] { 0, 0 };
@@ -307,11 +330,11 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_panelImportBorder.fill = GridBagConstraints.BOTH;
 		gbc_panelImportBorder.insets = new Insets(0, 0, 5, 0);
 		gbc_panelImportBorder.gridx = 1;
-		gbc_panelImportBorder.gridy = 0;
+		gbc_panelImportBorder.gridy = 1;
 		add(panelImportBorder, gbc_panelImportBorder);
 		GridBagLayout gbl_panelImportBorder = new GridBagLayout();
 		gbl_panelImportBorder.columnWidths = new int[] { 0, 0 };
-		gbl_panelImportBorder.rowHeights = new int[] { 0, 0 };
+		gbl_panelImportBorder.rowHeights = new int[] { 26, 0 };
 		gbl_panelImportBorder.columnWeights = new double[] { 1.0,
 				Double.MIN_VALUE };
 		gbl_panelImportBorder.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
@@ -319,64 +342,34 @@ public class CupManagementPanel extends JPanel implements Observer {
 
 		panelImport = new JPanel();
 		GridBagConstraints gbc_panelImport = new GridBagConstraints();
-		gbc_panelImport.fill = GridBagConstraints.BOTH;
+		gbc_panelImport.anchor = GridBagConstraints.NORTH;
+		gbc_panelImport.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panelImport.gridx = 0;
 		gbc_panelImport.gridy = 0;
 		panelImportBorder.add(panelImport, gbc_panelImport);
 		GridBagLayout gbl_panelImport = new GridBagLayout();
-		gbl_panelImport.columnWidths = new int[] { 0, 0, 0, 0 };
-		gbl_panelImport.rowHeights = new int[] { 0, 0, 0 };
-		gbl_panelImport.columnWeights = new double[] { 0.0, 1.0, 1.0,
+		gbl_panelImport.columnWidths = new int[] { 0, 0, 0 };
+		gbl_panelImport.rowHeights = new int[] { 0, 0 };
+		gbl_panelImport.columnWeights = new double[] { 0.0, 1.0,
 				Double.MIN_VALUE };
-		gbl_panelImport.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panelImport.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		panelImport.setLayout(gbl_panelImport);
 
-		txtChoseCup = new JTextField("Dateipfad auswählen");
-		GridBagConstraints gbc_lblChoseCup = new GridBagConstraints();
-		gbc_lblChoseCup.insets = new Insets(0, 0, 5, 5);
-		gbc_lblChoseCup.gridx = 0;
-		gbc_lblChoseCup.gridy = 0;
-		panelImport.add(txtChoseCup, gbc_lblChoseCup);
-
-		lblStatusCup = new JLabel("status");
-		GridBagConstraints gbc_lblStatusCup = new GridBagConstraints();
-		gbc_lblStatusCup.anchor = GridBagConstraints.EAST;
-		gbc_lblStatusCup.insets = new Insets(0, 0, 5, 5);
-		gbc_lblStatusCup.gridx = 1;
-		gbc_lblStatusCup.gridy = 0;
-		panelImport.add(lblStatusCup, gbc_lblStatusCup);
-
-		btnOpenCup = new JButton("Cup Öffnen...");
-		GridBagConstraints gbc_btnOpenCup = new GridBagConstraints();
-		gbc_btnOpenCup.anchor = GridBagConstraints.EAST;
-		gbc_btnOpenCup.insets = new Insets(0, 0, 5, 0);
-		gbc_btnOpenCup.gridx = 2;
-		gbc_btnOpenCup.gridy = 0;
-		panelImport.add(btnOpenCup, gbc_btnOpenCup);
-
-		txtChoseImport = new JTextField("Dateipfad auswählen");
-		txtChoseImport.setMaximumSize(new Dimension(25, 1));
+		lblChoseImport = new JLabel("Importliste auswählen:");
+		lblChoseImport
+				.setSize(panelImport.getWidth(), panelImport.getHeight());
 		GridBagConstraints gbc_lblChoseImport = new GridBagConstraints();
+		gbc_lblChoseImport.anchor = GridBagConstraints.WEST;
 		gbc_lblChoseImport.insets = new Insets(0, 0, 0, 5);
 		gbc_lblChoseImport.gridx = 0;
-		gbc_lblChoseImport.gridy = 1;
-		panelImport.add(txtChoseImport, gbc_lblChoseImport);
-
-		txtStatusImport = new JLabel("status");
-		txtStatusImport
-				.setSize(panelImport.getWidth(), panelImport.getHeight());
-		GridBagConstraints gbc_lblStatusImport = new GridBagConstraints();
-		gbc_lblStatusImport.anchor = GridBagConstraints.EAST;
-		gbc_lblStatusImport.insets = new Insets(0, 0, 0, 5);
-		gbc_lblStatusImport.gridx = 1;
-		gbc_lblStatusImport.gridy = 1;
-		panelImport.add(txtStatusImport, gbc_lblStatusImport);
+		gbc_lblChoseImport.gridy = 0;
+		panelImport.add(lblChoseImport, gbc_lblChoseImport);
 
 		btnImportStartList = new JButton("Importieren...");
 		GridBagConstraints gbc_btnImportStartList = new GridBagConstraints();
 		gbc_btnImportStartList.anchor = GridBagConstraints.EAST;
-		gbc_btnImportStartList.gridx = 2;
-		gbc_btnImportStartList.gridy = 1;
+		gbc_btnImportStartList.gridx = 1;
+		gbc_btnImportStartList.gridy = 0;
 		panelImport.add(btnImportStartList, gbc_btnImportStartList);
 
 		panelLogoBorder = new JPanel();
@@ -388,7 +381,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_panelLogoBorder.insets = new Insets(0, 0, 5, 0);
 		gbc_panelLogoBorder.fill = GridBagConstraints.BOTH;
 		gbc_panelLogoBorder.gridx = 1;
-		gbc_panelLogoBorder.gridy = 1;
+		gbc_panelLogoBorder.gridy = 2;
 		add(panelLogoBorder, gbc_panelLogoBorder);
 		GridBagLayout gbl_panelLogoBorder = new GridBagLayout();
 		gbl_panelLogoBorder.columnWidths = new int[] { 0, 0 };
@@ -414,7 +407,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 
 		panelLogoDescr.add(btnOpenPic, BorderLayout.EAST);
 
-		lblChoseLogo = new JLabel("Logo auswählen");
+		lblChoseLogo = new JLabel("Logo auswählen:");
 		panelLogoDescr.add(lblChoseLogo, BorderLayout.WEST);
 
 		lblLogo = new JLabel("Logo");
@@ -423,10 +416,11 @@ public class CupManagementPanel extends JPanel implements Observer {
 
 		panelSaveCancel = new JPanel();
 		GridBagConstraints gbc_panelSaveCancel = new GridBagConstraints();
+		gbc_panelSaveCancel.gridwidth = 2;
 		gbc_panelSaveCancel.insets = new Insets(0, 0, 0, 5);
 		gbc_panelSaveCancel.fill = GridBagConstraints.BOTH;
 		gbc_panelSaveCancel.gridx = 0;
-		gbc_panelSaveCancel.gridy = 2;
+		gbc_panelSaveCancel.gridy = 3;
 		add(panelSaveCancel, gbc_panelSaveCancel);
 		GridBagLayout gbl_panelSaveCancel = new GridBagLayout();
 		gbl_panelSaveCancel.columnWidths = new int[] { 0, 0, 0 };
@@ -479,7 +473,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 				int returnVal = chooser.showOpenDialog(panelImport);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					String path = chooser.getSelectedFile().getAbsolutePath();
-					txtChoseCup.setText(path);
+					pathCup = path;
 					isNewCup = false;
 					System.out.println(path);
 				}
@@ -497,7 +491,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					String path = chooser.getSelectedFile().getAbsolutePath();
 					System.out.println(path);
-					txtChoseImport.setText(path);
+					pathImport = path;
 					isNewImportList = true;
 				}
 
@@ -544,7 +538,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 						cupManagementModel.setGymCup(gymCup);
 
 						ImportStartList startList = new ImportStartList(
-								txtChoseImport.getText());
+								pathImport);
 						startList.readImport();
 						// startList.toString();
 						SquadCreator squadCreator = new SquadCreator(startList,
@@ -556,7 +550,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 					}
 
 				} else {
-					DBConnection.setPath(txtChoseCup.getText());
+					DBConnection.setPath(pathCup);
 					cupManagementModel.setExistingGymcup();
 
 				}
@@ -572,7 +566,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 		txtAreaSponsors.setEnabled(bool);
 		txtFieldEndDate.setEnabled(bool);
 		txtFieldStartDate.setEnabled(bool);
-		txtChoseCup.setEnabled(bool);
 		btnOpenCup.setEnabled(bool);
 		btnOpenPic.setEnabled(bool);
 		btnImportStartList.setEnabled(bool);
