@@ -94,3 +94,4 @@ public class AthleteDataTableModel extends AbstractTableModel implements
 	}
 
 }
+

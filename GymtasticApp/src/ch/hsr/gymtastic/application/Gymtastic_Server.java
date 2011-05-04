@@ -25,12 +25,12 @@ public class Gymtastic_Server {
 		try {
 			CupManagementModel cupManagementModel = new CupManagementModel();
 			CompetitionModel competitionModel = new CompetitionModel();
-			AthleteModel athleteModel = new AthleteModel();
-			
-			ModelController modelController = new ModelController(
-					cupManagementModel, competitionModel, athleteModel);
-			modelController.setModelControllerToModels();
 			RankingModel rankingModel = new RankingModel();
+			AthleteModel athleteModel = new AthleteModel();
+			ModelController modelController = new ModelController(
+					cupManagementModel, competitionModel, rankingModel,
+					athleteModel);
+			modelController.setModelControllerToModels();
 			ServerFrame serverFrame = new ServerFrame(
 					new NetworkServerController(), cupManagementModel,
 					competitionModel, rankingModel, athleteModel);

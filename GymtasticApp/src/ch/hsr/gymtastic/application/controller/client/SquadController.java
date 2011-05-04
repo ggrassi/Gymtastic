@@ -8,7 +8,7 @@ import ch.hsr.gymtastic.domain.Squad;
 public class SquadController extends Observable {
 	private Squad squad;
 	private int numberOfAthletes = 0;
-	private int index = 0;
+	private int index = -1;
 
 	public SquadController() {
 	}
@@ -20,8 +20,7 @@ public class SquadController extends Observable {
 	}
 
 	public Athlete getNextAthlete() {
-		updateObservers();
-		return squad.getAthlete(index++);
+		return squad.getAthlete(++index);
 	}
 
 	public boolean hasPreviousAthlete() {
@@ -32,7 +31,6 @@ public class SquadController extends Observable {
 	}
 
 	public Athlete getPreviousAthlete() {
-		index--;
 		return squad.getAthlete(--index);
 	}
 
@@ -48,7 +46,7 @@ public class SquadController extends Observable {
 	}
 
 	public Squad getSquad() {
-		return this.squad;
+		return squad;
 	}
 
 	private void updateObservers() {
@@ -57,7 +55,7 @@ public class SquadController extends Observable {
 	}
 
 	public void reset() {
-		index = 0;
+		index = -1;
 	}
 
 }

@@ -13,6 +13,7 @@ import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.application.controller.client.SquadController;
 import ch.hsr.gymtastic.application.models.AthleteOverviewTableModel;
+import ch.hsr.gymtastic.application.models.ClientModel;
 
 public class ActualSquadPanel extends JPanel {
 	/**
@@ -26,12 +27,13 @@ public class ActualSquadPanel extends JPanel {
 	private JScrollPane scrollPane;
 	private JPanel panelAthleteInfoBorder;
 	private JPanel panelAthleteInfo;
-	private SquadController squadController;
 
 	private AthleteOverviewTableModel tableOverviewModel;
 
-	public ActualSquadPanel(SquadController squadController) {
-		this.squadController = squadController;
+	private ClientModel clientModel;
+
+	public ActualSquadPanel(ClientModel clientModel) {
+		this.clientModel = clientModel;
 		initGUI();
 		initListeners();
 	}
@@ -86,7 +88,7 @@ public class ActualSquadPanel extends JPanel {
 		panelAthletes.add(scrollPane, gbc_scrollPane);
 
 		tableOverview = new JTable();
-		tableOverviewModel = new AthleteOverviewTableModel(squadController);
+		tableOverviewModel = new AthleteOverviewTableModel(clientModel);
 		tableOverview.setModel(tableOverviewModel);
 		scrollPane.setViewportView(tableOverview);
 

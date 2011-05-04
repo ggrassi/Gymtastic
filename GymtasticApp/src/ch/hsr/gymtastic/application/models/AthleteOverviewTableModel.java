@@ -18,12 +18,12 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements
 	private static final long serialVersionUID = 1L;
 	private String[] columns = { "Vorname", "Nachname", "Jahrgang",
 			"Leistungsklasse", "Endnote" };
-	private final SquadController squadController;
 	private Squad squad = null;
+	private ClientModel clientModel;
 
-	public AthleteOverviewTableModel(SquadController squadController) {
-		this.squadController = squadController;
-		this.squadController.addObserver(this);
+	public AthleteOverviewTableModel(ClientModel clientModel) {
+		this.clientModel = clientModel;
+		this.clientModel.addObserver(this);
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements
 	@Override
 	public int getRowCount() {
 		if (squad != null) {
-			return squadController.getSquad().getAthlets().size();
+			return clientModel.getSquad().getAthlets().size();
 		} else {
 			return 0;
 		}
@@ -67,7 +67,7 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		squad = squadController.getSquad();
+		squad = clientModel.getSquad();
 		fireTableDataChanged();
 	}
 

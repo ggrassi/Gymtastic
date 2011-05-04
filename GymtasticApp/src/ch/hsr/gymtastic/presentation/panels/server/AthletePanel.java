@@ -31,6 +31,19 @@ public class AthletePanel extends JPanel implements Observer{
 	private JTextField txtFieldSearchAthlete;
 	private JTable tableAthletes;
 	private AthleteModel athleteModel;
+	private JPanel panelAthletesSearch;
+	private JPanel panelAthletes;
+	private JPanel panelAthletesBorder;
+	private JLabel lblSquadsAmount;
+	private JLabel lblSquads;
+	private JLabel lblAthletes;
+	private JPanel panelStatisticsBorder;
+	private JPanel panelStatistics;
+	private JLabel lblAthletesAmount;
+	private JButton btnShowAthlete;
+	private JButton btnAddAthlete;
+	private JButton btnRemoveAthlete;
+	private JScrollPane scrollPaneAthletes;
 
 	public AthletePanel(AthleteModel athleteModel) {
 		this.athleteModel = athleteModel;
@@ -50,7 +63,7 @@ public class AthletePanel extends JPanel implements Observer{
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
-		JPanel panelStatisticsBorder = new JPanel();
+		panelStatisticsBorder = new JPanel();
 		panelStatisticsBorder.setBorder(new TitledBorder(UIManager
 				.getBorder("TitledBorder.border"), "Statistik",
 				TitledBorder.LEADING, TitledBorder.TOP, null,
@@ -70,7 +83,7 @@ public class AthletePanel extends JPanel implements Observer{
 				Double.MIN_VALUE };
 		panelStatisticsBorder.setLayout(gbl_panelStatisticsBorder);
 
-		JPanel panelStatistics = new JPanel();
+		panelStatistics = new JPanel();
 		GridBagConstraints gbc_panelStatistics = new GridBagConstraints();
 		gbc_panelStatistics.fill = GridBagConstraints.BOTH;
 		gbc_panelStatistics.gridx = 0;
@@ -84,34 +97,34 @@ public class AthletePanel extends JPanel implements Observer{
 		gbl_panelStatistics.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		panelStatistics.setLayout(gbl_panelStatistics);
 
-		JLabel lblAthletes = new JLabel("Athleten: ");
+		lblAthletes = new JLabel("Athleten: ");
 		GridBagConstraints gbc_lblAthletes = new GridBagConstraints();
 		gbc_lblAthletes.insets = new Insets(0, 0, 0, 5);
 		gbc_lblAthletes.gridx = 0;
 		gbc_lblAthletes.gridy = 0;
 		panelStatistics.add(lblAthletes, gbc_lblAthletes);
 
-		JLabel lblAthletesAmount = new JLabel("0");
+		lblAthletesAmount = new JLabel("0");
 		GridBagConstraints gbc_lblAthletesAmount = new GridBagConstraints();
 		gbc_lblAthletesAmount.insets = new Insets(0, 0, 0, 5);
 		gbc_lblAthletesAmount.gridx = 1;
 		gbc_lblAthletesAmount.gridy = 0;
 		panelStatistics.add(lblAthletesAmount, gbc_lblAthletesAmount);
 
-		JLabel lblSquads = new JLabel("Riegen: ");
+		lblSquads = new JLabel("Riegen: ");
 		GridBagConstraints gbc_lblSquads = new GridBagConstraints();
 		gbc_lblSquads.insets = new Insets(0, 0, 0, 5);
 		gbc_lblSquads.gridx = 3;
 		gbc_lblSquads.gridy = 0;
 		panelStatistics.add(lblSquads, gbc_lblSquads);
 
-		JLabel lblSquadsAmount = new JLabel("0");
+		lblSquadsAmount = new JLabel("0");
 		GridBagConstraints gbc_lblSquadsAmount = new GridBagConstraints();
 		gbc_lblSquadsAmount.gridx = 4;
 		gbc_lblSquadsAmount.gridy = 0;
 		panelStatistics.add(lblSquadsAmount, gbc_lblSquadsAmount);
 
-		JPanel panelAthletesBorder = new JPanel();
+		panelAthletesBorder = new JPanel();
 		panelAthletesBorder.setBorder(new TitledBorder(UIManager
 				.getBorder("TitledBorder.border"), "Athleten",
 				TitledBorder.LEADING, TitledBorder.TOP, null,
@@ -130,7 +143,7 @@ public class AthletePanel extends JPanel implements Observer{
 				Double.MIN_VALUE };
 		panelAthletesBorder.setLayout(gbl_panelAthletesBorder);
 
-		JPanel panelAthletes = new JPanel();
+		panelAthletes = new JPanel();
 		GridBagConstraints gbc_panelAthletes = new GridBagConstraints();
 		gbc_panelAthletes.fill = GridBagConstraints.BOTH;
 		gbc_panelAthletes.gridx = 0;
@@ -145,7 +158,7 @@ public class AthletePanel extends JPanel implements Observer{
 				Double.MIN_VALUE };
 		panelAthletes.setLayout(gbl_panelAthletes);
 
-		JPanel panelAthletesSearch = new JPanel();
+		panelAthletesSearch = new JPanel();
 		GridBagConstraints gbc_panelAthletesSearch = new GridBagConstraints();
 		gbc_panelAthletesSearch.gridwidth = 2;
 		gbc_panelAthletesSearch.insets = new Insets(0, 0, 5, 0);
@@ -172,7 +185,7 @@ public class AthletePanel extends JPanel implements Observer{
 				gbc_txtFieldSearchAthlete);
 		txtFieldSearchAthlete.setColumns(10);
 
-		JButton btnShowAthlete = new JButton("Anzeigen...");
+		btnShowAthlete = new JButton("Anzeigen...");
 		btnShowAthlete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AthleteDetailFrame.open();
@@ -185,7 +198,7 @@ public class AthletePanel extends JPanel implements Observer{
 		gbc_btnShowAthlete.gridy = 0;
 		panelAthletesSearch.add(btnShowAthlete, gbc_btnShowAthlete);
 
-		JButton btnAddAthlete = new JButton("Hinzufügen...");
+		btnAddAthlete = new JButton("Hinzufügen...");
 		GridBagConstraints gbc_btnAddAthlete = new GridBagConstraints();
 		gbc_btnAddAthlete.anchor = GridBagConstraints.EAST;
 		gbc_btnAddAthlete.insets = new Insets(0, 0, 0, 5);
@@ -193,14 +206,14 @@ public class AthletePanel extends JPanel implements Observer{
 		gbc_btnAddAthlete.gridy = 0;
 		panelAthletesSearch.add(btnAddAthlete, gbc_btnAddAthlete);
 
-		JButton btnRemoveAthlete = new JButton("Entfernen");
+		btnRemoveAthlete = new JButton("Entfernen");
 		GridBagConstraints gbc_btnRemoveAthlete = new GridBagConstraints();
 		gbc_btnRemoveAthlete.anchor = GridBagConstraints.EAST;
 		gbc_btnRemoveAthlete.gridx = 4;
 		gbc_btnRemoveAthlete.gridy = 0;
 		panelAthletesSearch.add(btnRemoveAthlete, gbc_btnRemoveAthlete);
 
-		JScrollPane scrollPaneAthletes = new JScrollPane();
+		scrollPaneAthletes = new JScrollPane();
 		GridBagConstraints gbc_scrollPaneAthletes = new GridBagConstraints();
 		gbc_scrollPaneAthletes.gridwidth = 2;
 		gbc_scrollPaneAthletes.fill = GridBagConstraints.BOTH;
@@ -217,6 +230,7 @@ public class AthletePanel extends JPanel implements Observer{
 	
 	@Override
 	public void update(Observable arg0, Object arg1) {
+		lblSquadsAmount.setText(""+athleteModel.getGymCup().getSquads().size());
 		
 	}
 
