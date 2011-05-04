@@ -15,7 +15,8 @@ public class CupManagementModel extends Observable implements Observer {
     private GymCup gymCup;
     private ModelController modelController;
 
-    public void setExistingGymcup() {
+
+	public void setExistingGymcup() {
 	DBConnection db = new DBConnection();
 	System.out.println(DBConnection.getPath());
 	TypedQuery<GymCup> query = db.getEm().createQuery("SELECT p FROM GymCup p", GymCup.class);
@@ -52,6 +53,9 @@ public class CupManagementModel extends Observable implements Observer {
 
     public void setModelController(ModelController modelController) {
 	this.modelController = modelController;
+    }
+    public ModelController getModelController() {
+    	return modelController;
     }
 
     private void updateObservers() {

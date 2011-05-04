@@ -47,6 +47,7 @@ public class AthleteModel extends Observable implements Observer {
 	public void update(Observable o, Object arg) {
 		setModelControllerUpdates();
 		updateObservers();
+		System.out.println("athleteModel update");
 	}
 
 }

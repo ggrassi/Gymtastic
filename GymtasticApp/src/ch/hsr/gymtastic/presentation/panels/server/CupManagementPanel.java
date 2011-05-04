@@ -641,10 +641,10 @@ public class CupManagementPanel extends JPanel implements Observer {
 		txtFieldEndDate.setText(DateFormatConverter
 				.convertDateToString(cupManagementModel.getGymCup()
 						.getEndDate()));
-		if (panelLogo.isGenerated()) {
-			panelLogo
-					.setPath(cupManagementModel.getGymCup().getLogoImagePath());
-		}
+
+		panelLogo.setPath(cupManagementModel.getGymCup().getLogoImagePath());
+
+		cupManagementModel.getModelController().updateObservers();
 	}
 
 }

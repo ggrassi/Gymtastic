@@ -37,7 +37,7 @@ public class ModelController extends Observable {
 	athleteModel.setModelController(this);
     }
 
-    private void updateObservers() {
+    public void updateObservers() {
 	setChanged();
 	notifyObservers();
     }
