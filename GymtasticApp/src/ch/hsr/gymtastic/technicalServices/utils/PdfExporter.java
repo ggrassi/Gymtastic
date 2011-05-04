@@ -15,10 +15,11 @@ import ch.hsr.gymtastic.domain.Squad;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+
+
 
 public class PdfExporter {
 	private GymCup gymCup = null;
@@ -47,10 +48,10 @@ public class PdfExporter {
 	}
 
 	private void createFile() throws FileNotFoundException, DocumentException {
-		document = new Document(PageSize.LETTER.rotate());
-
+		document = new Document();
 		PdfWriter.getInstance(document, new FileOutputStream(path));
 		document.open();
+
 	}
 
 	private void writeTotalContent() throws DocumentException {
@@ -72,21 +73,7 @@ public class PdfExporter {
 		writeCompetitionTitle(competition);
 
 		PdfPTable table = new PdfPTable(12);
-		int[] width = new int[12];
-		width[0] = 15;
-		width[1] = 50;
-		width[2] = 50;
-		width[3] = 30;
-		width[4] = 30;
-		width[5] = 10;
-		width[6] = 10;
-		width[7] = 10;
-		width[8] = 10;
-		width[9] = 10;
-		width[10] = 10;
-		width[11] = 10;
 
-		table.setWidths(width);
 		table.addCell("Rang");
 		table.addCell("Vorname");
 		table.addCell("Nachname");
@@ -108,7 +95,7 @@ public class PdfExporter {
 			table.addCell(athlete.getFirstName());
 			table.addCell(athlete.getLastName());
 			table.addCell(athlete.getYearOfBirth() + "");
-			table.addCell(athlete.getAssociation() + "");
+			table.addCell(athlete.getAssociation()+"");
 			table.addCell(athlete.getMarks().get(DeviceType.FLOOR_EXCERCISE)
 					.getFinalMark()
 					+ "");
@@ -138,7 +125,7 @@ public class PdfExporter {
 
 	public static PdfPTable createFirstTable() {
 		PdfPTable table = new PdfPTable(12);
-
+		
 		table.addCell("Rang");
 		table.addCell("Vorname");
 		table.addCell("Nachname");

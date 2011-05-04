@@ -5,7 +5,11 @@ import java.util.GregorianCalendar;
 
 public class GymCupClientInfo implements Serializable {
 
-    private GregorianCalendar startDate;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private GregorianCalendar startDate;
     private GregorianCalendar endDate;
 
     private String location;
