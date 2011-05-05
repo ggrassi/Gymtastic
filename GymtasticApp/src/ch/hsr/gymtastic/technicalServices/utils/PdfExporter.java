@@ -19,8 +19,6 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-
-
 public class PdfExporter {
 	private GymCup gymCup = null;
 	private String path = "";
@@ -73,6 +71,21 @@ public class PdfExporter {
 		writeCompetitionTitle(competition);
 
 		PdfPTable table = new PdfPTable(12);
+		int[] widths = new int[12];
+		widths[0]= 10;
+		widths[1] = 50;
+		widths[2] =50;
+		widths[3] = 20;
+		widths[4] = 50;
+		widths[5] = 15;
+		widths[6]= 15;
+		widths[7]= 15;
+		widths[8]= 15;
+		widths[9]= 15;
+		widths[10]= 15;
+		widths[11]= 15;
+		
+		table.setWidths(widths);
 
 		table.addCell("Rang");
 		table.addCell("Vorname");
@@ -95,7 +108,7 @@ public class PdfExporter {
 			table.addCell(athlete.getFirstName());
 			table.addCell(athlete.getLastName());
 			table.addCell(athlete.getYearOfBirth() + "");
-			table.addCell(athlete.getAssociation()+"");
+			table.addCell(athlete.getAssociation() + "");
 			table.addCell(athlete.getMarks().get(DeviceType.FLOOR_EXCERCISE)
 					.getFinalMark()
 					+ "");
@@ -125,7 +138,7 @@ public class PdfExporter {
 
 	public static PdfPTable createFirstTable() {
 		PdfPTable table = new PdfPTable(12);
-		
+
 		table.addCell("Rang");
 		table.addCell("Vorname");
 		table.addCell("Nachname");
@@ -143,9 +156,17 @@ public class PdfExporter {
 
 	private void writeTotalTitle() throws DocumentException {
 
-		Paragraph title = new Paragraph("Rangliste vom " + gymCup.getName()
-				+ " in " + gymCup.getLocation() + " vom "
-				+ gymCup.getStartDate() + " bis " + gymCup.getEndDate());
+		Paragraph title = new Paragraph(
+				"Rangliste vom "
+						+ gymCup.getName()
+						+ " in "
+						+ gymCup.getLocation()
+						+ " vom "
+						+ DateFormatConverter.convertDateToString(gymCup
+								.getStartDate())
+						+ " bis "
+						+ DateFormatConverter.convertDateToString(gymCup
+								.getEndDate()));
 		title.setAlignment(Paragraph.ALIGN_CENTER);
 		title.setSpacingAfter((float) 10.0);
 		Font titleFont = new Font();

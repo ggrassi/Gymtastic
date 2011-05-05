@@ -158,7 +158,7 @@ public class JudgePanel extends JPanel {
 		gbc_btnShowJudge.gridy = 0;
 		panelJudgesSearch.add(btnShowJudge, gbc_btnShowJudge);
 
-		JButton btnAddJudge = new JButton("Hinzufügen...");
+		JButton btnAddJudge = new JButton("Hinzuf\u00fcgen...");
 		GridBagConstraints gbc_btnAddJudge = new GridBagConstraints();
 		gbc_btnAddJudge.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAddJudge.gridx = 3;

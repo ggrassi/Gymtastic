@@ -113,7 +113,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		add(panelNorth, gbc_panelNorth);
 		panelNorth.setLayout(new BorderLayout(0, 0));
 
-		btnOpenCup = new JButton("Cup Öffnen...");
+		btnOpenCup = new JButton("Cup \u00f6ffnen...");
 		panelNorth.add(btnOpenCup, BorderLayout.WEST);
 
 		verticalStrutMarginNoth = Box.createVerticalStrut(10);
@@ -355,7 +355,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbl_panelImport.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		panelImport.setLayout(gbl_panelImport);
 
-		lblChoseImport = new JLabel("Importliste auswählen:");
+		lblChoseImport = new JLabel("Importliste ausw\u00e4hlen:");
 		lblChoseImport.setSize(panelImport.getWidth(), panelImport.getHeight());
 		GridBagConstraints gbc_lblChoseImport = new GridBagConstraints();
 		gbc_lblChoseImport.anchor = GridBagConstraints.WEST;
@@ -402,11 +402,11 @@ public class CupManagementPanel extends JPanel implements Observer {
 		panelLogo.add(panelLogoDescr, BorderLayout.NORTH);
 		panelLogoDescr.setLayout(new BorderLayout(0, 0));
 
-		btnOpenPic = new JButton("Bild Öffnen...");
+		btnOpenPic = new JButton("Bild \u00f6ffnen...");
 
 		panelLogoDescr.add(btnOpenPic, BorderLayout.EAST);
 
-		lblChoseLogo = new JLabel("Logo auswählen:");
+		lblChoseLogo = new JLabel("Logo ausw\u00e4hlen:");
 		panelLogoDescr.add(lblChoseLogo, BorderLayout.WEST);
 
 		lblLogo = new JLabel("Logo");
@@ -526,6 +526,12 @@ public class CupManagementPanel extends JPanel implements Observer {
 					gymCup.setLocation(txtFieldLocation.getText());
 					gymCup.setSponsors(txtAreaSponsors.getText());
 					gymCup.setDescription(txtAreaDescr.getText());
+					try {
+						gymCup.setStartDate(DateFormatConverter.convertStringToDate(txtFieldStartDate.getText()));
+						gymCup.setEndDate(DateFormatConverter.convertStringToDate(txtFieldEndDate.getText()));
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
 					if (panelLogo.isGenerated()) {
 						gymCup.setLogoImagePath(panelLogo.getPath());
 					}

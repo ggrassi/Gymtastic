@@ -108,7 +108,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblCupNameText.gridy = 0;
 		panelCupInformation.add(lblCupNameText, gbc_lblCupNameText);
 
-		lblCupName = new JLabel("");
+		lblCupName = new JLabel("Bitte warten Sie auf Informationen vom Server");
 		GridBagConstraints gbc_lblCupName = new GridBagConstraints();
 		gbc_lblCupName.anchor = GridBagConstraints.WEST;
 		gbc_lblCupName.insets = new Insets(0, 0, 5, 5);
@@ -124,7 +124,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblCupLocationText.gridy = 1;
 		panelCupInformation.add(lblCupLocationText, gbc_lblCupLocationText);
 
-		lblCupLocation = new JLabel("");
+		lblCupLocation = new JLabel("Bitte warten Sie auf Informationen vom Server");
 		GridBagConstraints gbc_lblCupLocation = new GridBagConstraints();
 		gbc_lblCupLocation.anchor = GridBagConstraints.WEST;
 		gbc_lblCupLocation.insets = new Insets(0, 0, 5, 5);
@@ -140,7 +140,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblStartDateText.gridy = 2;
 		panelCupInformation.add(lblStartDateText, gbc_lblStartDateText);
 
-		lblStartDate = new JLabel("");
+		lblStartDate = new JLabel("Bitte warten Sie auf Informationen vom Server");
 		GridBagConstraints gbc_lblStartDate = new GridBagConstraints();
 		gbc_lblStartDate.anchor = GridBagConstraints.WEST;
 		gbc_lblStartDate.insets = new Insets(0, 0, 5, 5);
@@ -156,7 +156,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblEndDateText.gridy = 3;
 		panelCupInformation.add(lblEndDateText, gbc_lblEndDateText);
 
-		lblEndDate = new JLabel("");
+		lblEndDate = new JLabel("Bitte warten Sie auf Informationen vom Server");
 		GridBagConstraints gbc_lblEndDate = new GridBagConstraints();
 		gbc_lblEndDate.anchor = GridBagConstraints.WEST;
 		gbc_lblEndDate.insets = new Insets(0, 0, 5, 5);
@@ -172,7 +172,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblDeviceText.gridy = 5;
 		panelCupInformation.add(lblDeviceText, gbc_lblDeviceText);
 
-		lblDevice = new JLabel("" + deviceType);
+		lblDevice = new JLabel("Ger\u00E4t wurde vom Server noch nicht best\u00E4tigt.");
 		GridBagConstraints gbc_lblDevice = new GridBagConstraints();
 		gbc_lblDevice.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblDevice.insets = new Insets(0, 0, 0, 5);

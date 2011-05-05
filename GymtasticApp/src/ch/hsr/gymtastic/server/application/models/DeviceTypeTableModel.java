@@ -17,7 +17,7 @@ public class DeviceTypeTableModel extends AbstractTableModel implements
      * 
      */
 	private static final long serialVersionUID = 1L;
-	private String[] columns = { "IP-Adresse", "Gewünschtes Gerät" };
+	private String[] columns = { "IP-Adresse", "Gew\u00fcnschtes Ger\u00e4t" };
 	private final NetworkServerController networkController;
 
 	@Override

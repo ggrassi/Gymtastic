@@ -197,7 +197,7 @@ public class AthletePanel extends JPanel implements Observer {
 		gbc_btnShowAthlete.gridy = 0;
 		panelAthletesSearch.add(btnShowAthlete, gbc_btnShowAthlete);
 
-		btnAddAthlete = new JButton("Hinzufügen...");
+		btnAddAthlete = new JButton("Hinzuf\u00fcgen...");
 		GridBagConstraints gbc_btnAddAthlete = new GridBagConstraints();
 		gbc_btnAddAthlete.anchor = GridBagConstraints.EAST;
 		gbc_btnAddAthlete.insets = new Insets(0, 0, 0, 5);

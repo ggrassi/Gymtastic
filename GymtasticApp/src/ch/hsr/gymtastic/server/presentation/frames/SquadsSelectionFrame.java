@@ -63,7 +63,7 @@ public class SquadsSelectionFrame {
 				.add(panelSouth, BorderLayout.SOUTH);
 		panelSouth.setLayout(new BorderLayout(0, 0));
 
-		btnAddSelectedSquads = new JButton("Selektierte Hinzufügen");
+		btnAddSelectedSquads = new JButton("Selektierte Hinzuf\u00fcgen");
 		panelSouth.add(btnAddSelectedSquads, BorderLayout.EAST);
 	}
 

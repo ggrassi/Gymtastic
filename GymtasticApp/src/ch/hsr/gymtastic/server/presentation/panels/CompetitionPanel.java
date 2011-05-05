@@ -30,6 +30,7 @@ import ch.hsr.gymtastic.server.application.models.CompetitionOverviewTableModel;
 import ch.hsr.gymtastic.server.application.models.SquadsCompetitionTableModel;
 import ch.hsr.gymtastic.server.presentation.frames.SquadsSelectionFrame;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
+import javax.swing.border.EtchedBorder;
 
 public class CompetitionPanel extends JPanel implements Observer {
 
@@ -48,8 +49,8 @@ public class CompetitionPanel extends JPanel implements Observer {
 	private SquadsCompetitionTableModel squadsTableModel;
 	private GymCupController gymCupController;
 	private Competition actualCompetition;
-	private JButton btnAdd;
-	private JButton btnHinzufgen;
+	private JButton btnAddCompetition;
+	private JButton btnAddSquad;
 
 	public CompetitionPanel(GymCupController gymCupController) {
 		this.gymCupController = gymCupController;
@@ -76,7 +77,7 @@ public class CompetitionPanel extends JPanel implements Observer {
 			}
 		});
 
-		btnAdd.addActionListener(new ActionListener() {
+		btnAddCompetition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Competition competition = null;
 				try {
@@ -110,7 +111,7 @@ public class CompetitionPanel extends JPanel implements Observer {
 					}
 				});
 
-		btnHinzufgen.addActionListener(new ActionListener() {
+		btnAddSquad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new SquadsSelectionFrame(gymCupController, actualCompetition);
 			}
@@ -265,18 +266,15 @@ public class CompetitionPanel extends JPanel implements Observer {
 		gbc_btnSave.gridy = 5;
 		panelInfo.add(btnSave, gbc_btnSave);
 
-		btnAdd = new JButton("Hinzufügen");
-		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
-		gbc_btnAdd.anchor = GridBagConstraints.NORTH;
-		gbc_btnAdd.gridx = 2;
-		gbc_btnAdd.gridy = 5;
-		panelInfo.add(btnAdd, gbc_btnAdd);
+		btnAddCompetition = new JButton("Hinzuf\u00fcgen");
+		GridBagConstraints gbc_btnAddCompetition = new GridBagConstraints();
+		gbc_btnAddCompetition.anchor = GridBagConstraints.NORTH;
+		gbc_btnAddCompetition.gridx = 2;
+		gbc_btnAddCompetition.gridy = 5;
+		panelInfo.add(btnAddCompetition, gbc_btnAddCompetition);
 
 		JPanel panelOverviewBorder = new JPanel();
-		panelOverviewBorder.setBorder(new TitledBorder(UIManager
-				.getBorder("TitledBorder.border"), "\u00DCbersicht",
-				TitledBorder.LEADING, TitledBorder.TOP, null,
-				new Color(0, 0, 0)));
+		panelOverviewBorder.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "\u00DCbersicht", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		GridBagConstraints gbc_panelOverviewBorder = new GridBagConstraints();
 		gbc_panelOverviewBorder.gridheight = 2;
 		gbc_panelOverviewBorder.fill = GridBagConstraints.BOTH;
@@ -347,11 +345,11 @@ public class CompetitionPanel extends JPanel implements Observer {
 		gbc_btnEntfernen.gridy = 1;
 		panelSquadsBorder.add(btnEntfernen, gbc_btnEntfernen);
 
-		btnHinzufgen = new JButton("Hinzufügen...");
-		GridBagConstraints gbc_btnHinzufgen = new GridBagConstraints();
-		gbc_btnHinzufgen.gridx = 1;
-		gbc_btnHinzufgen.gridy = 1;
-		panelSquadsBorder.add(btnHinzufgen, gbc_btnHinzufgen);
+		btnAddSquad = new JButton("Hinzuf\u00fcgen...");
+		GridBagConstraints gbc_btnAddSquad = new GridBagConstraints();
+		gbc_btnAddSquad.gridx = 1;
+		gbc_btnAddSquad.gridy = 1;
+		panelSquadsBorder.add(btnAddSquad, gbc_btnAddSquad);
 
 	}
 
