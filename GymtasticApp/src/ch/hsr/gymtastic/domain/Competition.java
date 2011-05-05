@@ -9,7 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-import ch.hsr.gymtastic.application.controller.server.RoundAllocator;
+import ch.hsr.gymtastic.server.application.controller.RoundAllocator;
 
 @Entity
 public class Competition extends Observable {

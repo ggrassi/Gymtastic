@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.hsr.gymtastic.domain.DeviceType;
+import ch.hsr.gymtastic.server.application.controller.ClientAllocator;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 import ch.hsr.gymtastic.technicalServices.network.RMIClientInterface;
 
