@@ -5,17 +5,21 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
+import ch.hsr.gymtastic.domain.Competition;
+
 public class SquadsCompetitionTableModel extends AbstractTableModel implements Observer {
 
-    private String[] columns = { "Riege" };
-    private final CompetitionModel competitionModel;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String[] columns = { "Riege" };
+	private Competition competition;
 
-    public SquadsCompetitionTableModel(CompetitionModel competitionModel) {
-	this.competitionModel = competitionModel;
-	this.competitionModel.addObserver(this);
-    }
+    public SquadsCompetitionTableModel() {
+	}
 
-    @Override
+	@Override
     public String getColumnName(int columnIndex) {
 	return columns[columnIndex];
     }
@@ -27,8 +31,8 @@ public class SquadsCompetitionTableModel extends AbstractTableModel implements O
 
     @Override
     public int getRowCount() {
-	if (competitionModel.getActualCompetition() != null) {
-	    return competitionModel.getActualCompetition().getSquads().size();
+	if (competition != null) {
+	    return competition.getSquads().size();
 	} else {
 	    return 0;
 	}
@@ -38,7 +42,7 @@ public class SquadsCompetitionTableModel extends AbstractTableModel implements O
     public Object getValueAt(int rowIndex, int columnIndex) {
 	switch (columnIndex) {
 	case 0:
-	    return competitionModel.getActualCompetition().getSquads().get(rowIndex);
+	    return competition.getSquads().get(rowIndex);
 	}
 	return "";
     }
@@ -48,5 +52,12 @@ public class SquadsCompetitionTableModel extends AbstractTableModel implements O
 	
 	fireTableDataChanged();
     }
+
+	public void setCompetition(Competition competition) {
+		this.competition = competition;
+		this.competition.addObserver(this);
+		fireTableDataChanged();
+	}
+
 
 }

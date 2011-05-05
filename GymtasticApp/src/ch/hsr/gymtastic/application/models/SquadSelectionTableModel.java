@@ -5,54 +5,58 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-public class SquadSelectionTableModel extends AbstractTableModel implements Observer {
+import ch.hsr.gymtastic.application.controller.server.GymCupController;
 
-    /**
+public class SquadSelectionTableModel extends AbstractTableModel implements
+		Observer {
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private String[] columns = { "Riege" };
-    private final CompetitionModel competitionModel;
+	private final GymCupController gymCupController;
 
-    public SquadSelectionTableModel(CompetitionModel competitionModel) {
-	this.competitionModel = competitionModel;
-	this.competitionModel.addObserver(this);
-    }
-
-    @Override
-    public String getColumnName(int columnIndex) {
-	return columns[columnIndex];
-    }
-
-    @Override
-    public int getColumnCount() {
-	return columns.length;
-    }
-
-    @Override
-    public int getRowCount() {
-	if (competitionModel.getGymCup() != null) {
-	    if (competitionModel.getGymCup().getSquadsUnallocated() != null) {
-		return competitionModel.getGymCup().getSquadsUnallocated().size();
-	    } else
-		return 0;
-	} else {
-	    return 0;
+	public SquadSelectionTableModel(GymCupController gymCupController) {
+		this.gymCupController = gymCupController;
 	}
-    }
 
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-	switch (columnIndex) {
-	case 0:
-	    return competitionModel.getGymCup().getSquadsUnallocated().get(rowIndex);
+	@Override
+	public String getColumnName(int columnIndex) {
+		return columns[columnIndex];
 	}
-	return "";
-    }
 
-    @Override
-    public void update(Observable arg0, Object arg1) {
-	fireTableDataChanged();
-    }
+	@Override
+	public int getColumnCount() {
+		return columns.length;
+	}
+
+	@Override
+	public int getRowCount() {
+		if (gymCupController.getGymCup() != null) {
+			if (gymCupController.getGymCup().getUnallocatedSquads() != null) {
+				return gymCupController.getGymCup().getUnallocatedSquads()
+						.size();
+			} else
+				return 0;
+		} else {
+			return 0;
+		}
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		switch (columnIndex) {
+		case 0:
+			return gymCupController.getGymCup().getUnallocatedSquads()
+					.get(rowIndex);
+		}
+		return "";
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		fireTableDataChanged();
+	}
 
 }

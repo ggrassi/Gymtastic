@@ -12,10 +12,6 @@ public class RoundAllocator {
 
 	private List<Map<DeviceType, Squad>> roundlist = new ArrayList<Map<DeviceType, Squad>>();
 
-	public Map<DeviceType, Squad> getRoundAllocation(int roundNr) {
-		return roundlist.get(roundNr);
-	}
-
 	public RoundAllocator(List<Squad> squads) {
 		Map<DeviceType, Squad> map = new HashMap<DeviceType, Squad>();
 		int j = 0;
@@ -26,6 +22,10 @@ public class RoundAllocator {
 		roundlist.add(map);
 	}
 
+	public Map<DeviceType, Squad> getRoundAllocation(int roundNr) {
+		return roundlist.get(roundNr);
+	}
+	
 	public Squad getSquad(DeviceType deviceType, int round) {
 		return roundlist.get(round - 1).get(deviceType);
 	}

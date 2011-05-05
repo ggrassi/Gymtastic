@@ -2,44 +2,26 @@ package ch.hsr.gymtastic.domain;
 
 import java.io.Serializable;
 
-public class RoundInfo implements Serializable {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 1L;
-    private int round;
-    private boolean competitionIsRunning;
-    public int getRound() {
-        return round;
-    }
+public class RoundInfo implements Serializable{
 
-    public void setRound(int round) {
-        this.round = round;
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Squad squad;
+	private int roundNr;
+	
+	
+	public RoundInfo(Squad squad, int roundNr){
+		this.squad = squad;
+		this.roundNr = roundNr;
+		
+	}
+	public Squad getSquad() {
+		return squad;
+	}
+	public int getRoundNr() {
+		return roundNr;
+	}
 
-    public boolean isCompetitionIsRunning() {
-        return competitionIsRunning;
-    }
-
-    public void setCompetitionIsRunning(boolean competitionIsRunning) {
-        this.competitionIsRunning = competitionIsRunning;
-    }
-
-    public String getCompetition() {
-        return competition;
-    }
-
-    public void setCompetition(String competition) {
-        this.competition = competition;
-    }
-
-    private String competition;
-    
-    public RoundInfo(int round, boolean competitionIsRunning, String competition){
-	this.round = round;
-	this.competitionIsRunning = competitionIsRunning;
-	this.competition = competition;
-    }
-    
-    
 }

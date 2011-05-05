@@ -3,11 +3,13 @@ package ch.hsr.gymtastic.application.controller.client;
 import java.util.Observable;
 
 import ch.hsr.gymtastic.domain.Athlete;
+import ch.hsr.gymtastic.domain.RoundInfo;
 import ch.hsr.gymtastic.domain.Squad;
 
 public class SquadController extends Observable {
 	private Squad squad;
 	private int numberOfAthletes = 0;
+	private int roundNr;
 	private int index = -1;
 
 	public SquadController() {
@@ -38,8 +40,8 @@ public class SquadController extends Observable {
 		return numberOfAthletes;
 	}
 
-	public void setSquad(Object squad) {
-		this.squad = (Squad) squad;
+	public void setSquad(Squad squad) {
+		this.squad = squad;
 		numberOfAthletes = this.squad.getSquadSize();
 		reset();
 		updateObservers();
@@ -49,13 +51,30 @@ public class SquadController extends Observable {
 		return squad;
 	}
 
+	public void reset() {
+		index = -1;
+	}
+
+	public void setRoundInfo(Object arg) {
+		RoundInfo roundInfo = (RoundInfo) arg;
+		setSquad(roundInfo.getSquad());
+		setRoundNr(roundInfo.getRoundNr());
+		
+	}
+
+	public void setRoundNr(int roundNr) {
+		this.roundNr = roundNr;
+		updateObservers();
+	}
+
+	public int getRoundNr() {
+		return roundNr;
+	}
+
 	private void updateObservers() {
 		setChanged();
 		notifyObservers();
 	}
 
-	public void reset() {
-		index = -1;
-	}
 
 }

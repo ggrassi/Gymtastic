@@ -20,7 +20,8 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.application.controller.client.SquadController;
-import ch.hsr.gymtastic.application.models.ClientModel;
+import ch.hsr.gymtastic.domain.Athlete;
+import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Mark;
 
 public class EvaluationPanel extends JPanel implements Observer {
@@ -35,7 +36,6 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private JTextField txtFieldEMark2;
 	private JTextField txtFieldEMark1;
 	private JTextField txtFieldDMark;
-	private SquadController squadController;
 	private JButton btnNext;
 	private JPanel panelSouth;
 	private JButton btnPrevious;
@@ -65,15 +65,17 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private JLabel lblBonus;
 	private JLabel lblFinalMark;
 	private ButtonGroup buttonGroupParticipation;
-	private ClientModel clientModel;
+	private SquadController squadController;
+	private Athlete athlete;
+	private final DeviceType deviceType;
 	
 	public EvaluationPanel(final SquadController squadController,
-			ClientModel clientModel) {
+			DeviceType deviceType) {
 		this.squadController = squadController;
-		this.clientModel = clientModel;
-		this.clientModel.addObserver(this);
+		this.deviceType = deviceType;
 		initGUI();
 		initListeners();
+	
 	}
 
 	private void initListeners() {
@@ -427,23 +429,26 @@ public class EvaluationPanel extends JPanel implements Observer {
 		gbc_txtFieldFinalMark.gridy = 6;
 		panelMarks.add(txtFieldFinalMark, gbc_txtFieldFinalMark);
 		txtFieldFinalMark.setColumns(10);
+		getNextAthlete();
+		loadAthleteFields();
+		checkButtons();
 	}
 
 	private void setMark() {
 		/*
 		 * TODO: Mark richtig setzen
 		 */
-		clientModel.getAthlete().addMark(clientModel.getDeviceType(), new Mark());
+		athlete.addMark(deviceType, new Mark());
 
 	}
 
 	private void loadAthleteFields() {
-		if (clientModel.getAthlete() != null) {
-			lblFirstNameField.setText(clientModel.getAthlete().getFirstName());
-			lblLastNameField.setText(clientModel.getAthlete().getLastName());
-			lblPrgClassField.setText(clientModel.getAthlete().getPrgClass());
-			lblSquadField.setText("" + clientModel.getAthlete().getSquadId());
-			lblStartNrField.setText("" + clientModel.getAthlete().getStartNr());
+		if (athlete != null) {
+			lblFirstNameField.setText(athlete.getFirstName());
+			lblLastNameField.setText(athlete.getLastName());
+			lblPrgClassField.setText(athlete.getPrgClass());
+			lblSquadField.setText("" + athlete.getSquadId());
+			lblStartNrField.setText("" + athlete.getStartNr());
 		}
 	}
 
@@ -463,16 +468,15 @@ public class EvaluationPanel extends JPanel implements Observer {
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		loadAthleteFields();
-		this.repaint();
 
 	}
 
 	private void getNextAthlete() {
-			clientModel.setAthlete(squadController.getNextAthlete());
+		athlete = squadController.getNextAthlete();
 	}
 
 	private void getPreviousAthlete() {
-			clientModel.setAthlete(squadController.getPreviousAthlete());
+			athlete = squadController.getPreviousAthlete();
 	}
 
 }

@@ -7,12 +7,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.ConnectException;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Map.Entry;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -22,23 +19,16 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
-import ch.hsr.gymtastic.application.controller.server.ClientAllocator;
-import ch.hsr.gymtastic.application.controller.server.NetworkServerController;
-import ch.hsr.gymtastic.application.controller.server.RoundAllocator;
-import ch.hsr.gymtastic.application.models.RankingModel;
+import ch.hsr.gymtastic.application.controller.server.CompetitionController;
+import ch.hsr.gymtastic.application.controller.server.GymCupController;
 import ch.hsr.gymtastic.domain.Competition;
-import ch.hsr.gymtastic.domain.DeviceType;
-import ch.hsr.gymtastic.domain.Squad;
-import ch.hsr.gymtastic.presentation.server.ServerFrame;
-import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
-import ch.hsr.gymtastic.technicalServices.network.RMIClientInterface;
+import ch.hsr.gymtastic.presentation.server.CompetitionComboBoxModel;
 
 public class RoundAllocationPanel extends JPanel implements Observer {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private NetworkServerController networkController;
 	private JPanel panelCompetitionControlBorder;
 	private JPanel panelCompetitionControl;
 	private JLabel lblCompetition;
@@ -64,54 +54,40 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 	private JLabel labelRound;
 	private JSpinner spnRound;
 	private JLabel lblDescrRound;
-	private JButton btnDurchgangFreigeben;
-	private DefaultComboBoxModel comboBoxCompetitionModel;
-	private RankingModel rankingModel;
-	private Competition actualCompetition;
-	private RoundAllocator actualRoundAllocator;
+	private JButton btnEnableRound;
+	private CompetitionComboBoxModel comboBoxCompetitionModel;
+	private GymCupController gymCupController;
+	private CompetitionController competitionController;
+
 	/*
 	 * TODO: Saubere Trennung Domain / View
 	 */
 
-	public RoundAllocationPanel(final ClientAllocator clientAllocation,
-			final NetworkServerController networkController,
-			RankingModel rankingModel) throws ConnectException {
-		this.networkController = networkController;
-		this.rankingModel = rankingModel;
-		this.rankingModel.addObserver(this);
+	public RoundAllocationPanel(GymCupController gymCupController) {
+		this.gymCupController = gymCupController;
+		this.gymCupController.getGymCup().addObserver(this);
+		this.competitionController = gymCupController
+				.getCompetitionController();
 		initGUI();
 		initListeners();
-
 	}
 
 	private void initListeners() {
 		btnStartCompetition.addActionListener(new ActionListener() {
 
-
 			public void actionPerformed(ActionEvent e) {
-				actualCompetition = (Competition) cmbCompetition
-						.getSelectedItem();
-				actualRoundAllocator = new RoundAllocator(actualCompetition.getSquads());
+				competitionController
+						.setCompetition((Competition) cmbCompetition
+								.getSelectedItem());
+				competitionController.notifyClientsCompetitionStarted();
 
 			}
 		});
-		btnDurchgangFreigeben.addActionListener(new ActionListener() {
+		btnEnableRound.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				try {
-					for (Entry<DeviceType, ClientInformation> entry : ServerFrame.clientAllocation
-							.entrySet()) {
+				competitionController.enableRound((Integer) spnRound.getValue());
 
-						RMIClientInterface rmiClient = ServerFrame.clientAllocation
-								.getClientStub(entry.getValue().getDeviceType());
-						Squad squad = actualRoundAllocator.getSquad(entry.getValue()
-								.getDeviceType(), (Integer) spnRound.getValue());
-						networkController.updateClient(rmiClient, squad);
-					}
-
-				} catch (ConnectException exception) {
-					exception.printStackTrace();
-				}
 			}
 		});
 
@@ -178,7 +154,7 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 
 		cmbCompetition = new JComboBox();
 		cmbCompetition.setMinimumSize(new Dimension(100, 20));
-		comboBoxCompetitionModel = new DefaultComboBoxModel();
+		comboBoxCompetitionModel = new CompetitionComboBoxModel();
 		cmbCompetition.setModel(comboBoxCompetitionModel);
 		GridBagConstraints gbc_cmbCompetition = new GridBagConstraints();
 		gbc_cmbCompetition.fill = GridBagConstraints.HORIZONTAL;
@@ -195,32 +171,6 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 		gbc_btnStartCompetition.gridy = 0;
 		panelCompetitionControl.add(btnStartCompetition,
 				gbc_btnStartCompetition);
-
-		// Achtung nur zum Testen <Anfang>
-		// btnStartCompetition.addActionListener(new ActionListener() {
-		//
-		// public void actionPerformed(ActionEvent e) {
-		// for (Entry<DeviceType, ClientInformation> entry :
-		// ServerFrame.clientAllocation.entrySet()) {
-		//
-		// RMIClientInterface rmiClient =
-		// ServerFrame.clientAllocation.getClientStub(entry.getValue()
-		// .getDeviceType());
-		// RoundInfo ri = new RoundInfo(1, true, "Wettkampf Programm 1");
-		// GymCupClientInfo gci = new GymCupClientInfo("Faessi Cup", "Rappi",
-		// new GregorianCalendar(),
-		// new GregorianCalendar());
-		// try {
-		// rmiClient.uploadGymCupInfoToClient(gci);
-		// rmiClient.uploadRoundInfoToClient(ri);
-		// } catch (RemoteException e1) {
-		// e1.printStackTrace();
-		// }
-		// }
-		// }
-		// });
-		// Achtung nur zum Testen <ENDE>
-
 		btnStopCompetition = new JButton("Wettkampf anhalten");
 		GridBagConstraints gbc_btnStopCompetition = new GridBagConstraints();
 		gbc_btnStopCompetition.insets = new Insets(0, 0, 0, 5);
@@ -418,13 +368,13 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 		gbc_lblDescrRound.gridy = 0;
 		panelRoundControl.add(lblDescrRound, gbc_lblDescrRound);
 
-		btnDurchgangFreigeben = new JButton("Durchgang Freigeben");
+		btnEnableRound = new JButton("Durchgang Freigeben");
 
 		GridBagConstraints gbc_btnDurchgangFreigeben = new GridBagConstraints();
 		gbc_btnDurchgangFreigeben.insets = new Insets(0, 0, 0, 5);
 		gbc_btnDurchgangFreigeben.gridx = 4;
 		gbc_btnDurchgangFreigeben.gridy = 0;
-		panelRoundControl.add(btnDurchgangFreigeben, gbc_btnDurchgangFreigeben);
+		panelRoundControl.add(btnEnableRound, gbc_btnDurchgangFreigeben);
 
 	}
 
@@ -435,8 +385,8 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 	}
 
 	private void updateComboBox() {
-		comboBoxCompetitionModel = new DefaultComboBoxModel(rankingModel
-				.getCompetitions());
+		comboBoxCompetitionModel = new CompetitionComboBoxModel(
+				gymCupController.getGymCup().getCompetitions());
 		cmbCompetition.setModel(comboBoxCompetitionModel);
 
 	}

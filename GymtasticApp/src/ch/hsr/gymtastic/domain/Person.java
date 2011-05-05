@@ -1,6 +1,7 @@
 package ch.hsr.gymtastic.domain;
 
 import java.io.Serializable;
+import java.util.Observable;
 
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -8,7 +9,7 @@ import javax.persistence.InheritanceType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Person implements Serializable {
+public abstract class Person extends Observable implements Serializable {
 
     /**
      * 

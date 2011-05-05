@@ -32,8 +32,8 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DateFormatter;
 
+import ch.hsr.gymtastic.application.controller.server.GymCupController;
 import ch.hsr.gymtastic.application.controller.server.SquadCreator;
-import ch.hsr.gymtastic.application.models.CupManagementModel;
 import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.presentation.imports.FileExtensionFilter;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
@@ -76,7 +76,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 	private JButton btnCancel;
 	private JButton btnSave;
 	protected JFileChooser chooser;
-	private CupManagementModel cupManagementModel;
 	protected boolean isNewCup = true;
 	protected boolean isNewImportList = false;
 	private JPanel panelNorth;
@@ -84,10 +83,13 @@ public class CupManagementPanel extends JPanel implements Observer {
 	private String pathImport;
 	private Component verticalStrutMarginNoth;
 	private Component verticalStrutMarginSouth;
+	private GymCupController gymCupController;
 
-	public CupManagementPanel(CupManagementModel cupManagementModel) {
-		this.cupManagementModel = cupManagementModel;
-		this.cupManagementModel.addObserver(this);
+	public CupManagementPanel(GymCupController gymCupController) {
+		this.gymCupController = gymCupController;
+		/*
+		 * TODO: Observers
+		 */
 		initGUI();
 		initListeners();
 	}
@@ -100,7 +102,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, 0.0,
 				Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-		
+
 		panelNorth = new JPanel();
 		GridBagConstraints gbc_panelNorth = new GridBagConstraints();
 		gbc_panelNorth.gridwidth = 2;
@@ -109,16 +111,16 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_panelNorth.gridx = 0;
 		gbc_panelNorth.gridy = 0;
 		add(panelNorth, gbc_panelNorth);
-				panelNorth.setLayout(new BorderLayout(0, 0));
-		
-				btnOpenCup = new JButton("Cup Öffnen...");
-				panelNorth.add(btnOpenCup, BorderLayout.WEST);
-				
-				verticalStrutMarginNoth = Box.createVerticalStrut(10);
-				panelNorth.add(verticalStrutMarginNoth, BorderLayout.NORTH);
-				
-				verticalStrutMarginSouth = Box.createVerticalStrut(10);
-				panelNorth.add(verticalStrutMarginSouth, BorderLayout.SOUTH);
+		panelNorth.setLayout(new BorderLayout(0, 0));
+
+		btnOpenCup = new JButton("Cup Öffnen...");
+		panelNorth.add(btnOpenCup, BorderLayout.WEST);
+
+		verticalStrutMarginNoth = Box.createVerticalStrut(10);
+		panelNorth.add(verticalStrutMarginNoth, BorderLayout.NORTH);
+
+		verticalStrutMarginSouth = Box.createVerticalStrut(10);
+		panelNorth.add(verticalStrutMarginSouth, BorderLayout.SOUTH);
 
 		panelGeneralInfoBorder = new JPanel();
 		panelGeneralInfoBorder.setBorder(new TitledBorder(UIManager
@@ -222,8 +224,8 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_lblEndDate.gridy = 2;
 		panelGeneralInfo.add(lblEndDate, gbc_lblEndDate);
 
-		txtFieldEndDate = new JFormattedTextField(new DateFormatter(DateFormat
-				.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
+		txtFieldEndDate = new JFormattedTextField(new DateFormatter(
+				DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
 		txtFieldEndDate.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -354,8 +356,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		panelImport.setLayout(gbl_panelImport);
 
 		lblChoseImport = new JLabel("Importliste auswählen:");
-		lblChoseImport
-				.setSize(panelImport.getWidth(), panelImport.getHeight());
+		lblChoseImport.setSize(panelImport.getWidth(), panelImport.getHeight());
 		GridBagConstraints gbc_lblChoseImport = new GridBagConstraints();
 		gbc_lblChoseImport.anchor = GridBagConstraints.WEST;
 		gbc_lblChoseImport.insets = new Insets(0, 0, 0, 5);
@@ -533,23 +534,26 @@ public class CupManagementPanel extends JPanel implements Observer {
 						gymCup.importGymCupToDB();
 						gymCup.setStartDateStr(txtFieldStartDate.getText());
 						gymCup.setEndDateStr(txtFieldEndDate.getText());
-						cupManagementModel.setGymCup(gymCup);
+						gymCupController.setGymCup(gymCup);
 
 						ImportStartList startList = new ImportStartList(
 								pathImport);
 						startList.readImport();
 						// startList.toString();
 						SquadCreator squadCreator = new SquadCreator(startList,
-								cupManagementModel.getGymCup());
+								gymCupController.getGymCup());
 						squadCreator.insertImportToDB();
-						cupManagementModel.getGymCup().importAllSquads();
-						cupManagementModel.getGymCup().setSquads(
+						gymCupController.getGymCup().importAllSquads();
+						gymCupController.getGymCup().setSquads(
 								squadCreator.createSquads());
 					}
 
 				} else {
+					/*
+					 * TODO: Write Gymcup to DB / DBController
+					 */
 					DBConnection.setPath(pathCup);
-					cupManagementModel.setExistingGymcup();
+					gymCupController.setExistingGymcup();
 
 				}
 			}
@@ -570,7 +574,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 	}
 
 	private void changesCupInformation() {
-		if (cupManagementModel.getGymCup() != null) {
+		if (gymCupController.getGymCup() != null) {
 			if (nothingChanged()) {
 				btnCancel.setEnabled(false);
 				btnSave.setEnabled(false);
@@ -583,33 +587,33 @@ public class CupManagementPanel extends JPanel implements Observer {
 
 	private boolean nothingChanged() {
 		return txtFieldName.getText().equals(
-				cupManagementModel.getGymCup().getName())
+				gymCupController.getGymCup().getName())
 				&& txtAreaDescr.getText().equals(
-						cupManagementModel.getGymCup().getDescription())
+						gymCupController.getGymCup().getDescription())
 				&& txtAreaSponsors.getText().equals(
-						cupManagementModel.getGymCup().getSponsors())
+						gymCupController.getGymCup().getSponsors())
 				&& (txtFieldStartDate.getText().equals(DateFormatConverter
-						.convertDateToString(cupManagementModel.getGymCup()
+						.convertDateToString(gymCupController.getGymCup()
 								.getStartDate())))
 				&& txtFieldEndDate.getText().equals(
 						DateFormatConverter
-								.convertDateToString(cupManagementModel
+								.convertDateToString(gymCupController
 										.getGymCup().getEndDate()))
 				&& txtFieldLocation.getText().equals(
-						cupManagementModel.getGymCup().getLocation());
+						gymCupController.getGymCup().getLocation());
 	}
 
 	private void updateAfterCancel() {
-		txtFieldName.setText(cupManagementModel.getGymCup().getName());
-		txtAreaDescr.setText(cupManagementModel.getGymCup().getDescription());
-		txtAreaSponsors.setText(cupManagementModel.getGymCup().getSponsors());
+		txtFieldName.setText(gymCupController.getGymCup().getName());
+		txtAreaDescr.setText(gymCupController.getGymCup().getDescription());
+		txtAreaSponsors.setText(gymCupController.getGymCup().getSponsors());
 		txtFieldEndDate.setText(DateFormatConverter
-				.convertDateToString(cupManagementModel.getGymCup()
+				.convertDateToString(gymCupController.getGymCup()
 						.getEndDate()));
 		txtFieldStartDate.setText(DateFormatConverter
-				.convertDateToString(cupManagementModel.getGymCup()
+				.convertDateToString(gymCupController.getGymCup()
 						.getStartDate()));
-		txtFieldLocation.setText(cupManagementModel.getGymCup().getLocation());
+		txtFieldLocation.setText(gymCupController.getGymCup().getLocation());
 		btnSave.setEnabled(false);
 		btnCancel.setEnabled(false);
 
@@ -622,19 +626,19 @@ public class CupManagementPanel extends JPanel implements Observer {
 
 	private void updateContent() {
 
-		txtFieldName.setText(cupManagementModel.getGymCup().getName());
-		txtFieldLocation.setText(cupManagementModel.getGymCup().getLocation());
-		txtAreaDescr.setText(cupManagementModel.getGymCup().getDescription());
-		txtAreaSponsors.setText(cupManagementModel.getGymCup().getSponsors());
+		txtFieldName.setText(gymCupController.getGymCup().getName());
+		txtFieldLocation.setText(gymCupController.getGymCup().getLocation());
+		txtAreaDescr.setText(gymCupController.getGymCup().getDescription());
+		txtAreaSponsors.setText(gymCupController.getGymCup().getSponsors());
 		txtFieldStartDate.setText(DateFormatConverter
-				.convertDateToString(cupManagementModel.getGymCup()
+				.convertDateToString(gymCupController.getGymCup()
 						.getStartDate()));
 		txtFieldEndDate.setText(DateFormatConverter
-				.convertDateToString(cupManagementModel.getGymCup()
+				.convertDateToString(gymCupController.getGymCup()
 						.getEndDate()));
 		if (panelLogo.isGenerated()) {
 			panelLogo
-					.setPath(cupManagementModel.getGymCup().getLogoImagePath());
+					.setPath(gymCupController.getGymCup().getLogoImagePath());
 		}
 	}
 

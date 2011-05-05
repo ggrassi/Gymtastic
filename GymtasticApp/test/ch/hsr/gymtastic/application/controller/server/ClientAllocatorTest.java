@@ -24,7 +24,7 @@ public class ClientAllocatorTest {
 		}
 
 		@Override
-		public void uploadRoundInfoToClient(Serializable object)
+		public void uploadCompetitionInfoToClient(Serializable object)
 				throws RemoteException {
 
 		}
@@ -82,7 +82,7 @@ public class ClientAllocatorTest {
 	public void testSimpleAdd() {
 		clientAllocator.addAllocation(DeviceType.VAULT, clientInformationVault);
 		assertEquals(clientInformationVault.getStub(), clientAllocator
-				.getClientStub(DeviceType.VAULT));
+				.getClientInformation(DeviceType.VAULT));
 	}
 
 	private void fillVector() {

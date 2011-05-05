@@ -64,7 +64,7 @@ public class RMIClient extends Observable implements RMIClientInterface {
     }
 
     @Override
-    public void uploadRoundInfoToClient(Serializable object) {
+    public void uploadCompetitionInfoToClient(Serializable object) {
 	updateObservers(object);
     }
 

@@ -13,24 +13,28 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import ch.hsr.gymtastic.application.models.CompetitionModel;
+import ch.hsr.gymtastic.application.controller.server.GymCupController;
 import ch.hsr.gymtastic.application.models.SquadSelectionTableModel;
+import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.Squad;
 
 public class SquadsSelectionFrame {
 
 	private JFrame squadSelectionFrame;
-	private CompetitionModel competitionModel;
-	private int index;
 	private JTable tableSquads;
 	private SquadSelectionTableModel squadSelectionTableModel;
 	private JButton btnAddSelectedSquads;
+	private GymCupController gymCupController;
+	private Competition actualCompetition;
 
 	/**
 	 * Create the application.
+	 * @param actualCompetition 
 	 */
-	public SquadsSelectionFrame(CompetitionModel competitionModel) {
-		this.competitionModel = competitionModel;
+
+	public SquadsSelectionFrame(GymCupController gymCupController, Competition actualCompetition) {
+		this.gymCupController = gymCupController;
+		this.actualCompetition = actualCompetition;
 		initGUI();
 		initListeners();
 		invokeFrame();
@@ -50,16 +54,9 @@ public class SquadsSelectionFrame {
 
 		tableSquads = new JTable();
 		squadSelectionTableModel = new SquadSelectionTableModel(
-				competitionModel);
+				gymCupController);
 		tableSquads.setModel(squadSelectionTableModel);
 		scrollPaneSquads.setViewportView(tableSquads);
-
-		// würde auch funktionier anstatt dem JTable
-		// JList listSquads = new JList();
-		// SquadSelectionListModel listModel = new
-		// SquadSelectionListModel(competitionModel);
-		// listSquads.setModel(listModel);
-		// scrollPaneSquads.setViewportView(listSquads);
 
 		JPanel panelSouth = new JPanel();
 		squadSelectionFrame.getContentPane()
@@ -94,10 +91,11 @@ public class SquadsSelectionFrame {
 					int[] rows = tableSquads.getSelectedRows();
 					for (int i : rows) {
 						int modelRow = tableSquads.convertRowIndexToModel(i);
-						selectedSquads.add(competitionModel.getGymCup().getSquadsUnallocated().get(modelRow));
+						selectedSquads.add(gymCupController.getGymCup().getUnallocatedSquads().get(modelRow));
 					}
 					for(Squad s: selectedSquads){
-						competitionModel.addSquadToCompetition(s, competitionModel.getActualCompetition());
+						gymCupController.getGymCup().getUnallocatedSquads().remove(s);
+						actualCompetition.addSquad(s);
 					}
 					squadSelectionFrame.dispose();
 				}

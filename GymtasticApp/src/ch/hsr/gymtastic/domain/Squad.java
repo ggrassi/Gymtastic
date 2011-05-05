@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
 @Entity
-public class Squad implements Serializable {
+public class Squad extends Observable implements Serializable {
 	/**
      * 
      */
@@ -40,6 +41,7 @@ public class Squad implements Serializable {
 
 	public void addAthlet(Athlete athlet) {
 		athlets.add(athlet);
+		updateObservers();
 	}
 
 	public int getSquadSize() {
@@ -52,6 +54,7 @@ public class Squad implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+		updateObservers();
 	}
 
 	public int getSquadId() {
@@ -64,6 +67,7 @@ public class Squad implements Serializable {
 
 	public void setAthlets(List<Athlete> athlets) {
 		this.athlets = athlets;
+		updateObservers();
 	}
 
 	public Athlete getAthlete(int index) {
@@ -74,4 +78,8 @@ public class Squad implements Serializable {
 	    return ""+squadId;
 	}
 
+	private void updateObservers(){
+		setChanged();
+		notifyObservers();
+	}
 }

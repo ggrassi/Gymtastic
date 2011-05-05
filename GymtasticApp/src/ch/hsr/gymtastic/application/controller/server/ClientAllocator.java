@@ -1,10 +1,12 @@
 package ch.hsr.gymtastic.application.controller.server;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.Vector;
-import java.util.Map.Entry;
 
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
@@ -48,12 +50,24 @@ public class ClientAllocator {
 
 	}
 
-	public RMIClientInterface getClientStub(DeviceType deviceType) {
-		return alloc.get(deviceType).getStub();
+	public ClientInformation getClientInformation(DeviceType deviceType) {
+		return alloc.get(deviceType);
 	}
 
 	public void clear() {
 		alloc.clear();
+
+	}
+
+	public List<RMIClientInterface> getAllocatedClients() {
+		List<RMIClientInterface> clients = new ArrayList<RMIClientInterface>();
+		for (DeviceType deviceType : DeviceType.values()) {
+			ClientInformation clientInformation = getClientInformation(deviceType);
+			if (clientInformation != null) {
+				clients.add(clientInformation.getStub());
+			}
+		}
+		return clients;
 
 	}
 

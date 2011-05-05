@@ -6,8 +6,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Observer;
 import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -18,8 +18,8 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
+import ch.hsr.gymtastic.application.controller.server.GymCupController;
 import ch.hsr.gymtastic.application.models.AthleteDataTableModel;
-import ch.hsr.gymtastic.application.models.AthleteModel;
 import ch.hsr.gymtastic.presentation.server.AthleteDetailFrame;
 
 public class AthletePanel extends JPanel implements Observer{
@@ -30,7 +30,6 @@ public class AthletePanel extends JPanel implements Observer{
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFieldSearchAthlete;
 	private JTable tableAthletes;
-	private AthleteModel athleteModel;
 	private JPanel panelAthletesSearch;
 	private JPanel panelAthletes;
 	private JPanel panelAthletesBorder;
@@ -44,10 +43,11 @@ public class AthletePanel extends JPanel implements Observer{
 	private JButton btnAddAthlete;
 	private JButton btnRemoveAthlete;
 	private JScrollPane scrollPaneAthletes;
+	private GymCupController gymCupController;
 
-	public AthletePanel(AthleteModel athleteModel) {
-		this.athleteModel = athleteModel;
-		this.athleteModel.addObserver(this);
+
+	public AthletePanel(GymCupController gymCupController) {
+		this.gymCupController = gymCupController;
 		initGUI();
 		initListeners();
 	}
@@ -223,7 +223,7 @@ public class AthletePanel extends JPanel implements Observer{
 
 		tableAthletes = new JTable();
 		tableAthletes
-				.setModel(new AthleteDataTableModel(athleteModel));
+				.setModel(new AthleteDataTableModel(gymCupController));
 		scrollPaneAthletes.setViewportView(tableAthletes);
 
 	}

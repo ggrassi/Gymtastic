@@ -2,21 +2,14 @@ package ch.hsr.gymtastic.presentation.server;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.io.FileNotFoundException;
-import java.net.ConnectException;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import ch.hsr.gymtastic.application.controller.server.ClientAllocator;
-import ch.hsr.gymtastic.application.controller.server.NetworkServerController;
-import ch.hsr.gymtastic.application.models.AthleteModel;
-import ch.hsr.gymtastic.application.models.CompetitionModel;
-import ch.hsr.gymtastic.application.models.CupManagementModel;
-import ch.hsr.gymtastic.application.models.DeviceTypeTableModel;
-import ch.hsr.gymtastic.application.models.RankingModel;
-import ch.hsr.gymtastic.domain.GymCup;
+import ch.hsr.gymtastic.application.controller.server.GymCupController;
 import ch.hsr.gymtastic.presentation.panels.server.AthletePanel;
 import ch.hsr.gymtastic.presentation.panels.server.CompetitionPanel;
 import ch.hsr.gymtastic.presentation.panels.server.CupManagementPanel;
@@ -24,41 +17,34 @@ import ch.hsr.gymtastic.presentation.panels.server.DeviceTypePanel;
 import ch.hsr.gymtastic.presentation.panels.server.JudgePanel;
 import ch.hsr.gymtastic.presentation.panels.server.RankingPanel;
 import ch.hsr.gymtastic.presentation.panels.server.RoundAllocationPanel;
-import ch.hsr.gymtastic.technicalServices.utils.PdfExport;
 
-import com.itextpdf.text.DocumentException;
-
-public class ServerFrame {
+public class ServerFrame implements Observer {
 
 	private JFrame frameServer;
-	private DeviceTypeTableModel deviceTypeTableModel;
-	public static ClientAllocator clientAllocation;
-
-	public static GymCup cup;
-
-	private NetworkServerController networkController;
 	private CupManagementPanel panelGymCup;
-	private CupManagementModel cupManagementModel;
-	private CompetitionModel competitionModel;
-	private RankingModel rankingModel;
-	private AthleteModel athleteModel;
+	private GymCupController gymCupController;
+	private CompetitionPanel panelCompetition;
+	private AthletePanel panelAthlete;
+	private JudgePanel panelJudge;
+	private DeviceTypePanel panelDeviceType;
+	private RankingPanel panelRanking;
+	private JPanel panelLogo;
+	private JPanel panelStatus;
+	private RoundAllocationPanel roundAllocation;
+	private JTabbedPane tabbedPaneServer;
 
 	/**
 	 * Create the application.
 	 * 
 	 * @param networkServerController
 	 */
-	public ServerFrame(NetworkServerController networkServerController,
-			CupManagementModel cupManagementModel,
-			CompetitionModel competitionModel, RankingModel rankingModel, AthleteModel athleteModel) {
-		networkController = networkServerController;
-		this.cupManagementModel = cupManagementModel;
-		this.competitionModel = competitionModel;
-		deviceTypeTableModel = new DeviceTypeTableModel(networkController);
-		this.rankingModel = rankingModel;
-		this.athleteModel = athleteModel;
+
+	public ServerFrame(GymCupController gymCupController) {
+		this.gymCupController = gymCupController;
+		this.gymCupController.addObserver(this);
 		initialize();
 		invokeFrame();
+
 	}
 
 	public JFrame getFrameServer() {
@@ -76,43 +62,19 @@ public class ServerFrame {
 		frameServer.setTitle("Gymtastic Server");
 		// frameServer.setExtendedState(Frame.MAXIMIZED_BOTH);
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		frameServer.getContentPane().add(tabbedPane, BorderLayout.CENTER);
+		tabbedPaneServer = new JTabbedPane(JTabbedPane.TOP);
+		frameServer.getContentPane().add(tabbedPaneServer, BorderLayout.CENTER);
 
-		panelGymCup = new CupManagementPanel(cupManagementModel);
-		tabbedPane.addTab("Cupverwaltung", null, panelGymCup, null);
-
-		CompetitionPanel panelCompetition = new CompetitionPanel(
-				competitionModel);
-		tabbedPane.addTab("Wettkampfverwaltung", null, panelCompetition, null);
-
-		AthletePanel panelAthlete = new AthletePanel(athleteModel);
-		tabbedPane.addTab("Athleten", null, panelAthlete, null);
-
-		JudgePanel panelJudge = new JudgePanel();
-		tabbedPane.addTab("Kampfrichter", null, panelJudge, null);
-
-		DeviceTypePanel panelDeviceType = new DeviceTypePanel(
-				deviceTypeTableModel, networkController);
-		tabbedPane.addTab("Ger\u00E4tezuweisung", null, panelDeviceType, null);
-
-		RoundAllocationPanel roundAllocation = null;
-		try {
-			roundAllocation = new RoundAllocationPanel(clientAllocation,
-					networkController, rankingModel);
-		} catch (ConnectException e) {
-			e.printStackTrace();
-		}
-		tabbedPane.addTab("Durchgangssteuerung", null, roundAllocation, null);
-
-		RankingPanel panelRanking = new RankingPanel(rankingModel);
-		tabbedPane.addTab("Ranglistengenerierung", null, panelRanking, null);
-
-		JPanel panelLogo = new JPanel();
+		panelGymCup = new CupManagementPanel(gymCupController);
+		tabbedPaneServer.addTab("Cupverwaltung", null, panelGymCup, null);
+		panelDeviceType = new DeviceTypePanel(gymCupController);
+		tabbedPaneServer.addTab("Ger\u00E4tezuweisung", null, panelDeviceType,
+				null);
+		panelLogo = new JPanel();
 		frameServer.getContentPane().add(panelLogo, BorderLayout.NORTH);
-
-		JPanel panelStatus = new JPanel();
+		panelStatus = new JPanel();
 		frameServer.getContentPane().add(panelStatus, BorderLayout.SOUTH);
+
 	}
 
 	private void invokeFrame() {
@@ -128,11 +90,14 @@ public class ServerFrame {
 			}
 		});
 	}
-
+	
+	/*
+	 * TODO: DELETE emulateCup()
+	 */
 	public static void emulateCup() {
 
 		/* create a cup */
-		System.out.println("******** Cup *************");
+		// System.out.println("******** Cup *************");
 		// cup = new GymCup("HSR Cup", "Rapperswil");
 
 		/* Import the starter file */
@@ -179,14 +144,37 @@ public class ServerFrame {
 		// //
 
 		/* create a startlist pdf */
-		PdfExport export = new PdfExport(cup.getSquads());
-		try {
-			export
-					.createStartList("src/ch/hsr/gymtastic/technicalServices/utils/Startliste.pdf");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (DocumentException e) {
-			e.printStackTrace();
-		}
+		// PdfExport export = new PdfExport(cup.getSquads());
+		// try {
+		// export
+		// .createStartList("src/ch/hsr/gymtastic/technicalServices/utils/Startliste.pdf");
+		// } catch (FileNotFoundException e) {
+		// e.printStackTrace();
+		// } catch (DocumentException e) {
+		// e.printStackTrace();
+		// }
 	}
+
+	private void createPanels() {
+		panelCompetition = new CompetitionPanel(gymCupController);
+		panelRanking = new RankingPanel(gymCupController);
+		panelAthlete = new AthletePanel(gymCupController);
+		panelJudge = new JudgePanel();
+		roundAllocation = new RoundAllocationPanel(gymCupController);
+		tabbedPaneServer.addTab("Wettkampfverwaltung", null, panelCompetition,
+				null);
+		tabbedPaneServer.addTab("Athleten", null, panelAthlete, null);
+		tabbedPaneServer.addTab("Kampfrichter", null, panelJudge, null);
+		tabbedPaneServer.addTab("Durchgangssteuerung", null, roundAllocation,
+				null);
+		tabbedPaneServer.addTab("Ranglistengenerierung", null, panelRanking,
+				null);
+
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		createPanels();
+	}
+
 }

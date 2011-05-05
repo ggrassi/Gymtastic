@@ -21,7 +21,7 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.application.controller.client.NetworkClientController;
-import ch.hsr.gymtastic.application.models.ClientModel;
+import ch.hsr.gymtastic.application.controller.client.SquadController;
 import ch.hsr.gymtastic.domain.DeviceType;
 
 public class ClientConnectionFrame {
@@ -35,20 +35,19 @@ public class ClientConnectionFrame {
 	private JPanel panelConnection = new JPanel();
 	private JButton btnConnect = new JButton("Verbinden");
 	private JButton btnAbbrechen = new JButton("Abbrechen");
-	private ClientModel clientModel;
-
-	// private RMIClient client;
 	private NetworkClientController networkController;
+	private final SquadController squadController;
+
 
 	/**
 	 * Launch the application.
 	 */
 
-	public static void newClientConnectionFrame(final ClientModel clientModel) {
+	public static void newClientConnectionFrame(final SquadController squadController, final NetworkClientController networkController) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ClientConnectionFrame window = new ClientConnectionFrame(clientModel);
+					ClientConnectionFrame window = new ClientConnectionFrame(squadController, networkController);
 					window.frmClientConnection.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -59,19 +58,43 @@ public class ClientConnectionFrame {
 
 	/**
 	 * Create the application.
+	 * @param networkController
+	 * @param squadController 
 	 * 
 	 * @throws Exception
 	 */
-	public ClientConnectionFrame(ClientModel clientModel) throws Exception {
-		this.clientModel = clientModel;
-		networkController = new NetworkClientController();
-		initialize();
+	public ClientConnectionFrame(SquadController squadController, NetworkClientController networkController) throws Exception {
+		this.squadController = squadController;
+		this.networkController = networkController;
+		initGUI();
+		initListeners();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
+	private void initListeners() {
+		btnAbbrechen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmClientConnection.dispose();
+			}
+		});
+		btnConnect.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					networkController.setServerIP(txtIpAddress.getText());
+					networkController.connect((DeviceType) cmbDeviceType
+							.getSelectedItem());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				ClientFrame.newClientFrame(squadController, networkController);
+				frmClientConnection.dispose();
+
+			}
+		});
+		
+	}
+
+	private void initGUI() {
 		frmClientConnection = new JFrame();
 		frmClientConnection.setTitle("Verbindung");
 		frmClientConnection.setResizable(false);
@@ -144,33 +167,13 @@ public class ClientConnectionFrame {
 		gbc_panelButton.gridx = 0;
 		gbc_panelButton.gridy = 1;
 		frmClientConnection.getContentPane().add(panelButton, gbc_panelButton);
-		btnConnect.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					networkController.setServerIP(txtIpAddress.getText());
-					networkController.connect((DeviceType) cmbDeviceType
-							.getSelectedItem());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				clientModel.setDeviceType((DeviceType) cmbDeviceType.getSelectedItem());
-
-				ClientFrame.newClientFrame(networkController, clientModel);
-				frmClientConnection.dispose();
-
-			}
-		});
 		cmbDeviceType.setModel(new DefaultComboBoxModel(DeviceType.values()));
-
 		panelButton.add(btnConnect);
 		btnConnect.setMnemonic(KeyEvent.VK_V);
-		btnAbbrechen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				frmClientConnection.dispose();
-			}
-		});
 		btnAbbrechen.setMnemonic(KeyEvent.VK_A);
 		panelButton.add(btnAbbrechen);
+		
 	}
+
 
 }

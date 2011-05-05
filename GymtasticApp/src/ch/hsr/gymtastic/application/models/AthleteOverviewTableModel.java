@@ -5,8 +5,8 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-import ch.hsr.gymtastic.application.controller.client.SquadController;
 import ch.hsr.gymtastic.domain.Athlete;
+import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
 
 public class AthleteOverviewTableModel extends AbstractTableModel implements
@@ -18,12 +18,13 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements
 	private static final long serialVersionUID = 1L;
 	private String[] columns = { "Vorname", "Nachname", "Jahrgang",
 			"Leistungsklasse", "Endnote" };
-	private Squad squad = null;
-	private ClientModel clientModel;
+	private Squad squad;
+	private DeviceType deviceType;
 
-	public AthleteOverviewTableModel(ClientModel clientModel) {
-		this.clientModel = clientModel;
-		this.clientModel.addObserver(this);
+	public AthleteOverviewTableModel(Squad actualSquad, DeviceType deviceType) {
+		this.squad = actualSquad;
+		this.deviceType = deviceType;
+		this.squad.addObserver(this);
 	}
 
 	@Override
@@ -39,7 +40,7 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements
 	@Override
 	public int getRowCount() {
 		if (squad != null) {
-			return clientModel.getSquad().getAthlets().size();
+			return squad.getAthlets().size();
 		} else {
 			return 0;
 		}
@@ -58,16 +59,17 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements
 		case 3:
 			return athlete.getPrgClass();
 		case 4:
-//			return athlete.getMarks().get(DeviceType.FLOOR_EXCERCISE)
-//					.getFinalMark();
-			return "";
+			if(athlete.getMarks().get(deviceType) == null){
+				return "0";
+			}else{
+				return athlete.getMarks().get(deviceType).getFinalMark();
+			}
 		}
 		return "";
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		squad = clientModel.getSquad();
 		fireTableDataChanged();
 	}
 

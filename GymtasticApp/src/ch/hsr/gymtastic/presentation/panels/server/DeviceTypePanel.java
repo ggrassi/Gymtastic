@@ -12,10 +12,10 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
 import ch.hsr.gymtastic.application.controller.server.ClientAllocator;
+import ch.hsr.gymtastic.application.controller.server.GymCupController;
 import ch.hsr.gymtastic.application.controller.server.NetworkServerController;
 import ch.hsr.gymtastic.application.editor.DeviceTypeEditor;
 import ch.hsr.gymtastic.application.models.DeviceTypeTableModel;
-import ch.hsr.gymtastic.presentation.server.ServerFrame;
 
 public class DeviceTypePanel extends JPanel {
 
@@ -30,14 +30,13 @@ public class DeviceTypePanel extends JPanel {
 	private JScrollPane scrollPaneTableDevices;
 	private JPanel panelControl;
 	private JButton btnAllocateAllDevices;
+	private ClientAllocator clientAllocator;
+	private GymCupController gymCupController;
 
-	public DeviceTypePanel(DeviceTypeTableModel deviceTypeTableModel,
-			final NetworkServerController networkController) {
-
-		this.deviceTypeTableModel = deviceTypeTableModel;
-		this.networkController = networkController;
-		this.setLayout(new BorderLayout(0, 0));
-		
+	public DeviceTypePanel(GymCupController gymCupController) {
+		this.gymCupController = gymCupController;
+		this.networkController = gymCupController.getNetworkController();
+		this.clientAllocator = gymCupController.getClientAllocator();
 		initGUI();
 		initListeners();
 	}
@@ -46,26 +45,32 @@ public class DeviceTypePanel extends JPanel {
 		btnAllocateAllDevices.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				ServerFrame.clientAllocation = new ClientAllocator();
-				ServerFrame.clientAllocation.addAll(networkController
-						.getClientsWaitingForAllocation());
+				allocateClients();
+				gymCupController.sendGymCupInfosToClients();
+				
+			}
+
+			private void allocateClients() {
+				clientAllocator.addAll(networkController.getClientsWaitingForAllocation());
 			}
 		});
 
 	}
 
 	private void initGUI() {
+		setLayout(new BorderLayout(0, 0));
 		panelControl = new JPanel();
 		this.add(panelControl, BorderLayout.SOUTH);
 		panelControl.setLayout(new BorderLayout(0, 0));
 		btnAllocateAllDevices = new JButton("Alle Zuweisen");
-		
+
 		panelControl.add(btnAllocateAllDevices, BorderLayout.EAST);
 
 		tableDevices = new JTable();
+		deviceTypeTableModel = new DeviceTypeTableModel(networkController);
 		tableDevices.setModel(deviceTypeTableModel);
-		tableDevices.getColumnModel().getColumn(1).setCellEditor(
-				new DeviceTypeEditor(cmbDeviceType));
+		tableDevices.getColumnModel().getColumn(1)
+				.setCellEditor(new DeviceTypeEditor(cmbDeviceType));
 
 		scrollPaneTableDevices = new JScrollPane();
 		this.add(scrollPaneTableDevices, BorderLayout.CENTER);

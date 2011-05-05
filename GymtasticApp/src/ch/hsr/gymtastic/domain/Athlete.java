@@ -55,6 +55,7 @@ public class Athlete extends Person {
 
 	public void setId(long id) {
 		this.id = id;
+		updateObservers();
 	}
 
 	public int getSquadId() {
@@ -63,6 +64,7 @@ public class Athlete extends Person {
 
 	public void setSquadId(int squadId) {
 		this.squadId = squadId;
+		updateObservers();
 	}
 
 	public int getStartNr() {
@@ -71,6 +73,7 @@ public class Athlete extends Person {
 
 	public void setStartNr(int startNr) {
 		this.startNr = startNr;
+		updateObservers();
 	}
 
 	public String getPrgClass() {
@@ -79,6 +82,7 @@ public class Athlete extends Person {
 
 	public void setPrgClass(String prgClass) {
 		this.prgClass = prgClass;
+		updateObservers();
 	}
 
 	public int getYearOfBirth() {
@@ -87,6 +91,7 @@ public class Athlete extends Person {
 
 	public void setYearOfBirth(int yearOfBirth) {
 		this.yearOfBirth = yearOfBirth;
+		updateObservers();
 	}
 
 	public Map<DeviceType, Mark> getMarks() {
@@ -95,6 +100,7 @@ public class Athlete extends Person {
 
 	public void setMarks(Map<DeviceType, Mark> marks) {
 		this.marks = marks;
+		updateObservers();
 	}
 
 	public Association getAssociation() {
@@ -103,6 +109,7 @@ public class Athlete extends Person {
 
 	public void setAssociation(Association association) {
 		this.association = association;
+		updateObservers();
 	}
 
 	@Override
@@ -112,6 +119,7 @@ public class Athlete extends Person {
 
 	public void addMark(DeviceType dt, Mark mark) {
 		marks.put(dt, mark);
+		updateObservers();
 
 	}
 
@@ -121,5 +129,9 @@ public class Athlete extends Person {
 			sumOfEndMarks = sumOfEndMarks + marks.get(deviceType).getFinalMark();
 		}
 		return sumOfEndMarks;
+	}
+	private void updateObservers(){
+		setChanged();
+		notifyObservers();
 	}
 }

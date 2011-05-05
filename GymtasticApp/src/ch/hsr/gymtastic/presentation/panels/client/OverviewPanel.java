@@ -16,9 +16,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import ch.hsr.gymtastic.application.controller.client.CompetitionInfoController;
 import ch.hsr.gymtastic.application.controller.client.GymCupInfoController;
-import ch.hsr.gymtastic.application.controller.client.RoundInfoController;
-import ch.hsr.gymtastic.application.models.ClientModel;
+import ch.hsr.gymtastic.application.controller.client.SquadController;
+import ch.hsr.gymtastic.domain.DeviceType;
+import ch.hsr.gymtastic.domain.GymCupClientInfo;
+import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 
 public class OverviewPanel extends JPanel implements Observer {
 	/**
@@ -36,30 +39,34 @@ public class OverviewPanel extends JPanel implements Observer {
 	private JLabel lblEndDateText;
 	private JLabel lblEndDate;
 	private JPanel panelCompetitionInformation;
-	private JLabel lblActualCup;
-	private JLabel lblActualCupText;
 	private JLabel lblActualCompetition;
 	private JLabel lblActualCompetitionText;
+	private JLabel lblActualRound;
+	private JLabel lblActualRoundText;
 	private JLabel lblActualSquad;
 	private JLabel lblActualSquadText;
 	private JLabel lblDeviceText;
 	private JLabel lblDevice;
 	private JPanel panelControl;
-	private JButton btnNewButton;
+	private JButton btnStartRound;
 	private GymCupInfoController gymCupInfoController;
-	private RoundInfoController roundInfoController;
+	private CompetitionInfoController competitionInfoController;
+	private SquadController squadController;
 	private JLabel lblRoundInfo;
-	private ClientModel clientModel;
+	private DeviceType deviceType;
 
-	public OverviewPanel(ClientModel clientModel, GymCupInfoController gymCupInfoController,
-			RoundInfoController roundInfoController) {
-		this.clientModel = clientModel;
+	public OverviewPanel(GymCupInfoController gymCupInfoController,
+			CompetitionInfoController competitionInfoController,
+			SquadController squadController, DeviceType deviceType) {
 		this.gymCupInfoController = gymCupInfoController;
-		gymCupInfoController.addObserver(this);
-		roundInfoController.addObserver(this);
+		this.competitionInfoController = competitionInfoController;
+		this.squadController = squadController;
+		this.deviceType = deviceType;
+		this.gymCupInfoController.addObserver(this);
+		this.competitionInfoController.addObserver(this);
+		this.squadController.addObserver(this);
 		initGUI();
 		initListeners();
-
 	}
 
 	private void initGUI() {
@@ -165,7 +172,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblDeviceText.gridy = 5;
 		panelCupInformation.add(lblDeviceText, gbc_lblDeviceText);
 
-		lblDevice = new JLabel(""+ clientModel.getDeviceType());
+		lblDevice = new JLabel("" + deviceType);
 		GridBagConstraints gbc_lblDevice = new GridBagConstraints();
 		gbc_lblDevice.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblDevice.insets = new Insets(0, 0, 0, 5);
@@ -195,38 +202,39 @@ public class OverviewPanel extends JPanel implements Observer {
 				0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panelCompetitionInformation.setLayout(gbl_panelCompetitionInformation);
 
-		lblActualCup = new JLabel("Wettkampf:");
+		lblActualCompetition = new JLabel("Wettkampf:");
 		GridBagConstraints gbc_lblActualCup = new GridBagConstraints();
 		gbc_lblActualCup.anchor = GridBagConstraints.WEST;
 		gbc_lblActualCup.insets = new Insets(0, 0, 5, 5);
 		gbc_lblActualCup.gridx = 0;
 		gbc_lblActualCup.gridy = 0;
-		panelCompetitionInformation.add(lblActualCup, gbc_lblActualCup);
+		panelCompetitionInformation.add(lblActualCompetition, gbc_lblActualCup);
 
-		lblActualCupText = new JLabel("Wettkampf 1");
+		lblActualCompetitionText = new JLabel("");
 		GridBagConstraints gbc_lblActualCupText = new GridBagConstraints();
 		gbc_lblActualCupText.anchor = GridBagConstraints.WEST;
 		gbc_lblActualCupText.insets = new Insets(0, 0, 5, 0);
 		gbc_lblActualCupText.gridx = 1;
 		gbc_lblActualCupText.gridy = 0;
-		panelCompetitionInformation.add(lblActualCupText, gbc_lblActualCupText);
+		panelCompetitionInformation.add(lblActualCompetitionText,
+				gbc_lblActualCupText);
 
-		lblActualCompetition = new JLabel("Durchgang:");
+		lblActualRound = new JLabel("Durchgang:");
 		GridBagConstraints gbc_lblActualCompetition = new GridBagConstraints();
 		gbc_lblActualCompetition.anchor = GridBagConstraints.WEST;
 		gbc_lblActualCompetition.insets = new Insets(0, 0, 5, 5);
 		gbc_lblActualCompetition.gridx = 0;
 		gbc_lblActualCompetition.gridy = 1;
-		panelCompetitionInformation.add(lblActualCompetition,
+		panelCompetitionInformation.add(lblActualRound,
 				gbc_lblActualCompetition);
 
-		lblActualCompetitionText = new JLabel("Durchgang 2");
+		lblActualRoundText = new JLabel("");
 		GridBagConstraints gbc_lblActualCompetitionText = new GridBagConstraints();
 		gbc_lblActualCompetitionText.anchor = GridBagConstraints.WEST;
 		gbc_lblActualCompetitionText.insets = new Insets(0, 0, 5, 0);
 		gbc_lblActualCompetitionText.gridx = 1;
 		gbc_lblActualCompetitionText.gridy = 1;
-		panelCompetitionInformation.add(lblActualCompetitionText,
+		panelCompetitionInformation.add(lblActualRoundText,
 				gbc_lblActualCompetitionText);
 
 		lblActualSquad = new JLabel("Riege:");
@@ -237,7 +245,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblActualSquad.gridy = 2;
 		panelCompetitionInformation.add(lblActualSquad, gbc_lblActualSquad);
 
-		lblActualSquadText = new JLabel("Riege 4");
+		lblActualSquadText = new JLabel("");
 		GridBagConstraints gbc_lblActualSquadText = new GridBagConstraints();
 		gbc_lblActualSquadText.insets = new Insets(0, 0, 5, 0);
 		gbc_lblActualSquadText.anchor = GridBagConstraints.WEST;
@@ -246,7 +254,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		panelCompetitionInformation.add(lblActualSquadText,
 				gbc_lblActualSquadText);
 
-		lblRoundInfo = new JLabel("New label");
+		lblRoundInfo = new JLabel("STATUS INFO");
 		GridBagConstraints gbc_lblRoundInfo = new GridBagConstraints();
 		gbc_lblRoundInfo.insets = new Insets(0, 0, 0, 5);
 		gbc_lblRoundInfo.gridx = 0;
@@ -262,12 +270,12 @@ public class OverviewPanel extends JPanel implements Observer {
 		panelOverview.add(panelControl, gbc_panelControl);
 		panelControl.setLayout(new BorderLayout(0, 0));
 
-		btnNewButton = new JButton("Durchgang starten");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnStartRound = new JButton("Durchgang starten");
+		btnStartRound.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		panelControl.add(btnNewButton, BorderLayout.EAST);
+		panelControl.add(btnStartRound, BorderLayout.EAST);
 
 	}
 
@@ -276,17 +284,39 @@ public class OverviewPanel extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		lblCupName
-				.setText(gymCupInfoController.getGymCupClientInfo().getName());
-		lblCupLocation.setText(gymCupInfoController.getGymCupClientInfo()
-				.getLocation());
-//		lblStartDate.setText(gymCupInfoController.getGymCupClientInfo()
-//				.getStartDate().toString());
-//		lblEndDate.setText(gymCupInfoController.getGymCupClientInfo()
-//				.getEndDate().toString());
+		if (o instanceof GymCupInfoController) {
+			setGymCupInfos();
+		} else if (o instanceof CompetitionInfoController) {
+			setCompetitionInfos();
+		} else if (o instanceof SquadController) {
+			setRoundInfos();
 
-//		lblRoundInfo.setText(roundInfoController.getRoundInfo()
-//				.getCompetition());
+		}
+	}
+
+	private void setRoundInfos() {
+		lblActualRoundText.setText("" + squadController.getRoundNr());
+		lblActualSquadText
+				.setText("" + squadController.getSquad().getSquadId());
+
+	}
+
+	private void setCompetitionInfos() {
+		lblActualCompetitionText.setText(competitionInfoController
+				.getCompetitionInfo().getCompetitionName());
+
+	}
+
+	private void setGymCupInfos() {
+		GymCupClientInfo gymCupClientInfo = gymCupInfoController
+				.getGymCupClientInfo();
+		lblCupName.setText(gymCupClientInfo.getName());
+		lblCupLocation.setText(gymCupClientInfo.getLocation());
+		lblDevice.setText(gymCupClientInfo.getDeviceType().toString());
+		lblStartDate.setText(DateFormatConverter
+				.convertDateToString(gymCupClientInfo.getStartDate()));
+		lblEndDate.setText(DateFormatConverter
+				.convertDateToString(gymCupClientInfo.getEndDate()));
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.Observer;
 
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.GymCupClientInfo;
+import ch.hsr.gymtastic.domain.CompetitionInfo;
 import ch.hsr.gymtastic.domain.RoundInfo;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.network.RMIClient;
@@ -20,7 +21,7 @@ public class NetworkClientController implements Observer {
 	private RMIServerInterface rmiServer;
 	private SquadController squadController;
 	private GymCupInfoController gymCupInfoController;
-	private RoundInfoController roundInfoController;
+	private CompetitionInfoController competitionInfoController;
 
 	public NetworkClientController() throws Exception {
 		rmiClient = new RMIClient();
@@ -61,12 +62,12 @@ public class NetworkClientController implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if (arg instanceof Squad) {
-			squadController.setSquad(arg);
+		if (arg instanceof RoundInfo) {
+			squadController.setRoundInfo(arg);
 		} else if (arg instanceof GymCupClientInfo) {
 			gymCupInfoController.setGymCupInfo(arg);
-		} else if (arg instanceof RoundInfo) {
-			roundInfoController.setRoundInfo(arg);
+		} else if (arg instanceof CompetitionInfo) {
+			competitionInfoController.setComeptitionInfo(arg);
 		}
 	}
 
@@ -75,7 +76,7 @@ public class NetworkClientController implements Observer {
 		this.gymCupInfoController = gymCupInfoController;
 	}
 
-	public void setRoundInfoController(RoundInfoController roundInfoController) {
-		this.roundInfoController = roundInfoController;
+	public void setRoundInfoController(CompetitionInfoController competitionInfoController) {
+		this.competitionInfoController = competitionInfoController;
 	}
 }
