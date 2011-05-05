@@ -3,7 +3,6 @@ package ch.hsr.gymtastic.application;
 import javax.swing.UIManager;
 
 import ch.hsr.gymtastic.application.controller.server.GymCupController;
-import ch.hsr.gymtastic.application.controller.server.NetworkServerController;
 import ch.hsr.gymtastic.presentation.server.ServerFrame;
 
 public class Gymtastic_Server {
@@ -31,7 +30,7 @@ public class Gymtastic_Server {
 //		} catch (ConnectException e) {
 //			e.printStackTrace();
 //		}
-		ServerFrame serverFrame = new ServerFrame(new GymCupController());
+		new ServerFrame(new GymCupController());
 
 	}
 

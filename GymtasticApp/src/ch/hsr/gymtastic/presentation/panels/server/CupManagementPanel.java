@@ -540,8 +540,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 								pathImport);
 						startList.readImport();
 						// startList.toString();
-						SquadCreator squadCreator = new SquadCreator(startList,
-								gymCupController.getGymCup());
+						SquadCreator squadCreator = new SquadCreator(startList);
 						squadCreator.insertImportToDB();
 						gymCupController.getGymCup().importAllSquads();
 						gymCupController.getGymCup().setSquads(

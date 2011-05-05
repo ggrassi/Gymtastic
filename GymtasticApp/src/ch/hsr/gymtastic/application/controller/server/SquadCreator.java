@@ -27,11 +27,9 @@ public class SquadCreator {
 
 	private ImportStartList startList;
 	private DBConnection db;
-	private GymCup gymCup;
 
-	public SquadCreator(ImportStartList importStartList, GymCup gymCup) {
+	public SquadCreator(ImportStartList importStartList) {
 		this.startList = importStartList;
-		this.gymCup = gymCup;
 	}
 
 	public Map<Integer, Squad> createSquads() {
