@@ -22,7 +22,7 @@ import ch.hsr.gymtastic.application.controller.server.GymCupController;
 import ch.hsr.gymtastic.application.models.AthleteDataTableModel;
 import ch.hsr.gymtastic.presentation.server.AthleteDetailFrame;
 
-public class AthletePanel extends JPanel implements Observer{
+public class AthletePanel extends JPanel implements Observer {
 
 	/**
 	 * 
@@ -44,7 +44,6 @@ public class AthletePanel extends JPanel implements Observer{
 	private JButton btnRemoveAthlete;
 	private JScrollPane scrollPaneAthletes;
 	private GymCupController gymCupController;
-
 
 	public AthletePanel(GymCupController gymCupController) {
 		this.gymCupController = gymCupController;
@@ -222,15 +221,16 @@ public class AthletePanel extends JPanel implements Observer{
 		panelAthletes.add(scrollPaneAthletes, gbc_scrollPaneAthletes);
 
 		tableAthletes = new JTable();
-		tableAthletes
-				.setModel(new AthleteDataTableModel(gymCupController));
+		tableAthletes.setModel(new AthleteDataTableModel(gymCupController));
 		scrollPaneAthletes.setViewportView(tableAthletes);
 
 	}
-	
+
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		
+		lblSquadsAmount.setText(""
+				+ gymCupController.getGymCup().getSquads().size());
+
 	}
 
 }

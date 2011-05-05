@@ -607,9 +607,10 @@ public class CupManagementPanel extends JPanel implements Observer {
 		txtFieldName.setText(gymCupController.getGymCup().getName());
 		txtAreaDescr.setText(gymCupController.getGymCup().getDescription());
 		txtAreaSponsors.setText(gymCupController.getGymCup().getSponsors());
-		txtFieldEndDate.setText(DateFormatConverter
-				.convertDateToString(gymCupController.getGymCup()
-						.getEndDate()));
+		txtFieldEndDate
+				.setText(DateFormatConverter
+						.convertDateToString(gymCupController.getGymCup()
+								.getEndDate()));
 		txtFieldStartDate.setText(DateFormatConverter
 				.convertDateToString(gymCupController.getGymCup()
 						.getStartDate()));
@@ -633,13 +634,14 @@ public class CupManagementPanel extends JPanel implements Observer {
 		txtFieldStartDate.setText(DateFormatConverter
 				.convertDateToString(gymCupController.getGymCup()
 						.getStartDate()));
-		txtFieldEndDate.setText(DateFormatConverter
-				.convertDateToString(gymCupController.getGymCup()
-						.getEndDate()));
+		txtFieldEndDate
+				.setText(DateFormatConverter
+						.convertDateToString(gymCupController.getGymCup()
+								.getEndDate()));
 		if (panelLogo.isGenerated()) {
-			panelLogo
-					.setPath(gymCupController.getGymCup().getLogoImagePath());
+			panelLogo.setPath(gymCupController.getGymCup().getLogoImagePath());
 		}
+
 	}
 
 }
