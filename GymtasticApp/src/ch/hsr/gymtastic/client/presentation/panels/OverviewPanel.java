@@ -172,7 +172,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblDeviceText.gridy = 5;
 		panelCupInformation.add(lblDeviceText, gbc_lblDeviceText);
 
-		lblDevice = new JLabel("Ger\u00E4t wurde vom Server noch nicht best\u00E4tigt...");
+		lblDevice = new JLabel("warte auf Best\u00E4tigung vom Server...");
 		GridBagConstraints gbc_lblDevice = new GridBagConstraints();
 		gbc_lblDevice.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblDevice.insets = new Insets(0, 0, 0, 5);
