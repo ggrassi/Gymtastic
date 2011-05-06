@@ -100,7 +100,7 @@ public class OverviewPanel extends JPanel implements Observer {
 				0.0, 0.0, Double.MIN_VALUE };
 		panelCupInformation.setLayout(gbl_panelCupInformation);
 
-		lblCupNameText = new JLabel("Veranstaltungsname:");
+		lblCupNameText = new JLabel("Veranstaltungsname:  ");
 		GridBagConstraints gbc_lblCupNameText = new GridBagConstraints();
 		gbc_lblCupNameText.anchor = GridBagConstraints.WEST;
 		gbc_lblCupNameText.insets = new Insets(0, 0, 5, 5);
@@ -108,7 +108,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblCupNameText.gridy = 0;
 		panelCupInformation.add(lblCupNameText, gbc_lblCupNameText);
 
-		lblCupName = new JLabel("Bitte warten Sie auf Informationen vom Server");
+		lblCupName = new JLabel("warte auf Server...");
 		GridBagConstraints gbc_lblCupName = new GridBagConstraints();
 		gbc_lblCupName.anchor = GridBagConstraints.WEST;
 		gbc_lblCupName.insets = new Insets(0, 0, 5, 5);
@@ -124,7 +124,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblCupLocationText.gridy = 1;
 		panelCupInformation.add(lblCupLocationText, gbc_lblCupLocationText);
 
-		lblCupLocation = new JLabel("Bitte warten Sie auf Informationen vom Server");
+		lblCupLocation = new JLabel("warte auf Server...");
 		GridBagConstraints gbc_lblCupLocation = new GridBagConstraints();
 		gbc_lblCupLocation.anchor = GridBagConstraints.WEST;
 		gbc_lblCupLocation.insets = new Insets(0, 0, 5, 5);
@@ -140,7 +140,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblStartDateText.gridy = 2;
 		panelCupInformation.add(lblStartDateText, gbc_lblStartDateText);
 
-		lblStartDate = new JLabel("Bitte warten Sie auf Informationen vom Server");
+		lblStartDate = new JLabel("warte auf Server...");
 		GridBagConstraints gbc_lblStartDate = new GridBagConstraints();
 		gbc_lblStartDate.anchor = GridBagConstraints.WEST;
 		gbc_lblStartDate.insets = new Insets(0, 0, 5, 5);
@@ -156,7 +156,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblEndDateText.gridy = 3;
 		panelCupInformation.add(lblEndDateText, gbc_lblEndDateText);
 
-		lblEndDate = new JLabel("Bitte warten Sie auf Informationen vom Server");
+		lblEndDate = new JLabel("warte auf Server...");
 		GridBagConstraints gbc_lblEndDate = new GridBagConstraints();
 		gbc_lblEndDate.anchor = GridBagConstraints.WEST;
 		gbc_lblEndDate.insets = new Insets(0, 0, 5, 5);
@@ -172,7 +172,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblDeviceText.gridy = 5;
 		panelCupInformation.add(lblDeviceText, gbc_lblDeviceText);
 
-		lblDevice = new JLabel("Ger\u00E4t wurde vom Server noch nicht best\u00E4tigt.");
+		lblDevice = new JLabel("Ger\u00E4t wurde vom Server noch nicht best\u00E4tigt...");
 		GridBagConstraints gbc_lblDevice = new GridBagConstraints();
 		gbc_lblDevice.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblDevice.insets = new Insets(0, 0, 0, 5);
@@ -202,7 +202,7 @@ public class OverviewPanel extends JPanel implements Observer {
 				0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panelCompetitionInformation.setLayout(gbl_panelCompetitionInformation);
 
-		lblActualCompetition = new JLabel("Wettkampf:");
+		lblActualCompetition = new JLabel("Wettkampf:                 ");
 		GridBagConstraints gbc_lblActualCup = new GridBagConstraints();
 		gbc_lblActualCup.anchor = GridBagConstraints.WEST;
 		gbc_lblActualCup.insets = new Insets(0, 0, 5, 5);
@@ -210,7 +210,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblActualCup.gridy = 0;
 		panelCompetitionInformation.add(lblActualCompetition, gbc_lblActualCup);
 
-		lblActualCompetitionText = new JLabel("");
+		lblActualCompetitionText = new JLabel("warte auf Server...");
 		GridBagConstraints gbc_lblActualCupText = new GridBagConstraints();
 		gbc_lblActualCupText.anchor = GridBagConstraints.WEST;
 		gbc_lblActualCupText.insets = new Insets(0, 0, 5, 0);
@@ -228,7 +228,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		panelCompetitionInformation.add(lblActualRound,
 				gbc_lblActualCompetition);
 
-		lblActualRoundText = new JLabel("");
+		lblActualRoundText = new JLabel("warte auf Server...");
 		GridBagConstraints gbc_lblActualCompetitionText = new GridBagConstraints();
 		gbc_lblActualCompetitionText.anchor = GridBagConstraints.WEST;
 		gbc_lblActualCompetitionText.insets = new Insets(0, 0, 5, 0);
@@ -245,7 +245,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblActualSquad.gridy = 2;
 		panelCompetitionInformation.add(lblActualSquad, gbc_lblActualSquad);
 
-		lblActualSquadText = new JLabel("");
+		lblActualSquadText = new JLabel("warte auf Server...");
 		GridBagConstraints gbc_lblActualSquadText = new GridBagConstraints();
 		gbc_lblActualSquadText.insets = new Insets(0, 0, 5, 0);
 		gbc_lblActualSquadText.anchor = GridBagConstraints.WEST;
@@ -256,9 +256,12 @@ public class OverviewPanel extends JPanel implements Observer {
 
 		lblRoundInfo = new JLabel("STATUS INFO");
 		GridBagConstraints gbc_lblRoundInfo = new GridBagConstraints();
+		gbc_lblRoundInfo.anchor = GridBagConstraints.WEST;
 		gbc_lblRoundInfo.insets = new Insets(0, 0, 0, 5);
 		gbc_lblRoundInfo.gridx = 0;
 		gbc_lblRoundInfo.gridy = 4;
+		gbc_lblRoundInfo.gridwidth = 2;
+		
 		panelCompetitionInformation.add(lblRoundInfo, gbc_lblRoundInfo);
 
 		panelControl = new JPanel();
