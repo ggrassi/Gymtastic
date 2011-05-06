@@ -95,7 +95,7 @@ public class ClientFrame implements Observer {
 		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
 		panelOverview = new OverviewPanel(gymCupInfoController,
-				roundInfoController, squadController, deviceType);
+				roundInfoController, squadController, deviceType, this);
 		tabbedPane.addTab("\u00dcbersicht", null, panelOverview, null);
 
 	}
@@ -106,12 +106,19 @@ public class ClientFrame implements Observer {
 
 	}
 
-	private void createPanels() {
+	public void createPanels() {
 		if (panelActualSquad == null && panelEvaluation == null) {
+			panelEvaluation = new EvaluationPanel(squadController, deviceType, this);
+			tabbedPane.addTab("Bewertung", null, panelEvaluation, null);
 			panelActualSquad = new ActualSquadPanel(actualSquad, deviceType);
 			tabbedPane.addTab("Aktuelle Riege", null, panelActualSquad, null);
-			panelEvaluation = new EvaluationPanel(squadController, deviceType);
-			tabbedPane.addTab("Bewertung", null, panelEvaluation, null);
+		}
+
+	}
+
+	public void setFocusOnPanel(int panelIndex) {
+		if (tabbedPane.getComponentAt(panelIndex) != null) {
+			tabbedPane.getModel().setSelectedIndex(panelIndex);
 		}
 
 	}
@@ -123,7 +130,6 @@ public class ClientFrame implements Observer {
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		actualSquad = squadController.getSquad();
-		createPanels();
 
 	}
 

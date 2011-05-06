@@ -14,6 +14,9 @@ import javax.swing.border.TitledBorder;
 import ch.hsr.gymtastic.client.application.models.AthleteOverviewTableModel;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
+import java.awt.BorderLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 public class ActualSquadPanel extends JPanel {
 	/**
@@ -22,14 +25,17 @@ public class ActualSquadPanel extends JPanel {
 	private static final long serialVersionUID = 9138092871453323277L;
 
 	private JTable tableOverview;
-	private JPanel panelAthletesBorder;
+	private JPanel panelAthletesTable;
 	private JPanel panelAthletes;
 	private JScrollPane scrollPane;
-	private JPanel panelAthleteInfoBorder;
-	private JPanel panelAthleteInfo;
 	private AthleteOverviewTableModel tableOverviewModel;
 	private Squad actualSquad;
 	private DeviceType deviceType;
+	private JPanel panelAthleteInformation;
+	private JPanel panel;
+	private JButton btnNewButton;
+	private JButton btnAthletBewerten;
+	private JLabel lblSieHaben;
 
 	public ActualSquadPanel(Squad actualSquad, DeviceType deviceType) {
 		this.actualSquad = actualSquad;
@@ -44,79 +50,75 @@ public class ActualSquadPanel extends JPanel {
 		gridBagLayout.columnWidths = new int[] { 0, 0 };
 		gridBagLayout.rowHeights = new int[] { 0, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-
-		panelAthletesBorder = new JPanel();
-		panelAthletesBorder.setBorder(new TitledBorder(UIManager
-				.getBorder("TitledBorder.border"), "Athleten",
-				TitledBorder.LEADING, TitledBorder.TOP, null,
-				new Color(0, 0, 0)));
-		GridBagConstraints gbc_panelAthletesBorder = new GridBagConstraints();
-		gbc_panelAthletesBorder.fill = GridBagConstraints.BOTH;
-		gbc_panelAthletesBorder.insets = new Insets(0, 0, 5, 0);
-		gbc_panelAthletesBorder.gridx = 0;
-		gbc_panelAthletesBorder.gridy = 0;
-		add(panelAthletesBorder, gbc_panelAthletesBorder);
-		GridBagLayout gbl_panelAthletesBorder = new GridBagLayout();
-		gbl_panelAthletesBorder.columnWidths = new int[] { 0, 0 };
-		gbl_panelAthletesBorder.rowHeights = new int[] { 0, 0 };
-		gbl_panelAthletesBorder.columnWeights = new double[] { 1.0,
-				Double.MIN_VALUE };
-		gbl_panelAthletesBorder.rowWeights = new double[] { 1.0,
-				Double.MIN_VALUE };
-		panelAthletesBorder.setLayout(gbl_panelAthletesBorder);
-
-		panelAthletes = new JPanel();
-		GridBagConstraints gbc_panelAthletes = new GridBagConstraints();
-		gbc_panelAthletes.fill = GridBagConstraints.BOTH;
-		gbc_panelAthletes.gridx = 0;
-		gbc_panelAthletes.gridy = 0;
-		panelAthletesBorder.add(panelAthletes, gbc_panelAthletes);
-		GridBagLayout gbl_panelAthletes = new GridBagLayout();
-		gbl_panelAthletes.columnWidths = new int[] { 0, 0 };
-		gbl_panelAthletes.rowHeights = new int[] { 0, 0 };
-		gbl_panelAthletes.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_panelAthletes.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
-		panelAthletes.setLayout(gbl_panelAthletes);
-
-		scrollPane = new JScrollPane();
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 0;
-		gbc_scrollPane.gridy = 0;
-		panelAthletes.add(scrollPane, gbc_scrollPane);
-
-		tableOverview = new JTable();
 		tableOverviewModel = new AthleteOverviewTableModel(actualSquad, deviceType);
-		tableOverview.setModel(tableOverviewModel);
-		scrollPane.setViewportView(tableOverview);
-
-		panelAthleteInfoBorder = new JPanel();
-		panelAthleteInfoBorder.setBorder(new TitledBorder(UIManager
-				.getBorder("TitledBorder.border"), "Information",
-				TitledBorder.LEADING, TitledBorder.TOP, null,
-				new Color(0, 0, 0)));
-		GridBagConstraints gbc_panelAthleteInfoBorder = new GridBagConstraints();
-		gbc_panelAthleteInfoBorder.fill = GridBagConstraints.BOTH;
-		gbc_panelAthleteInfoBorder.gridx = 0;
-		gbc_panelAthleteInfoBorder.gridy = 1;
-		add(panelAthleteInfoBorder, gbc_panelAthleteInfoBorder);
-		GridBagLayout gbl_panelAthleteInfoBorder = new GridBagLayout();
-		gbl_panelAthleteInfoBorder.columnWidths = new int[] { 0, 0 };
-		gbl_panelAthleteInfoBorder.rowHeights = new int[] { 0, 0 };
-		gbl_panelAthleteInfoBorder.columnWeights = new double[] { 1.0,
-				Double.MIN_VALUE };
-		gbl_panelAthleteInfoBorder.rowWeights = new double[] { 1.0,
-				Double.MIN_VALUE };
-		panelAthleteInfoBorder.setLayout(gbl_panelAthleteInfoBorder);
-
-		panelAthleteInfo = new JPanel();
-		GridBagConstraints gbc_panelAthleteInfo = new GridBagConstraints();
-		gbc_panelAthleteInfo.fill = GridBagConstraints.BOTH;
-		gbc_panelAthleteInfo.gridx = 0;
-		gbc_panelAthleteInfo.gridy = 0;
-		panelAthleteInfoBorder.add(panelAthleteInfo, gbc_panelAthleteInfo);
+				
+				panelAthleteInformation = new JPanel();
+				panelAthleteInformation.setBorder(new TitledBorder(null, "Information", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				GridBagConstraints gbc_panelAthleteInformation = new GridBagConstraints();
+				gbc_panelAthleteInformation.insets = new Insets(0, 0, 5, 0);
+				gbc_panelAthleteInformation.fill = GridBagConstraints.BOTH;
+				gbc_panelAthleteInformation.gridx = 0;
+				gbc_panelAthleteInformation.gridy = 0;
+				add(panelAthleteInformation, gbc_panelAthleteInformation);
+				panelAthleteInformation.setLayout(new BorderLayout(0, 0));
+				
+				panel = new JPanel();
+				panelAthleteInformation.add(panel, BorderLayout.SOUTH);
+				panel.setLayout(new BorderLayout(0, 0));
+				
+				btnNewButton = new JButton("Bewertung abschliessen");
+				panel.add(btnNewButton, BorderLayout.EAST);
+				
+				btnAthletBewerten = new JButton("Athlet bewerten");
+				panel.add(btnAthletBewerten, BorderLayout.WEST);
+				
+				lblSieHaben = new JLabel("Sie haben 5 von 7 Athleten bewertet.");
+				panelAthleteInformation.add(lblSieHaben, BorderLayout.CENTER);
+		
+				panelAthletesTable = new JPanel();
+				panelAthletesTable.setBorder(new TitledBorder(UIManager
+						.getBorder("TitledBorder.border"), "Athleten",
+						TitledBorder.LEADING, TitledBorder.TOP, null,
+						new Color(0, 0, 0)));
+				GridBagConstraints gbc_panelAthletesTable = new GridBagConstraints();
+				gbc_panelAthletesTable.fill = GridBagConstraints.BOTH;
+				gbc_panelAthletesTable.gridx = 0;
+				gbc_panelAthletesTable.gridy = 1;
+				add(panelAthletesTable, gbc_panelAthletesTable);
+				GridBagLayout gbl_panelAthletesTable = new GridBagLayout();
+				gbl_panelAthletesTable.columnWidths = new int[] { 0, 0 };
+				gbl_panelAthletesTable.rowHeights = new int[] { 0, 0 };
+				gbl_panelAthletesTable.columnWeights = new double[] { 1.0,
+						Double.MIN_VALUE };
+				gbl_panelAthletesTable.rowWeights = new double[] { 1.0,
+						Double.MIN_VALUE };
+				panelAthletesTable.setLayout(gbl_panelAthletesTable);
+				
+						panelAthletes = new JPanel();
+						GridBagConstraints gbc_panelAthletes = new GridBagConstraints();
+						gbc_panelAthletes.fill = GridBagConstraints.BOTH;
+						gbc_panelAthletes.gridx = 0;
+						gbc_panelAthletes.gridy = 0;
+						panelAthletesTable.add(panelAthletes, gbc_panelAthletes);
+						GridBagLayout gbl_panelAthletes = new GridBagLayout();
+						gbl_panelAthletes.columnWidths = new int[] { 0, 0 };
+						gbl_panelAthletes.rowHeights = new int[] { 0, 0 };
+						gbl_panelAthletes.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+						gbl_panelAthletes.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
+						panelAthletes.setLayout(gbl_panelAthletes);
+						
+								scrollPane = new JScrollPane();
+								GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+								gbc_scrollPane.fill = GridBagConstraints.BOTH;
+								gbc_scrollPane.gridx = 0;
+								gbc_scrollPane.gridy = 0;
+								panelAthletes.add(scrollPane, gbc_scrollPane);
+								
+										tableOverview = new JTable();
+										tableOverview.setModel(tableOverviewModel);
+										scrollPane.setViewportView(tableOverview);
 	}
 
 	private void initListeners() {

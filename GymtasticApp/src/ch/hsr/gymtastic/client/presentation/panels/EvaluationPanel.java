@@ -20,6 +20,7 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.client.application.controller.SquadController;
+import ch.hsr.gymtastic.client.presentation.frames.ClientFrame;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Mark;
@@ -68,11 +69,14 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private SquadController squadController;
 	private Athlete athlete;
 	private final DeviceType deviceType;
+	private JButton btnOverview;
+	private ClientFrame frameClient;
 	
 	public EvaluationPanel(final SquadController squadController,
-			DeviceType deviceType) {
+			DeviceType deviceType, ClientFrame frameClient) {
 		this.squadController = squadController;
 		this.deviceType = deviceType;
+		this.frameClient = frameClient;
 		initGUI();
 		initListeners();
 	
@@ -98,6 +102,12 @@ public class EvaluationPanel extends JPanel implements Observer {
 				checkButtons();
 			}
 
+		});
+		
+		btnOverview.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frameClient.setFocusOnPanel(2);
+			}
 		});
 
 	}
@@ -126,6 +136,13 @@ public class EvaluationPanel extends JPanel implements Observer {
 				Double.MIN_VALUE };
 		gbl_panelSouthCenter.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		panelSouthCenter.setLayout(gbl_panelSouthCenter);
+		
+		btnOverview = new JButton("Zur aktuellen Riege");
+		
+		GridBagConstraints gbc_btnOverview = new GridBagConstraints();
+		gbc_btnOverview.gridx = 0;
+		gbc_btnOverview.gridy = 0;
+		panelSouthCenter.add(btnOverview, gbc_btnOverview);
 
 		panelCenter = new JPanel();
 		add(panelCenter, BorderLayout.CENTER);

@@ -19,6 +19,7 @@ import javax.swing.border.TitledBorder;
 import ch.hsr.gymtastic.client.application.controller.CompetitionInfoController;
 import ch.hsr.gymtastic.client.application.controller.GymCupInfoController;
 import ch.hsr.gymtastic.client.application.controller.SquadController;
+import ch.hsr.gymtastic.client.presentation.frames.ClientFrame;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.GymCupClientInfo;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
@@ -54,10 +55,13 @@ public class OverviewPanel extends JPanel implements Observer {
 	private SquadController squadController;
 	private JLabel lblRoundInfo;
 	private DeviceType deviceType;
+	private ClientFrame frameClient;
+	private JLabel lblPlaceholder;
 
 	public OverviewPanel(GymCupInfoController gymCupInfoController,
 			CompetitionInfoController competitionInfoController,
-			SquadController squadController, DeviceType deviceType) {
+			SquadController squadController, DeviceType deviceType,
+			ClientFrame frameClient) {
 		this.gymCupInfoController = gymCupInfoController;
 		this.competitionInfoController = competitionInfoController;
 		this.squadController = squadController;
@@ -65,6 +69,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		this.gymCupInfoController.addObserver(this);
 		this.competitionInfoController.addObserver(this);
 		this.squadController.addObserver(this);
+		this.frameClient = frameClient;
 		initGUI();
 		initListeners();
 	}
@@ -253,15 +258,24 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblActualSquadText.gridy = 2;
 		panelCompetitionInformation.add(lblActualSquadText,
 				gbc_lblActualSquadText);
+		
+		lblPlaceholder = new JLabel(" ");
+		GridBagConstraints gbc_lblPlaceholder = new GridBagConstraints();
+		gbc_lblPlaceholder.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPlaceholder.gridx = 0;
+		gbc_lblPlaceholder.gridy = 3;
+		panelCompetitionInformation.add(lblPlaceholder, gbc_lblPlaceholder);
 
-		lblRoundInfo = new JLabel("STATUS INFO");
+		lblRoundInfo = new JLabel("Status: Bitte warten Sie auf den Server");
+		lblRoundInfo.setOpaque(true);
+		lblRoundInfo.setForeground(Color.BLACK);
+		lblRoundInfo.setBackground(Color.YELLOW);
 		GridBagConstraints gbc_lblRoundInfo = new GridBagConstraints();
-		gbc_lblRoundInfo.anchor = GridBagConstraints.WEST;
-		gbc_lblRoundInfo.insets = new Insets(0, 0, 0, 5);
+		gbc_lblRoundInfo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblRoundInfo.gridx = 0;
 		gbc_lblRoundInfo.gridy = 4;
-		gbc_lblRoundInfo.gridwidth = 2;
-		
+		gbc_lblRoundInfo.gridwidth = 3;
+
 		panelCompetitionInformation.add(lblRoundInfo, gbc_lblRoundInfo);
 
 		panelControl = new JPanel();
@@ -274,15 +288,20 @@ public class OverviewPanel extends JPanel implements Observer {
 		panelControl.setLayout(new BorderLayout(0, 0));
 
 		btnStartRound = new JButton("Durchgang starten");
-		btnStartRound.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		btnStartRound.setEnabled(false);
+
 		panelControl.add(btnStartRound, BorderLayout.EAST);
 
 	}
 
 	private void initListeners() {
+
+		btnStartRound.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frameClient.createPanels();
+				frameClient.setFocusOnPanel(1);
+			}
+		});
 	}
 
 	@Override
@@ -301,12 +320,19 @@ public class OverviewPanel extends JPanel implements Observer {
 		lblActualRoundText.setText("" + squadController.getRoundNr());
 		lblActualSquadText
 				.setText("" + squadController.getSquad().getSquadId());
+		btnStartRound.setEnabled(true);
+		lblRoundInfo.setText("Status: Der Durchgang Nr. " + squadController.getRoundNr() + " wurde freigeschaltet. Sie kšnnen die Bewertung der Riege " + squadController.getSquad().getSquadId() + " starten.");
 
 	}
 
 	private void setCompetitionInfos() {
 		lblActualCompetitionText.setText(competitionInfoController
 				.getCompetitionInfo().getCompetitionName());
+		lblRoundInfo
+				.setText("Status: Der Wettkampf "
+						+ competitionInfoController.getCompetitionInfo()
+								.getCompetitionName()
+						+ " wurde freigeschaltet. Bitte warten Sie auf die Freigabe des Durchgangs.");
 
 	}
 
@@ -320,6 +346,8 @@ public class OverviewPanel extends JPanel implements Observer {
 				.convertDateToString(gymCupClientInfo.getStartDate()));
 		lblEndDate.setText(DateFormatConverter
 				.convertDateToString(gymCupClientInfo.getEndDate()));
+		lblRoundInfo
+				.setText("Status: Der Cup wurde auf dem Server erstellt. Bitte warten Sie auf die Freigabe des Wettkampfes.");
 	}
 
 }

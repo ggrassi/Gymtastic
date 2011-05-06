@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -83,11 +84,16 @@ public class ClientConnectionFrame {
 					networkController.setServerIP(txtIpAddress.getText());
 					networkController.connect((DeviceType) cmbDeviceType
 							.getSelectedItem());
+					
+					ClientFrame.newClientFrame(squadController, networkController);
+					frmClientConnection.dispose();
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(frmClientConnection,
+						    "Die Verbindung zum Server ist fehlgeschlagen.",
+						    "Verbindungsfehler",
+						    JOptionPane.ERROR_MESSAGE);
 				}
-				ClientFrame.newClientFrame(squadController, networkController);
-				frmClientConnection.dispose();
+				
 
 			}
 		});
