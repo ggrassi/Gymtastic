@@ -90,7 +90,7 @@ public class ServerFrame implements Observer {
 			}
 		});
 	}
-	
+
 	/*
 	 * TODO: DELETE emulateCup()
 	 */
@@ -163,10 +163,10 @@ public class ServerFrame implements Observer {
 		roundAllocation = new RoundAllocationPanel(gymCupController);
 		tabbedPaneServer.addTab("Wettkampfverwaltung", null, panelCompetition,
 				null);
-		tabbedPaneServer.addTab("Athleten", null, panelAthlete, null);
-		tabbedPaneServer.addTab("Kampfrichter", null, panelJudge, null);
 		tabbedPaneServer.addTab("Durchgangssteuerung", null, roundAllocation,
 				null);
+		tabbedPaneServer.addTab("Athleten", null, panelAthlete, null);
+		tabbedPaneServer.addTab("Kampfrichter", null, panelJudge, null);
 		tabbedPaneServer.addTab("Ranglistengenerierung", null, panelRanking,
 				null);
 
