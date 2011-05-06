@@ -96,7 +96,7 @@ public class ClientFrame implements Observer {
 
 		panelOverview = new OverviewPanel(gymCupInfoController,
 				roundInfoController, squadController, deviceType);
-		tabbedPane.addTab("�bersicht", null, panelOverview, null);
+		tabbedPane.addTab("\u00dcbersicht", null, panelOverview, null);
 
 	}
 
