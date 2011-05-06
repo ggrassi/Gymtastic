@@ -113,7 +113,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 		btnPrevious.setEnabled(false);
 		panelSouth.add(btnPrevious, BorderLayout.WEST);
 
-		btnNext = new JButton("Nächster Athlet");
+		btnNext = new JButton("N\u00e4chster Athlet");
 
 		panelSouth.add(btnNext, BorderLayout.EAST);
 
