@@ -1,6 +1,7 @@
 package ch.hsr.gymtastic.server.application.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -11,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.hsr.gymtastic.domain.DeviceType;
-import ch.hsr.gymtastic.server.application.controller.ClientAllocator;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 import ch.hsr.gymtastic.technicalServices.network.RMIClientInterface;
 
@@ -74,6 +74,11 @@ public class ClientAllocatorTest {
 	}
 
 	@Test
+	public void testEmpty() {
+		assertTrue(clientAllocator.isEmpty());
+	}
+
+	@Test
 	public void testAddAll() {
 		clientAllocator.addAll(allClients);
 		assertEquals(allClients.size(), clientAllocator.size());
@@ -83,7 +88,20 @@ public class ClientAllocatorTest {
 	public void testSimpleAdd() {
 		clientAllocator.addAllocation(DeviceType.VAULT, clientInformationVault);
 		assertEquals(clientInformationVault.getStub(), clientAllocator
-				.getClientInformation(DeviceType.VAULT));
+				.getClientInformation(DeviceType.VAULT).getStub());
+	}
+
+	@Test
+	public void testAllocatedClients() {
+		clientAllocator.addAll(allClients);
+		assertTrue(clientAllocator.getAllocatedClients().contains(
+				clientFloorExcercise));
+		assertTrue(clientAllocator.getAllocatedClients().contains(
+				clientStillRings));
+		assertTrue(clientAllocator.getAllocatedClients().contains(
+				clientPommelHorse));
+		assertTrue(clientAllocator.getAllocatedClients().contains(clientVault));
+
 	}
 
 	private void fillVector() {

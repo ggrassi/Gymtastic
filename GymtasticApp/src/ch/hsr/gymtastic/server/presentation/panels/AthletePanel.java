@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
@@ -47,6 +48,7 @@ public class AthletePanel extends JPanel implements Observer {
 
 	public AthletePanel(GymCupController gymCupController) {
 		this.gymCupController = gymCupController;
+		this.gymCupController.getGymCup().addObserver(this);
 		initGUI();
 		initListeners();
 	}
@@ -222,6 +224,7 @@ public class AthletePanel extends JPanel implements Observer {
 
 		tableAthletes = new JTable();
 		tableAthletes.setModel(new AthleteDataTableModel(gymCupController));
+		tableAthletes.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPaneAthletes.setViewportView(tableAthletes);
 
 	}

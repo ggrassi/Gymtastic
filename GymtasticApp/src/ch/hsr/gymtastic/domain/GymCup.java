@@ -11,10 +11,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.TypedQuery;
-
-import ch.hsr.gymtastic.server.application.controller.ClientAllocator;
-import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
 @Entity
 public class GymCup extends Observable {
@@ -26,7 +22,6 @@ public class GymCup extends Observable {
 	private Map<Integer, Squad> squads = new HashMap<Integer, Squad>();
 	@OneToMany(cascade = CascadeType.ALL)
 	private ArrayList<Squad> squadsUnallocated = new ArrayList<Squad>();
-	private ClientAllocator clientAlloc;
 	private GregorianCalendar startDate;
 	private GregorianCalendar endDate;
 	private String sponsors;
@@ -72,37 +67,7 @@ public class GymCup extends Observable {
 
 	}
 
-	public void importGymCupToDB() {
-		DBConnection db = new DBConnection();
-		db.persist(this);
-		db.commit();
-		db.closeConnection();
-	}
-
-	public void importAllSquads() {
-		DBConnection db = new DBConnection();
-		TypedQuery<Squad> query = db.getEm().createQuery(
-				"SELECT p FROM Squad p", Squad.class);
-		List<Squad> results = query.getResultList();
-		GymCup tmpCup;
-		Squad tmpSquad;
-		for (Squad p : results) {
-			tmpCup = db.getEm().find(GymCup.class, this.getId());
-			tmpSquad = db.getEm().find(Squad.class, p.getId());
-			tmpCup.addSquad(tmpSquad.getSquadId(), tmpSquad);
-			tmpCup.addSquadUnallocated(tmpSquad);
-			db.persist(tmpCup);
-			squads.put(p.getSquadId(), p);
-			squadsUnallocated.add(p);
-
-		}
-
-		db.commit();
-		db.closeConnection();
-
-	}
-
-	private void addSquadUnallocated(Squad s) {
+	public void addSquadUnallocated(Squad s) {
 		squadsUnallocated.add(s);
 	}
 
@@ -134,15 +99,6 @@ public class GymCup extends Observable {
 
 	public void setSquads(Map<Integer, Squad> squads) {
 		this.squads = squads;
-	}
-
-	public ClientAllocator getClientAlloc() {
-		return clientAlloc;
-	}
-
-	public void setClientAlloc(ClientAllocator clientAlloc) {
-		this.clientAlloc = clientAlloc;
-		updateObservers();
 	}
 
 	public GregorianCalendar getStartDate() {
@@ -191,34 +147,37 @@ public class GymCup extends Observable {
 		this.logoImagePath = logoImagePath;
 		updateObservers();
 	}
+	/*
+	 * TODO: Delete unused Methods
+	 */
 
-	public void setStartDateStr(String strStartDate) {
-		DBConnection db = new DBConnection();
-		GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
-		extractDateInto(strStartDate, tmpCup);
-		db.commit();
-		db.closeConnection();
-	}
+//	public void setStartDateStr(String strStartDate) {
+//		DBConnection db = new DBConnection();
+//		GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
+//		extractDateInto(strStartDate, tmpCup);
+//		db.commit();
+//		db.closeConnection();
+//	}
 
-	private void extractDateInto(String strDate, GymCup tmpCup) {
-		// if (!strDate.equals(null)) {
-		if (!strDate.equals("")) {
-			String[] tmp = strDate.split("\\.");
+//	private void extractDateInto(String strDate, GymCup tmpCup) {
+//		// if (!strDate.equals(null)) {
+//		if (!strDate.equals("")) {
+//			String[] tmp = strDate.split("\\.");
+//
+//			tmpCup.setStartDate(new GregorianCalendar(Integer.parseInt(tmp[2]),
+//					Integer.parseInt(tmp[1]), Integer.parseInt(tmp[0])));
+//		} else {
+//			tmpCup.setStartDate(new GregorianCalendar());
+//		}
+//	}
 
-			tmpCup.setStartDate(new GregorianCalendar(Integer.parseInt(tmp[2]),
-					Integer.parseInt(tmp[1]), Integer.parseInt(tmp[0])));
-		} else {
-			tmpCup.setStartDate(new GregorianCalendar());
-		}
-	}
-
-	public void setEndDateStr(String strEndDate) {
-		DBConnection db = new DBConnection();
-		GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
-		extractDateInto(strEndDate, tmpCup);
-		db.commit();
-		db.closeConnection();
-	}
+//	public void setEndDateStr(String strEndDate) {
+//		DBConnection db = new DBConnection();
+//		GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
+//		extractDateInto(strEndDate, tmpCup);
+//		db.commit();
+//		db.closeConnection();
+//	}
 
 	public Boolean addCompetition(Competition competition) {
 		if (competition != null) {

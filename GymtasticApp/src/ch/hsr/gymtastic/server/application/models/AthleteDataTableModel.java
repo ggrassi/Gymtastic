@@ -25,7 +25,7 @@ public class AthleteDataTableModel extends AbstractTableModel implements
 
 	public AthleteDataTableModel(GymCupController gymCupController) {
 		this.gymCupController = gymCupController;
-		this.gymCupController.addObserver(this);
+		this.gymCupController.getGymCup().addObserver(this);
 	}
 	
 	@Override

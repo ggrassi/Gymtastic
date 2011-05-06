@@ -8,7 +8,6 @@ import java.util.TreeSet;
 
 import ch.hsr.gymtastic.domain.Association;
 import ch.hsr.gymtastic.domain.Athlete;
-import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
@@ -43,8 +42,7 @@ public class SquadCreator {
 		}
 
 		for (List<String> line : importList) {
-			squadMap
-					.get(Integer.parseInt(line.get(squadPositionImport)))
+			squadMap.get(Integer.parseInt(line.get(squadPositionImport)))
 					.addAthlet(
 							new Athlete(
 									Integer.parseInt(line
@@ -58,10 +56,8 @@ public class SquadCreator {
 									Integer.parseInt(line
 											.get(yearPositionImport)),
 									new Association(
-											line
-													.get(associationNamePositionImport),
-											line
-													.get(associationPlacePositionImport))));
+											line.get(associationNamePositionImport),
+											line.get(associationPlacePositionImport))));
 		}
 
 		return squadMap;
@@ -94,14 +90,14 @@ public class SquadCreator {
 
 			Athlete atemp = new Athlete(Integer.parseInt(line
 					.get(squadPositionImport)), Integer.parseInt(line
-					.get(startNrPositionImport)), line
-					.get(progClassPositionImport), line
-					.get(firstNamePositionImport), line
-					.get(lastNamePositionImport), line
-					.get(addressPositionImport), Integer.parseInt(line
-					.get(yearPositionImport)), new Association(line
-					.get(associationNamePositionImport), line
-					.get(associationPlacePositionImport)));
+					.get(startNrPositionImport)),
+					line.get(progClassPositionImport),
+					line.get(firstNamePositionImport),
+					line.get(lastNamePositionImport),
+					line.get(addressPositionImport), Integer.parseInt(line
+							.get(yearPositionImport)), new Association(
+							line.get(associationNamePositionImport),
+							line.get(associationPlacePositionImport)));
 			db.persist(atemp);
 			temp.addAthlet(atemp);
 			db.persist(temp);

@@ -33,11 +33,12 @@ import javax.swing.border.TitledBorder;
 import javax.swing.text.DateFormatter;
 
 import ch.hsr.gymtastic.domain.GymCup;
-import ch.hsr.gymtastic.presentation.imports.FileExtensionFilter;
+import ch.hsr.gymtastic.server.application.controller.DBController;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.application.controller.SquadCreator;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
+import ch.hsr.gymtastic.technicalServices.utils.FileExtensionFilter;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
 
 public class CupManagementPanel extends JPanel implements Observer {
@@ -537,18 +538,25 @@ public class CupManagementPanel extends JPanel implements Observer {
 					}
 
 					if (isNewImportList) {
-						gymCup.importGymCupToDB();
-						gymCup.setStartDateStr(txtFieldStartDate.getText());
-						gymCup.setEndDateStr(txtFieldEndDate.getText());
+						DBController.importGymCupToDB(gymCup);
+						/*
+						 * TODO: Daturm richtig setzen
+						 */
+						try {
+							gymCup.setStartDate(DateFormatConverter.convertStringToDate(txtFieldStartDate.getText()));
+							gymCup.setEndDate(DateFormatConverter.convertStringToDate(txtFieldEndDate.getText()));
+						} catch (ParseException e) {
+						}
+//						gymCup.setStartDateStr(txtFieldStartDate.getText());
+//						gymCup.setEndDateStr(txtFieldEndDate.getText());
 						gymCupController.setGymCup(gymCup);
-
 						ImportStartList startList = new ImportStartList(
 								pathImport);
 						startList.readImport();
 						// startList.toString();
 						SquadCreator squadCreator = new SquadCreator(startList);
 						squadCreator.insertImportToDB();
-						gymCupController.getGymCup().importAllSquads();
+						DBController.importAllSquads(gymCupController.getGymCup());
 						gymCupController.getGymCup().setSquads(
 								squadCreator.createSquads());
 					}

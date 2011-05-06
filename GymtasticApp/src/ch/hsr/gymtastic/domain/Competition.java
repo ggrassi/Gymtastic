@@ -9,8 +9,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-import ch.hsr.gymtastic.server.application.controller.RoundAllocator;
-
 @Entity
 public class Competition extends Observable {
 	@OneToMany(cascade = CascadeType.ALL)
@@ -20,7 +18,6 @@ public class Competition extends Observable {
 	private String endTime;
 	private GregorianCalendar date;
 	private String programClass;
-	private RoundAllocator roundAllocation;
 
 	public Competition(String description, GregorianCalendar date,
 			String startTime, String endTime, String programClass) {
@@ -50,15 +47,6 @@ public class Competition extends Observable {
 
 	public void setDescription(String description) {
 		this.description = description;
-		updateObservers();
-	}
-
-	public RoundAllocator getRoundAllocation() {
-		return roundAllocation;
-	}
-
-	public void setRoundAllocation(RoundAllocator roundAllocation) {
-		this.roundAllocation = roundAllocation;
 		updateObservers();
 	}
 

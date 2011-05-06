@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.presentation.imports;
+package ch.hsr.gymtastic.technicalServices.utils;
 
 import java.io.File;
 
