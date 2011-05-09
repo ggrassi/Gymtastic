@@ -36,7 +36,6 @@ import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.server.application.controller.DBController;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.application.controller.SquadCreator;
-import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 import ch.hsr.gymtastic.technicalServices.utils.FileExtensionFilter;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
@@ -227,8 +226,8 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_lblEndDate.gridy = 2;
 		panelGeneralInfo.add(lblEndDate, gbc_lblEndDate);
 
-		txtFieldEndDate = new JFormattedTextField(new DateFormatter(DateFormat
-				.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
+		txtFieldEndDate = new JFormattedTextField(new DateFormatter(
+				DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
 		txtFieldEndDate.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -479,7 +478,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 					isNewCup = false;
 					// gymCupController.setExistingGymcup(pathImport);
 					System.out.println(path);
-					DBConnection.setPath(pathCup);
+					DBController.setPath(pathCup);
 					gymCupController.setExistingGymcup();
 					btnImportStartList.setEnabled(false);
 					btnOpenCup.setEnabled(false);
@@ -541,10 +540,8 @@ public class CupManagementPanel extends JPanel implements Observer {
 						gymCup.setStartDate(DateFormatConverter
 								.convertStringToDate(txtFieldStartDate
 										.getText()));
-						gymCup
-								.setEndDate(DateFormatConverter
-										.convertStringToDate(txtFieldEndDate
-												.getText()));
+						gymCup.setEndDate(DateFormatConverter
+								.convertStringToDate(txtFieldEndDate.getText()));
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
@@ -574,13 +571,13 @@ public class CupManagementPanel extends JPanel implements Observer {
 								.getGymCup());
 						gymCupController.getGymCup().setSquads(
 								squadCreator.createSquads());
-						isNewCup=false;
+						isNewCup = false;
 					}
 
 				} else {
-					// TODO 
-					//änderungen am cup abspeichern
-					
+					// TODO
+					// änderungen am cup abspeichern
+
 				}
 			}
 		});
@@ -665,8 +662,8 @@ public class CupManagementPanel extends JPanel implements Observer {
 				.setText(DateFormatConverter
 						.convertDateToString(gymCupController.getGymCup()
 								.getEndDate()));
-		
-		if(!isNewCup && !isNewImage){
+
+		if (!isNewCup && !isNewImage) {
 			panelLogo.setPath(gymCupController.getGymCup().getLogoImagePath());
 		}
 		lblLogo.setText("");

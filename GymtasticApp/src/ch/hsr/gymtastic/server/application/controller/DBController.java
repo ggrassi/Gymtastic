@@ -38,5 +38,8 @@ public class DBController {
 		dbConnection.closeConnection();
 
 	}
+	public static void setPath(String path){
+		DBConnection.setPath(path);
+	}
 
 }

@@ -71,8 +71,6 @@ public class SquadsSelectionFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					// ServerFrame window = new ServerFrame();
-					// window.frameServer.setVisible(true);
 					squadSelectionFrame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
