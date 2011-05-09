@@ -147,6 +147,14 @@ public class GymCup extends Observable {
 		this.logoImagePath = logoImagePath;
 		updateObservers();
 	}
+	
+	public List<Athlete> getAllAthletes(){
+		List<Athlete> athletes = new ArrayList<Athlete>();
+		for(Competition c: competitions){
+			athletes.addAll(c.getAllAthletes());
+		}
+		return athletes;
+	}
 	/*
 	 * TODO: Delete unused Methods
 	 */
