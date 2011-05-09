@@ -85,9 +85,11 @@ public class CupManagementPanel extends JPanel implements Observer {
 	private Component verticalStrutMarginNoth;
 	private Component verticalStrutMarginSouth;
 	private GymCupController gymCupController;
+	private boolean isNewImage = false;
 
 	public CupManagementPanel(GymCupController gymCupController) {
 		this.gymCupController = gymCupController;
+		gymCupController.addObserver(this);
 		/*
 		 * TODO: Observers
 		 */
@@ -225,8 +227,8 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_lblEndDate.gridy = 2;
 		panelGeneralInfo.add(lblEndDate, gbc_lblEndDate);
 
-		txtFieldEndDate = new JFormattedTextField(new DateFormatter(
-				DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
+		txtFieldEndDate = new JFormattedTextField(new DateFormatter(DateFormat
+				.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
 		txtFieldEndDate.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -475,7 +477,13 @@ public class CupManagementPanel extends JPanel implements Observer {
 					String path = chooser.getSelectedFile().getAbsolutePath();
 					pathCup = path;
 					isNewCup = false;
+					// gymCupController.setExistingGymcup(pathImport);
 					System.out.println(path);
+					DBConnection.setPath(pathCup);
+					gymCupController.setExistingGymcup();
+					btnImportStartList.setEnabled(false);
+					btnOpenCup.setEnabled(false);
+
 				}
 			}
 		});
@@ -493,6 +501,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 					System.out.println(path);
 					pathImport = path;
 					isNewImportList = true;
+					isNewCup = true;
 				}
 
 			}
@@ -512,6 +521,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 					String path = chooser.getSelectedFile().getAbsolutePath();
 					System.out.println(path);
 					panelLogo.generateImage(path);
+					isNewImage = true;
 
 				}
 			}
@@ -528,46 +538,49 @@ public class CupManagementPanel extends JPanel implements Observer {
 					gymCup.setSponsors(txtAreaSponsors.getText());
 					gymCup.setDescription(txtAreaDescr.getText());
 					try {
-						gymCup.setStartDate(DateFormatConverter.convertStringToDate(txtFieldStartDate.getText()));
-						gymCup.setEndDate(DateFormatConverter.convertStringToDate(txtFieldEndDate.getText()));
+						gymCup.setStartDate(DateFormatConverter
+								.convertStringToDate(txtFieldStartDate
+										.getText()));
+						gymCup
+								.setEndDate(DateFormatConverter
+										.convertStringToDate(txtFieldEndDate
+												.getText()));
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
 					if (panelLogo.isGenerated()) {
 						gymCup.setLogoImagePath(panelLogo.getPath());
+						lblLogo.setText("");
 					}
 
 					if (isNewImportList) {
 						DBController.importGymCupToDB(gymCup);
-						/*
-						 * TODO: Daturm richtig setzen
-						 */
 						try {
-							gymCup.setStartDate(DateFormatConverter.convertStringToDate(txtFieldStartDate.getText()));
-							gymCup.setEndDate(DateFormatConverter.convertStringToDate(txtFieldEndDate.getText()));
+							gymCup.setStartDate(DateFormatConverter
+									.convertStringToDate(txtFieldStartDate
+											.getText()));
+							gymCup.setEndDate(DateFormatConverter
+									.convertStringToDate(txtFieldEndDate
+											.getText()));
 						} catch (ParseException e) {
 						}
-//						gymCup.setStartDateStr(txtFieldStartDate.getText());
-//						gymCup.setEndDateStr(txtFieldEndDate.getText());
 						gymCupController.setGymCup(gymCup);
 						ImportStartList startList = new ImportStartList(
 								pathImport);
 						startList.readImport();
-						// startList.toString();
 						SquadCreator squadCreator = new SquadCreator(startList);
 						squadCreator.insertImportToDB();
-						DBController.importAllSquads(gymCupController.getGymCup());
+						DBController.importAllSquads(gymCupController
+								.getGymCup());
 						gymCupController.getGymCup().setSquads(
 								squadCreator.createSquads());
+						isNewCup=false;
 					}
 
 				} else {
-					/*
-					 * TODO: Write Gymcup to DB / DBController
-					 */
-					DBConnection.setPath(pathCup);
-					gymCupController.setExistingGymcup();
-
+					// TODO 
+					//änderungen am cup abspeichern
+					
 				}
 			}
 		});
@@ -636,6 +649,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		updateContent();
+		System.out.println("update from cupmgmt panel");
 	}
 
 	private void updateContent() {
@@ -651,9 +665,11 @@ public class CupManagementPanel extends JPanel implements Observer {
 				.setText(DateFormatConverter
 						.convertDateToString(gymCupController.getGymCup()
 								.getEndDate()));
-		if (panelLogo.isGenerated()) {
+		
+		if(!isNewCup && !isNewImage){
 			panelLogo.setPath(gymCupController.getGymCup().getLogoImagePath());
 		}
+		lblLogo.setText("");
 
 	}
 

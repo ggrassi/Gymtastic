@@ -20,6 +20,7 @@ public class DBConnection {
 
 	public DBConnection(String path) {
 		super();
+		setPath(path);
 		connect(path);
 	}
 
