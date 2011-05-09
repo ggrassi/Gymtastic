@@ -99,6 +99,7 @@ public class GymCup extends Observable {
 
 	public void setSquads(Map<Integer, Squad> squads) {
 		this.squads = squads;
+		updateObservers();
 	}
 
 	public GregorianCalendar getStartDate() {
@@ -150,8 +151,8 @@ public class GymCup extends Observable {
 	
 	public List<Athlete> getAllAthletes(){
 		List<Athlete> athletes = new ArrayList<Athlete>();
-		for(Competition c: competitions){
-			athletes.addAll(c.getAllAthletes());
+		for(Squad s: squads.values()){
+		    athletes.addAll(s.getAthlets());
 		}
 		return athletes;
 	}

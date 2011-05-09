@@ -54,6 +54,11 @@ public class AthletePanel extends JPanel implements Observer {
 	}
 
 	private void initListeners() {
+	    btnShowAthlete.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			AthleteDetailFrame.open();
+		}
+	});
 	}
 
 	private void initGUI() {
@@ -187,11 +192,7 @@ public class AthletePanel extends JPanel implements Observer {
 		txtFieldSearchAthlete.setColumns(10);
 
 		btnShowAthlete = new JButton("Anzeigen...");
-		btnShowAthlete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AthleteDetailFrame.open();
-			}
-		});
+		
 		GridBagConstraints gbc_btnShowAthlete = new GridBagConstraints();
 		gbc_btnShowAthlete.anchor = GridBagConstraints.EAST;
 		gbc_btnShowAthlete.insets = new Insets(0, 0, 0, 5);
@@ -231,8 +232,8 @@ public class AthletePanel extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		lblSquadsAmount.setText(""
-				+ gymCupController.getGymCup().getSquads().size());
+		lblSquadsAmount.setText(""+ gymCupController.getGymCup().getSquads().size());
+		lblAthletesAmount.setText(""+gymCupController.getGymCup().getAllAthletes().size());
 
 	}
 
