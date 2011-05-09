@@ -27,159 +27,153 @@ import ch.hsr.gymtastic.domain.DeviceType;
 
 public class ClientConnectionFrame {
 
-	private JFrame frmClientConnection;
-	private JLabel lblIpAddress = new JLabel("IP-Adresse:");
-	private JLabel lblDeviceType = new JLabel("Ger\u00E4t:");
-	private JTextField txtIpAddress;
-	private JComboBox cmbDeviceType = new JComboBox();
-	private JPanel panelButton = new JPanel();
-	private JPanel panelConnection = new JPanel();
-	private JButton btnConnect = new JButton("Verbinden");
-	private JButton btnAbbrechen = new JButton("Abbrechen");
-	private NetworkClientController networkController;
-	private final SquadController squadController;
+    private JFrame frmClientConnection;
+    private JLabel lblIpAddress = new JLabel("IP-Adresse:");
+    private JLabel lblDeviceType = new JLabel("Ger\u00E4t:");
+    private JTextField txtIpAddress;
+    private JComboBox cmbDeviceType = new JComboBox();
+    private JPanel panelButton = new JPanel();
+    private JPanel panelConnection = new JPanel();
+    private JButton btnConnect = new JButton("Verbinden");
+    private JButton btnAbbrechen = new JButton("Abbrechen");
+    private NetworkClientController networkController;
+    private final SquadController squadController;
 
+    /**
+     * Launch the application.
+     */
 
-	/**
-	 * Launch the application.
-	 */
-
-	public static void newClientConnectionFrame(final SquadController squadController, final NetworkClientController networkController) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ClientConnectionFrame window = new ClientConnectionFrame(squadController, networkController);
-					window.frmClientConnection.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+    public static void main(String[] args) {
+	try {
+	    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+	} catch (Exception e1) {
 	}
+	EventQueue.invokeLater(new Runnable() {
+	    public void run() {
+		try {
+		    ClientConnectionFrame window = new ClientConnectionFrame();
+		    window.frmClientConnection.setVisible(true);
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+	    }
+	});
+    }
 
-	/**
-	 * Create the application.
-	 * @param networkController
-	 * @param squadController 
-	 * 
-	 * @throws Exception
-	 */
-	public ClientConnectionFrame(SquadController squadController, NetworkClientController networkController) throws Exception {
-		this.squadController = squadController;
-		this.networkController = networkController;
-		initGUI();
-		initListeners();
-	}
+    /**
+     * Create the application.
+     * 
+     * @param networkController
+     * @param squadController
+     * 
+     * @throws Exception
+     */
+    public ClientConnectionFrame() throws Exception {
+	this.squadController = new SquadController();
+	this.networkController = new NetworkClientController();
+	initGUI();
+	initListeners();
+    }
 
-	private void initListeners() {
-		btnAbbrechen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				frmClientConnection.dispose();
-			}
-		});
-		btnConnect.addActionListener(new ActionListener() {
+    private void initListeners() {
+	btnAbbrechen.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent arg0) {
+		frmClientConnection.dispose();
+	    }
+	});
+	btnConnect.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					networkController.setServerIP(txtIpAddress.getText());
-					networkController.connect((DeviceType) cmbDeviceType
-							.getSelectedItem());
-					
-					ClientFrame.newClientFrame(squadController, networkController);
-					frmClientConnection.dispose();
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(frmClientConnection,
-						    "Die Verbindung zum Server ist fehlgeschlagen.",
-						    "Verbindungsfehler",
-						    JOptionPane.ERROR_MESSAGE);
-				}
-				
+	    public void actionPerformed(ActionEvent arg0) {
+		try {
+		    networkController.setServerIP(txtIpAddress.getText());
+		    networkController.connect((DeviceType) cmbDeviceType.getSelectedItem());
 
-			}
-		});
-		
-	}
+		    ClientFrame.newClientFrame(squadController, networkController);
+		    frmClientConnection.dispose();
+		} catch (Exception e) {
+		    JOptionPane.showMessageDialog(frmClientConnection, "Die Verbindung zum Server ist fehlgeschlagen.",
+			    "Verbindungsfehler", JOptionPane.ERROR_MESSAGE);
+		}
 
-	private void initGUI() {
-		frmClientConnection = new JFrame();
-		frmClientConnection.setTitle("Verbindung");
-		frmClientConnection.setResizable(false);
-		frmClientConnection.setBounds(100, 100, 345, 153);
-		frmClientConnection.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 342, 0 };
-		gridBagLayout.rowHeights = new int[] { 91, 35, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
-		frmClientConnection.getContentPane().setLayout(gridBagLayout);
+	    }
+	});
 
-		panelConnection.setBorder(new TitledBorder(UIManager
-				.getBorder("TitledBorder.border"), "Informationen",
-				TitledBorder.LEADING, TitledBorder.TOP, null,
-				new Color(0, 0, 0)));
-		GridBagConstraints gbc_panelConnection = new GridBagConstraints();
-		gbc_panelConnection.fill = GridBagConstraints.BOTH;
-		gbc_panelConnection.insets = new Insets(0, 0, 5, 0);
-		gbc_panelConnection.gridx = 0;
-		gbc_panelConnection.gridy = 0;
-		frmClientConnection.getContentPane().add(panelConnection,
-				gbc_panelConnection);
-		GridBagLayout gbl_panelConnection = new GridBagLayout();
-		gbl_panelConnection.columnWidths = new int[] { 0, 0, 0 };
-		gbl_panelConnection.rowHeights = new int[] { 0, 0, 0 };
-		gbl_panelConnection.columnWeights = new double[] { 0.0, 1.0,
-				Double.MIN_VALUE };
-		gbl_panelConnection.rowWeights = new double[] { 0.0, 0.0,
-				Double.MIN_VALUE };
-		panelConnection.setLayout(gbl_panelConnection);
+    }
 
-		GridBagConstraints gbc_lblIpAddress = new GridBagConstraints();
-		gbc_lblIpAddress.insets = new Insets(0, 0, 5, 5);
-		gbc_lblIpAddress.anchor = GridBagConstraints.EAST;
-		gbc_lblIpAddress.gridx = 0;
-		gbc_lblIpAddress.gridy = 0;
-		panelConnection.add(lblIpAddress, gbc_lblIpAddress);
+    private void initGUI() {
+	frmClientConnection = new JFrame();
+	frmClientConnection.setTitle("Verbindung");
+	frmClientConnection.setResizable(false);
+	frmClientConnection.setBounds(100, 100, 345, 153);
+	frmClientConnection.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	GridBagLayout gridBagLayout = new GridBagLayout();
+	gridBagLayout.columnWidths = new int[] { 342, 0 };
+	gridBagLayout.rowHeights = new int[] { 91, 35, 0 };
+	gridBagLayout.columnWeights = new double[] { 0.0, Double.MIN_VALUE };
+	gridBagLayout.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+	frmClientConnection.getContentPane().setLayout(gridBagLayout);
 
-		txtIpAddress = new JTextField();
-		lblIpAddress.setLabelFor(txtIpAddress);
-		lblIpAddress.setDisplayedMnemonic(KeyEvent.VK_I);
-		GridBagConstraints gbc_txtIpAddress = new GridBagConstraints();
-		gbc_txtIpAddress.insets = new Insets(0, 0, 5, 0);
-		gbc_txtIpAddress.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtIpAddress.gridx = 1;
-		gbc_txtIpAddress.gridy = 0;
-		panelConnection.add(txtIpAddress, gbc_txtIpAddress);
-		txtIpAddress.setColumns(10);
+	panelConnection.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informationen",
+		TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+	GridBagConstraints gbc_panelConnection = new GridBagConstraints();
+	gbc_panelConnection.fill = GridBagConstraints.BOTH;
+	gbc_panelConnection.insets = new Insets(0, 0, 5, 0);
+	gbc_panelConnection.gridx = 0;
+	gbc_panelConnection.gridy = 0;
+	frmClientConnection.getContentPane().add(panelConnection, gbc_panelConnection);
+	GridBagLayout gbl_panelConnection = new GridBagLayout();
+	gbl_panelConnection.columnWidths = new int[] { 0, 0, 0 };
+	gbl_panelConnection.rowHeights = new int[] { 0, 0, 0 };
+	gbl_panelConnection.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+	gbl_panelConnection.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+	panelConnection.setLayout(gbl_panelConnection);
 
-		GridBagConstraints gbc_lblDeviceType = new GridBagConstraints();
-		gbc_lblDeviceType.anchor = GridBagConstraints.WEST;
-		gbc_lblDeviceType.insets = new Insets(0, 0, 0, 5);
-		gbc_lblDeviceType.gridx = 0;
-		gbc_lblDeviceType.gridy = 1;
-		panelConnection.add(lblDeviceType, gbc_lblDeviceType);
+	GridBagConstraints gbc_lblIpAddress = new GridBagConstraints();
+	gbc_lblIpAddress.insets = new Insets(0, 0, 5, 5);
+	gbc_lblIpAddress.anchor = GridBagConstraints.EAST;
+	gbc_lblIpAddress.gridx = 0;
+	gbc_lblIpAddress.gridy = 0;
+	panelConnection.add(lblIpAddress, gbc_lblIpAddress);
 
-		lblDeviceType.setLabelFor(cmbDeviceType);
-		lblDeviceType.setDisplayedMnemonic(KeyEvent.VK_G);
-		GridBagConstraints gbc_cmbDeviceType = new GridBagConstraints();
-		gbc_cmbDeviceType.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cmbDeviceType.gridx = 1;
-		gbc_cmbDeviceType.gridy = 1;
-		panelConnection.add(cmbDeviceType, gbc_cmbDeviceType);
-		FlowLayout fl_panelButton = (FlowLayout) panelButton.getLayout();
-		fl_panelButton.setAlignment(FlowLayout.RIGHT);
-		GridBagConstraints gbc_panelButton = new GridBagConstraints();
-		gbc_panelButton.anchor = GridBagConstraints.NORTH;
-		gbc_panelButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_panelButton.gridx = 0;
-		gbc_panelButton.gridy = 1;
-		frmClientConnection.getContentPane().add(panelButton, gbc_panelButton);
-		cmbDeviceType.setModel(new DefaultComboBoxModel(DeviceType.values()));
-		panelButton.add(btnConnect);
-		btnConnect.setMnemonic(KeyEvent.VK_V);
-		btnAbbrechen.setMnemonic(KeyEvent.VK_A);
-		panelButton.add(btnAbbrechen);
-		
-	}
+	txtIpAddress = new JTextField();
+	lblIpAddress.setLabelFor(txtIpAddress);
+	lblIpAddress.setDisplayedMnemonic(KeyEvent.VK_I);
+	GridBagConstraints gbc_txtIpAddress = new GridBagConstraints();
+	gbc_txtIpAddress.insets = new Insets(0, 0, 5, 0);
+	gbc_txtIpAddress.fill = GridBagConstraints.HORIZONTAL;
+	gbc_txtIpAddress.gridx = 1;
+	gbc_txtIpAddress.gridy = 0;
+	panelConnection.add(txtIpAddress, gbc_txtIpAddress);
+	txtIpAddress.setColumns(10);
 
+	GridBagConstraints gbc_lblDeviceType = new GridBagConstraints();
+	gbc_lblDeviceType.anchor = GridBagConstraints.WEST;
+	gbc_lblDeviceType.insets = new Insets(0, 0, 0, 5);
+	gbc_lblDeviceType.gridx = 0;
+	gbc_lblDeviceType.gridy = 1;
+	panelConnection.add(lblDeviceType, gbc_lblDeviceType);
+
+	lblDeviceType.setLabelFor(cmbDeviceType);
+	lblDeviceType.setDisplayedMnemonic(KeyEvent.VK_G);
+	GridBagConstraints gbc_cmbDeviceType = new GridBagConstraints();
+	gbc_cmbDeviceType.fill = GridBagConstraints.HORIZONTAL;
+	gbc_cmbDeviceType.gridx = 1;
+	gbc_cmbDeviceType.gridy = 1;
+	panelConnection.add(cmbDeviceType, gbc_cmbDeviceType);
+	FlowLayout fl_panelButton = (FlowLayout) panelButton.getLayout();
+	fl_panelButton.setAlignment(FlowLayout.RIGHT);
+	GridBagConstraints gbc_panelButton = new GridBagConstraints();
+	gbc_panelButton.anchor = GridBagConstraints.NORTH;
+	gbc_panelButton.fill = GridBagConstraints.HORIZONTAL;
+	gbc_panelButton.gridx = 0;
+	gbc_panelButton.gridy = 1;
+	frmClientConnection.getContentPane().add(panelButton, gbc_panelButton);
+	cmbDeviceType.setModel(new DefaultComboBoxModel(DeviceType.values()));
+	panelButton.add(btnConnect);
+	btnConnect.setMnemonic(KeyEvent.VK_V);
+	btnAbbrechen.setMnemonic(KeyEvent.VK_A);
+	panelButton.add(btnAbbrechen);
+
+    }
 
 }

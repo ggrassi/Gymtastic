@@ -16,7 +16,7 @@ import javax.swing.JTable;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
-import ch.hsr.gymtastic.server.application.models.SquadSelectionTableModel;
+import ch.hsr.gymtastic.server.presentation.models.SquadSelectionTableModel;
 
 public class SquadsSelectionFrame {
 
