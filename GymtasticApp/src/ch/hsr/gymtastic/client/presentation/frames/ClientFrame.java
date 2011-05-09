@@ -13,9 +13,9 @@ import ch.hsr.gymtastic.client.application.controller.CompetitionInfoController;
 import ch.hsr.gymtastic.client.application.controller.GymCupInfoController;
 import ch.hsr.gymtastic.client.application.controller.NetworkClientController;
 import ch.hsr.gymtastic.client.application.controller.SquadController;
-import ch.hsr.gymtastic.client.presentation.panels.ActualSquadPanel;
-import ch.hsr.gymtastic.client.presentation.panels.EvaluationPanel;
-import ch.hsr.gymtastic.client.presentation.panels.OverviewPanel;
+import ch.hsr.gymtastic.client.presentation.frames.panels.ActualSquadPanel;
+import ch.hsr.gymtastic.client.presentation.frames.panels.EvaluationPanel;
+import ch.hsr.gymtastic.client.presentation.frames.panels.OverviewPanel;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
 

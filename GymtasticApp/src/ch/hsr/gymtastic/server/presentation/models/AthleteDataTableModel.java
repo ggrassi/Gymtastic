@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.server.application.models;
+package ch.hsr.gymtastic.server.presentation.models;
 
 import java.util.Observable;
 import java.util.Observer;
