@@ -14,7 +14,7 @@ import javax.swing.table.TableModel;
 import ch.hsr.gymtastic.server.application.controller.ClientAllocator;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.application.controller.NetworkServerController;
-import ch.hsr.gymtastic.server.application.editor.DeviceTypeEditor;
+import ch.hsr.gymtastic.server.presentation.editor.DeviceTypeEditor;
 import ch.hsr.gymtastic.server.presentation.models.DeviceTypeTableModel;
 
 public class DeviceTypePanel extends JPanel {
