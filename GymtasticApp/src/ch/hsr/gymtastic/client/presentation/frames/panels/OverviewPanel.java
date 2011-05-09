@@ -321,7 +321,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		lblActualSquadText
 				.setText("" + squadController.getSquad().getSquadId());
 		btnStartRound.setEnabled(true);
-		lblRoundInfo.setText("Status: Der Durchgang Nr. " + squadController.getRoundNr() + " wurde freigeschaltet. Sie k�nnen die Bewertung der Riege " + squadController.getSquad().getSquadId() + " starten.");
+		lblRoundInfo.setText("Status: Der Durchgang Nr. " + squadController.getRoundNr() + " wurde freigeschaltet. Sie k\u00f6nnen die Bewertung der Riege " + squadController.getSquad().getSquadId() + " starten.");
 
 	}
 
