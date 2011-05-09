@@ -3,7 +3,7 @@ package ch.hsr.gymtastic.technicalServices.utils;
 import java.io.File;
 import java.util.ArrayList;
 
-public class Utils {
+public class FileExtension {
 
 	public static ArrayList<String> extensions = new ArrayList<String>();
 
