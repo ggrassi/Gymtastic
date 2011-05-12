@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,12 +17,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.TableRowSorter;
+
 
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.frames.AthleteDetailFrame;
 import ch.hsr.gymtastic.server.presentation.models.AthleteDataTableModel;
+import ch.hsr.gymtastic.technicalServices.utils.SearchTextField;
 
 public class AthletePanel extends JPanel implements Observer {
 
@@ -29,6 +36,8 @@ public class AthletePanel extends JPanel implements Observer {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	
 	private JTextField txtFieldSearchAthlete;
 	private JTable tableAthletes;
 	private JPanel panelAthletesSearch;
@@ -45,6 +54,8 @@ public class AthletePanel extends JPanel implements Observer {
 	private JButton btnRemoveAthlete;
 	private JScrollPane scrollPaneAthletes;
 	private GymCupController gymCupController;
+	private AthleteDataTableModel athleteDataTableModel;
+	private TableRowSorter<AthleteDataTableModel> tableSorter;
 
 	public AthletePanel(GymCupController gymCupController) {
 		this.gymCupController = gymCupController;
@@ -54,14 +65,36 @@ public class AthletePanel extends JPanel implements Observer {
 	}
 
 	private void initListeners() {
-	    btnShowAthlete.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			AthleteDetailFrame.open();
-		}
-	});
+		btnShowAthlete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AthleteDetailFrame.open();
+			}
+		});
+		txtFieldSearchAthlete.getDocument().addDocumentListener(
+				new DocumentListener() {
+
+					@Override
+					public void removeUpdate(DocumentEvent e) {
+						searchAthletes();
+					}
+
+					
+
+					@Override
+					public void insertUpdate(DocumentEvent e) {
+						searchAthletes();
+					}
+
+					@Override
+					public void changedUpdate(DocumentEvent e) {
+						searchAthletes();
+					}
+				});
 	}
 
 	private void initGUI() {
+		athleteDataTableModel = new AthleteDataTableModel(gymCupController);
+		tableSorter = new TableRowSorter<AthleteDataTableModel>(athleteDataTableModel);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0 };
 		gridBagLayout.rowHeights = new int[] { 0, 0, 0 };
@@ -181,7 +214,7 @@ public class AthletePanel extends JPanel implements Observer {
 				Double.MIN_VALUE };
 		panelAthletesSearch.setLayout(gbl_panelAthletesSearch);
 
-		txtFieldSearchAthlete = new JTextField();
+		txtFieldSearchAthlete = new SearchTextField();
 		GridBagConstraints gbc_txtFieldSearchAthlete = new GridBagConstraints();
 		gbc_txtFieldSearchAthlete.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFieldSearchAthlete.insets = new Insets(0, 0, 0, 5);
@@ -192,7 +225,7 @@ public class AthletePanel extends JPanel implements Observer {
 		txtFieldSearchAthlete.setColumns(10);
 
 		btnShowAthlete = new JButton("Anzeigen...");
-		
+
 		GridBagConstraints gbc_btnShowAthlete = new GridBagConstraints();
 		gbc_btnShowAthlete.anchor = GridBagConstraints.EAST;
 		gbc_btnShowAthlete.insets = new Insets(0, 0, 0, 5);
@@ -224,16 +257,30 @@ public class AthletePanel extends JPanel implements Observer {
 		panelAthletes.add(scrollPaneAthletes, gbc_scrollPaneAthletes);
 
 		tableAthletes = new JTable();
-		tableAthletes.setModel(new AthleteDataTableModel(gymCupController));
-		tableAthletes.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableAthletes.setModel(athleteDataTableModel);
+		tableAthletes.getSelectionModel().setSelectionMode(
+				ListSelectionModel.SINGLE_SELECTION);
 		scrollPaneAthletes.setViewportView(tableAthletes);
 
+	}
+	
+	private void searchAthletes() {
+		RowFilter<AthleteDataTableModel, Object> rowFilter = null;
+		if (!txtFieldSearchAthlete.getText().equals("Suchen...")) {
+			rowFilter = RowFilter.regexFilter("(?i)"
+					+ Pattern.quote(txtFieldSearchAthlete.getText()));
+		}
+		tableSorter.setRowFilter(rowFilter);
+		tableAthletes.setRowSorter(tableSorter);
+		
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		lblSquadsAmount.setText(""+ gymCupController.getGymCup().getSquads().size());
-		lblAthletesAmount.setText(""+gymCupController.getGymCup().getAllAthletes().size());
+		lblSquadsAmount.setText(""
+				+ gymCupController.getGymCup().getSquads().size());
+		lblAthletesAmount.setText(""
+				+ gymCupController.getGymCup().getAllAthletes().size());
 
 	}
 
