@@ -19,19 +19,7 @@ public class ClientAllocatorTest {
 	private static class TestableRMIClient implements RMIClientInterface {
 
 		@Override
-		public void uploadGymCupInfoToClient(Serializable object)
-				throws RemoteException {
-
-		}
-
-		@Override
-		public void uploadCompetitionInfoToClient(Serializable object)
-				throws RemoteException {
-
-		}
-
-		@Override
-		public void uploadSquadToClient(Serializable object)
+		public void uploadObjectToClient(Serializable object)
 				throws RemoteException {
 
 		}
