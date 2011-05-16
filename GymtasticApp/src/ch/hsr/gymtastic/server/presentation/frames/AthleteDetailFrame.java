@@ -17,28 +17,32 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import ch.hsr.gymtastic.domain.Athlete;
+
 public class AthleteDetailFrame {
 
     private JFrame frame;
-    private JTable table;
-    private JTextField textField;
-    private JTextField textField_1;
-    private JTextField textField_2;
-    private JTextField textField_3;
-    private JTextField textField_4;
-    private JTextField textField_5;
-    private JTextField textField_6;
-    private JTextField textField_7;
-    private JTextField textField_8;
+    private JTable tableMarks;
+    private JTextField txtFieldFirstName;
+    private JTextField txtFieldLastName;
+    private JTextField txtFieldAssocation;
+    private JTextField txtFieldAddress;
+    private JTextField txtFieldYearOfBirth;
+    private JTextField txtFieldStartNr;
+    private JTextField txtFieldProgramClass;
+    private JTextField txtFieldSquad;
+    private JTextField txtFieldRank;
+    private Athlete athlete;
 
     /**
      * Launch the application.
+     * @param athlete 
      */
-    public static void open() {
+    public static void open(final Athlete athlete) {
 	EventQueue.invokeLater(new Runnable() {
 	    public void run() {
 		try {
-		    AthleteDetailFrame window = new AthleteDetailFrame();
+		    AthleteDetailFrame window = new AthleteDetailFrame(athlete);
 		    window.frame.setVisible(true);
 		} catch (Exception e) {
 		    e.printStackTrace();
@@ -50,7 +54,9 @@ public class AthleteDetailFrame {
     /**
      * Create the application.
      */
-    public AthleteDetailFrame() {
+    public AthleteDetailFrame(Athlete athlete) {
+	this.athlete = athlete;
+	System.out.println("Athlet: " + athlete.toString());
 	initialize();
     }
 
@@ -101,89 +107,89 @@ public class AthleteDetailFrame {
 	gbl_panelPerson.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 	panelPerson.setLayout(gbl_panelPerson);
 	
-	JLabel lblVorname = new JLabel("Vorname: ");
-	GridBagConstraints gbc_lblVorname = new GridBagConstraints();
-	gbc_lblVorname.anchor = GridBagConstraints.WEST;
-	gbc_lblVorname.insets = new Insets(0, 0, 5, 5);
-	gbc_lblVorname.gridx = 0;
-	gbc_lblVorname.gridy = 0;
-	panelPerson.add(lblVorname, gbc_lblVorname);
+	JLabel lblFirstName = new JLabel("Vorname: ");
+	GridBagConstraints gbc_lblFirstName = new GridBagConstraints();
+	gbc_lblFirstName.anchor = GridBagConstraints.WEST;
+	gbc_lblFirstName.insets = new Insets(0, 0, 5, 5);
+	gbc_lblFirstName.gridx = 0;
+	gbc_lblFirstName.gridy = 0;
+	panelPerson.add(lblFirstName, gbc_lblFirstName);
 	
-	textField = new JTextField();
-	GridBagConstraints gbc_textField = new GridBagConstraints();
-	gbc_textField.insets = new Insets(0, 0, 5, 0);
-	gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-	gbc_textField.gridx = 1;
-	gbc_textField.gridy = 0;
-	panelPerson.add(textField, gbc_textField);
-	textField.setColumns(10);
+	txtFieldFirstName = new JTextField();
+	GridBagConstraints gbc_txtFieldFirstName = new GridBagConstraints();
+	gbc_txtFieldFirstName.insets = new Insets(0, 0, 5, 0);
+	gbc_txtFieldFirstName.fill = GridBagConstraints.HORIZONTAL;
+	gbc_txtFieldFirstName.gridx = 1;
+	gbc_txtFieldFirstName.gridy = 0;
+	panelPerson.add(txtFieldFirstName, gbc_txtFieldFirstName);
+	txtFieldFirstName.setColumns(10);
 	
-	JLabel lblNachname = new JLabel("Nachname: ");
-	GridBagConstraints gbc_lblNachname = new GridBagConstraints();
-	gbc_lblNachname.anchor = GridBagConstraints.WEST;
-	gbc_lblNachname.insets = new Insets(0, 0, 5, 5);
-	gbc_lblNachname.gridx = 0;
-	gbc_lblNachname.gridy = 1;
-	panelPerson.add(lblNachname, gbc_lblNachname);
+	JLabel lblLastName = new JLabel("Nachname: ");
+	GridBagConstraints gbc_lblLastName = new GridBagConstraints();
+	gbc_lblLastName.anchor = GridBagConstraints.WEST;
+	gbc_lblLastName.insets = new Insets(0, 0, 5, 5);
+	gbc_lblLastName.gridx = 0;
+	gbc_lblLastName.gridy = 1;
+	panelPerson.add(lblLastName, gbc_lblLastName);
 	
-	textField_1 = new JTextField();
-	GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-	gbc_textField_1.insets = new Insets(0, 0, 5, 0);
-	gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-	gbc_textField_1.gridx = 1;
-	gbc_textField_1.gridy = 1;
-	panelPerson.add(textField_1, gbc_textField_1);
-	textField_1.setColumns(10);
+	txtFieldLastName = new JTextField();
+	GridBagConstraints gbc_txtFieldLastName = new GridBagConstraints();
+	gbc_txtFieldLastName.insets = new Insets(0, 0, 5, 0);
+	gbc_txtFieldLastName.fill = GridBagConstraints.HORIZONTAL;
+	gbc_txtFieldLastName.gridx = 1;
+	gbc_txtFieldLastName.gridy = 1;
+	panelPerson.add(txtFieldLastName, gbc_txtFieldLastName);
+	txtFieldLastName.setColumns(10);
 	
-	JLabel lblVerein = new JLabel("Verein: ");
-	GridBagConstraints gbc_lblVerein = new GridBagConstraints();
-	gbc_lblVerein.anchor = GridBagConstraints.WEST;
-	gbc_lblVerein.insets = new Insets(0, 0, 5, 5);
-	gbc_lblVerein.gridx = 0;
-	gbc_lblVerein.gridy = 2;
-	panelPerson.add(lblVerein, gbc_lblVerein);
+	JLabel lblAssociation = new JLabel("Verein: ");
+	GridBagConstraints gbc_lblAssociation = new GridBagConstraints();
+	gbc_lblAssociation.anchor = GridBagConstraints.WEST;
+	gbc_lblAssociation.insets = new Insets(0, 0, 5, 5);
+	gbc_lblAssociation.gridx = 0;
+	gbc_lblAssociation.gridy = 2;
+	panelPerson.add(lblAssociation, gbc_lblAssociation);
 	
-	textField_2 = new JTextField();
-	GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-	gbc_textField_2.insets = new Insets(0, 0, 5, 0);
-	gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-	gbc_textField_2.gridx = 1;
-	gbc_textField_2.gridy = 2;
-	panelPerson.add(textField_2, gbc_textField_2);
-	textField_2.setColumns(10);
+	txtFieldAssocation = new JTextField();
+	GridBagConstraints gbc_txtFieldAssocation = new GridBagConstraints();
+	gbc_txtFieldAssocation.insets = new Insets(0, 0, 5, 0);
+	gbc_txtFieldAssocation.fill = GridBagConstraints.HORIZONTAL;
+	gbc_txtFieldAssocation.gridx = 1;
+	gbc_txtFieldAssocation.gridy = 2;
+	panelPerson.add(txtFieldAssocation, gbc_txtFieldAssocation);
+	txtFieldAssocation.setColumns(10);
 	
-	JLabel lblJahrgang = new JLabel("Adresse: ");
-	GridBagConstraints gbc_lblJahrgang = new GridBagConstraints();
-	gbc_lblJahrgang.anchor = GridBagConstraints.WEST;
-	gbc_lblJahrgang.insets = new Insets(0, 0, 5, 5);
-	gbc_lblJahrgang.gridx = 0;
-	gbc_lblJahrgang.gridy = 3;
-	panelPerson.add(lblJahrgang, gbc_lblJahrgang);
+	JLabel lblAddress = new JLabel("Adresse: ");
+	GridBagConstraints gbc_lblAddress = new GridBagConstraints();
+	gbc_lblAddress.anchor = GridBagConstraints.WEST;
+	gbc_lblAddress.insets = new Insets(0, 0, 5, 5);
+	gbc_lblAddress.gridx = 0;
+	gbc_lblAddress.gridy = 3;
+	panelPerson.add(lblAddress, gbc_lblAddress);
 	
-	textField_3 = new JTextField();
-	GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-	gbc_textField_3.insets = new Insets(0, 0, 5, 0);
-	gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-	gbc_textField_3.gridx = 1;
-	gbc_textField_3.gridy = 3;
-	panelPerson.add(textField_3, gbc_textField_3);
-	textField_3.setColumns(10);
+	txtFieldAddress = new JTextField();
+	GridBagConstraints gbc_txtFieldAddress = new GridBagConstraints();
+	gbc_txtFieldAddress.insets = new Insets(0, 0, 5, 0);
+	gbc_txtFieldAddress.fill = GridBagConstraints.HORIZONTAL;
+	gbc_txtFieldAddress.gridx = 1;
+	gbc_txtFieldAddress.gridy = 3;
+	panelPerson.add(txtFieldAddress, gbc_txtFieldAddress);
+	txtFieldAddress.setColumns(10);
 	
-	JLabel lblJahrgang_1 = new JLabel("Jahrgang: ");
-	GridBagConstraints gbc_lblJahrgang_1 = new GridBagConstraints();
-	gbc_lblJahrgang_1.anchor = GridBagConstraints.WEST;
-	gbc_lblJahrgang_1.insets = new Insets(0, 0, 0, 5);
-	gbc_lblJahrgang_1.gridx = 0;
-	gbc_lblJahrgang_1.gridy = 4;
-	panelPerson.add(lblJahrgang_1, gbc_lblJahrgang_1);
+	JLabel lblYearOfBirth = new JLabel("Jahrgang: ");
+	GridBagConstraints gbc_lblYearOfBirth = new GridBagConstraints();
+	gbc_lblYearOfBirth.anchor = GridBagConstraints.WEST;
+	gbc_lblYearOfBirth.insets = new Insets(0, 0, 0, 5);
+	gbc_lblYearOfBirth.gridx = 0;
+	gbc_lblYearOfBirth.gridy = 4;
+	panelPerson.add(lblYearOfBirth, gbc_lblYearOfBirth);
 	
-	textField_4 = new JTextField();
-	GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-	gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
-	gbc_textField_4.gridx = 1;
-	gbc_textField_4.gridy = 4;
-	panelPerson.add(textField_4, gbc_textField_4);
-	textField_4.setColumns(10);
+	txtFieldYearOfBirth = new JTextField();
+	GridBagConstraints gbc_txtFieldYearOfBirth = new GridBagConstraints();
+	gbc_txtFieldYearOfBirth.fill = GridBagConstraints.HORIZONTAL;
+	gbc_txtFieldYearOfBirth.gridx = 1;
+	gbc_txtFieldYearOfBirth.gridy = 4;
+	panelPerson.add(txtFieldYearOfBirth, gbc_txtFieldYearOfBirth);
+	txtFieldYearOfBirth.setColumns(10);
 	
 	JPanel panelCompetitionInfoSaveCancel = new JPanel();
 	GridBagConstraints gbc_panelCompetitionInfoSaveCancel = new GridBagConstraints();
@@ -232,72 +238,72 @@ public class AthleteDetailFrame {
 	gbl_panelCompetitionInfo.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 	panelCompetitionInfo.setLayout(gbl_panelCompetitionInfo);
 	
-	JLabel lblStartnr = new JLabel("StartNr: ");
-	GridBagConstraints gbc_lblStartnr = new GridBagConstraints();
-	gbc_lblStartnr.anchor = GridBagConstraints.WEST;
-	gbc_lblStartnr.insets = new Insets(0, 0, 5, 5);
-	gbc_lblStartnr.gridx = 0;
-	gbc_lblStartnr.gridy = 0;
-	panelCompetitionInfo.add(lblStartnr, gbc_lblStartnr);
+	JLabel lblStartNr = new JLabel("StartNr: ");
+	GridBagConstraints gbc_lblStartNr = new GridBagConstraints();
+	gbc_lblStartNr.anchor = GridBagConstraints.WEST;
+	gbc_lblStartNr.insets = new Insets(0, 0, 5, 5);
+	gbc_lblStartNr.gridx = 0;
+	gbc_lblStartNr.gridy = 0;
+	panelCompetitionInfo.add(lblStartNr, gbc_lblStartNr);
 	
-	textField_5 = new JTextField();
-	GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-	gbc_textField_5.insets = new Insets(0, 0, 5, 0);
-	gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
-	gbc_textField_5.gridx = 1;
-	gbc_textField_5.gridy = 0;
-	panelCompetitionInfo.add(textField_5, gbc_textField_5);
-	textField_5.setColumns(10);
+	txtFieldStartNr = new JTextField();
+	GridBagConstraints gbc_txtFieldStartNr = new GridBagConstraints();
+	gbc_txtFieldStartNr.insets = new Insets(0, 0, 5, 0);
+	gbc_txtFieldStartNr.fill = GridBagConstraints.HORIZONTAL;
+	gbc_txtFieldStartNr.gridx = 1;
+	gbc_txtFieldStartNr.gridy = 0;
+	panelCompetitionInfo.add(txtFieldStartNr, gbc_txtFieldStartNr);
+	txtFieldStartNr.setColumns(10);
 	
-	JLabel lblProgrammklasse = new JLabel("Programmklasse: ");
-	GridBagConstraints gbc_lblProgrammklasse = new GridBagConstraints();
-	gbc_lblProgrammklasse.anchor = GridBagConstraints.WEST;
-	gbc_lblProgrammklasse.insets = new Insets(0, 0, 5, 5);
-	gbc_lblProgrammklasse.gridx = 0;
-	gbc_lblProgrammklasse.gridy = 1;
-	panelCompetitionInfo.add(lblProgrammklasse, gbc_lblProgrammklasse);
+	JLabel lblProgramClass = new JLabel("Programmklasse: ");
+	GridBagConstraints gbc_lblProgramClass = new GridBagConstraints();
+	gbc_lblProgramClass.anchor = GridBagConstraints.WEST;
+	gbc_lblProgramClass.insets = new Insets(0, 0, 5, 5);
+	gbc_lblProgramClass.gridx = 0;
+	gbc_lblProgramClass.gridy = 1;
+	panelCompetitionInfo.add(lblProgramClass, gbc_lblProgramClass);
 	
-	textField_6 = new JTextField();
-	GridBagConstraints gbc_textField_6 = new GridBagConstraints();
-	gbc_textField_6.insets = new Insets(0, 0, 5, 0);
-	gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
-	gbc_textField_6.gridx = 1;
-	gbc_textField_6.gridy = 1;
-	panelCompetitionInfo.add(textField_6, gbc_textField_6);
-	textField_6.setColumns(10);
+	txtFieldProgramClass = new JTextField();
+	GridBagConstraints gbc_txtFieldProgramClass = new GridBagConstraints();
+	gbc_txtFieldProgramClass.insets = new Insets(0, 0, 5, 0);
+	gbc_txtFieldProgramClass.fill = GridBagConstraints.HORIZONTAL;
+	gbc_txtFieldProgramClass.gridx = 1;
+	gbc_txtFieldProgramClass.gridy = 1;
+	panelCompetitionInfo.add(txtFieldProgramClass, gbc_txtFieldProgramClass);
+	txtFieldProgramClass.setColumns(10);
 	
-	JLabel lblRiege = new JLabel("Riege: ");
-	GridBagConstraints gbc_lblRiege = new GridBagConstraints();
-	gbc_lblRiege.anchor = GridBagConstraints.WEST;
-	gbc_lblRiege.insets = new Insets(0, 0, 5, 5);
-	gbc_lblRiege.gridx = 0;
-	gbc_lblRiege.gridy = 2;
-	panelCompetitionInfo.add(lblRiege, gbc_lblRiege);
+	JLabel lblSquad = new JLabel("Riege: ");
+	GridBagConstraints gbc_lblSquad = new GridBagConstraints();
+	gbc_lblSquad.anchor = GridBagConstraints.WEST;
+	gbc_lblSquad.insets = new Insets(0, 0, 5, 5);
+	gbc_lblSquad.gridx = 0;
+	gbc_lblSquad.gridy = 2;
+	panelCompetitionInfo.add(lblSquad, gbc_lblSquad);
 	
-	textField_7 = new JTextField();
-	GridBagConstraints gbc_textField_7 = new GridBagConstraints();
-	gbc_textField_7.insets = new Insets(0, 0, 5, 0);
-	gbc_textField_7.fill = GridBagConstraints.HORIZONTAL;
-	gbc_textField_7.gridx = 1;
-	gbc_textField_7.gridy = 2;
-	panelCompetitionInfo.add(textField_7, gbc_textField_7);
-	textField_7.setColumns(10);
+	txtFieldSquad = new JTextField();
+	GridBagConstraints gbc_txtFieldSquad = new GridBagConstraints();
+	gbc_txtFieldSquad.insets = new Insets(0, 0, 5, 0);
+	gbc_txtFieldSquad.fill = GridBagConstraints.HORIZONTAL;
+	gbc_txtFieldSquad.gridx = 1;
+	gbc_txtFieldSquad.gridy = 2;
+	panelCompetitionInfo.add(txtFieldSquad, gbc_txtFieldSquad);
+	txtFieldSquad.setColumns(10);
 	
-	JLabel lblRang = new JLabel("Rang: ");
-	GridBagConstraints gbc_lblRang = new GridBagConstraints();
-	gbc_lblRang.anchor = GridBagConstraints.WEST;
-	gbc_lblRang.insets = new Insets(0, 0, 0, 5);
-	gbc_lblRang.gridx = 0;
-	gbc_lblRang.gridy = 3;
-	panelCompetitionInfo.add(lblRang, gbc_lblRang);
+	JLabel lblRank = new JLabel("Rang: ");
+	GridBagConstraints gbc_lblRank = new GridBagConstraints();
+	gbc_lblRank.anchor = GridBagConstraints.WEST;
+	gbc_lblRank.insets = new Insets(0, 0, 0, 5);
+	gbc_lblRank.gridx = 0;
+	gbc_lblRank.gridy = 3;
+	panelCompetitionInfo.add(lblRank, gbc_lblRank);
 	
-	textField_8 = new JTextField();
-	GridBagConstraints gbc_textField_8 = new GridBagConstraints();
-	gbc_textField_8.fill = GridBagConstraints.HORIZONTAL;
-	gbc_textField_8.gridx = 1;
-	gbc_textField_8.gridy = 3;
-	panelCompetitionInfo.add(textField_8, gbc_textField_8);
-	textField_8.setColumns(10);
+	txtFieldRank = new JTextField();
+	GridBagConstraints gbc_txtFieldRank = new GridBagConstraints();
+	gbc_txtFieldRank.fill = GridBagConstraints.HORIZONTAL;
+	gbc_txtFieldRank.gridx = 1;
+	gbc_txtFieldRank.gridy = 3;
+	panelCompetitionInfo.add(txtFieldRank, gbc_txtFieldRank);
+	txtFieldRank.setColumns(10);
 	
 	JPanel panelSaveCancel = new JPanel();
 	GridBagConstraints gbc_panelSaveCancel = new GridBagConstraints();
@@ -344,24 +350,24 @@ public class AthleteDetailFrame {
 	gbl_panelMarks.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 	panelMarks.setLayout(gbl_panelMarks);
 	
-	JScrollPane scrollPane = new JScrollPane();
-	GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-	gbc_scrollPane.gridwidth = 2;
-	gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
-	gbc_scrollPane.fill = GridBagConstraints.BOTH;
-	gbc_scrollPane.gridx = 0;
-	gbc_scrollPane.gridy = 0;
-	panelMarks.add(scrollPane, gbc_scrollPane);
+	JScrollPane scrollPaneMarks = new JScrollPane();
+	GridBagConstraints gbc_scrollPaneMarks = new GridBagConstraints();
+	gbc_scrollPaneMarks.gridwidth = 2;
+	gbc_scrollPaneMarks.insets = new Insets(0, 0, 0, 5);
+	gbc_scrollPaneMarks.fill = GridBagConstraints.BOTH;
+	gbc_scrollPaneMarks.gridx = 0;
+	gbc_scrollPaneMarks.gridy = 0;
+	panelMarks.add(scrollPaneMarks, gbc_scrollPaneMarks);
 	
-	table = new JTable();
-	table.setModel(new DefaultTableModel(
+	tableMarks = new JTable();
+	tableMarks.setModel(new DefaultTableModel(
 		new Object[][] {
 		},
 		new String[] {
 			"New column", "New column", "New column", "New column", "New column", "New column", "New column"
 		}
 	));
-	scrollPane.setViewportView(table);
+	scrollPaneMarks.setViewportView(tableMarks);
     }
 
 }

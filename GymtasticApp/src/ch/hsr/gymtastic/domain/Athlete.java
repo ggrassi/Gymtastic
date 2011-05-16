@@ -29,6 +29,7 @@ public class Athlete extends Person {
 	@Embedded
 	private Association association;
 
+
 	public Athlete(int squadID, int startNr, String prgClass, String firstName,
 			String lastName, String address, int yearOfBirth,
 			Association association) {
@@ -114,7 +115,8 @@ public class Athlete extends Person {
 
 	@Override
 	public String toString() {
-		return String.format("(%d, %d)", this.squadId, this.startNr);
+//		return String.format("(%d, %d)", this.squadId, this.startNr);
+	    return super.getFirstName() + " " + super.getLastName();
 	}
 
 	public void addMark(DeviceType dt, Mark mark) {
