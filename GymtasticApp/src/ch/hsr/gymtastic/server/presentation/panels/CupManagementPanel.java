@@ -36,6 +36,7 @@ import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.server.application.controller.DBController;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.application.controller.SquadCreator;
+import ch.hsr.gymtastic.server.presentation.frames.ImagePanel;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 import ch.hsr.gymtastic.technicalServices.utils.FileExtensionFilter;
@@ -482,6 +483,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 					DBConnection.setPath(pathCup);
 					gymCupController.setExistingGymcup();
 					btnImportStartList.setEnabled(false);
+					btnOpenPic.setEnabled(false);
 					btnOpenCup.setEnabled(false);
 
 				}
@@ -522,6 +524,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 					System.out.println(path);
 					panelLogo.generateImage(path);
 					isNewImage = true;
+					lblLogo.setText("");
 
 				}
 			}
@@ -531,57 +534,93 @@ public class CupManagementPanel extends JPanel implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (isNewCup) {
-					GymCup gymCup = new GymCup(txtFieldName.getText(),
-							txtFieldLocation.getText());
-					gymCup.setName(txtFieldName.getText());
-					gymCup.setLocation(txtFieldLocation.getText());
-					gymCup.setSponsors(txtAreaSponsors.getText());
-					gymCup.setDescription(txtAreaDescr.getText());
+					GymCup gymCup = createGymCupWithCredentials();
 					try {
-						gymCup.setStartDate(DateFormatConverter
-								.convertStringToDate(txtFieldStartDate
-										.getText()));
-						gymCup
-								.setEndDate(DateFormatConverter
-										.convertStringToDate(txtFieldEndDate
-												.getText()));
+						setGymCupDateCredentials(gymCup);
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
-					if (panelLogo.isGenerated()) {
-						gymCup.setLogoImagePath(panelLogo.getPath());
-						lblLogo.setText("");
-					}
+					setGymCupLogo(gymCup);
 
 					if (isNewImportList) {
-						DBController.importGymCupToDB(gymCup);
-						try {
-							gymCup.setStartDate(DateFormatConverter
-									.convertStringToDate(txtFieldStartDate
-											.getText()));
-							gymCup.setEndDate(DateFormatConverter
-									.convertStringToDate(txtFieldEndDate
-											.getText()));
-						} catch (ParseException e) {
-						}
-						gymCupController.setGymCup(gymCup);
-						ImportStartList startList = new ImportStartList(
-								pathImport);
-						startList.readImport();
-						SquadCreator squadCreator = new SquadCreator(startList);
-						squadCreator.insertImportToDB();
-						DBController.importAllSquads(gymCupController
-								.getGymCup());
-						gymCupController.getGymCup().setSquads(
-								squadCreator.createSquads());
-						isNewCup=false;
+						importListToApplication(gymCup);
+						isNewCup = false;
+						btnImportStartList.setEnabled(false);
+
 					}
+					btnOpenCup.setEnabled(false);
 
 				} else {
-					// TODO 
-					//änderungen am cup abspeichern
-					
+					if (!nothingChanged()) {
+						try {
+							updateGymCupCredentials();
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
 				}
+			}
+
+			private void importListToApplication(GymCup gymCup) {
+				DBController.importGymCupToDB(gymCup);
+				try {
+					setGymCupDateCredentials(gymCup);
+				} catch (ParseException e) {
+				}
+				gymCupController.setGymCup(gymCup);
+				ImportStartList startList = new ImportStartList(pathImport);
+				startList.readImport();
+				SquadCreator squadCreator = new SquadCreator(startList);
+				squadCreator.insertImportToDB();
+				DBController.importAllSquads(gymCupController.getGymCup());
+				gymCupController.getGymCup().setSquads(
+						squadCreator.createSquads());
+			}
+
+			private void setGymCupLogo(GymCup gymCup) {
+				if (panelLogo.isGenerated()) {
+					gymCup.setLogoImagePath(panelLogo.getPath());
+					lblLogo.setText("");
+					btnOpenPic.setEnabled(false);
+
+				}
+			}
+
+			private void setGymCupDateCredentials(GymCup gymCup)
+					throws ParseException {
+				gymCup.setStartDate(DateFormatConverter
+						.convertStringToDate(txtFieldStartDate.getText()));
+				gymCup.setEndDate(DateFormatConverter
+						.convertStringToDate(txtFieldEndDate.getText()));
+			}
+
+			private GymCup updateGymCupCredentials() throws ParseException {
+
+				DBConnection db = new DBConnection();
+				GymCup gymCup = db.getEm().find(GymCup.class,
+						gymCupController.getGymCup().getId());
+				gymCup.setName(txtFieldName.getText());
+				gymCup.setLocation(txtFieldLocation.getText());
+				gymCup.setSponsors(txtAreaSponsors.getText());
+				gymCup.setDescription(txtAreaDescr.getText());
+				setGymCupDateCredentials(gymCup);
+				db.persist(gymCup);
+				db.commit();
+				db.closeConnection();
+				gymCupController.setGymCup(gymCup);
+				return gymCup;
+			}
+
+			private GymCup createGymCupWithCredentials() {
+				GymCup gymCup = new GymCup(txtFieldName.getText(),
+						txtFieldLocation.getText());
+				gymCup.setName(txtFieldName.getText());
+				gymCup.setLocation(txtFieldLocation.getText());
+				gymCup.setSponsors(txtAreaSponsors.getText());
+				gymCup.setDescription(txtAreaDescr.getText());
+				return gymCup;
 			}
 		});
 
@@ -641,9 +680,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 				.convertDateToString(gymCupController.getGymCup()
 						.getStartDate()));
 		txtFieldLocation.setText(gymCupController.getGymCup().getLocation());
-		btnSave.setEnabled(false);
-		btnCancel.setEnabled(false);
-
+	
 	}
 
 	@Override
@@ -665,8 +702,8 @@ public class CupManagementPanel extends JPanel implements Observer {
 				.setText(DateFormatConverter
 						.convertDateToString(gymCupController.getGymCup()
 								.getEndDate()));
-		
-		if(!isNewCup && !isNewImage){
+
+		if (!isNewCup && !isNewImage) {
 			panelLogo.setPath(gymCupController.getGymCup().getLogoImagePath());
 		}
 		lblLogo.setText("");

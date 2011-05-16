@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import ch.hsr.gymtastic.technicalServices.database.DBConnection;
+
 @Entity
 public class GymCup extends Observable {
 	@Id
@@ -29,6 +31,7 @@ public class GymCup extends Observable {
 	private String name;
 	private String description;
 	private String logoImagePath;
+
 
 	public GymCup(String name, String ort) {
 		this.name = name;
@@ -182,6 +185,7 @@ public class GymCup extends Observable {
 	public Boolean addCompetition(Competition competition) {
 		if (competition != null) {
 			Boolean b = competitions.add(competition);
+		
 			updateObservers();
 			return b;
 		} else {

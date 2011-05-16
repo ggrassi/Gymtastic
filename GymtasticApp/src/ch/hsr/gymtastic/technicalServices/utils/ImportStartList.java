@@ -8,13 +8,18 @@ import java.util.List;
 
 public class ImportStartList {
 
-    private String fileName;
-    private List<List<String>> importList = new ArrayList<List<String>>();
+
+	private String fileName;
+    protected List<List<String>> importList = new ArrayList<List<String>>();
 
     public List<List<String>> getImportList() {
 	return importList;
     }
 
+    public ImportStartList() {
+    	super();
+    	// TODO Auto-generated constructor stub
+    }
     public ImportStartList(String fileName) {
 	this.fileName = fileName;
     }
@@ -46,7 +51,7 @@ public class ImportStartList {
 	}
     }
 
-    private void removeFirstLine() {
+    protected void removeFirstLine() {
 	importList.remove(0);
     }
 

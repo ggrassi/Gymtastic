@@ -25,10 +25,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import ch.hsr.gymtastic.domain.Competition;
+import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.application.models.CompetitionOverviewTableModel;
 import ch.hsr.gymtastic.server.application.models.SquadsCompetitionTableModel;
 import ch.hsr.gymtastic.server.presentation.frames.SquadsSelectionFrame;
+import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 import javax.swing.border.EtchedBorder;
 
@@ -91,6 +93,13 @@ public class CompetitionPanel extends JPanel implements Observer {
 					e1.printStackTrace();
 				}
 				if (gymCupController.getGymCup().addCompetition(competition)) {
+					DBConnection db = new DBConnection();
+					GymCup tmpCup = db.getEm().find(GymCup.class, gymCupController.getGymCup().getId());
+					db.persist(competition);
+					tmpCup.addCompetition(competition);
+					db.persist(tmpCup);
+					db.commit();
+					db.closeConnection();
 					System.out.println("Wettkampf erfolgreich hinzugefuegt");
 				} else {
 					System.out

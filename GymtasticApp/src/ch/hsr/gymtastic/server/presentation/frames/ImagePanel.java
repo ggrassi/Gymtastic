@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.server.presentation.panels;
+package ch.hsr.gymtastic.server.presentation.frames;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
