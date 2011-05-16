@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
 
 public class RoundAllocator {
 
-	private List<Map<DeviceType, Squad>> roundlist = new ArrayList<Map<DeviceType, Squad>>();
+	private List<Map<DeviceType, Squad>> roundList = new ArrayList<Map<DeviceType, Squad>>();
 
 	public RoundAllocator(List<Squad> squads) {
 		Map<DeviceType, Squad> map = new HashMap<DeviceType, Squad>();
@@ -19,15 +20,24 @@ public class RoundAllocator {
 			map.put(device, squads.get(j));
 			j++;
 		}
-		roundlist.add(map);
+		roundList.add(map);
 	}
 
 	public Map<DeviceType, Squad> getRoundAllocation(int roundNr) {
-		return roundlist.get(roundNr);
+		return roundList.get(roundNr - 1);
 	}
-	
+
 	public Squad getSquad(DeviceType deviceType, int round) {
-		return roundlist.get(round - 1).get(deviceType);
+		return roundList.get(round - 1).get(deviceType);
+	}
+
+	public DeviceType getDeviceType(Squad squad, int round) {
+		for (Entry<DeviceType, Squad> e : roundList.get(round - 1).entrySet()) {
+			if (e.getValue() == squad) {
+				return e.getKey();
+			}
+		}
+		return null;
 	}
 
 	public Map<DeviceType, Squad> roundChange(Map<DeviceType, Squad> origin) {
