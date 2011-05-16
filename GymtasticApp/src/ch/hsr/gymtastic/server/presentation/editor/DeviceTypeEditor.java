@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.server.application.editor;
+package ch.hsr.gymtastic.server.presentation.editor;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;

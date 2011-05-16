@@ -11,9 +11,9 @@ public class FileExtensionFilter extends FileFilter{
 			return true;
 		}
 
-		String extension = Utils.getExtension(f);
-		if (extension != null && !Utils.extensions.isEmpty()) {
-			for (String ext : Utils.extensions) {
+		String extension = FileExtension.getExtension(f);
+		if (extension != null && !FileExtension.extensions.isEmpty()) {
+			for (String ext : FileExtension.extensions) {
 				System.out.println("accept: "+ext);
 				if(extension.equals(ext)){
 					return true;
@@ -28,7 +28,7 @@ public class FileExtensionFilter extends FileFilter{
 	}
 
 	public void addExtension(String string) {
-		Utils.addExtension(string);
+		FileExtension.addExtension(string);
 		
 	}
 

@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.server.presentation.panels;
+package ch.hsr.gymtastic.server.presentation.frames.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -36,7 +36,6 @@ import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.server.application.controller.DBController;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.application.controller.SquadCreator;
-import ch.hsr.gymtastic.server.presentation.frames.ImagePanel;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 import ch.hsr.gymtastic.technicalServices.utils.FileExtensionFilter;

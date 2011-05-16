@@ -16,7 +16,7 @@ public class RMIClient extends Observable implements RMIClientInterface {
     private RMIServerInterface rmiServerInterface;
 
     @Override
-    public void uploadSquadToClient(Serializable object) throws RemoteException {
+    public void uploadObjectToClient(Serializable object) throws RemoteException {
 	updateObservers(object);
     }
 
@@ -58,14 +58,5 @@ public class RMIClient extends Observable implements RMIClientInterface {
 	notifyObservers(object);
     }
 
-    @Override
-    public void uploadGymCupInfoToClient(Serializable object) {
-	updateObservers(object);
-    }
-
-    @Override
-    public void uploadCompetitionInfoToClient(Serializable object) {
-	updateObservers(object);
-    }
 
 }

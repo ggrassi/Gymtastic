@@ -14,11 +14,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import ch.hsr.gymtastic.domain.Competition;
-import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
-import ch.hsr.gymtastic.server.application.models.SquadSelectionTableModel;
+import ch.hsr.gymtastic.server.presentation.models.SquadSelectionTableModel;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
+
 
 public class SquadsSelectionFrame {
 
@@ -73,8 +73,6 @@ public class SquadsSelectionFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					// ServerFrame window = new ServerFrame();
-					// window.frameServer.setVisible(true);
 					squadSelectionFrame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

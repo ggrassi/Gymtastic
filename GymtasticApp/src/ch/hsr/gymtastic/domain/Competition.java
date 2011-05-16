@@ -108,6 +108,14 @@ public class Competition extends Observable {
 		setChanged();
 		notifyObservers();
 	}
+	
+	public List<Athlete> getAllAthletes(){
+		List<Athlete> athletes = new ArrayList<Athlete>();
+		for(Squad s: squads){
+			athletes.addAll(s.getAthlets());
+		}
+		return athletes;
+	}
 
 	@Override
 	public String toString() {

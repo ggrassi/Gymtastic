@@ -33,7 +33,7 @@ public class NetworkServerController extends Observable implements Observer {
 			RoundInfo roundInfo) throws ConnectException {
 		if (client != null) {
 			try {
-				client.uploadSquadToClient(roundInfo);
+				client.uploadObjectToClient(roundInfo);
 			} catch (RemoteException e) {
 				throw new ConnectException();
 			}
@@ -46,7 +46,7 @@ public class NetworkServerController extends Observable implements Observer {
 			for (RMIClientInterface client : clientsAllocater
 					.getAllocatedClients()) {
 				if (client != null) {
-					client.uploadCompetitionInfoToClient(competitionInfo);
+					client.uploadObjectToClient(competitionInfo);
 				}
 			}
 		} catch (RemoteException e) {
@@ -74,7 +74,7 @@ public class NetworkServerController extends Observable implements Observer {
 			GymCupClientInfo gymCupInfo) throws ConnectException {
 		if (client != null) {
 			try {
-				client.uploadGymCupInfoToClient(gymCupInfo);
+				client.uploadObjectToClient(gymCupInfo);
 
 			} catch (RemoteException e) {
 				throw new ConnectException();
