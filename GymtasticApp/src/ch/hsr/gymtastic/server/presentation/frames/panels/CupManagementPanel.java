@@ -36,6 +36,7 @@ import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.server.application.controller.DBController;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.application.controller.SquadCreator;
+import ch.hsr.gymtastic.server.presentation.frames.ImagePanel;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 import ch.hsr.gymtastic.technicalServices.utils.FileExtensionFilter;
@@ -679,7 +680,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 				.convertDateToString(gymCupController.getGymCup()
 						.getStartDate()));
 		txtFieldLocation.setText(gymCupController.getGymCup().getLocation());
-	
+
 	}
 
 	@Override
@@ -703,7 +704,10 @@ public class CupManagementPanel extends JPanel implements Observer {
 								.getEndDate()));
 
 		if (!isNewCup && !isNewImage) {
-			panelLogo.setPath(gymCupController.getGymCup().getLogoImagePath());
+			if (gymCupController.getGymCup().getLogoImagePath() != "") {
+				panelLogo.setPath(gymCupController.getGymCup()
+						.getLogoImagePath());
+			}
 		}
 		lblLogo.setText("");
 

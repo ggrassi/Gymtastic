@@ -101,7 +101,7 @@ public class Competition extends Observable {
 
 	public void addSquad(Squad squad) {
 		squads.add(squad);
-		updateObservers();
+//		updateObservers();
 	}
 
 	private void updateObservers() {
