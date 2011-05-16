@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.server.presentation.frames.panels;
+package ch.hsr.gymtastic.server.presentation.frames;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 public class ImagePanel extends JPanel {
 
 	private BufferedImage image = null;
-	private String path;
+	private String path = "";
 
 	public BufferedImage getImage() {
 		return image;
@@ -56,6 +56,9 @@ public class ImagePanel extends JPanel {
 	}
 
 	public void setPath(String path) {
+		if(path == null){
+			return;
+		}
 		this.path = path;
 		generateImage(path);
 	}

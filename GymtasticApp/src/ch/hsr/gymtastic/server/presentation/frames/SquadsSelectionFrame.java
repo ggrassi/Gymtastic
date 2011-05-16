@@ -17,6 +17,8 @@ import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.models.SquadSelectionTableModel;
+import ch.hsr.gymtastic.technicalServices.database.DBConnection;
+
 
 public class SquadsSelectionFrame {
 
@@ -87,14 +89,20 @@ public class SquadsSelectionFrame {
 				List<Squad> selectedSquads = new ArrayList<Squad>();
 				if (tableSquads.getSelectedRows().length > 0) {
 					int[] rows = tableSquads.getSelectedRows();
+					DBConnection db = new DBConnection();
+					Competition tmpComp = db.getEm().find(Competition.class, actualCompetition.getId());
 					for (int i : rows) {
 						int modelRow = tableSquads.convertRowIndexToModel(i);
-						selectedSquads.add(gymCupController.getGymCup().getUnallocatedSquads().get(modelRow));
+						Squad tmpSquad = db.getEm().find(Squad.class, gymCupController.getGymCup().getUnallocatedSquads().get(modelRow).getId()); 
+						tmpComp.addSquad(tmpSquad);
+						selectedSquads.add(tmpSquad);
+						gymCupController.getGymCup().getUnallocatedSquads().remove(tmpSquad);
+						actualCompetition.addSquad(tmpSquad);
+						db.persist(tmpComp);
+						System.out.println("Squad in Wettkampf hinzugefügt");
 					}
-					for(Squad s: selectedSquads){
-						gymCupController.getGymCup().getUnallocatedSquads().remove(s);
-						actualCompetition.addSquad(s);
-					}
+					db.commit();
+					db.closeConnection();					
 					squadSelectionFrame.dispose();
 				}
 

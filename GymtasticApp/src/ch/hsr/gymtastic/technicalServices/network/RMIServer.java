@@ -43,15 +43,21 @@ public class RMIServer extends Observable implements RMIServerInterface {
 		updateObservers();
 	}
 
-	@Override
-	public void uploadSquadToServer(Serializable object) throws RemoteException {
-	
-
-	}
-
 	private void updateObservers() {
 		setChanged();
 		notifyObservers();
+		
+	}
+
+	@Override
+	public void uploadObjectToServer(Serializable object) throws RemoteException {
+	updateObservers(object);
+
+	}
+
+	private void updateObservers(Serializable object) {
+		setChanged();
+		notifyObservers(object);
 	}
 
 	public Vector<ClientInformation> getClientsWaitingForAllocation() {

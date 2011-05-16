@@ -21,7 +21,7 @@ import ch.hsr.gymtastic.domain.Squad;
 
 public class ClientFrame implements Observer {
 
-	private JFrame frame;
+	private JFrame frmClient;
 	private JPanel panelStatus;
 	private JPanel panelLogo;
 	private JTabbedPane tabbedPane;
@@ -33,6 +33,7 @@ public class ClientFrame implements Observer {
 	private CompetitionInfoController roundInfoController;
 	private Squad actualSquad;
 	private DeviceType deviceType;
+	private final NetworkClientController networkController;
 
 	/**
 	 * Launch the application.
@@ -46,7 +47,7 @@ public class ClientFrame implements Observer {
 				try {
 					ClientFrame window = new ClientFrame(squadController,
 							networkController);
-					window.frame.setVisible(true);
+					window.frmClient.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -62,12 +63,14 @@ public class ClientFrame implements Observer {
 	public ClientFrame(SquadController squadController,
 			NetworkClientController networkController) {
 		this.squadController = squadController;
+		this.networkController = networkController;
 		try {
-			networkController.setSquadController(squadController);
+			this.networkController.setSquadController(squadController);
 			gymCupInfoController = new GymCupInfoController();
-			networkController.setGymCupInfoController(gymCupInfoController);
+			this.networkController
+					.setGymCupInfoController(gymCupInfoController);
 			roundInfoController = new CompetitionInfoController();
-			networkController.setRoundInfoController(roundInfoController);
+			this.networkController.setRoundInfoController(roundInfoController);
 			this.squadController.addObserver(this);
 
 		} catch (Exception e) {
@@ -80,19 +83,19 @@ public class ClientFrame implements Observer {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 800, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Gymtastic Client");
+		frmClient = new JFrame();
+		frmClient.setBounds(100, 100, 800, 600);
+		frmClient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmClient.setTitle("Gymtastic Client");
 
 		panelStatus = new JPanel();
-		frame.getContentPane().add(panelStatus, BorderLayout.SOUTH);
+		frmClient.getContentPane().add(panelStatus, BorderLayout.SOUTH);
 
 		panelLogo = new JPanel();
-		frame.getContentPane().add(panelLogo, BorderLayout.NORTH);
+		frmClient.getContentPane().add(panelLogo, BorderLayout.NORTH);
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
+		frmClient.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
 		panelOverview = new OverviewPanel(gymCupInfoController,
 				roundInfoController, squadController, deviceType, this);
@@ -108,9 +111,11 @@ public class ClientFrame implements Observer {
 
 	public void createPanels() {
 		if (panelActualSquad == null && panelEvaluation == null) {
-			panelEvaluation = new EvaluationPanel(squadController, deviceType, this);
+			panelEvaluation = new EvaluationPanel(squadController, deviceType,
+					this);
 			tabbedPane.addTab("Bewertung", null, panelEvaluation, null);
-			panelActualSquad = new ActualSquadPanel(actualSquad, deviceType);
+			panelActualSquad = new ActualSquadPanel(actualSquad, deviceType,
+					networkController, frmClient);
 			tabbedPane.addTab("Aktuelle Riege", null, panelActualSquad, null);
 		}
 
@@ -121,6 +126,10 @@ public class ClientFrame implements Observer {
 			tabbedPane.getModel().setSelectedIndex(panelIndex);
 		}
 
+	}
+
+	public JFrame getFrame() {
+		return frmClient;
 	}
 
 	public Squad getActualSquad() {

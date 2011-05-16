@@ -41,5 +41,10 @@ public class DBController {
 	public static void setPath(String path){
 		DBConnection.setPath(path);
 	}
+	public static void saveSquad(Squad s, GymCup gymCup) {
+		// TODO Auto-generated method stub
+		dbConnection = new DBConnection();
+				
+	}
 
 }

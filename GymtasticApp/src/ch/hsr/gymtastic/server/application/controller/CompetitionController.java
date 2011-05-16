@@ -1,21 +1,27 @@
 package ch.hsr.gymtastic.server.application.controller;
 
 import java.net.ConnectException;
+import java.util.Observable;
+import java.util.Observer;
 
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.CompetitionInfo;
 import ch.hsr.gymtastic.domain.DeviceType;
+import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.domain.RoundInfo;
+import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 
-public class CompetitionController {
+public class CompetitionController implements Observer {
 	private RoundAllocator roundAllocator;
 	private Competition competition;
 	private NetworkServerController networkController;
 	private ClientAllocator clientAllocator;
+	private GymCup gymCup;
 
-	public CompetitionController(NetworkServerController networkController) {
+	public CompetitionController(NetworkServerController networkController, GymCup gymCup) {
 		this.networkController = networkController;
+		this.networkController.addObserver(this);
 		this.clientAllocator = this.networkController.getClientAllocater();
 	}
 
@@ -57,6 +63,17 @@ public class CompetitionController {
 				}
 			}
 
+		}
+
+	}
+
+	@Override
+	public void update(Observable o, Object obj) {
+		if (obj != null) {
+			System.out.println("Squad received!");
+			Squad s = (Squad) obj;
+			getCompetition().updateSquad(s);
+			DBController.saveSquad(s, gymCup);
 		}
 
 	}

@@ -7,12 +7,18 @@ import java.util.Observable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Competition extends Observable {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Squad> squads = new ArrayList<Squad>();
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private String description;
 	private String startTime;
 	private String endTime;
@@ -85,8 +91,27 @@ public class Competition extends Observable {
 		this.programClass = programClass;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
+
 	public void addSquad(Squad squad) {
 		squads.add(squad);
+//		updateObservers();
+	}
+
+	public void updateSquad(Squad squad) {
+		System.out.println("Updating Squad: " + squad.getSquadId());
+		for(Squad s: squads){
+			if(s.getSquadId() == squad.getSquadId()){
+				squads.set(squads.indexOf(s), squad);
+				System.out.println("Squad overriden");
+			}
+		}
 		updateObservers();
 	}
 
@@ -94,10 +119,10 @@ public class Competition extends Observable {
 		setChanged();
 		notifyObservers();
 	}
-	
-	public List<Athlete> getAllAthletes(){
+
+	public List<Athlete> getAllAthletes() {
 		List<Athlete> athletes = new ArrayList<Athlete>();
-		for(Squad s: squads){
+		for (Squad s : squads) {
 			athletes.addAll(s.getAthlets());
 		}
 		return athletes;

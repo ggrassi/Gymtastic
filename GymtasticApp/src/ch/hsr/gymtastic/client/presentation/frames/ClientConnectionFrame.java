@@ -87,12 +87,16 @@ public class ClientConnectionFrame {
 		try {
 		    networkController.setServerIP(txtIpAddress.getText());
 		    networkController.connect((DeviceType) cmbDeviceType.getSelectedItem());
-
 		    ClientFrame.newClientFrame(squadController, networkController);
 		    frmClientConnection.dispose();
 		} catch (Exception e) {
+			e.printStackTrace();
 		    JOptionPane.showMessageDialog(frmClientConnection, "Die Verbindung zum Server ist fehlgeschlagen.",
 			    "Verbindungsfehler", JOptionPane.ERROR_MESSAGE);
+		    /*
+		     * TODO: Delete!
+		     */
+		    ClientFrame.newClientFrame(squadController, networkController);
 		}
 
 	    }

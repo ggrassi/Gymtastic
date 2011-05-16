@@ -31,12 +31,6 @@ public class Mark implements Serializable {
 		this.eMarkThree = eMarkThree;
 		this.penalty = penalty;
 		this.bonus = bonus;
-		this.finalMark = generateFinalMark();
-	}
-
-	private double generateFinalMark() {
-		return ((eMarkOne + eMarkTwo + eMarkThree) / 3) + dMark + bonus
-				- penalty;
 	}
 
 	@Override
@@ -151,7 +145,8 @@ public class Mark implements Serializable {
 	}
 
 	public double getFinalMark() {
-		return finalMark;
+		return ((eMarkOne + eMarkTwo + eMarkThree) / 3) + dMark + bonus
+		- penalty;
 	}
 
 }
