@@ -20,17 +20,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import ch.hsr.gymtastic.domain.Competition;
+import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.frames.SquadsSelectionFrame;
 import ch.hsr.gymtastic.server.presentation.models.CompetitionOverviewTableModel;
 import ch.hsr.gymtastic.server.presentation.models.SquadsCompetitionTableModel;
+import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
-import javax.swing.border.EtchedBorder;
 
 public class CompetitionPanel extends JPanel implements Observer {
 
@@ -79,6 +81,7 @@ public class CompetitionPanel extends JPanel implements Observer {
 
 		btnAddCompetition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				Competition competition = null;
 				try {
 					competition = new Competition(
@@ -87,10 +90,19 @@ public class CompetitionPanel extends JPanel implements Observer {
 									.convertStringToDate(txtFieldDate.getText()),
 							txtFieldStartTime.getText(), txtFieldEndTime
 									.getText(), txtFieldProgramClass.getText());
+
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				}
 				if (gymCupController.getGymCup().addCompetition(competition)) {
+					DBConnection db = new DBConnection();
+					GymCup tmpCup = db.getEm().find(GymCup.class,
+							gymCupController.getGymCup().getId());
+					db.persist(competition);
+					tmpCup.addCompetition(competition);
+					db.persist(tmpCup);
+					db.commit();
+					db.closeConnection();
 					System.out.println("Wettkampf erfolgreich hinzugefuegt");
 				} else {
 					System.out
@@ -274,7 +286,10 @@ public class CompetitionPanel extends JPanel implements Observer {
 		panelInfo.add(btnAddCompetition, gbc_btnAddCompetition);
 
 		JPanel panelOverviewBorder = new JPanel();
-		panelOverviewBorder.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "\u00DCbersicht", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelOverviewBorder.setBorder(new TitledBorder(new EtchedBorder(
+				EtchedBorder.LOWERED, null, null), "\u00DCbersicht",
+				TitledBorder.LEADING, TitledBorder.TOP, null,
+				new Color(0, 0, 0)));
 		GridBagConstraints gbc_panelOverviewBorder = new GridBagConstraints();
 		gbc_panelOverviewBorder.gridheight = 2;
 		gbc_panelOverviewBorder.fill = GridBagConstraints.BOTH;
@@ -356,7 +371,8 @@ public class CompetitionPanel extends JPanel implements Observer {
 	private void updateCompetitionInfos() {
 		setSquadsTableModel();
 
-		int position = tableCompetitions.convertRowIndexToModel(tableCompetitions.getSelectedRow());
+		int position = tableCompetitions
+				.convertRowIndexToModel(tableCompetitions.getSelectedRow());
 		setActualCompetition(gymCupController.getGymCup().getCompetitions()
 				.get(position));
 
@@ -378,7 +394,7 @@ public class CompetitionPanel extends JPanel implements Observer {
 
 	private void setActualCompetition(Competition competition) {
 		this.actualCompetition = competition;
-		squadsTableModel.setCompetition(this.actualCompetition);
+		squadsTableModel.setCompetition(this. actualCompetition);
 
 	}
 
