@@ -90,14 +90,25 @@ public class Competition extends Observable {
 		updateObservers();
 	}
 
+	public void updateSquad(Squad squad) {
+		System.out.println("Updating Squad: " + squad.getSquadId());
+		for(Squad s: squads){
+			if(s.getSquadId() == squad.getSquadId()){
+				squads.set(squads.indexOf(s), squad);
+				System.out.println("Squad overriden");
+			}
+		}
+		updateObservers();
+	}
+
 	private void updateObservers() {
 		setChanged();
 		notifyObservers();
 	}
-	
-	public List<Athlete> getAllAthletes(){
+
+	public List<Athlete> getAllAthletes() {
 		List<Athlete> athletes = new ArrayList<Athlete>();
-		for(Squad s: squads){
+		for (Squad s : squads) {
 			athletes.addAll(s.getAthlets());
 		}
 		return athletes;

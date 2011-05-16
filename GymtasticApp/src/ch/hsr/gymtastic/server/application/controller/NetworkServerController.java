@@ -17,7 +17,6 @@ import ch.hsr.gymtastic.technicalServices.network.RMIServer;
 public class NetworkServerController extends Observable implements Observer {
 
 	private RMIServer rmiServer;
-	private Squad squad;
 	private ClientAllocator clientsAllocater = new ClientAllocator();
 
 	public NetworkServerController() throws ConnectException {
@@ -59,14 +58,13 @@ public class NetworkServerController extends Observable implements Observer {
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-		this.squad = (Squad) arg;
-		updateObservers();
+	public void update(Observable o, Object obj) {
+		updateObservers(obj);
 	}
 
-	private void updateObservers() {
+	private void updateObservers(Object obj) {
 		setChanged();
-		notifyObservers();
+		notifyObservers(obj);
 
 	}
 
