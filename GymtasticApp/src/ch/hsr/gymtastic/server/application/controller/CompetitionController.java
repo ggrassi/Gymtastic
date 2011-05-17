@@ -18,8 +18,10 @@ public class CompetitionController implements Observer {
 	private NetworkServerController networkController;
 	private ClientAllocator clientAllocator;
 	private GymCup gymCup;
+	private int actualRoundNr;
 
-	public CompetitionController(NetworkServerController networkController, GymCup gymCup) {
+	public CompetitionController(NetworkServerController networkController,
+			GymCup gymCup) {
 		this.networkController = networkController;
 		this.networkController.addObserver(this);
 		this.clientAllocator = this.networkController.getClientAllocater();
@@ -49,9 +51,10 @@ public class CompetitionController implements Observer {
 	}
 
 	public void enableRound(Integer roundNr) {
+		setActualRoundNr(roundNr);
 		for (DeviceType deviceType : DeviceType.values()) {
 			RoundInfo roundInfo = new RoundInfo(roundAllocator.getSquad(
-					deviceType, roundNr), roundNr);
+					deviceType, actualRoundNr), actualRoundNr);
 			ClientInformation clientInformation = clientAllocator
 					.getClientInformation(deviceType);
 			if (clientInformation != null) {
@@ -70,12 +73,30 @@ public class CompetitionController implements Observer {
 	@Override
 	public void update(Observable o, Object obj) {
 		if (obj != null) {
-			System.out.println("Squad received!");
 			Squad s = (Squad) obj;
+<<<<<<< HEAD
 			getCompetition().updateSquad(s);
 			DBController.saveSquad(s, DeviceType.FLOOR_EXCERCISE);
+=======
+			updateSquad(s);
+>>>>>>> 5f9b391df3f6439ef0cf6234b7d21e9e2534b148
 		}
 
+	}
+
+	private void updateSquad(Squad squad) {
+		System.out.println("Squad received!");
+		getCompetition().updateSquad(squad);
+		DeviceType deviceType = roundAllocator.getDeviceType(squad, actualRoundNr);
+		DBController.saveSquad(squad, gymCup);
+	}
+
+	public void setActualRoundNr(Integer roundNr) {
+		actualRoundNr = roundNr;
+	}
+
+	public int getActualRoundNr() {
+		return actualRoundNr;
 	}
 
 }

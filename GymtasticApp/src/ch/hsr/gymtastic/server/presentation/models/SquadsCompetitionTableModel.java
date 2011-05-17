@@ -50,12 +50,12 @@ public class SquadsCompetitionTableModel extends AbstractTableModel implements
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-
 		fireTableDataChanged();
 	}
 
 	public void setCompetition(Competition competition) {
 		this.competition = competition;
+		this.competition.addObserver(this);
 		fireTableDataChanged();
 	}
 

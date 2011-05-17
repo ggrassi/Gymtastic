@@ -93,10 +93,6 @@ public class ClientConnectionFrame {
 			e.printStackTrace();
 		    JOptionPane.showMessageDialog(frmClientConnection, "Die Verbindung zum Server ist fehlgeschlagen.",
 			    "Verbindungsfehler", JOptionPane.ERROR_MESSAGE);
-		    /*
-		     * TODO: Delete!
-		     */
-		    ClientFrame.newClientFrame(squadController, networkController);
 		}
 
 	    }
