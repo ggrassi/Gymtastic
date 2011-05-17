@@ -73,7 +73,7 @@ public class CompetitionController implements Observer {
 			System.out.println("Squad received!");
 			Squad s = (Squad) obj;
 			getCompetition().updateSquad(s);
-			DBController.saveSquad(s, gymCup);
+			DBController.saveSquad(s, DeviceType.FLOOR_EXCERCISE);
 		}
 
 	}
