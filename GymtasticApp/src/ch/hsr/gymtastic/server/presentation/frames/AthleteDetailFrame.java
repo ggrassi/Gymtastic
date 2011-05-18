@@ -24,10 +24,11 @@ import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.domain.Association;
 import ch.hsr.gymtastic.domain.Athlete;
+import ch.hsr.gymtastic.server.application.controller.DBController;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.models.AthleteDetailTableModel;
 
-public class AthleteDetailFrame implements Observer {
+public class AthleteDetailFrame {
 
     private JFrame frmAthletDetailansicht;
     private JTable tableMarks;
@@ -76,10 +77,15 @@ public class AthleteDetailFrame implements Observer {
      * 
      * @param gymCupController
      */
+
+    /*
+     * TODO: muss nur observer sein wenn man zB will dass bei offenem
+     * Detail-Fenster der aktuelle Rang des Athleten geupdated wird
+     */
     public AthleteDetailFrame(Athlete athlete, GymCupController gymCupController) {
 	this.athlete = athlete;
 	this.gymCupController = gymCupController;
-	this.gymCupController.addObserver(this);
+	// this.gymCupController.addObserver(this);
 	initGUI();
 	initListeners();
 	inizializeFields();
@@ -554,16 +560,9 @@ public class AthleteDetailFrame implements Observer {
 	    athleteDetailTableModel.setAthlete(athlete);
 	    updateAfterCancel();
 	}
-
 	btnSave.setEnabled(false);
 	btnCancel.setEnabled(false);
 	gymCupController.getGymCup().athleteChanged();
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-	// athlete = gymCupController.
-
     }
 
 }

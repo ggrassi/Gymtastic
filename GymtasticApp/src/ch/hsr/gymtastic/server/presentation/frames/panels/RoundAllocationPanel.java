@@ -154,7 +154,7 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 
 		cmbCompetition = new JComboBox();
 		cmbCompetition.setMinimumSize(new Dimension(100, 20));
-		comboBoxCompetitionModel = new CompetitionComboBoxModel();
+		comboBoxCompetitionModel = new CompetitionComboBoxModel(gymCupController.getGymCup().getCompetitions());
 		cmbCompetition.setModel(comboBoxCompetitionModel);
 		GridBagConstraints gbc_cmbCompetition = new GridBagConstraints();
 		gbc_cmbCompetition.fill = GridBagConstraints.HORIZONTAL;

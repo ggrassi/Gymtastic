@@ -66,6 +66,20 @@ public class DBController {
 		dbConnection.closeConnection();
 
 	}
+
+	public static void updateAthlete(Athlete tmpAthlete) {
+		dbConnection = new DBConnection();
+		Athlete dbAthlete = dbConnection.getEm().find(Athlete.class, tmpAthlete.getId());
+		dbAthlete.setAddress(tmpAthlete.getAddress());
+		dbAthlete.setFirstName(tmpAthlete.getFirstName());
+		dbAthlete.setLastName(tmpAthlete.getLastName());
+		dbAthlete.setPrgClass(tmpAthlete.getPrgClass());
+		dbAthlete.setStartNr(tmpAthlete.getStartNr());
+		dbAthlete.setYearOfBirth(tmpAthlete.getYearOfBirth());
+		dbAthlete.setAssociation(tmpAthlete.getAssociation());
+		dbConnection.commit();
+		dbConnection.closeConnection();
+	}
 		
 
 }
