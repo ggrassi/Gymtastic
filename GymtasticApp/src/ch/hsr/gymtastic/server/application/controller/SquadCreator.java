@@ -8,6 +8,8 @@ import java.util.TreeSet;
 
 import ch.hsr.gymtastic.domain.Association;
 import ch.hsr.gymtastic.domain.Athlete;
+import ch.hsr.gymtastic.domain.DeviceType;
+import ch.hsr.gymtastic.domain.Mark;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
@@ -84,6 +86,14 @@ public class SquadCreator {
 			    .get(yearPositionImport)), new Association(line.get(associationNamePositionImport), line
 			    .get(associationPlacePositionImport)));
 	    db.persist(atemp);
+	    
+	    Mark mtemp = new Mark(0, 0, 0, 0, 0, 0);
+	    db.persist(mtemp);
+	    for (DeviceType dt : DeviceType.values()) {
+	    	atemp.addMark(dt, mtemp);			
+		}
+	    db.persist(atemp);
+	    
 	    temp.addAthlet(atemp);
 	    db.persist(temp);
 

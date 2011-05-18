@@ -17,7 +17,7 @@ public class Mark implements Serializable {
 	private double eMarkThree;
 	private double penalty;
 	private double bonus;
-	private double finalMark;
+	private double finalMark = 0;
 
 	public Mark() {
 	}
