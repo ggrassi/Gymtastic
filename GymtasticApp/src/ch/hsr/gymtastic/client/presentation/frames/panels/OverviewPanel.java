@@ -342,6 +342,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		lblCupName.setText(gymCupClientInfo.getName());
 		lblCupLocation.setText(gymCupClientInfo.getLocation());
 		lblDevice.setText(gymCupClientInfo.getDeviceType().toString());
+		deviceType = gymCupClientInfo.getDeviceType();
 		lblStartDate.setText(DateFormatConverter
 				.convertDateToString(gymCupClientInfo.getStartDate()));
 		lblEndDate.setText(DateFormatConverter
