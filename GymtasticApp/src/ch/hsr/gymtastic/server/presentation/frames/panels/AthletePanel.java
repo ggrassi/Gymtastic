@@ -26,6 +26,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 
+import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.frames.AthleteDetailFrame;
 import ch.hsr.gymtastic.server.presentation.models.AthleteDataTableModel;
@@ -73,6 +74,13 @@ public class AthletePanel extends JPanel implements Observer {
 		AthleteDetailFrame.open(athleteDataTableModel.getAthlete(row), gymCupController);
 	    }
 	});
+	
+	btnAddAthlete.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+		AthleteDetailFrame.open(null, gymCupController);
+	    }
+	});
+	
 	txtFieldSearchAthlete.getDocument().addDocumentListener(new DocumentListener() {
 
 	    @Override
