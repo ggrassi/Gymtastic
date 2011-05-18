@@ -24,6 +24,7 @@ import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.domain.Association;
 import ch.hsr.gymtastic.domain.Athlete;
+import ch.hsr.gymtastic.server.application.controller.DBController;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.models.AthleteDetailTableModel;
 
@@ -510,6 +511,7 @@ public class AthleteDetailFrame implements Observer {
     }
 
     private void saveAthleteInfos() {
+    	
 	athlete.setAddress(txtFieldAddress.getText());
 	athlete.setAssociation(new Association(txtFieldAssocation.getText(),athlete.getAssociation().getLocation()));
 	athlete.setFirstName(txtFieldFirstName.getText());
@@ -518,6 +520,7 @@ public class AthleteDetailFrame implements Observer {
 	athlete.setSquadId(Integer.parseInt(txtFieldSquad.getText()));
 	athlete.setStartNr(Integer.parseInt(txtFieldStartNr.getText()));
 	athlete.setYearOfBirth(Integer.parseInt(txtFieldYearOfBirth.getText()));
+	DBController.updateAthlete(athlete);
 	btnSave.setEnabled(false);
 	btnCancel.setEnabled(false);
 	gymCupController.getGymCup().athleteChanged();
