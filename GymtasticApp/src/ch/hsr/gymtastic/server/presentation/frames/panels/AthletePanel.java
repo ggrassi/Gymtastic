@@ -62,6 +62,7 @@ public class AthletePanel extends JPanel implements Observer {
 	this.gymCupController.getGymCup().addObserver(this);
 	initGUI();
 	initListeners();
+	updateStatistics();
     }
 
     private void initListeners() {
@@ -69,7 +70,7 @@ public class AthletePanel extends JPanel implements Observer {
 	    public void actionPerformed(ActionEvent e) {
 		int row = tableAthletes.getSelectedRow();
 		row = tableAthletes.convertRowIndexToModel(row);
-		AthleteDetailFrame.open(athleteDataTableModel.getAthlete(row));
+		AthleteDetailFrame.open(athleteDataTableModel.getAthlete(row), gymCupController);
 	    }
 	});
 	txtFieldSearchAthlete.getDocument().addDocumentListener(new DocumentListener() {
@@ -94,8 +95,10 @@ public class AthletePanel extends JPanel implements Observer {
 	    public void valueChanged(ListSelectionEvent event) {
 		if (tableAthletes.getSelectedRowCount() > 0) {
 		    btnShowAthlete.setEnabled(true);
+		    btnRemoveAthlete.setEnabled(true);
 		} else {
 		    btnShowAthlete.setEnabled(false);
+		    btnRemoveAthlete.setEnabled(false);
 		}
 	    }
 	});
@@ -242,6 +245,7 @@ public class AthletePanel extends JPanel implements Observer {
 	gbc_btnRemoveAthlete.gridx = 4;
 	gbc_btnRemoveAthlete.gridy = 0;
 	panelAthletesSearch.add(btnRemoveAthlete, gbc_btnRemoveAthlete);
+	btnRemoveAthlete.setEnabled(false);
 
 	scrollPaneAthletes = new JScrollPane();
 	GridBagConstraints gbc_scrollPaneAthletes = new GridBagConstraints();
@@ -270,9 +274,12 @@ public class AthletePanel extends JPanel implements Observer {
 
     @Override
     public void update(Observable arg0, Object arg1) {
-	lblSquadsAmount.setText("" + gymCupController.getGymCup().getSquads().size());
-	lblAthletesAmount.setText("" + gymCupController.getGymCup().getAllAthletes().size());
+	updateStatistics();
+    }
 
+    private void updateStatistics() {
+	lblSquadsAmount.setText("" + gymCupController.getGymCup().getSquads().size());
+	lblAthletesAmount.setText("" + gymCupController.getGymCup().getAllAthletes().size());	
     }
 
 }

@@ -207,4 +207,8 @@ public class GymCup extends Observable {
 		notifyObservers();
 	}
 
+	public void athleteChanged() {
+	    updateObservers();
+	}
+
 }

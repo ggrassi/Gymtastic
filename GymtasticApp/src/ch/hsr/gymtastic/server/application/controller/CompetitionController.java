@@ -83,7 +83,7 @@ public class CompetitionController implements Observer {
 		System.out.println("Squad received!");
 		getCompetition().updateSquad(squad);
 		DeviceType deviceType = roundAllocator.getDeviceType(squad, actualRoundNr);
-		DBController.saveSquad(squad, gymCup);
+		DBController.saveReceivedSquad(squad, deviceType);
 	}
 
 	public void setActualRoundNr(Integer roundNr) {

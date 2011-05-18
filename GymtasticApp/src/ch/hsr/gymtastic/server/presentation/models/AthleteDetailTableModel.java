@@ -18,13 +18,13 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
     private String[] columns = { "Gerät", "D-Note", "E-Note 1", "E-Note 2", "E-Note 3", "Bonus", "Penalty",
 	    "Gesamtnote" };
     private Athlete athlete;
+    private GymCupController gymCupController;
 
-    // private GymCupController gymCupController;
 
-    public AthleteDetailTableModel(Athlete athlete) {
+    public AthleteDetailTableModel(Athlete athlete, GymCupController gymCupController) {
 	this.athlete = athlete;
-	// this.gymCupController = gymCupController;
-	// this.gymCupController.getGymCup().addObserver(this);
+	this.gymCupController = gymCupController;
+	this.gymCupController.getGymCup().addObserver(this);
     }
 
     @Override

@@ -33,7 +33,7 @@ public class RoundAllocator {
 
 	public DeviceType getDeviceType(Squad squad, int round) {
 		for (Entry<DeviceType, Squad> e : roundList.get(round - 1).entrySet()) {
-			if (e.getValue() == squad) {
+			if (e.getValue().getSquadId() == squad.getSquadId()) {
 				return e.getKey();
 			}
 		}

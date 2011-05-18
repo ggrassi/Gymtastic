@@ -68,7 +68,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private ButtonGroup buttonGroupParticipation;
 	private SquadController squadController;
 	private Athlete athlete;
-	private final DeviceType deviceType;
+	private DeviceType deviceType;
 	private JButton btnOverview;
 	private ClientFrame frameClient;
 	private JButton btnEndEvaluation;
@@ -472,13 +472,14 @@ public class EvaluationPanel extends JPanel implements Observer {
 	}
 
 	private void setMark() {
+
 		athlete.addMark(deviceType, getMarkFromInput());
 
 	}
 
 	private Mark getMarkFromInput() {
 		/*
-		 * TODO: Input Verifier für Noten
+		 * TODO: Input Verifier fï¿½r Noten
 		 */
 		try {
 			double dMark = Double.valueOf(txtFieldDMark.getText());
@@ -491,6 +492,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 		} catch (NumberFormatException e) {
 		}
 		return null;
+
 	}
 
 	private void loadAthleteFields() {
@@ -572,5 +574,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private void showOverviewPanel() {
 		frameClient.setFocusOnPanel(2);
 	}
+
+
 
 }
