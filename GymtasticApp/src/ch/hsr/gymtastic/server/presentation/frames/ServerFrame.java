@@ -15,7 +15,6 @@ import ch.hsr.gymtastic.server.presentation.frames.panels.AthletePanel;
 import ch.hsr.gymtastic.server.presentation.frames.panels.CompetitionPanel;
 import ch.hsr.gymtastic.server.presentation.frames.panels.CupManagementPanel;
 import ch.hsr.gymtastic.server.presentation.frames.panels.DeviceTypePanel;
-import ch.hsr.gymtastic.server.presentation.frames.panels.JudgePanel;
 import ch.hsr.gymtastic.server.presentation.frames.panels.RankingPanel;
 import ch.hsr.gymtastic.server.presentation.frames.panels.RoundAllocationPanel;
 
@@ -26,7 +25,6 @@ public class ServerFrame implements Observer {
 	private GymCupController gymCupController;
 	private CompetitionPanel panelCompetition;
 	private AthletePanel panelAthlete;
-	private JudgePanel panelJudge;
 	private DeviceTypePanel panelDeviceType;
 	private RankingPanel panelRanking;
 	private JPanel panelLogo;
@@ -180,14 +178,12 @@ public class ServerFrame implements Observer {
 			panelCompetition = new CompetitionPanel(gymCupController);
 			panelRanking = new RankingPanel(gymCupController);
 			panelAthlete = new AthletePanel(gymCupController);
-			panelJudge = new JudgePanel();
 			roundAllocation = new RoundAllocationPanel(gymCupController);
 			tabbedPaneServer.addTab("Wettkampfverwaltung", null,
 					panelCompetition, null);
 			tabbedPaneServer.addTab("Durchgangssteuerung", null,
 					roundAllocation, null);
 			tabbedPaneServer.addTab("Athleten", null, panelAthlete, null);
-			tabbedPaneServer.addTab("Kampfrichter", null, panelJudge, null);
 			tabbedPaneServer.addTab("Ranglistengenerierung", null,
 					panelRanking, null);
 		}

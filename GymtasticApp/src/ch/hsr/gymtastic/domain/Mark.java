@@ -2,9 +2,9 @@ package ch.hsr.gymtastic.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 
-@Embeddable
+@Entity
 public class Mark implements Serializable {
 
 	/**
@@ -17,7 +17,7 @@ public class Mark implements Serializable {
 	private double eMarkThree;
 	private double penalty;
 	private double bonus;
-	private double finalMark;
+	private double finalMark = 0;
 
 	public Mark() {
 	}
@@ -31,6 +31,7 @@ public class Mark implements Serializable {
 		this.eMarkThree = eMarkThree;
 		this.penalty = penalty;
 		this.bonus = bonus;
+		calcFinalMark();
 	}
 
 	@Override
@@ -143,10 +144,19 @@ public class Mark implements Serializable {
 	public void setBonus(double bonus) {
 		this.bonus = bonus;
 	}
+	
+	public void setFinalMark(double finalMark){
+		this.finalMark = finalMark;
+	}
 
 	public double getFinalMark() {
-		return ((eMarkOne + eMarkTwo + eMarkThree) / 3) + dMark + bonus
+		return finalMark;
+	}
+	
+	public void calcFinalMark(){
+		finalMark = ((eMarkOne + eMarkTwo + eMarkThree) / 3) + dMark + bonus
 		- penalty;
+		
 	}
 
 }
