@@ -348,6 +348,8 @@ public class OverviewPanel extends JPanel implements Observer {
 				.convertDateToString(gymCupClientInfo.getEndDate()));
 		lblRoundInfo
 				.setText("Status: Der Cup wurde auf dem Server erstellt. Bitte warten Sie auf die Freigabe des Wettkampfes.");
+		deviceType = gymCupClientInfo.getDeviceType();
 	}
+
 
 }

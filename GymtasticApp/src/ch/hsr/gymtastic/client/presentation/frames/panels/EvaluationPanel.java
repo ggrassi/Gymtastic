@@ -68,7 +68,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private ButtonGroup buttonGroupParticipation;
 	private SquadController squadController;
 	private Athlete athlete;
-	private final DeviceType deviceType;
+	private DeviceType deviceType;
 	private JButton btnOverview;
 	private ClientFrame frameClient;
 	
@@ -452,11 +452,13 @@ public class EvaluationPanel extends JPanel implements Observer {
 	}
 
 	private void setMark() {
-		/*
-		 * TODO: Mark richtig setzen
-		 */
-		athlete.addMark(deviceType, new Mark());
-
+		double dMark = Double.parseDouble(txtFieldDMark.getText());
+		double eMarkOne = Double.parseDouble(txtFieldEMark1.getText());
+		double eMarkTwo = Double.parseDouble(txtFieldEMark1.getText());
+		double eMarkThree = Double.parseDouble(txtFieldEMark3.getText());
+		double penalty = Double.parseDouble(txtFieldPenalty.getText());
+		double bonus = Double.parseDouble(txtFieldBonus.getText());
+		athlete.addMark(deviceType, new Mark(dMark, eMarkOne, eMarkTwo, eMarkThree, penalty, bonus));
 	}
 
 	private void loadAthleteFields() {
@@ -495,5 +497,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private void getPreviousAthlete() {
 			athlete = squadController.getPreviousAthlete();
 	}
+
+
 
 }

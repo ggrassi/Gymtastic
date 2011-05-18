@@ -138,8 +138,10 @@ public class ClientFrame implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		actualSquad = squadController.getSquad();
+		actualSquad = squadController.getSquad(); 
 
 	}
+
+
 
 }

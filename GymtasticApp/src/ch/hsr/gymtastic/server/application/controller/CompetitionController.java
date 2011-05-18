@@ -74,12 +74,7 @@ public class CompetitionController implements Observer {
 	public void update(Observable o, Object obj) {
 		if (obj != null) {
 			Squad s = (Squad) obj;
-<<<<<<< HEAD
-			getCompetition().updateSquad(s);
-			DBController.saveSquad(s, DeviceType.FLOOR_EXCERCISE);
-=======
 			updateSquad(s);
->>>>>>> 5f9b391df3f6439ef0cf6234b7d21e9e2534b148
 		}
 
 	}
@@ -88,7 +83,7 @@ public class CompetitionController implements Observer {
 		System.out.println("Squad received!");
 		getCompetition().updateSquad(squad);
 		DeviceType deviceType = roundAllocator.getDeviceType(squad, actualRoundNr);
-		DBController.saveSquad(squad, gymCup);
+		DBController.saveReceivedSquad(squad, deviceType);
 	}
 
 	public void setActualRoundNr(Integer roundNr) {

@@ -50,32 +50,22 @@ public class DBController {
 		DBConnection.setPath(path);
 	}
 
-	public static void saveSquad(Squad s, DeviceType deviceType) {
-		
+	public static void saveReceivedSquad(Squad s, DeviceType deviceType) {
+	
 		dbConnection = new DBConnection();
 		Collection<Athlete> ramAthletes = s.getAthlets();
 		for (Athlete ramAthlete : ramAthletes) {
 			Athlete dbAthlete = dbConnection.getEm().find(Athlete.class,
 					ramAthlete.getId());
-			Map<DeviceType, Mark> ramMarks = ramAthlete.getMarks();
-			for (int i = 0; i < ramMarks.size(); i++) {
-				Mark ramMark = ramMarks.get(deviceType);
-				dbConnection.persist(ramMark);
-				dbAthlete.getMarks().put(deviceType, ramMark);
-				// Todo: pull pfiffners zeug und mach dasses lauft
-//				for (DeviceType deviceType : DeviceType.values()) {
-//					Mark mark = ramMarks.get(deviceType);
-//					
-//					dbConnection.persist(mark);
-//					
-//					dbAthlete.getMarks().put(deviceType, mark);
-//
-//				}
-			}	
+			Mark ramMark = ramAthlete.getMarks().get(deviceType);
+			dbConnection.persist(ramMark);
+			dbAthlete.getMarks().put(deviceType, ramMark);
 			dbConnection.persist(dbAthlete);
 		}
 		dbConnection.commit();
 		dbConnection.closeConnection();
+
 	}
+		
 
 }
