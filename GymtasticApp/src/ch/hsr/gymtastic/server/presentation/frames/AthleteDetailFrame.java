@@ -5,6 +5,12 @@ import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,15 +21,13 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
 
+import ch.hsr.gymtastic.domain.Association;
 import ch.hsr.gymtastic.domain.Athlete;
+import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.models.AthleteDetailTableModel;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class AthleteDetailFrame {
+public class AthleteDetailFrame implements Observer {
 
     private JFrame frmAthletDetailansicht;
     private JTable tableMarks;
@@ -45,16 +49,19 @@ public class AthleteDetailFrame {
     private JPanel panelCompetitionInfo;
     private JPanel panelCompetitionInfoBorder;
     private JPanel panelCompetitionInfoSaveCancel;
+    private GymCupController gymCupController;
 
     /**
      * Launch the application.
-     * @param athlete 
+     * 
+     * @param athlete
+     * @param gymCupController
      */
-    public static void open(final Athlete athlete) {
+    public static void open(final Athlete athlete, final GymCupController gymCupController) {
 	EventQueue.invokeLater(new Runnable() {
 	    public void run() {
 		try {
-		    AthleteDetailFrame window = new AthleteDetailFrame(athlete);
+		    AthleteDetailFrame window = new AthleteDetailFrame(athlete, gymCupController);
 		    window.frmAthletDetailansicht.setVisible(true);
 		} catch (Exception e) {
 		    e.printStackTrace();
@@ -65,9 +72,13 @@ public class AthleteDetailFrame {
 
     /**
      * Create the application.
+     * 
+     * @param gymCupController
      */
-    public AthleteDetailFrame(Athlete athlete) {
+    public AthleteDetailFrame(Athlete athlete, GymCupController gymCupController) {
 	this.athlete = athlete;
+	this.gymCupController = gymCupController;
+	this.gymCupController.addObserver(this);
 	System.out.println("Athlet: " + athlete.toString());
 	initGUI();
 	initListeners();
@@ -76,8 +87,64 @@ public class AthleteDetailFrame {
 
     private void initListeners() {
 	btnCancel.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-		}
+	    public void actionPerformed(ActionEvent e) {
+		updateAfterCancel();
+	    }
+	});
+
+	txtFieldFirstName.addKeyListener(new KeyAdapter() {
+	    @Override
+	    public void keyReleased(KeyEvent e) {
+		changesAthleteInformation();
+	    }
+	});
+
+	txtFieldYearOfBirth.addKeyListener(new KeyAdapter() {
+	    public void keyReleased(KeyEvent e) {
+		changesAthleteInformation();
+	    }
+	});
+
+	txtFieldLastName.addKeyListener(new KeyAdapter() {
+	    public void keyReleased(KeyEvent e) {
+		changesAthleteInformation();
+	    }
+	});
+
+	txtFieldAssocation.addKeyListener(new KeyAdapter() {
+	    public void keyReleased(KeyEvent e) {
+		changesAthleteInformation();
+	    }
+	});
+
+	txtFieldAddress.addKeyListener(new KeyAdapter() {
+	    public void keyReleased(KeyEvent e) {
+		changesAthleteInformation();
+	    }
+	});
+
+	txtFieldStartNr.addKeyListener(new KeyAdapter() {
+	    public void keyReleased(KeyEvent e) {
+		changesAthleteInformation();
+	    }
+	});
+
+	txtFieldProgramClass.addKeyListener(new KeyAdapter() {
+	    public void keyReleased(KeyEvent e) {
+		changesAthleteInformation();
+	    }
+	});
+
+	txtFieldSquad.addKeyListener(new KeyAdapter() {
+	    public void keyReleased(KeyEvent e) {
+		changesAthleteInformation();
+	    }
+	});
+
+	btnSave.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+		saveAthleteInfos();
+	    }
 	});
     }
 
@@ -91,14 +158,15 @@ public class AthleteDetailFrame {
 	frmAthletDetailansicht.setBounds(100, 100, 632, 350);
 	frmAthletDetailansicht.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	GridBagLayout gridBagLayout = new GridBagLayout();
-	gridBagLayout.columnWidths = new int[]{280, 0, 0};
-	gridBagLayout.rowHeights = new int[]{0, 170, 0, 0};
-	gridBagLayout.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-	gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+	gridBagLayout.columnWidths = new int[] { 280, 0, 0 };
+	gridBagLayout.rowHeights = new int[] { 0, 170, 0, 0 };
+	gridBagLayout.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
+	gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
 	frmAthletDetailansicht.getContentPane().setLayout(gridBagLayout);
-	
+
 	JPanel panelPersonBorder = new JPanel();
-	panelPersonBorder.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Person", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+	panelPersonBorder.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Person",
+		TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 	GridBagConstraints gbc_panelPersonBorder = new GridBagConstraints();
 	gbc_panelPersonBorder.anchor = GridBagConstraints.NORTH;
 	gbc_panelPersonBorder.fill = GridBagConstraints.HORIZONTAL;
@@ -108,12 +176,12 @@ public class AthleteDetailFrame {
 	gbc_panelPersonBorder.gridy = 0;
 	frmAthletDetailansicht.getContentPane().add(panelPersonBorder, gbc_panelPersonBorder);
 	GridBagLayout gbl_panelPersonBorder = new GridBagLayout();
-	gbl_panelPersonBorder.columnWidths = new int[]{0, 0};
-	gbl_panelPersonBorder.rowHeights = new int[]{0, 0, 0};
-	gbl_panelPersonBorder.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-	gbl_panelPersonBorder.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+	gbl_panelPersonBorder.columnWidths = new int[] { 0, 0 };
+	gbl_panelPersonBorder.rowHeights = new int[] { 0, 0, 0 };
+	gbl_panelPersonBorder.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+	gbl_panelPersonBorder.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 	panelPersonBorder.setLayout(gbl_panelPersonBorder);
-	
+
 	JPanel panelPerson = new JPanel();
 	GridBagConstraints gbc_panelPerson = new GridBagConstraints();
 	gbc_panelPerson.anchor = GridBagConstraints.NORTH;
@@ -124,12 +192,12 @@ public class AthleteDetailFrame {
 	gbc_panelPerson.gridy = 0;
 	panelPersonBorder.add(panelPerson, gbc_panelPerson);
 	GridBagLayout gbl_panelPerson = new GridBagLayout();
-	gbl_panelPerson.columnWidths = new int[]{0, 0, 0};
-	gbl_panelPerson.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-	gbl_panelPerson.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-	gbl_panelPerson.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+	gbl_panelPerson.columnWidths = new int[] { 0, 0, 0 };
+	gbl_panelPerson.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
+	gbl_panelPerson.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+	gbl_panelPerson.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 	panelPerson.setLayout(gbl_panelPerson);
-	
+
 	JLabel lblFirstName = new JLabel("Vorname: ");
 	GridBagConstraints gbc_lblFirstName = new GridBagConstraints();
 	gbc_lblFirstName.anchor = GridBagConstraints.WEST;
@@ -137,7 +205,7 @@ public class AthleteDetailFrame {
 	gbc_lblFirstName.gridx = 0;
 	gbc_lblFirstName.gridy = 0;
 	panelPerson.add(lblFirstName, gbc_lblFirstName);
-	
+
 	txtFieldFirstName = new JTextField();
 	GridBagConstraints gbc_txtFieldFirstName = new GridBagConstraints();
 	gbc_txtFieldFirstName.insets = new Insets(0, 0, 5, 0);
@@ -146,7 +214,7 @@ public class AthleteDetailFrame {
 	gbc_txtFieldFirstName.gridy = 0;
 	panelPerson.add(txtFieldFirstName, gbc_txtFieldFirstName);
 	txtFieldFirstName.setColumns(10);
-	
+
 	JLabel lblLastName = new JLabel("Nachname: ");
 	GridBagConstraints gbc_lblLastName = new GridBagConstraints();
 	gbc_lblLastName.anchor = GridBagConstraints.WEST;
@@ -154,7 +222,7 @@ public class AthleteDetailFrame {
 	gbc_lblLastName.gridx = 0;
 	gbc_lblLastName.gridy = 1;
 	panelPerson.add(lblLastName, gbc_lblLastName);
-	
+
 	txtFieldLastName = new JTextField();
 	GridBagConstraints gbc_txtFieldLastName = new GridBagConstraints();
 	gbc_txtFieldLastName.insets = new Insets(0, 0, 5, 0);
@@ -163,7 +231,7 @@ public class AthleteDetailFrame {
 	gbc_txtFieldLastName.gridy = 1;
 	panelPerson.add(txtFieldLastName, gbc_txtFieldLastName);
 	txtFieldLastName.setColumns(10);
-	
+
 	JLabel lblAssociation = new JLabel("Verein: ");
 	GridBagConstraints gbc_lblAssociation = new GridBagConstraints();
 	gbc_lblAssociation.anchor = GridBagConstraints.WEST;
@@ -171,7 +239,7 @@ public class AthleteDetailFrame {
 	gbc_lblAssociation.gridx = 0;
 	gbc_lblAssociation.gridy = 2;
 	panelPerson.add(lblAssociation, gbc_lblAssociation);
-	
+
 	txtFieldAssocation = new JTextField();
 	GridBagConstraints gbc_txtFieldAssocation = new GridBagConstraints();
 	gbc_txtFieldAssocation.insets = new Insets(0, 0, 5, 0);
@@ -180,7 +248,7 @@ public class AthleteDetailFrame {
 	gbc_txtFieldAssocation.gridy = 2;
 	panelPerson.add(txtFieldAssocation, gbc_txtFieldAssocation);
 	txtFieldAssocation.setColumns(10);
-	
+
 	JLabel lblAddress = new JLabel("Adresse: ");
 	GridBagConstraints gbc_lblAddress = new GridBagConstraints();
 	gbc_lblAddress.anchor = GridBagConstraints.WEST;
@@ -188,7 +256,7 @@ public class AthleteDetailFrame {
 	gbc_lblAddress.gridx = 0;
 	gbc_lblAddress.gridy = 3;
 	panelPerson.add(lblAddress, gbc_lblAddress);
-	
+
 	txtFieldAddress = new JTextField();
 	GridBagConstraints gbc_txtFieldAddress = new GridBagConstraints();
 	gbc_txtFieldAddress.insets = new Insets(0, 0, 5, 0);
@@ -197,7 +265,7 @@ public class AthleteDetailFrame {
 	gbc_txtFieldAddress.gridy = 3;
 	panelPerson.add(txtFieldAddress, gbc_txtFieldAddress);
 	txtFieldAddress.setColumns(10);
-	
+
 	JLabel lblYearOfBirth = new JLabel("Jahrgang: ");
 	GridBagConstraints gbc_lblYearOfBirth = new GridBagConstraints();
 	gbc_lblYearOfBirth.anchor = GridBagConstraints.WEST;
@@ -205,7 +273,7 @@ public class AthleteDetailFrame {
 	gbc_lblYearOfBirth.gridx = 0;
 	gbc_lblYearOfBirth.gridy = 4;
 	panelPerson.add(lblYearOfBirth, gbc_lblYearOfBirth);
-	
+
 	txtFieldYearOfBirth = new JTextField();
 	GridBagConstraints gbc_txtFieldYearOfBirth = new GridBagConstraints();
 	gbc_txtFieldYearOfBirth.fill = GridBagConstraints.HORIZONTAL;
@@ -213,7 +281,7 @@ public class AthleteDetailFrame {
 	gbc_txtFieldYearOfBirth.gridy = 4;
 	panelPerson.add(txtFieldYearOfBirth, gbc_txtFieldYearOfBirth);
 	txtFieldYearOfBirth.setColumns(10);
-	
+
 	panelCompetitionInfoSaveCancel = new JPanel();
 	GridBagConstraints gbc_panelCompetitionInfoSaveCancel = new GridBagConstraints();
 	gbc_panelCompetitionInfoSaveCancel.anchor = GridBagConstraints.NORTH;
@@ -224,14 +292,15 @@ public class AthleteDetailFrame {
 	gbc_panelCompetitionInfoSaveCancel.gridy = 0;
 	frmAthletDetailansicht.getContentPane().add(panelCompetitionInfoSaveCancel, gbc_panelCompetitionInfoSaveCancel);
 	GridBagLayout gbl_panelCompetitionInfoSaveCancel = new GridBagLayout();
-	gbl_panelCompetitionInfoSaveCancel.columnWidths = new int[]{0, 0};
-	gbl_panelCompetitionInfoSaveCancel.rowHeights = new int[]{0, 0, 0};
-	gbl_panelCompetitionInfoSaveCancel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-	gbl_panelCompetitionInfoSaveCancel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+	gbl_panelCompetitionInfoSaveCancel.columnWidths = new int[] { 0, 0 };
+	gbl_panelCompetitionInfoSaveCancel.rowHeights = new int[] { 0, 0, 0 };
+	gbl_panelCompetitionInfoSaveCancel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+	gbl_panelCompetitionInfoSaveCancel.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 	panelCompetitionInfoSaveCancel.setLayout(gbl_panelCompetitionInfoSaveCancel);
-	
+
 	panelCompetitionInfoBorder = new JPanel();
-	panelCompetitionInfoBorder.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Wettkampf Information", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+	panelCompetitionInfoBorder.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+		"Wettkampf Information", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 	GridBagConstraints gbc_panelCompetitionInfoBorder = new GridBagConstraints();
 	gbc_panelCompetitionInfoBorder.anchor = GridBagConstraints.NORTH;
 	gbc_panelCompetitionInfoBorder.fill = GridBagConstraints.HORIZONTAL;
@@ -240,12 +309,12 @@ public class AthleteDetailFrame {
 	gbc_panelCompetitionInfoBorder.gridy = 0;
 	panelCompetitionInfoSaveCancel.add(panelCompetitionInfoBorder, gbc_panelCompetitionInfoBorder);
 	GridBagLayout gbl_panelCompetitionInfoBorder = new GridBagLayout();
-	gbl_panelCompetitionInfoBorder.columnWidths = new int[]{315, 8, 0};
-	gbl_panelCompetitionInfoBorder.rowHeights = new int[]{0, 0};
-	gbl_panelCompetitionInfoBorder.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-	gbl_panelCompetitionInfoBorder.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+	gbl_panelCompetitionInfoBorder.columnWidths = new int[] { 315, 8, 0 };
+	gbl_panelCompetitionInfoBorder.rowHeights = new int[] { 0, 0 };
+	gbl_panelCompetitionInfoBorder.columnWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
+	gbl_panelCompetitionInfoBorder.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 	panelCompetitionInfoBorder.setLayout(gbl_panelCompetitionInfoBorder);
-	
+
 	panelCompetitionInfo = new JPanel();
 	GridBagConstraints gbc_panelCompetitionInfo = new GridBagConstraints();
 	gbc_panelCompetitionInfo.fill = GridBagConstraints.BOTH;
@@ -255,12 +324,12 @@ public class AthleteDetailFrame {
 	gbc_panelCompetitionInfo.gridy = 0;
 	panelCompetitionInfoBorder.add(panelCompetitionInfo, gbc_panelCompetitionInfo);
 	GridBagLayout gbl_panelCompetitionInfo = new GridBagLayout();
-	gbl_panelCompetitionInfo.columnWidths = new int[]{0, 0, 0};
-	gbl_panelCompetitionInfo.rowHeights = new int[]{0, 0, 0, 0, 0};
-	gbl_panelCompetitionInfo.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-	gbl_panelCompetitionInfo.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+	gbl_panelCompetitionInfo.columnWidths = new int[] { 0, 0, 0 };
+	gbl_panelCompetitionInfo.rowHeights = new int[] { 0, 0, 0, 0, 0 };
+	gbl_panelCompetitionInfo.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+	gbl_panelCompetitionInfo.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 	panelCompetitionInfo.setLayout(gbl_panelCompetitionInfo);
-	
+
 	JLabel lblStartNr = new JLabel("StartNr: ");
 	GridBagConstraints gbc_lblStartNr = new GridBagConstraints();
 	gbc_lblStartNr.anchor = GridBagConstraints.WEST;
@@ -268,7 +337,7 @@ public class AthleteDetailFrame {
 	gbc_lblStartNr.gridx = 0;
 	gbc_lblStartNr.gridy = 0;
 	panelCompetitionInfo.add(lblStartNr, gbc_lblStartNr);
-	
+
 	txtFieldStartNr = new JTextField();
 	GridBagConstraints gbc_txtFieldStartNr = new GridBagConstraints();
 	gbc_txtFieldStartNr.insets = new Insets(0, 0, 5, 0);
@@ -277,7 +346,7 @@ public class AthleteDetailFrame {
 	gbc_txtFieldStartNr.gridy = 0;
 	panelCompetitionInfo.add(txtFieldStartNr, gbc_txtFieldStartNr);
 	txtFieldStartNr.setColumns(10);
-	
+
 	JLabel lblProgramClass = new JLabel("Programmklasse: ");
 	GridBagConstraints gbc_lblProgramClass = new GridBagConstraints();
 	gbc_lblProgramClass.anchor = GridBagConstraints.WEST;
@@ -285,7 +354,7 @@ public class AthleteDetailFrame {
 	gbc_lblProgramClass.gridx = 0;
 	gbc_lblProgramClass.gridy = 1;
 	panelCompetitionInfo.add(lblProgramClass, gbc_lblProgramClass);
-	
+
 	txtFieldProgramClass = new JTextField();
 	GridBagConstraints gbc_txtFieldProgramClass = new GridBagConstraints();
 	gbc_txtFieldProgramClass.insets = new Insets(0, 0, 5, 0);
@@ -294,7 +363,7 @@ public class AthleteDetailFrame {
 	gbc_txtFieldProgramClass.gridy = 1;
 	panelCompetitionInfo.add(txtFieldProgramClass, gbc_txtFieldProgramClass);
 	txtFieldProgramClass.setColumns(10);
-	
+
 	JLabel lblSquad = new JLabel("Riege: ");
 	GridBagConstraints gbc_lblSquad = new GridBagConstraints();
 	gbc_lblSquad.anchor = GridBagConstraints.WEST;
@@ -302,7 +371,7 @@ public class AthleteDetailFrame {
 	gbc_lblSquad.gridx = 0;
 	gbc_lblSquad.gridy = 2;
 	panelCompetitionInfo.add(lblSquad, gbc_lblSquad);
-	
+
 	txtFieldSquad = new JTextField();
 	GridBagConstraints gbc_txtFieldSquad = new GridBagConstraints();
 	gbc_txtFieldSquad.insets = new Insets(0, 0, 5, 0);
@@ -311,7 +380,7 @@ public class AthleteDetailFrame {
 	gbc_txtFieldSquad.gridy = 2;
 	panelCompetitionInfo.add(txtFieldSquad, gbc_txtFieldSquad);
 	txtFieldSquad.setColumns(10);
-	
+
 	JLabel lblRank = new JLabel("Rang: ");
 	GridBagConstraints gbc_lblRank = new GridBagConstraints();
 	gbc_lblRank.anchor = GridBagConstraints.WEST;
@@ -319,7 +388,7 @@ public class AthleteDetailFrame {
 	gbc_lblRank.gridx = 0;
 	gbc_lblRank.gridy = 3;
 	panelCompetitionInfo.add(lblRank, gbc_lblRank);
-	
+
 	txtFieldRank = new JTextField();
 	GridBagConstraints gbc_txtFieldRank = new GridBagConstraints();
 	gbc_txtFieldRank.fill = GridBagConstraints.HORIZONTAL;
@@ -327,7 +396,8 @@ public class AthleteDetailFrame {
 	gbc_txtFieldRank.gridy = 3;
 	panelCompetitionInfo.add(txtFieldRank, gbc_txtFieldRank);
 	txtFieldRank.setColumns(10);
-	
+	txtFieldRank.setEnabled(false);
+
 	panelSaveCancel = new JPanel();
 	GridBagConstraints gbc_panelSaveCancel = new GridBagConstraints();
 	gbc_panelSaveCancel.anchor = GridBagConstraints.NORTH;
@@ -336,21 +406,21 @@ public class AthleteDetailFrame {
 	gbc_panelSaveCancel.gridy = 1;
 	panelCompetitionInfoSaveCancel.add(panelSaveCancel, gbc_panelSaveCancel);
 	GridBagLayout gbl_panelSaveCancel = new GridBagLayout();
-	gbl_panelSaveCancel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
-	gbl_panelSaveCancel.rowHeights = new int[]{0, 0};
-	gbl_panelSaveCancel.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-	gbl_panelSaveCancel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+	gbl_panelSaveCancel.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0 };
+	gbl_panelSaveCancel.rowHeights = new int[] { 0, 0 };
+	gbl_panelSaveCancel.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
+	gbl_panelSaveCancel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 	panelSaveCancel.setLayout(gbl_panelSaveCancel);
-	
-	btnCancel = new JButton("Abbrechen");
 
+	btnCancel = new JButton("Abbrechen");
 	GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 	gbc_btnCancel.anchor = GridBagConstraints.EAST;
 	gbc_btnCancel.insets = new Insets(0, 0, 0, 5);
 	gbc_btnCancel.gridx = 3;
 	gbc_btnCancel.gridy = 0;
 	panelSaveCancel.add(btnCancel, gbc_btnCancel);
-	
+	btnCancel.setEnabled(false);
+
 	btnSave = new JButton("Speichern");
 	GridBagConstraints gbc_btnSave = new GridBagConstraints();
 	gbc_btnSave.insets = new Insets(0, 0, 0, 5);
@@ -358,9 +428,11 @@ public class AthleteDetailFrame {
 	gbc_btnSave.gridx = 4;
 	gbc_btnSave.gridy = 0;
 	panelSaveCancel.add(btnSave, gbc_btnSave);
-	
+	btnSave.setEnabled(false);
+
 	panelMarks = new JPanel();
-	panelMarks.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Bewertungen", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+	panelMarks.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Bewertungen",
+		TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 	GridBagConstraints gbc_panelMarks = new GridBagConstraints();
 	gbc_panelMarks.fill = GridBagConstraints.BOTH;
 	gbc_panelMarks.gridwidth = 2;
@@ -368,12 +440,12 @@ public class AthleteDetailFrame {
 	gbc_panelMarks.gridy = 2;
 	frmAthletDetailansicht.getContentPane().add(panelMarks, gbc_panelMarks);
 	GridBagLayout gbl_panelMarks = new GridBagLayout();
-	gbl_panelMarks.columnWidths = new int[]{0, 0, 0};
-	gbl_panelMarks.rowHeights = new int[]{0, 0};
-	gbl_panelMarks.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-	gbl_panelMarks.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+	gbl_panelMarks.columnWidths = new int[] { 0, 0, 0 };
+	gbl_panelMarks.rowHeights = new int[] { 0, 0 };
+	gbl_panelMarks.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
+	gbl_panelMarks.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
 	panelMarks.setLayout(gbl_panelMarks);
-	
+
 	scrollPaneMarks = new JScrollPane();
 	GridBagConstraints gbc_scrollPaneMarks = new GridBagConstraints();
 	gbc_scrollPaneMarks.gridwidth = 2;
@@ -382,22 +454,79 @@ public class AthleteDetailFrame {
 	gbc_scrollPaneMarks.gridx = 0;
 	gbc_scrollPaneMarks.gridy = 0;
 	panelMarks.add(scrollPaneMarks, gbc_scrollPaneMarks);
-	
+
 	tableMarks = new JTable();
-	AthleteDetailTableModel athleteDetailTableModel= new AthleteDetailTableModel(athlete);
+	AthleteDetailTableModel athleteDetailTableModel = new AthleteDetailTableModel(athlete, gymCupController);
 	tableMarks.setModel(athleteDetailTableModel);
 	scrollPaneMarks.setViewportView(tableMarks);
+
     }
-    
+
     private void inizializeFields() {
 	txtFieldAddress.setText(athlete.getAddress());
-	txtFieldAssocation.setText(athlete.getAssociation().toString());
+	txtFieldAssocation.setText(athlete.getAssociation().getName());
 	txtFieldFirstName.setText(athlete.getFirstName());
 	txtFieldLastName.setText(athlete.getLastName());
 	txtFieldProgramClass.setText(athlete.getPrgClass());
-	txtFieldSquad.setText(""+athlete.getSquadId());
-	txtFieldStartNr.setText(""+athlete.getStartNr());
-	txtFieldYearOfBirth.setText(""+athlete.getYearOfBirth());
+	txtFieldSquad.setText("" + athlete.getSquadId());
+	txtFieldStartNr.setText("" + athlete.getStartNr());
+	txtFieldYearOfBirth.setText("" + athlete.getYearOfBirth());
+    }
+
+    private void changesAthleteInformation() {
+	if (athlete != null) {
+	    if (nothingChanged()) {
+		btnCancel.setEnabled(false);
+		btnSave.setEnabled(false);
+	    } else {
+		btnCancel.setEnabled(true);
+		btnSave.setEnabled(true);
+	    }
+	}
+    }
+
+    private boolean nothingChanged() {
+	return txtFieldAddress.getText().equals(athlete.getAddress())
+		&& txtFieldAssocation.getText().equals(athlete.getAssociation().getName())
+		&& txtFieldFirstName.getText().equals(athlete.getFirstName())
+		&& txtFieldLastName.getText().equals(athlete.getLastName())
+		&& txtFieldProgramClass.getText().equals(athlete.getPrgClass())
+		&& txtFieldSquad.getText().equals(athlete.getSquadId() + "")
+		&& txtFieldStartNr.getText().equals(athlete.getStartNr() + "")
+		&& txtFieldYearOfBirth.getText().equals(athlete.getYearOfBirth() + "");
+    }
+
+    private void updateAfterCancel() {
+	txtFieldAddress.setText(athlete.getAddress());
+	txtFieldAssocation.setText(athlete.getAssociation().getName());
+	txtFieldFirstName.setText(athlete.getFirstName());
+	txtFieldLastName.setText(athlete.getLastName());
+	txtFieldProgramClass.setText(athlete.getPrgClass());
+	txtFieldSquad.setText(athlete.getSquadId() + "");
+	txtFieldStartNr.setText(athlete.getStartNr() + "");
+	txtFieldYearOfBirth.setText(athlete.getYearOfBirth() + "");
+	btnSave.setEnabled(false);
+	btnCancel.setEnabled(false);
+    }
+
+    private void saveAthleteInfos() {
+	athlete.setAddress(txtFieldAddress.getText());
+	athlete.setAssociation(new Association(txtFieldAssocation.getText(),athlete.getAssociation().getLocation()));
+	athlete.setFirstName(txtFieldFirstName.getText());
+	athlete.setLastName(txtFieldLastName.getText());
+	athlete.setPrgClass(txtFieldProgramClass.getText());
+	athlete.setSquadId(Integer.parseInt(txtFieldSquad.getText()));
+	athlete.setStartNr(Integer.parseInt(txtFieldStartNr.getText()));
+	athlete.setYearOfBirth(Integer.parseInt(txtFieldYearOfBirth.getText()));
+	btnSave.setEnabled(false);
+	btnCancel.setEnabled(false);
+	gymCupController.getGymCup().athleteChanged();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+	// athlete = gymCupController.
+
     }
 
 }
