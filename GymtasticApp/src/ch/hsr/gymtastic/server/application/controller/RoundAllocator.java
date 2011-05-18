@@ -14,13 +14,16 @@ public class RoundAllocator {
 	private List<Map<DeviceType, Squad>> roundList = new ArrayList<Map<DeviceType, Squad>>();
 
 	public RoundAllocator(List<Squad> squads) {
-		Map<DeviceType, Squad> map = new HashMap<DeviceType, Squad>();
+		Map<DeviceType, Squad> firstAlloc = new HashMap<DeviceType, Squad>();
 		int j = 0;
 		for (DeviceType device : DeviceType.values()) {
-			map.put(device, squads.get(j));
+			firstAlloc.put(device, squads.get(j));
 			j++;
 		}
-		roundList.add(map);
+		roundList.add(firstAlloc);
+		for (int i = 1; i < 6; i++) {
+			roundList.add(roundChange(getRoundAllocation(i)));
+		}
 	}
 
 	public Map<DeviceType, Squad> getRoundAllocation(int roundNr) {
@@ -41,10 +44,8 @@ public class RoundAllocator {
 	}
 
 	public Map<DeviceType, Squad> roundChange(Map<DeviceType, Squad> origin) {
-
 		Map<DeviceType, Squad> changed = new HashMap<DeviceType, Squad>();
 		origin.putAll(changed);
-
 		for (DeviceType device : DeviceType.values()) {
 			int temp = device.getIndex();
 			changed.put(device, origin.get(device.getDevice(++temp % 6)));

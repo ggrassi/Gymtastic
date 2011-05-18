@@ -30,7 +30,7 @@ public class ClientFrame implements Observer {
 	private OverviewPanel panelOverview;
 	private SquadController squadController;
 	private GymCupInfoController gymCupInfoController;
-	private CompetitionInfoController roundInfoController;
+	private CompetitionInfoController competitionInfoController;
 	private Squad actualSquad;
 	private DeviceType deviceType;
 	private final NetworkClientController networkController;
@@ -70,8 +70,9 @@ public class ClientFrame implements Observer {
 			this.gymCupInfoController.addObserver(this);
 			this.networkController
 					.setGymCupInfoController(gymCupInfoController);
-			this.roundInfoController = new CompetitionInfoController();
-			this.networkController.setRoundInfoController(roundInfoController);
+			this.competitionInfoController = new CompetitionInfoController();
+			this.networkController
+					.setRoundInfoController(competitionInfoController);
 			this.squadController.addObserver(this);
 
 		} catch (Exception e) {
@@ -99,7 +100,7 @@ public class ClientFrame implements Observer {
 		frmClient.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
 		panelOverview = new OverviewPanel(gymCupInfoController,
-				roundInfoController, squadController, deviceType, this);
+				competitionInfoController, squadController, deviceType, this);
 		tabbedPane.addTab("\u00dcbersicht", null, panelOverview, null);
 
 	}
@@ -111,12 +112,12 @@ public class ClientFrame implements Observer {
 	}
 
 	public void createPanels() {
-		if (panelActualSquad == null && panelEvaluation == null) {
+		if (tabbedPane.getComponents().length == 1) {
 			panelEvaluation = new EvaluationPanel(squadController, deviceType,
 					this);
 			tabbedPane.addTab("Bewertung", null, panelEvaluation, null);
 			panelActualSquad = new ActualSquadPanel(actualSquad, deviceType,
-					networkController, frmClient);
+					networkController, this);
 			tabbedPane.addTab("Aktuelle Riege", null, panelActualSquad, null);
 		}
 
@@ -154,6 +155,13 @@ public class ClientFrame implements Observer {
 	private void updateSquad() {
 		if (squadController.getSquad() != null)
 			actualSquad = squadController.getSquad();
+	}
+
+	public void endRound() {
+		tabbedPane.remove(panelActualSquad);
+		tabbedPane.remove(panelEvaluation);
+		panelOverview.waitForNextRound();
+
 	}
 
 }

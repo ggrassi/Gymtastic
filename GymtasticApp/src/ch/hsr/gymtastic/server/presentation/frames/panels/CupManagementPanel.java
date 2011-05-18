@@ -91,9 +91,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 	public CupManagementPanel(GymCupController gymCupController) {
 		this.gymCupController = gymCupController;
 		gymCupController.addObserver(this);
-		/*
-		 * TODO: Observers
-		 */
 		initGUI();
 		initListeners();
 	}
@@ -191,27 +188,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		panelGeneralInfo.add(lblStartDate, gbc_lblStartDate);
 
 		txtFieldStartDate = new JTextField();
-		txtFieldStartDate.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				changesCupInformation();
-			}
-		});
-		txtFieldStartDate.addFocusListener(new FocusAdapter() {
-			public void focusLost(FocusEvent e) {
-				GregorianCalendar date = null;
-				try {
-					date = DateFormatConverter
-							.convertStringToDate(txtFieldStartDate.getText());
-				} catch (ParseException e1) {
-					if (date != new GregorianCalendar()) {
-						txtFieldStartDate
-								.setToolTipText("Bitte Format richtig eingeben: '01.02.2011'");
-						txtFieldStartDate.setText("");
-					}
-				}
-			}
-		});
+	
 		GridBagConstraints gbc_txtFieldStartDate = new GridBagConstraints();
 		gbc_txtFieldStartDate.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFieldStartDate.fill = GridBagConstraints.HORIZONTAL;
@@ -228,29 +205,8 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_lblEndDate.gridy = 2;
 		panelGeneralInfo.add(lblEndDate, gbc_lblEndDate);
 
-		txtFieldEndDate = new JFormattedTextField(new DateFormatter(DateFormat
-				.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
-		txtFieldEndDate.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				changesCupInformation();
-			}
-		});
-		txtFieldEndDate.addFocusListener(new FocusAdapter() {
-			public void focusLost(FocusEvent e) {
-				GregorianCalendar date = null;
-				try {
-					date = DateFormatConverter
-							.convertStringToDate(txtFieldStartDate.getText());
-				} catch (ParseException e1) {
-					if (date != new GregorianCalendar()) {
-						txtFieldStartDate
-								.setToolTipText("Bitte Format richtig eingeben: '01.02.2011'");
-						txtFieldStartDate.setText("");
-					}
-				}
-			}
-		});
+		txtFieldEndDate = new JFormattedTextField(new DateFormatter(
+				DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
 		GridBagConstraints gbc_txtFieldEndDate = new GridBagConstraints();
 		gbc_txtFieldEndDate.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFieldEndDate.fill = GridBagConstraints.HORIZONTAL;
@@ -268,12 +224,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 		panelGeneralInfo.add(lblPlace, gbc_lblPlace);
 
 		txtFieldLocation = new JTextField();
-		txtFieldLocation.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				changesCupInformation();
-			}
-		});
 		GridBagConstraints gbc_txtFieldLocation = new GridBagConstraints();
 		gbc_txtFieldLocation.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFieldLocation.fill = GridBagConstraints.HORIZONTAL;
@@ -291,12 +241,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 		panelGeneralInfo.add(lblDescription, gbc_lblDescription);
 
 		txtAreaDescr = new JTextArea();
-		txtAreaDescr.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				changesCupInformation();
-			}
-		});
 		GridBagConstraints gbc_txtAreaDescr = new GridBagConstraints();
 		gbc_txtAreaDescr.insets = new Insets(0, 0, 5, 0);
 		gbc_txtAreaDescr.fill = GridBagConstraints.BOTH;
@@ -313,12 +257,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		panelGeneralInfo.add(lblSponsers, gbc_lblSponsers);
 
 		txtAreaSponsors = new JTextArea();
-		txtAreaSponsors.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				changesCupInformation();
-			}
-		});
+
 		GridBagConstraints gbc_txtAreaSponsers = new GridBagConstraints();
 		gbc_txtAreaSponsers.fill = GridBagConstraints.BOTH;
 		gbc_txtAreaSponsers.gridx = 1;
@@ -434,12 +373,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 		panelSaveCancel.setLayout(gbl_panelSaveCancel);
 
 		btnCancel = new JButton("Abbrechen");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				updateAfterCancel();
-			}
-
-		});
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.anchor = GridBagConstraints.EAST;
 		gbc_btnCancel.insets = new Insets(0, 0, 0, 5);
@@ -457,6 +390,67 @@ public class CupManagementPanel extends JPanel implements Observer {
 	}
 
 	private void initListeners() {
+		txtFieldEndDate.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				changesCupInformation();
+			}
+		});
+		txtFieldStartDate.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				changesCupInformation();
+			}
+		});
+		txtFieldStartDate.addFocusListener(new FocusAdapter() {
+			public void focusLost(FocusEvent e) {
+				GregorianCalendar date = null;
+				try {
+					date = DateFormatConverter
+							.convertStringToDate(txtFieldStartDate.getText());
+				} catch (ParseException e1) {
+					if (date != new GregorianCalendar()) {
+						txtFieldStartDate
+								.setToolTipText("Bitte Format richtig eingeben: '01.02.2011'");
+						txtFieldStartDate.setText("");
+					}
+				}
+			}
+		});
+		
+		txtFieldEndDate.addFocusListener(new FocusAdapter() {
+			public void focusLost(FocusEvent e) {
+				GregorianCalendar date = null;
+				try {
+					date = DateFormatConverter
+							.convertStringToDate(txtFieldStartDate.getText());
+				} catch (ParseException e1) {
+					if (date != new GregorianCalendar()) {
+						txtFieldStartDate
+								.setToolTipText("Bitte Format richtig eingeben: '01.02.2011'");
+						txtFieldStartDate.setText("");
+					}
+				}
+			}
+		});
+		txtFieldLocation.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				changesCupInformation();
+			}
+		});
+		txtAreaDescr.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				changesCupInformation();
+			}
+		});
+		txtAreaSponsors.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				changesCupInformation();
+			}
+		});
 		txtFieldName.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
@@ -480,7 +474,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 					isNewCup = false;
 					// gymCupController.setExistingGymcup(pathImport);
 					System.out.println(path);
-					DBConnection.setPath(pathCup);
+					DBController.setPath(pathCup);
 					gymCupController.setExistingGymcup();
 					btnImportStartList.setEnabled(false);
 					btnOpenPic.setEnabled(false);
@@ -488,6 +482,12 @@ public class CupManagementPanel extends JPanel implements Observer {
 
 				}
 			}
+		});
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateAfterCancel();
+			}
+
 		});
 
 		btnImportStartList.addActionListener(new ActionListener() {
@@ -556,7 +556,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 							updateGymCupCredentials();
 						} catch (ParseException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
 						}
 					}
 
