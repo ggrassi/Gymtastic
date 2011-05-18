@@ -66,10 +66,11 @@ public class ClientFrame implements Observer {
 		this.networkController = networkController;
 		try {
 			this.networkController.setSquadController(squadController);
-			gymCupInfoController = new GymCupInfoController();
+			this.gymCupInfoController = new GymCupInfoController();
+			this.gymCupInfoController.addObserver(this);
 			this.networkController
 					.setGymCupInfoController(gymCupInfoController);
-			roundInfoController = new CompetitionInfoController();
+			this.roundInfoController = new CompetitionInfoController();
 			this.networkController.setRoundInfoController(roundInfoController);
 			this.squadController.addObserver(this);
 
@@ -138,10 +139,22 @@ public class ClientFrame implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		actualSquad = squadController.getSquad(); 
+
+		updateGymCupInfo();
+		updateSquad();
 
 	}
 
+	private void updateGymCupInfo() {
+		if (gymCupInfoController.getGymCupClientInfo() != null)
+			deviceType = gymCupInfoController.getGymCupClientInfo()
+					.getDeviceType();
 
+	}
+
+	private void updateSquad() {
+		if (squadController.getSquad() != null)
+			actualSquad = squadController.getSquad();
+	}
 
 }

@@ -71,7 +71,10 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private DeviceType deviceType;
 	private JButton btnOverview;
 	private ClientFrame frameClient;
-	
+	private JButton btnEndEvaluation;
+	private JPanel panelRightBtn;
+	private JPanel panelLeftBtn;
+
 	public EvaluationPanel(final SquadController squadController,
 			DeviceType deviceType, ClientFrame frameClient) {
 		this.squadController = squadController;
@@ -79,7 +82,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 		this.frameClient = frameClient;
 		initGUI();
 		initListeners();
-	
+
 	}
 
 	private void initListeners() {
@@ -103,10 +106,18 @@ public class EvaluationPanel extends JPanel implements Observer {
 			}
 
 		});
-		
+		btnEndEvaluation.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				setMark();
+				showOverviewPanel();
+			}
+		});
+
 		btnOverview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frameClient.setFocusOnPanel(2);
+				showOverviewPanel();
 			}
 		});
 
@@ -119,14 +130,6 @@ public class EvaluationPanel extends JPanel implements Observer {
 		add(panelSouth, BorderLayout.SOUTH);
 		panelSouth.setLayout(new BorderLayout(0, 0));
 
-		btnPrevious = new JButton("Vorheriger Athlet");
-		btnPrevious.setEnabled(false);
-		panelSouth.add(btnPrevious, BorderLayout.WEST);
-
-		btnNext = new JButton("N\u00e4chster Athlet");
-
-		panelSouth.add(btnNext, BorderLayout.EAST);
-
 		panelSouthCenter = new JPanel();
 		panelSouth.add(panelSouthCenter, BorderLayout.CENTER);
 		GridBagLayout gbl_panelSouthCenter = new GridBagLayout();
@@ -136,13 +139,30 @@ public class EvaluationPanel extends JPanel implements Observer {
 				Double.MIN_VALUE };
 		gbl_panelSouthCenter.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		panelSouthCenter.setLayout(gbl_panelSouthCenter);
-		
+
 		btnOverview = new JButton("Zur aktuellen Riege");
-		
+
 		GridBagConstraints gbc_btnOverview = new GridBagConstraints();
 		gbc_btnOverview.gridx = 0;
 		gbc_btnOverview.gridy = 0;
 		panelSouthCenter.add(btnOverview, gbc_btnOverview);
+
+		panelRightBtn = new JPanel();
+		panelSouth.add(panelRightBtn, BorderLayout.EAST);
+
+		btnEndEvaluation = new JButton("Bewertung abschliessen");
+		panelRightBtn.add(btnEndEvaluation);
+
+		btnNext = new JButton("N\u00e4chster Athlet");
+		panelRightBtn.add(btnNext);
+
+		panelLeftBtn = new JPanel();
+		panelSouth.add(panelLeftBtn, BorderLayout.WEST);
+
+		btnPrevious = new JButton("Vorheriger Athlet");
+		panelLeftBtn.add(btnPrevious);
+		btnPrevious.setEnabled(false);
+		btnEndEvaluation.setVisible(false);
 
 		panelCenter = new JPanel();
 		add(panelCenter, BorderLayout.CENTER);
@@ -452,13 +472,27 @@ public class EvaluationPanel extends JPanel implements Observer {
 	}
 
 	private void setMark() {
-		double dMark = Double.parseDouble(txtFieldDMark.getText());
-		double eMarkOne = Double.parseDouble(txtFieldEMark1.getText());
-		double eMarkTwo = Double.parseDouble(txtFieldEMark1.getText());
-		double eMarkThree = Double.parseDouble(txtFieldEMark3.getText());
-		double penalty = Double.parseDouble(txtFieldPenalty.getText());
-		double bonus = Double.parseDouble(txtFieldBonus.getText());
-		athlete.addMark(deviceType, new Mark(dMark, eMarkOne, eMarkTwo, eMarkThree, penalty, bonus));
+
+		athlete.addMark(deviceType, getMarkFromInput());
+
+	}
+
+	private Mark getMarkFromInput() {
+		/*
+		 * TODO: Input Verifier f�r Noten
+		 */
+		try {
+			double dMark = Double.valueOf(txtFieldDMark.getText());
+			double eMark1 = Double.valueOf(txtFieldEMark1.getText());
+			double eMark2 = Double.valueOf(txtFieldEMark1.getText());
+			double eMark3 = Double.valueOf(txtFieldEMark1.getText());
+			double penalty = Double.valueOf(txtFieldPenalty.getText());
+			double bonus = Double.valueOf(txtFieldBonus.getText());
+			return new Mark(dMark, eMark1, eMark2, eMark3, penalty, bonus);
+		} catch (NumberFormatException e) {
+		}
+		return null;
+
 	}
 
 	private void loadAthleteFields() {
@@ -468,20 +502,59 @@ public class EvaluationPanel extends JPanel implements Observer {
 			lblPrgClassField.setText(athlete.getPrgClass());
 			lblSquadField.setText("" + athlete.getSquadId());
 			lblStartNrField.setText("" + athlete.getStartNr());
+			loadAhtleteMarks();
 		}
+	}
+
+	private void loadAhtleteMarks() {
+		if (athlete.getMark(deviceType) != null) {
+			txtFieldDMark.setText("" + athlete.getMark(deviceType).getdMark());
+			txtFieldEMark1.setText(""
+					+ athlete.getMark(deviceType).geteMarkOne());
+			txtFieldEMark2.setText(""
+					+ athlete.getMark(deviceType).getEmarkTwo());
+			txtFieldEMark3.setText(""
+					+ athlete.getMark(deviceType).geteMarkThree());
+			txtFieldBonus.setText("" + athlete.getMark(deviceType).getBonus());
+			txtFieldPenalty.setText(""
+					+ athlete.getMark(deviceType).getPenalty());
+		} else {
+			initMarkFields();
+		}
+	}
+
+	private void initMarkFields() {
+		txtFieldDMark.setText("");
+		txtFieldEMark1.setText("");
+		txtFieldEMark2.setText("");
+		txtFieldEMark3.setText("");
+		txtFieldBonus.setText("");
+		txtFieldPenalty.setText("");
 	}
 
 	private void checkButtons() {
 		if (squadController.hasNextAthlete()) {
 			btnNext.setEnabled(true);
+			showNextButton();
 		} else {
 			btnNext.setEnabled(false);
+			showEndButton();
 		}
 		if (squadController.hasPreviousAthlete()) {
 			btnPrevious.setEnabled(true);
 		} else {
 			btnPrevious.setEnabled(false);
 		}
+	}
+
+	private void showEndButton() {
+		btnNext.setVisible(false);
+		btnEndEvaluation.setVisible(true);
+	}
+
+	private void showNextButton() {
+		btnNext.setVisible(true);
+		btnEndEvaluation.setVisible(false);
 	}
 
 	@Override
@@ -495,7 +568,11 @@ public class EvaluationPanel extends JPanel implements Observer {
 	}
 
 	private void getPreviousAthlete() {
-			athlete = squadController.getPreviousAthlete();
+		athlete = squadController.getPreviousAthlete();
+	}
+
+	private void showOverviewPanel() {
+		frameClient.setFocusOnPanel(2);
 	}
 
 

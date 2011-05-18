@@ -22,7 +22,8 @@ public class Association implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Verein [name=" + name + ", location=" + location + "]";
+//		return "Verein [name=" + name + ", location=" + location + "]";
+	    return name;
 	}
 
 	@Override
