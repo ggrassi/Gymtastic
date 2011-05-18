@@ -1,15 +1,19 @@
 package ch.hsr.gymtastic.technicalServices.utils;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.collection.PdfTargetDictionary;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.Competition;
@@ -37,6 +41,14 @@ public class PdfRankingTableExporter extends PdfExporter {
 		writeCompetitionContent();
 		closeFile();
 	}
+	
+	private void createFile() throws FileNotFoundException,
+	DocumentException {
+		document = new Document(PageSize.LETTER.rotate());
+		PdfWriter.getInstance(document, new FileOutputStream(path));
+		document.open();
+	
+	}
 
 	private void writeTotalContent() throws DocumentException {
 		writeTotalTitle();
@@ -49,6 +61,7 @@ public class PdfRankingTableExporter extends PdfExporter {
 
 	private void writeCompetitionContent() throws DocumentException {
 		Competition competition = getCompetition();
+		writeTotalTitle();
 		writeCompetition(competition);
 	}
 
@@ -96,31 +109,34 @@ public class PdfRankingTableExporter extends PdfExporter {
 
 	public static PdfPTable createTable() {
 		PdfPTable table = new PdfPTable(12);
-
+		table.setHorizontalAlignment(Element.ALIGN_LEFT);
+		
 		int[] widths = new int[12];
-		widths[0] = 10;
-		widths[1] = 50;
-		widths[2] = 50;
-		widths[3] = 20;
-		widths[4] = 50;
-		widths[5] = 15;
-		widths[6] = 15;
-		widths[7] = 15;
-		widths[8] = 15;
-		widths[9] = 15;
-		widths[10] = 15;
-		widths[11] = 15;
+		widths[0] = 65;
+		widths[1] = 120;
+		widths[2] = 120;
+		widths[3] = 120;
+		widths[4] = 200;
+		widths[5] = 70;
+		widths[6] = 70;
+		widths[7] = 70;
+		widths[8] = 70;
+		widths[9] = 70;
+		widths[10] = 70;
+		widths[11] = 70;
 
 		try {
 			table.setWidths(widths);
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
-
+		
+		
+		
 		table.addCell("Rang");
 		table.addCell("Vorname");
 		table.addCell("Nachname");
-		table.addCell("Geburtsdatum");
+		table.addCell("Jahrgang");
 		table.addCell("Verein");
 		table.addCell("Boden");
 		table.addCell("Pferd");
@@ -188,6 +204,8 @@ public class PdfRankingTableExporter extends PdfExporter {
 
 		return list;
 	}
+
+	
 
 	protected Comparator<Athlete> comperator = new Comparator<Athlete>() {
 

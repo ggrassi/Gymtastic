@@ -1,10 +1,13 @@
 package ch.hsr.gymtastic.technicalServices.utils;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
+import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.Competition;
@@ -30,6 +33,14 @@ public class PdfStartlistExporter extends PdfExporter {
 		createFile();
 		writeCompetitionContent();
 		closeFile();
+	}
+	
+	protected void createFile() throws FileNotFoundException,
+	DocumentException {
+		document = new Document();
+		PdfWriter.getInstance(document, new FileOutputStream(path));
+		document.open();
+	
 	}
 
 	private void writeTotalContent() throws DocumentException {
@@ -118,4 +129,6 @@ public class PdfStartlistExporter extends PdfExporter {
 		}
 		return null;
 	}
+
+
 }
