@@ -579,8 +579,8 @@ public class CupManagementPanel extends JPanel implements Observer {
 						squadCreator.createSquads());
 				
 				for (Athlete athlete : gymCup.getAllAthletes()) {
-					DBController.addPrgClassToGymCup(gymCup, athlete);
 					gymCup.addProgramClass(athlete.getPrgClass());
+					DBController.addPrgClassToGymCup(gymCup, athlete);
 				}
 			}
 

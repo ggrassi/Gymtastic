@@ -1,9 +1,7 @@
 package ch.hsr.gymtastic.server.application.controller;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.TypedQuery;
 

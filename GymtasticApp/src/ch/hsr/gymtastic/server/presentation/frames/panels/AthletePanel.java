@@ -26,7 +26,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 
-import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.frames.AthleteDetailFrame;
 import ch.hsr.gymtastic.server.presentation.models.AthleteDataTableModel;

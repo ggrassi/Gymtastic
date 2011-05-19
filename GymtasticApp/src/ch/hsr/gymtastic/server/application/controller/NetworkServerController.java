@@ -7,10 +7,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
-import ch.hsr.gymtastic.domain.CompetitionInfo;
-import ch.hsr.gymtastic.domain.GymCupClientInfo;
-import ch.hsr.gymtastic.domain.RoundInfo;
-import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 import ch.hsr.gymtastic.technicalServices.network.RMIClientInterface;
 import ch.hsr.gymtastic.technicalServices.network.RMIServer;

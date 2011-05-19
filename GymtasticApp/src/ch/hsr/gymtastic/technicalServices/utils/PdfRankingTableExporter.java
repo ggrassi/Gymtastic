@@ -6,16 +6,16 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import ch.hsr.gymtastic.domain.Athlete;
+import ch.hsr.gymtastic.domain.DeviceType;
+import ch.hsr.gymtastic.domain.GymCup;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
-import ch.hsr.gymtastic.domain.Athlete;
-import ch.hsr.gymtastic.domain.DeviceType;
-import ch.hsr.gymtastic.domain.GymCup;
 
 public class PdfRankingTableExporter extends PdfExporter {
 	private String programClassName = "";
