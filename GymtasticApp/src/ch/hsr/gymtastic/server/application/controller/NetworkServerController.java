@@ -1,5 +1,6 @@
 package ch.hsr.gymtastic.server.application.controller;
 
+import java.io.Serializable;
 import java.net.ConnectException;
 import java.rmi.RemoteException;
 import java.util.Observable;
@@ -28,24 +29,12 @@ public class NetworkServerController extends Observable implements Observer {
 		rmiServer.addObserver(this);
 	}
 
-	public void sendRoundInfoToClient(RMIClientInterface client,
-			RoundInfo roundInfo) throws ConnectException {
-		if (client != null) {
-			try {
-				client.uploadObjectToClient(roundInfo);
-			} catch (RemoteException e) {
-				throw new ConnectException();
-			}
-		}
-	}
-
-	public void sendCompetitionInfoToClients(CompetitionInfo competitionInfo)
+	public void sendObjectToAllClients(Serializable obj)
 			throws ConnectException {
 		try {
-			for (RMIClientInterface client : clientsAllocater
-					.getAllocatedClients()) {
+			for (RMIClientInterface client : clientsAllocater.getAllocatedClients()) {
 				if (client != null) {
-					client.uploadObjectToClient(competitionInfo);
+					client.uploadObjectToClient(obj);
 				}
 			}
 		} catch (RemoteException e) {
@@ -68,12 +57,11 @@ public class NetworkServerController extends Observable implements Observer {
 
 	}
 
-	public void sendGymCupInfo(RMIClientInterface client,
-			GymCupClientInfo gymCupInfo) throws ConnectException {
+	public void sendObjectToClient(RMIClientInterface client,
+			Serializable obj) throws ConnectException {
 		if (client != null) {
 			try {
-				client.uploadObjectToClient(gymCupInfo);
-
+				client.uploadObjectToClient(obj);
 			} catch (RemoteException e) {
 				throw new ConnectException();
 			}

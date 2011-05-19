@@ -44,7 +44,7 @@ public class CompetitionController implements Observer {
 		CompetitionInfo competitionInfo = new CompetitionInfo(
 				competition.getDescription());
 		try {
-			networkController.sendCompetitionInfoToClients(competitionInfo);
+			networkController.sendObjectToAllClients(competitionInfo);
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
@@ -59,7 +59,7 @@ public class CompetitionController implements Observer {
 					.getClientInformation(deviceType);
 			if (clientInformation != null) {
 				try {
-					networkController.sendRoundInfoToClient(
+					networkController.sendObjectToClient(
 							clientInformation.getStub(), roundInfo);
 				} catch (ConnectException e) {
 					e.printStackTrace();
