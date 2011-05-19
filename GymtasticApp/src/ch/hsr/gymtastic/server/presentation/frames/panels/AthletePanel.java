@@ -74,13 +74,21 @@ public class AthletePanel extends JPanel implements Observer {
 		AthleteDetailFrame.open(athleteDataTableModel.getAthlete(row), gymCupController);
 	    }
 	});
-	
+
 	btnAddAthlete.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		AthleteDetailFrame.open(null, gymCupController);
 	    }
 	});
-	
+
+	btnRemoveAthlete.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+		int row = tableAthletes.getSelectedRow();
+		row = tableAthletes.convertRowIndexToModel(row);
+		gymCupController.getGymCup().removeAthleteFromSquad(athleteDataTableModel.getAthlete(row));
+	    }
+	});
+
 	txtFieldSearchAthlete.getDocument().addDocumentListener(new DocumentListener() {
 
 	    @Override
@@ -287,7 +295,7 @@ public class AthletePanel extends JPanel implements Observer {
 
     private void updateStatistics() {
 	lblSquadsAmount.setText("" + gymCupController.getGymCup().getSquads().size());
-	lblAthletesAmount.setText("" + gymCupController.getGymCup().getAllAthletes().size());	
+	lblAthletesAmount.setText("" + gymCupController.getGymCup().getAllAthletes().size());
     }
 
 }

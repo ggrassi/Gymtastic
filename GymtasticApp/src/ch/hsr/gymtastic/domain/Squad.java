@@ -82,4 +82,8 @@ public class Squad extends Observable implements Serializable {
 		setChanged();
 		notifyObservers();
 	}
+
+	public void removeAthlete(Athlete athlete) {
+	    athlets.remove(athlete);	    
+	}
 }
