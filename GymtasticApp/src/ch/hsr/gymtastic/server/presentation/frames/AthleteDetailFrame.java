@@ -28,7 +28,7 @@ import ch.hsr.gymtastic.server.application.controller.DBController;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.models.AthleteDetailTableModel;
 
-public class AthleteDetailFrame implements Observer {
+public class AthleteDetailFrame {
 
     private JFrame frmAthletDetailansicht;
     private JTable tableMarks;
@@ -51,6 +51,7 @@ public class AthleteDetailFrame implements Observer {
     private JPanel panelCompetitionInfoBorder;
     private JPanel panelCompetitionInfoSaveCancel;
     private GymCupController gymCupController;
+    private AthleteDetailTableModel athleteDetailTableModel;
 
     /**
      * Launch the application.
@@ -76,11 +77,15 @@ public class AthleteDetailFrame implements Observer {
      * 
      * @param gymCupController
      */
+
+    /*
+     * TODO: muss nur observer sein wenn man zB will dass bei offenem
+     * Detail-Fenster der aktuelle Rang des Athleten geupdated wird
+     */
     public AthleteDetailFrame(Athlete athlete, GymCupController gymCupController) {
 	this.athlete = athlete;
 	this.gymCupController = gymCupController;
-	this.gymCupController.addObserver(this);
-	System.out.println("Athlet: " + athlete.toString());
+	// this.gymCupController.addObserver(this);
 	initGUI();
 	initListeners();
 	inizializeFields();
@@ -347,6 +352,7 @@ public class AthleteDetailFrame implements Observer {
 	gbc_txtFieldStartNr.gridy = 0;
 	panelCompetitionInfo.add(txtFieldStartNr, gbc_txtFieldStartNr);
 	txtFieldStartNr.setColumns(10);
+	txtFieldStartNr.setEnabled(false);
 
 	JLabel lblProgramClass = new JLabel("Programmklasse: ");
 	GridBagConstraints gbc_lblProgramClass = new GridBagConstraints();
@@ -381,6 +387,7 @@ public class AthleteDetailFrame implements Observer {
 	gbc_txtFieldSquad.gridy = 2;
 	panelCompetitionInfo.add(txtFieldSquad, gbc_txtFieldSquad);
 	txtFieldSquad.setColumns(10);
+	txtFieldSquad.setEnabled(false);
 
 	JLabel lblRank = new JLabel("Rang: ");
 	GridBagConstraints gbc_lblRank = new GridBagConstraints();
@@ -457,79 +464,105 @@ public class AthleteDetailFrame implements Observer {
 	panelMarks.add(scrollPaneMarks, gbc_scrollPaneMarks);
 
 	tableMarks = new JTable();
-	AthleteDetailTableModel athleteDetailTableModel = new AthleteDetailTableModel(athlete, gymCupController);
+	athleteDetailTableModel = new AthleteDetailTableModel(athlete, gymCupController);
 	tableMarks.setModel(athleteDetailTableModel);
 	scrollPaneMarks.setViewportView(tableMarks);
 
     }
 
     private void inizializeFields() {
-	txtFieldAddress.setText(athlete.getAddress());
-	txtFieldAssocation.setText(athlete.getAssociation().getName());
-	txtFieldFirstName.setText(athlete.getFirstName());
-	txtFieldLastName.setText(athlete.getLastName());
-	txtFieldProgramClass.setText(athlete.getPrgClass());
-	txtFieldSquad.setText("" + athlete.getSquadId());
-	txtFieldStartNr.setText("" + athlete.getStartNr());
-	txtFieldYearOfBirth.setText("" + athlete.getYearOfBirth());
+	if (athlete != null) {
+	    txtFieldAddress.setText(athlete.getAddress());
+	    txtFieldAssocation.setText(athlete.getAssociation().getName());
+	    txtFieldFirstName.setText(athlete.getFirstName());
+	    txtFieldLastName.setText(athlete.getLastName());
+	    txtFieldProgramClass.setText(athlete.getPrgClass());
+	    txtFieldSquad.setText("" + athlete.getSquadId());
+	    txtFieldStartNr.setText("" + athlete.getStartNr());
+	    txtFieldYearOfBirth.setText("" + athlete.getYearOfBirth());
+	} else {
+	    txtFieldSquad.setEnabled(true);
+	}
     }
 
     private void changesAthleteInformation() {
-	if (athlete != null) {
-	    if (nothingChanged()) {
-		btnCancel.setEnabled(false);
-		btnSave.setEnabled(false);
-	    } else {
-		btnCancel.setEnabled(true);
-		btnSave.setEnabled(true);
-	    }
+	if (nothingChanged()) {
+	    btnCancel.setEnabled(false);
+	    btnSave.setEnabled(false);
+	} else {
+	    btnCancel.setEnabled(true);
+	    btnSave.setEnabled(true);
 	}
     }
 
     private boolean nothingChanged() {
-	return txtFieldAddress.getText().equals(athlete.getAddress())
-		&& txtFieldAssocation.getText().equals(athlete.getAssociation().getName())
-		&& txtFieldFirstName.getText().equals(athlete.getFirstName())
-		&& txtFieldLastName.getText().equals(athlete.getLastName())
-		&& txtFieldProgramClass.getText().equals(athlete.getPrgClass())
-		&& txtFieldSquad.getText().equals(athlete.getSquadId() + "")
-		&& txtFieldStartNr.getText().equals(athlete.getStartNr() + "")
-		&& txtFieldYearOfBirth.getText().equals(athlete.getYearOfBirth() + "");
+	if (athlete != null) {
+	    return txtFieldAddress.getText().equals(athlete.getAddress())
+		    && txtFieldAssocation.getText().equals(athlete.getAssociation().getName())
+		    && txtFieldFirstName.getText().equals(athlete.getFirstName())
+		    && txtFieldLastName.getText().equals(athlete.getLastName())
+		    && txtFieldProgramClass.getText().equals(athlete.getPrgClass())
+		    && txtFieldSquad.getText().equals(athlete.getSquadId() + "")
+		    && txtFieldStartNr.getText().equals(athlete.getStartNr() + "")
+		    && txtFieldYearOfBirth.getText().equals(athlete.getYearOfBirth() + "");
+	} else {
+	    return txtFieldAddress.getText().isEmpty() && txtFieldAssocation.getText().isEmpty()
+		    && txtFieldFirstName.getText().isEmpty() && txtFieldLastName.getText().isEmpty()
+		    && txtFieldProgramClass.getText().isEmpty() && txtFieldSquad.getText().isEmpty()
+		    && txtFieldStartNr.getText().isEmpty() && txtFieldYearOfBirth.getText().isEmpty();
+	}
     }
 
     private void updateAfterCancel() {
-	txtFieldAddress.setText(athlete.getAddress());
-	txtFieldAssocation.setText(athlete.getAssociation().getName());
-	txtFieldFirstName.setText(athlete.getFirstName());
-	txtFieldLastName.setText(athlete.getLastName());
-	txtFieldProgramClass.setText(athlete.getPrgClass());
-	txtFieldSquad.setText(athlete.getSquadId() + "");
-	txtFieldStartNr.setText(athlete.getStartNr() + "");
-	txtFieldYearOfBirth.setText(athlete.getYearOfBirth() + "");
+	if (athlete != null) {
+	    txtFieldAddress.setText(athlete.getAddress());
+	    txtFieldAssocation.setText(athlete.getAssociation().getName());
+	    txtFieldFirstName.setText(athlete.getFirstName());
+	    txtFieldLastName.setText(athlete.getLastName());
+	    txtFieldProgramClass.setText(athlete.getPrgClass());
+	    txtFieldSquad.setText(athlete.getSquadId() + "");
+	    txtFieldStartNr.setText(athlete.getStartNr() + "");
+	    txtFieldYearOfBirth.setText(athlete.getYearOfBirth() + "");
+
+	} else {
+	    txtFieldAddress.setText("");
+	    txtFieldAssocation.setText("");
+	    txtFieldFirstName.setText("");
+	    txtFieldLastName.setText("");
+	    txtFieldProgramClass.setText("");
+	    txtFieldSquad.setText("");
+	    txtFieldStartNr.setText("");
+	    txtFieldYearOfBirth.setText("");
+	}
 	btnSave.setEnabled(false);
 	btnCancel.setEnabled(false);
     }
 
     private void saveAthleteInfos() {
-    	
-	athlete.setAddress(txtFieldAddress.getText());
-	athlete.setAssociation(new Association(txtFieldAssocation.getText(),athlete.getAssociation().getLocation()));
-	athlete.setFirstName(txtFieldFirstName.getText());
-	athlete.setLastName(txtFieldLastName.getText());
-	athlete.setPrgClass(txtFieldProgramClass.getText());
-	athlete.setSquadId(Integer.parseInt(txtFieldSquad.getText()));
-	athlete.setStartNr(Integer.parseInt(txtFieldStartNr.getText()));
-	athlete.setYearOfBirth(Integer.parseInt(txtFieldYearOfBirth.getText()));
-	DBController.updateAthlete(athlete);
+	if (athlete != null) {
+	    athlete.setAddress(txtFieldAddress.getText());
+	    athlete
+		    .setAssociation(new Association(txtFieldAssocation.getText(), athlete.getAssociation()
+			    .getLocation()));
+	    athlete.setFirstName(txtFieldFirstName.getText());
+	    athlete.setLastName(txtFieldLastName.getText());
+	    athlete.setPrgClass(txtFieldProgramClass.getText());
+	    athlete.setSquadId(Integer.parseInt(txtFieldSquad.getText()));
+	    athlete.setStartNr(Integer.parseInt(txtFieldStartNr.getText()));
+	    athlete.setYearOfBirth(Integer.parseInt(txtFieldYearOfBirth.getText()));
+
+	} else {
+	    athlete = new Athlete(Integer.parseInt(txtFieldSquad.getText()), gymCupController.getGymCup()
+		    .getAllAthletes().size(), txtFieldProgramClass.getText(), txtFieldFirstName.getText(),
+		    txtFieldLastName.getText(), txtFieldAddress.getText(), Integer.parseInt(txtFieldYearOfBirth
+			    .getText()), new Association(txtFieldAssocation.getText(), ""));
+	    gymCupController.getGymCup().addAthleteToSquad(Integer.parseInt(txtFieldSquad.getText()), athlete);
+	    athleteDetailTableModel.setAthlete(athlete);
+	    updateAfterCancel();
+	}
 	btnSave.setEnabled(false);
 	btnCancel.setEnabled(false);
 	gymCupController.getGymCup().athleteChanged();
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-	// athlete = gymCupController.
-
     }
 
 }

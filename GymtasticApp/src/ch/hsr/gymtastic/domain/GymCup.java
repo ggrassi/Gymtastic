@@ -212,4 +212,13 @@ public class GymCup extends Observable {
 		updateObservers();
 	}
 
+	public void addAthleteToSquad(int squadNr, Athlete athlete) {
+	    squads.get(squadNr).addAthlet(athlete);	    
+	}
+
+	public void removeAthleteFromSquad(Athlete athlete) {
+	    squads.get(athlete.getSquadId()).removeAthlete(athlete);
+	    updateObservers();	    
+	}
+
 }

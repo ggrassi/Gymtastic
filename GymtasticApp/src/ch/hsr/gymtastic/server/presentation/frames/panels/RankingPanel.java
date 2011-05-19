@@ -32,13 +32,15 @@ import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.frames.CompetitionComboBoxModel;
 import ch.hsr.gymtastic.technicalServices.utils.PdfExporter;
+import ch.hsr.gymtastic.technicalServices.utils.PdfRankingTableExporter;
+import ch.hsr.gymtastic.technicalServices.utils.PdfStartlistExporter;
 
 import com.itextpdf.text.DocumentException;
 
 public class RankingPanel extends JPanel implements Observer {
 	/**
-	 * 
-	 */
+*
+*/
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	private JPanel panelStartlist;
@@ -75,35 +77,59 @@ public class RankingPanel extends JPanel implements Observer {
 
 				if (result == JFileChooser.APPROVE_OPTION) {
 					if (rdbtnRankingList.isSelected()) {
-						PdfExporter pdfExporter = new PdfExporter(gymCupController.getGymCup(), chooser.getSelectedFile()
-								.getAbsolutePath());
+						PdfRankingTableExporter pdfRankingTableExporter = new PdfRankingTableExporter(
+								gymCupController.getGymCup(), chooser
+										.getSelectedFile().getAbsolutePath());
 
-//						if (comboBoxRankingModel.getSelectedItem().toString()
-//								.equalsIgnoreCase("Alle")) {
+						if (comboBoxRankingModel.getSelectedItem().toString()
+								.equalsIgnoreCase("Alle")) {
 
 							try {
-								pdfExporter.createTotalRankingList();
+								pdfRankingTableExporter
+										.createTotalRankingList();
 							} catch (FileNotFoundException e1) {
 								e1.printStackTrace();
 							} catch (DocumentException e1) {
 								e1.printStackTrace();
 							}
-//						} else {
-//							try {
-//								pdfExporter
-//										.createCompetitionRankingList(comboBoxRankingModel
-//												.getSelectedItem().toString());
-//							} catch (FileNotFoundException e1) {
-//								e1.printStackTrace();
-//							} catch (DocumentException e1) {
-//								e1.printStackTrace();
-//							}
-//
-//						}
+						} else {
+							try {
+								pdfRankingTableExporter
+										.createCompetitionRankingList(comboBoxRankingModel
+												.getSelectedItem().toString());
+							} catch (FileNotFoundException e1) {
+								e1.printStackTrace();
+							} catch (DocumentException e1) {
+								e1.printStackTrace();
+							}
+						}
+					} else {
+						PdfStartlistExporter pdfStartlistExporter = new PdfStartlistExporter(
+								gymCupController.getGymCup(), chooser
+										.getSelectedFile().getAbsolutePath());
+						if (comboBoxStartlistModel.getSelectedItem().toString()
+								.equalsIgnoreCase("Alle")) {
+
+							try {
+								pdfStartlistExporter.createTotalStartlist();
+							} catch (FileNotFoundException e1) {
+								e1.printStackTrace();
+							} catch (DocumentException e1) {
+								e1.printStackTrace();
+							}
+						} else {
+							try {
+								pdfStartlistExporter
+										.createCompetitionStartlist(comboBoxRankingModel
+												.getSelectedItem().toString());
+							} catch (FileNotFoundException e1) {
+								e1.printStackTrace();
+							} catch (DocumentException e1) {
+								e1.printStackTrace();
+							}
+						}
 					}
-
 				}
-
 			}
 		});
 
@@ -282,24 +308,33 @@ public class RankingPanel extends JPanel implements Observer {
 	}
 
 	private void updateComboBox() {
-		comboBoxStartlistModel = new CompetitionComboBoxModel(gymCupController.getGymCup().getCompetitions());
+		comboBoxStartlistModel = new CompetitionComboBoxModel(gymCupController
+				.getGymCup().getCompetitions());
 		comboBoxStartlist.setModel(comboBoxStartlistModel);
-		comboBoxRankingModel = new CompetitionComboBoxModel(gymCupController.getGymCup().getCompetitions());
+		comboBoxRankingModel = new CompetitionComboBoxModel(gymCupController
+				.getGymCup().getCompetitions());
 		comboBoxRankingTable.setModel(comboBoxRankingModel);
 	}
+
 	/*
 	 * TODO: DELETE!
 	 */
 
 	@SuppressWarnings("unused")
 	private GymCup createGymCup() {
-		GymCup gymCup = new GymCup("F�ssi Cup", "Schellenberg");
-		Competition competition1 = new Competition("Wettkampf P1", new GregorianCalendar(), "13:20", "19:32", "P1");
-		Competition competition2 = new Competition("Wettkampf P2", new GregorianCalendar(), "13:20", "19:32", "P2");
-		Competition competition3 = new Competition("Wettkampf P3", new GregorianCalendar(), "13:20", "19:32", "P3");
-		Competition competition4 = new Competition("Wettkampf P4", new GregorianCalendar(), "13:20", "19:32", "P4");
-		Competition competition5 = new Competition("Wettkampf P5", new GregorianCalendar(), "13:20", "19:32", "P5");
-		Competition competition6 = new Competition("Wettkampf P6", new GregorianCalendar(), "13:20", "19:32", "P6");
+		GymCup gymCup = new GymCup("Faessi Cup", "Schellenberg");
+		Competition competition1 = new Competition("Wettkampf P1",
+				new GregorianCalendar(), "13:20", "19:32", "P1");
+		Competition competition2 = new Competition("Wettkampf P2",
+				new GregorianCalendar(), "13:20", "19:32", "P2");
+		Competition competition3 = new Competition("Wettkampf P3",
+				new GregorianCalendar(), "13:20", "19:32", "P3");
+		Competition competition4 = new Competition("Wettkampf P4",
+				new GregorianCalendar(), "13:20", "19:32", "P4");
+		Competition competition5 = new Competition("Wettkampf P5",
+				new GregorianCalendar(), "13:20", "19:32", "P5");
+		Competition competition6 = new Competition("Wettkampf P6",
+				new GregorianCalendar(), "13:20", "19:32", "P6");
 		Squad squad1 = new Squad(1);
 		Squad squad2 = new Squad(2);
 		Squad squad3 = new Squad(3);
@@ -327,7 +362,7 @@ public class RankingPanel extends JPanel implements Observer {
 		marks.put(DeviceType.POMMEL_HORSE, mark2);
 		marks.put(DeviceType.STILL_RINGS, mark3);
 		marks.put(DeviceType.VAULT, mark4);
-		
+
 		Map<DeviceType, Mark> marks2 = new TreeMap<DeviceType, Mark>();
 		marks2.put(DeviceType.FLOOR_EXCERCISE, mark4);
 		marks2.put(DeviceType.HIGH_BAR, mark4);
@@ -335,12 +370,12 @@ public class RankingPanel extends JPanel implements Observer {
 		marks2.put(DeviceType.POMMEL_HORSE, mark4);
 		marks2.put(DeviceType.STILL_RINGS, mark4);
 		marks2.put(DeviceType.VAULT, mark4);
-		
+
 		athlete1.setMarks(marks);
 		athlete2.setMarks(marks2);
 		athlete3.setMarks(marks);
 		athlete4.setMarks(marks);
-		
+
 		squad1.addAthlet(athlete1);
 		squad1.addAthlet(athlete2);
 		squad1.addAthlet(athlete3);
@@ -389,7 +424,7 @@ public class RankingPanel extends JPanel implements Observer {
 		squad12.addAthlet(athlete2);
 		squad12.addAthlet(athlete3);
 		squad12.addAthlet(athlete4);
-		
+
 		competition1.addSquad(squad1);
 		competition1.addSquad(squad2);
 		competition2.addSquad(squad3);
@@ -409,7 +444,7 @@ public class RankingPanel extends JPanel implements Observer {
 		gymCup.addCompetition(competition5);
 		gymCup.addCompetition(competition6);
 		return gymCup;
-	}
 
+	}
 
 }
