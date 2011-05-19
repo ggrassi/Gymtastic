@@ -79,6 +79,7 @@ public class DBController {
 		dbAthlete.setAssociation(tmpAthlete.getAssociation());
 		dbConnection.commit();
 		dbConnection.closeConnection();
+
 	}
 		
 

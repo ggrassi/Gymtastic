@@ -1,9 +1,8 @@
 package ch.hsr.gymtastic.server.application.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,7 +11,6 @@ import org.junit.Test;
 public class SquadCreatorTest {
 
 	private ArrayList<String> tmp;
-//	 protected List<List<String>> importList = ArrayList<ArrayList<String>>();
 
 	@Before
 	public void setUp() throws Exception {

@@ -6,20 +6,17 @@ import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;
 
+import ch.hsr.gymtastic.domain.CompetitionInfo;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.GymCupClientInfo;
-import ch.hsr.gymtastic.domain.CompetitionInfo;
 import ch.hsr.gymtastic.domain.RoundInfo;
-import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.network.RMIClient;
-import ch.hsr.gymtastic.technicalServices.network.RMIServerInterface;
 import ch.hsr.gymtastic.technicalServices.network.exceptions.ConnectionFailedException;
 import ch.hsr.gymtastic.technicalServices.network.exceptions.TransmissionException;
 
 public class NetworkClientController implements Observer {
 
 	private RMIClient rmiClient;
-	private RMIServerInterface rmiServer;
 	private SquadController squadController;
 	private GymCupInfoController gymCupInfoController;
 	private CompetitionInfoController competitionInfoController;
@@ -33,17 +30,9 @@ public class NetworkClientController implements Observer {
 		rmiClient.setServerIP(serverIP);
 	}
 
-	public void updateServer(Serializable object) throws TransmissionException {
-		try {
-			rmiServer.uploadObjectToServer(object);
-		} catch (RemoteException e) {
-			throw new TransmissionException();
-		}
-	}
-
 	public void connect(DeviceType deviceType) throws ConnectionFailedException {
 		try {
-			rmiServer = rmiClient.connect(deviceType);
+			rmiClient.connect(deviceType);
 		} catch (Exception e) {
 			throw new ConnectionFailedException();
 		}
@@ -81,8 +70,8 @@ public class NetworkClientController implements Observer {
 		this.competitionInfoController = competitionInfoController;
 	}
 
-	public void sendSquadToServer(Squad squad) throws ConnectException {
-		rmiClient.sendObjectToServer(squad);
+	public void sendObjectToServer(Serializable obj) throws ConnectException {
+		rmiClient.sendObjectToServer(obj);
 		System.out.println("Sent Squad to Server!");
 	}
 }
