@@ -39,19 +39,20 @@ public class RMIServer extends Observable implements RMIServerInterface {
 		/*
 		 * TODO
 		 */
-		
+
 		updateObservers();
 	}
 
 	private void updateObservers() {
 		setChanged();
 		notifyObservers();
-		
+
 	}
 
 	@Override
-	public void uploadObjectToServer(Serializable object) throws RemoteException {
-	updateObservers(object);
+	public void uploadObjectToServer(Serializable object)
+			throws RemoteException {
+		updateObservers(object);
 
 	}
 

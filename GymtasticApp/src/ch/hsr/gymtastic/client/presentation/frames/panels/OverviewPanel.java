@@ -25,6 +25,7 @@ import ch.hsr.gymtastic.domain.GymCupClientInfo;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 
 public class OverviewPanel extends JPanel implements Observer {
+	private static final String WAIT_FOR_SERVER = "warte auf Server...";
 	/**
 	 * 
 	 */
@@ -113,7 +114,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblCupNameText.gridy = 0;
 		panelCupInformation.add(lblCupNameText, gbc_lblCupNameText);
 
-		lblCupName = new JLabel("warte auf Server...");
+		lblCupName = new JLabel(WAIT_FOR_SERVER);
 		GridBagConstraints gbc_lblCupName = new GridBagConstraints();
 		gbc_lblCupName.anchor = GridBagConstraints.WEST;
 		gbc_lblCupName.insets = new Insets(0, 0, 5, 5);
@@ -129,7 +130,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblCupLocationText.gridy = 1;
 		panelCupInformation.add(lblCupLocationText, gbc_lblCupLocationText);
 
-		lblCupLocation = new JLabel("warte auf Server...");
+		lblCupLocation = new JLabel(WAIT_FOR_SERVER);
 		GridBagConstraints gbc_lblCupLocation = new GridBagConstraints();
 		gbc_lblCupLocation.anchor = GridBagConstraints.WEST;
 		gbc_lblCupLocation.insets = new Insets(0, 0, 5, 5);
@@ -145,7 +146,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblStartDateText.gridy = 2;
 		panelCupInformation.add(lblStartDateText, gbc_lblStartDateText);
 
-		lblStartDate = new JLabel("warte auf Server...");
+		lblStartDate = new JLabel(WAIT_FOR_SERVER);
 		GridBagConstraints gbc_lblStartDate = new GridBagConstraints();
 		gbc_lblStartDate.anchor = GridBagConstraints.WEST;
 		gbc_lblStartDate.insets = new Insets(0, 0, 5, 5);
@@ -161,7 +162,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblEndDateText.gridy = 3;
 		panelCupInformation.add(lblEndDateText, gbc_lblEndDateText);
 
-		lblEndDate = new JLabel("warte auf Server...");
+		lblEndDate = new JLabel(WAIT_FOR_SERVER);
 		GridBagConstraints gbc_lblEndDate = new GridBagConstraints();
 		gbc_lblEndDate.anchor = GridBagConstraints.WEST;
 		gbc_lblEndDate.insets = new Insets(0, 0, 5, 5);
@@ -215,7 +216,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblActualCup.gridy = 0;
 		panelCompetitionInformation.add(lblActualCompetition, gbc_lblActualCup);
 
-		lblActualCompetitionText = new JLabel("warte auf Server...");
+		lblActualCompetitionText = new JLabel(WAIT_FOR_SERVER);
 		GridBagConstraints gbc_lblActualCupText = new GridBagConstraints();
 		gbc_lblActualCupText.anchor = GridBagConstraints.WEST;
 		gbc_lblActualCupText.insets = new Insets(0, 0, 5, 0);
@@ -233,7 +234,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		panelCompetitionInformation.add(lblActualRound,
 				gbc_lblActualCompetition);
 
-		lblActualRoundText = new JLabel("warte auf Server...");
+		lblActualRoundText = new JLabel(WAIT_FOR_SERVER);
 		GridBagConstraints gbc_lblActualCompetitionText = new GridBagConstraints();
 		gbc_lblActualCompetitionText.anchor = GridBagConstraints.WEST;
 		gbc_lblActualCompetitionText.insets = new Insets(0, 0, 5, 0);
@@ -250,7 +251,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblActualSquad.gridy = 2;
 		panelCompetitionInformation.add(lblActualSquad, gbc_lblActualSquad);
 
-		lblActualSquadText = new JLabel("warte auf Server...");
+		lblActualSquadText = new JLabel(WAIT_FOR_SERVER);
 		GridBagConstraints gbc_lblActualSquadText = new GridBagConstraints();
 		gbc_lblActualSquadText.insets = new Insets(0, 0, 5, 0);
 		gbc_lblActualSquadText.anchor = GridBagConstraints.WEST;
@@ -258,7 +259,7 @@ public class OverviewPanel extends JPanel implements Observer {
 		gbc_lblActualSquadText.gridy = 2;
 		panelCompetitionInformation.add(lblActualSquadText,
 				gbc_lblActualSquadText);
-		
+
 		lblPlaceholder = new JLabel(" ");
 		GridBagConstraints gbc_lblPlaceholder = new GridBagConstraints();
 		gbc_lblPlaceholder.insets = new Insets(0, 0, 5, 5);
@@ -321,7 +322,11 @@ public class OverviewPanel extends JPanel implements Observer {
 		lblActualSquadText
 				.setText("" + squadController.getSquad().getSquadId());
 		btnStartRound.setEnabled(true);
-		lblRoundInfo.setText("Status: Der Durchgang Nr. " + squadController.getRoundNr() + " wurde freigeschaltet. Sie k\u00f6nnen die Bewertung der Riege " + squadController.getSquad().getSquadId() + " starten.");
+		lblRoundInfo
+				.setText("Status: Der Durchgang Nr. "
+						+ squadController.getRoundNr()
+						+ " wurde freigeschaltet. Sie k\u00f6nnen die Bewertung der Riege "
+						+ squadController.getSquad().getSquadId() + " starten.");
 
 	}
 
@@ -341,8 +346,8 @@ public class OverviewPanel extends JPanel implements Observer {
 				.getGymCupClientInfo();
 		lblCupName.setText(gymCupClientInfo.getName());
 		lblCupLocation.setText(gymCupClientInfo.getLocation());
-		lblDevice.setText(gymCupClientInfo.getDeviceType().toString());
 		deviceType = gymCupClientInfo.getDeviceType();
+		lblDevice.setText(deviceType.toString());
 		lblStartDate.setText(DateFormatConverter
 				.convertDateToString(gymCupClientInfo.getStartDate()));
 		lblEndDate.setText(DateFormatConverter
@@ -352,5 +357,11 @@ public class OverviewPanel extends JPanel implements Observer {
 		deviceType = gymCupClientInfo.getDeviceType();
 	}
 
+	public void waitForNextRound() {
+		btnStartRound.setEnabled(false);
+		lblActualSquadText.setText(WAIT_FOR_SERVER);
+		lblActualRoundText.setText(WAIT_FOR_SERVER);
+		lblRoundInfo.setText("Status: Bitte warten Sie auf den Server");
+	}
 
 }

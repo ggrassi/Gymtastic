@@ -81,7 +81,7 @@ public class GymCupController extends Observable {
 			GymCupClientInfo gymCupInfo = getGymCupInfo(deviceType);
 			if (clientInformation != null) {
 				try {
-					networkController.sendGymCupInfo(
+					networkController.sendObjectToClient(
 							clientInformation.getStub(), gymCupInfo);
 				} catch (ConnectException e) {
 					e.printStackTrace();

@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.net.ConnectException;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -45,14 +44,14 @@ public class ActualSquadPanel extends JPanel {
 	private JPanel panelAthleteControl;
 	private JButton btnEvaluateAthlete;
 	private NetworkClientController networkController;
-	private final JFrame frmClient;
+	private final ClientFrame clientFrame;
 
 
-	public ActualSquadPanel(Squad actualSquad, DeviceType deviceType, NetworkClientController networkController, JFrame frmClient) {
+	public ActualSquadPanel(Squad actualSquad, DeviceType deviceType, NetworkClientController networkController, ClientFrame clientFrame) {
 		this.actualSquad = actualSquad;
 		this.deviceType = deviceType;
 		this.networkController = networkController;
-		this.frmClient = frmClient;
+		this.clientFrame = clientFrame;
 		initGUI();
 		initListeners();
 	}
@@ -61,9 +60,10 @@ public class ActualSquadPanel extends JPanel {
 		btnFinishEvaluation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					networkController.sendSquadToServer(actualSquad);
+					networkController.sendObjectToServer(actualSquad);
+					clientFrame.endRound();
 				} catch (ConnectException e) {
-					JOptionPane.showMessageDialog(frmClient, "Die Verbindung zum Server ist fehlgeschlagen.",
+					JOptionPane.showMessageDialog(clientFrame.getFrame(), "Das Senden zum Server ist fehlgeschlagen.",
 						    "Verbindungsfehler", JOptionPane.ERROR_MESSAGE);
 				}
 			}
