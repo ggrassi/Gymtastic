@@ -1,8 +1,10 @@
 package ch.hsr.gymtastic.server.application.controller;
 
 import java.net.ConnectException;
+import java.util.HashSet;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.CompetitionInfo;
@@ -12,19 +14,21 @@ import ch.hsr.gymtastic.domain.RoundInfo;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 
-public class CompetitionController implements Observer {
+public class CompetitionController extends Observable implements Observer {
 	private RoundAllocator roundAllocator;
 	private Competition competition;
 	private NetworkServerController networkController;
 	private ClientAllocator clientAllocator;
 	private GymCup gymCup;
 	private int actualRoundNr;
+	private Set<DeviceType> finishedClients;
 
 	public CompetitionController(NetworkServerController networkController,
 			GymCup gymCup) {
 		this.networkController = networkController;
 		this.networkController.addObserver(this);
 		this.clientAllocator = this.networkController.getClientAllocater();
+		finishedClients = new HashSet<DeviceType>();
 	}
 
 	public RoundAllocator getRoundAllocator() {
@@ -40,34 +44,31 @@ public class CompetitionController implements Observer {
 		return competition;
 	}
 
-	public void notifyClientsCompetitionStarted() {
+	public void notifyClientsCompetitionStarted() throws ConnectException {
 		CompetitionInfo competitionInfo = new CompetitionInfo(
 				competition.getDescription());
-		try {
 			networkController.sendObjectToAllClients(competitionInfo);
-		} catch (ConnectException e) {
-			e.printStackTrace();
-		}
 	}
 
-	public void enableRound(Integer roundNr) {
+	public void enableRound(Integer roundNr) throws ConnectException {
 		setActualRoundNr(roundNr);
 		for (DeviceType deviceType : DeviceType.values()) {
-			RoundInfo roundInfo = new RoundInfo(roundAllocator.getSquad(
-					deviceType, actualRoundNr), actualRoundNr);
 			ClientInformation clientInformation = clientAllocator
 					.getClientInformation(deviceType);
 			if (clientInformation != null) {
-				try {
-					networkController.sendObjectToClient(
-							clientInformation.getStub(), roundInfo);
-				} catch (ConnectException e) {
-					e.printStackTrace();
-				}
+				networkController.sendObjectToClient(
+						clientInformation.getStub(),
+						getRoundInfoFor(deviceType));
 			}
 
 		}
 
+	}
+
+	private RoundInfo getRoundInfoFor(DeviceType deviceType) {
+		return new RoundInfo(
+				roundAllocator.getSquad(deviceType, actualRoundNr),
+				actualRoundNr);
 	}
 
 	@Override
@@ -80,17 +81,32 @@ public class CompetitionController implements Observer {
 	}
 
 	private void updateSquad(Squad squad) {
-		System.out.println("Squad received!");
 		getCompetition().updateSquad(squad);
 		DBController.saveSquad(squad, gymCup);
+		setDeviceTypeFinished(squad);
+	}
+
+	private void setDeviceTypeFinished(Squad squad) {
+		finishedClients.add(roundAllocator.getDeviceType(squad, actualRoundNr));
+		updateObservers();
+	}
+
+	private void updateObservers() {
+		setChanged();
+		notifyObservers();
 	}
 
 	public void setActualRoundNr(Integer roundNr) {
 		actualRoundNr = roundNr;
+		finishedClients.clear();
+		updateObservers();
 	}
 
 	public int getActualRoundNr() {
 		return actualRoundNr;
+	}
+	public Set<DeviceType> getFinishedClients() {
+		return finishedClients;
 	}
 
 }

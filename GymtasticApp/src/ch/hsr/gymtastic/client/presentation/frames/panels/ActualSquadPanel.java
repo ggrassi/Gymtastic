@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.net.ConnectException;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -61,7 +60,7 @@ public class ActualSquadPanel extends JPanel {
 		btnFinishEvaluation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					networkController.sendSquadToServer(actualSquad);
+					networkController.sendObjectToServer(actualSquad);
 					clientFrame.endRound();
 				} catch (ConnectException e) {
 					JOptionPane.showMessageDialog(clientFrame.getFrame(), "Das Senden zum Server ist fehlgeschlagen.",

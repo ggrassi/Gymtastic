@@ -5,12 +5,9 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-import org.hamcrest.core.IsAnything;
-
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Mark;
-import ch.hsr.gymtastic.server.application.controller.GymCupController;
 
 public class AthleteDetailTableModel extends AbstractTableModel implements Observer {
 

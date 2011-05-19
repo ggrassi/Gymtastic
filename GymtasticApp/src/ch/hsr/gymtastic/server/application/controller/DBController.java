@@ -42,8 +42,6 @@ public class DBController {
 		DBConnection.setPath(path);
 	}
 	public static void saveSquad(Squad s, GymCup gymCup) {
-		// TODO Auto-generated method stub
-		dbConnection = new DBConnection();
 				
 	}
 

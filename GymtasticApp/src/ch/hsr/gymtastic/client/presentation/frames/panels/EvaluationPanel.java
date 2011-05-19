@@ -27,6 +27,7 @@ import ch.hsr.gymtastic.client.presentation.frames.ClientFrame;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Mark;
+import java.awt.FlowLayout;
 
 public class EvaluationPanel extends JPanel implements Observer {
 	
@@ -149,20 +150,10 @@ public class EvaluationPanel extends JPanel implements Observer {
 
 		panelSouthCenter = new JPanel();
 		panelSouth.add(panelSouthCenter, BorderLayout.CENTER);
-		GridBagLayout gbl_panelSouthCenter = new GridBagLayout();
-		gbl_panelSouthCenter.columnWidths = new int[] { 0, 0 };
-		gbl_panelSouthCenter.rowHeights = new int[] { 0, 0 };
-		gbl_panelSouthCenter.columnWeights = new double[] { 1.0,
-				Double.MIN_VALUE };
-		gbl_panelSouthCenter.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
-		panelSouthCenter.setLayout(gbl_panelSouthCenter);
+		panelSouthCenter.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		btnOverview = new JButton("Zur aktuellen Riege");
-
-		GridBagConstraints gbc_btnOverview = new GridBagConstraints();
-		gbc_btnOverview.gridx = 0;
-		gbc_btnOverview.gridy = 0;
-		panelSouthCenter.add(btnOverview, gbc_btnOverview);
+		panelSouthCenter.add(btnOverview);
 
 		panelRightBtn = new JPanel();
 		panelSouth.add(panelRightBtn, BorderLayout.EAST);

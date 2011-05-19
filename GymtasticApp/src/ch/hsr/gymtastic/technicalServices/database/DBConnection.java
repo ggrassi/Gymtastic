@@ -55,8 +55,7 @@ public class DBConnection {
 		Collection<Squad> c = squads.values();
 		Iterator<Squad> it = c.iterator();
 		while (it.hasNext()) {
-			Squad temp;
-			em.persist(temp = it.next());
+			em.persist(it.next());
 		}
 		commit();
 

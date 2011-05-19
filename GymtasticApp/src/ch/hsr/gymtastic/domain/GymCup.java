@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import ch.hsr.gymtastic.technicalServices.database.DBConnection;
-
 @Entity
 public class GymCup extends Observable {
 	@Id

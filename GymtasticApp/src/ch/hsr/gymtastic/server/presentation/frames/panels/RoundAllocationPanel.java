@@ -7,6 +7,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.net.ConnectException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -20,8 +23,10 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.domain.Competition;
+import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.server.application.controller.CompetitionController;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
+import ch.hsr.gymtastic.server.application.controller.RoundAllocator;
 import ch.hsr.gymtastic.server.presentation.frames.CompetitionComboBoxModel;
 
 public class RoundAllocationPanel extends JPanel implements Observer {
@@ -58,38 +63,99 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 	private CompetitionComboBoxModel comboBoxCompetitionModel;
 	private GymCupController gymCupController;
 	private CompetitionController competitionController;
-
-	/*
-	 * TODO: Saubere Trennung Domain / View
-	 */
+	private int actualRoundNr;
+	private boolean compStarted;
 
 	public RoundAllocationPanel(GymCupController gymCupController) {
 		this.gymCupController = gymCupController;
 		this.gymCupController.getGymCup().addObserver(this);
 		this.competitionController = gymCupController
 				.getCompetitionController();
+		this.competitionController.addObserver(this);
 		initGUI();
 		initListeners();
 	}
 
 	private void initListeners() {
+		cmbCompetition.addPropertyChangeListener(new PropertyChangeListener() {
+
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				if (cmbCompetition.getModel().getSize() > 0 && !compStarted) {
+					btnStartCompetition.setEnabled(true);
+				} else {
+					btnStartCompetition.setEnabled(false);
+				}
+			}
+		});
+		spnRound.addPropertyChangeListener(new PropertyChangeListener() {
+
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				setActualRoundNr((Integer) spnRound.getValue());
+			}
+		});
+		btnStopCompetition.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				compStarted = false;
+				checkAllButtons();
+			}
+		});
+
 		btnStartCompetition.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				competitionController
 						.setCompetition((Competition) cmbCompetition
 								.getSelectedItem());
-				competitionController.notifyClientsCompetitionStarted();
-
+				notifyClientsCompetitionStarted();
+				compStarted = true;
+				checkAllButtons();
 			}
 		});
 		btnEnableRound.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				competitionController.enableRound((Integer) spnRound.getValue());
+				try {
+					competitionController.enableRound(actualRoundNr);
+					setInfoSquadsSent();
+					spnRound.setEnabled(false);
+					btnEnableRound.setEnabled(false);
+				} catch (ConnectException ce) {
+				}
 
 			}
+
 		});
+
+	}
+
+	private void setActualRoundNr(Integer roundNr) {
+		actualRoundNr = roundNr;
+
+	}
+
+	private void setInfoSquadsSent() {
+		RoundAllocator roundAllocator = competitionController
+				.getRoundAllocator();
+		lblFloorStatusText.setText("Bewertet Riege "
+				+ roundAllocator.getSquad(DeviceType.FLOOR_EXCERCISE,
+						actualRoundNr));
+		lblVaultStatusText.setText("Bewertet Riege "
+				+ roundAllocator.getSquad(DeviceType.VAULT, actualRoundNr));
+		lblHighBarStatusText.setText("Bewertet Riege "
+				+ roundAllocator.getSquad(DeviceType.HIGH_BAR, actualRoundNr));
+		lblRingsStatusText.setText("Bewertet Riege "
+				+ roundAllocator
+						.getSquad(DeviceType.STILL_RINGS, actualRoundNr));
+		lblParallelBarsStatusText.setText("Bewertet Riege "
+				+ roundAllocator.getSquad(DeviceType.PARALLEL_BARS,
+						actualRoundNr));
+		lblPommelHorseStatusText.setText("Bewertet Riege "
+				+ roundAllocator.getSquad(DeviceType.POMMEL_HORSE,
+						actualRoundNr));
 
 	}
 
@@ -172,6 +238,7 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 		panelCompetitionControl.add(btnStartCompetition,
 				gbc_btnStartCompetition);
 		btnStopCompetition = new JButton("Wettkampf anhalten");
+		btnStopCompetition.setEnabled(false);
 		GridBagConstraints gbc_btnStopCompetition = new GridBagConstraints();
 		gbc_btnStopCompetition.insets = new Insets(0, 0, 0, 5);
 		gbc_btnStopCompetition.anchor = GridBagConstraints.EAST;
@@ -354,6 +421,7 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 		panelRoundControl.add(labelRound, gbc_labelRound);
 
 		spnRound = new JSpinner();
+		spnRound.setEnabled(false);
 		spnRound.setModel(new SpinnerNumberModel(1, null, 6, 1));
 		GridBagConstraints gbc_spnRound = new GridBagConstraints();
 		gbc_spnRound.insets = new Insets(0, 0, 0, 5);
@@ -369,6 +437,7 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 		panelRoundControl.add(lblDescrRound, gbc_lblDescrRound);
 
 		btnEnableRound = new JButton("Durchgang Freigeben");
+		btnEnableRound.setEnabled(false);
 
 		GridBagConstraints gbc_btnDurchgangFreigeben = new GridBagConstraints();
 		gbc_btnDurchgangFreigeben.insets = new Insets(0, 0, 0, 5);
@@ -378,9 +447,40 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 
 	}
 
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		updateComboBox();
+	private void updateClientStates() {
+		String stateFinished = "Bewertung abgeschlossen!";
+		for (DeviceType deviceType : competitionController.getFinishedClients()) {
+			switch (deviceType) {
+			case FLOOR_EXCERCISE:
+				lblFloorStatusText.setText(stateFinished);
+				break;
+			case HIGH_BAR:
+				lblHighBarStatusText.setText(stateFinished);
+				break;
+			case PARALLEL_BARS:
+				lblParallelBarsStatusText.setText(stateFinished);
+				break;
+			case POMMEL_HORSE:
+				lblPommelHorseStatusText.setText(stateFinished);
+				break;
+			case STILL_RINGS:
+				lblRingsStatusText.setText(stateFinished);
+				break;
+			case VAULT:
+				lblVaultStatusText.setText(stateFinished);
+				break;
+			}
+
+		}
+		checkRoundButtons();
+
+	}
+
+	private void checkRoundButtons() {
+		if (competitionController.getFinishedClients().size() == 6) {
+			spnRound.setEnabled(true);
+			btnEnableRound.setEnabled(true);
+		}
 
 	}
 
@@ -388,6 +488,27 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 		comboBoxCompetitionModel = new CompetitionComboBoxModel(
 				gymCupController.getGymCup().getCompetitions());
 		cmbCompetition.setModel(comboBoxCompetitionModel);
+
+	}
+
+	private void notifyClientsCompetitionStarted() {
+		try {
+			competitionController.notifyClientsCompetitionStarted();
+		} catch (ConnectException ce) {
+		}
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		updateComboBox();
+		updateClientStates();
+	}
+
+	private void checkAllButtons() {
+		btnStartCompetition.setEnabled(!compStarted);
+		btnStopCompetition.setEnabled(compStarted);
+		spnRound.setEnabled(compStarted);
+		btnEnableRound.setEnabled(compStarted);
 
 	}
 
