@@ -14,7 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
 @Entity
 public class GymCup extends Observable {
@@ -26,6 +25,7 @@ public class GymCup extends Observable {
 	private Map<Integer, Squad> squads = new HashMap<Integer, Squad>();
 	@OneToMany(cascade = CascadeType.ALL)
 	private ArrayList<Squad> squadsUnallocated = new ArrayList<Squad>();
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<String> programClasses = new HashSet<String>();
 	
 	
@@ -37,7 +37,6 @@ public class GymCup extends Observable {
 	private String name;
 	private String description;
 	private String logoImagePath = "";
-
 
 	public GymCup(String name, String ort) {
 		this.name = name;
@@ -157,11 +156,11 @@ public class GymCup extends Observable {
 		this.logoImagePath = logoImagePath;
 		updateObservers();
 	}
-	
-	public List<Athlete> getAllAthletes(){
+
+	public List<Athlete> getAllAthletes() {
 		List<Athlete> athletes = new ArrayList<Athlete>();
-		for(Squad s: squads.values()){
-		    athletes.addAll(s.getAthlets());
+		for (Squad s : squads.values()) {
+			athletes.addAll(s.getAthlets());
 		}
 		return athletes;
 	}
@@ -180,42 +179,43 @@ public class GymCup extends Observable {
 		updateObservers();
 	}
 	
+
 	/*
 	 * TODO: Delete unused Methods
 	 */
 
-//	public void setStartDateStr(String strStartDate) {
-//		DBConnection db = new DBConnection();
-//		GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
-//		extractDateInto(strStartDate, tmpCup);
-//		db.commit();
-//		db.closeConnection();
-//	}
+	// public void setStartDateStr(String strStartDate) {
+	// DBConnection db = new DBConnection();
+	// GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
+	// extractDateInto(strStartDate, tmpCup);
+	// db.commit();
+	// db.closeConnection();
+	// }
 
-//	private void extractDateInto(String strDate, GymCup tmpCup) {
-//		// if (!strDate.equals(null)) {
-//		if (!strDate.equals("")) {
-//			String[] tmp = strDate.split("\\.");
-//
-//			tmpCup.setStartDate(new GregorianCalendar(Integer.parseInt(tmp[2]),
-//					Integer.parseInt(tmp[1]), Integer.parseInt(tmp[0])));
-//		} else {
-//			tmpCup.setStartDate(new GregorianCalendar());
-//		}
-//	}
+	// private void extractDateInto(String strDate, GymCup tmpCup) {
+	// // if (!strDate.equals(null)) {
+	// if (!strDate.equals("")) {
+	// String[] tmp = strDate.split("\\.");
+	//
+	// tmpCup.setStartDate(new GregorianCalendar(Integer.parseInt(tmp[2]),
+	// Integer.parseInt(tmp[1]), Integer.parseInt(tmp[0])));
+	// } else {
+	// tmpCup.setStartDate(new GregorianCalendar());
+	// }
+	// }
 
-//	public void setEndDateStr(String strEndDate) {
-//		DBConnection db = new DBConnection();
-//		GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
-//		extractDateInto(strEndDate, tmpCup);
-//		db.commit();
-//		db.closeConnection();
-//	}
+	// public void setEndDateStr(String strEndDate) {
+	// DBConnection db = new DBConnection();
+	// GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
+	// extractDateInto(strEndDate, tmpCup);
+	// db.commit();
+	// db.closeConnection();
+	// }
 
 	public Boolean addCompetition(Competition competition) {
 		if (competition != null) {
 			Boolean b = competitions.add(competition);
-		
+
 			updateObservers();
 			return b;
 		} else {
@@ -229,7 +229,7 @@ public class GymCup extends Observable {
 	}
 
 	public void athleteChanged() {
-	    updateObservers();
+		updateObservers();
 	}
 
 	public void addAthleteToSquad(int squadNr, Athlete athlete) {

@@ -25,6 +25,7 @@ public class ProgramClassComboBoxModel extends DefaultComboBoxModel {
 		for (String s : programClasses) {
 			addElement(s);
 		}
+		addElement("Alle");
 
 	}
 

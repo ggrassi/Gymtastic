@@ -80,6 +80,14 @@ public class DBController {
 		dbConnection.commit();
 		dbConnection.closeConnection();
 	}
+
+	public static void addPrgClassToGymCup(GymCup gymCup, Athlete athlete) {
+		dbConnection = new DBConnection();
+		GymCup dbGymCup = dbConnection.getEm().find(GymCup.class, gymCup.getId());
+		dbGymCup.addProgramClass(athlete.getPrgClass());
+		dbConnection.commit();
+		dbConnection.closeConnection();
+	}
 		
 
 }

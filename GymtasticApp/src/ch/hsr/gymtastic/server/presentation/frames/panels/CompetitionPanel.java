@@ -30,7 +30,7 @@ import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.frames.SquadsSelectionFrame;
 import ch.hsr.gymtastic.server.presentation.models.CompetitionOverviewTableModel;
-import ch.hsr.gymtastic.server.presentation.models.SquadsCompetitionTableModel;
+import ch.hsr.gymtastic.server.presentation.models.SquadsInCompetitionTableModel;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 
@@ -40,19 +40,20 @@ public class CompetitionPanel extends JPanel implements Observer {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTable tableCompetitions;
+	private JTable tableCompetitionsOverview;
 	private JTextField txtFieldProgramClass;
 	private JTextField txtFieldEndTime;
 	private JTextField txtFieldStartTime;
 	private JTextField txtFieldDate;
 	private JTextField txtFieldDescription;
-	private JTable tableSquadsCompetition;
+	private JTable tableSquadsInCompetition;
 	private CompetitionOverviewTableModel competitionOverviewTableModel;
-	private SquadsCompetitionTableModel squadsTableModel;
+	private SquadsInCompetitionTableModel squadsInCompetitionTableModel;
 	private GymCupController gymCupController;
 	private Competition actualCompetition;
 	private JButton btnAddCompetition;
 	private JButton btnAddSquad;
+	private JButton btnSaveCompetition;
 
 	public CompetitionPanel(GymCupController gymCupController) {
 		this.gymCupController = gymCupController;
@@ -111,10 +112,10 @@ public class CompetitionPanel extends JPanel implements Observer {
 			}
 		});
 
-		tableCompetitions.getSelectionModel().addListSelectionListener(
+		tableCompetitionsOverview.getSelectionModel().addListSelectionListener(
 				new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent event) {
-						if (tableCompetitions.getSelectedRowCount() > 0) {
+						if (tableCompetitionsOverview.getSelectedRowCount() > 0) {
 							updateCompetitionInfos();
 							// tableCompetitions.
 						} else {
@@ -125,7 +126,8 @@ public class CompetitionPanel extends JPanel implements Observer {
 
 		btnAddSquad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new SquadsSelectionFrame(gymCupController, actualCompetition);
+				SquadsSelectionFrame squadSelectionFrame = new SquadsSelectionFrame(gymCupController, actualCompetition);
+				squadSelectionFrame.addObserver(squadsInCompetitionTableModel);
 			}
 		});
 	}
@@ -270,13 +272,13 @@ public class CompetitionPanel extends JPanel implements Observer {
 		gbc_btnCancel.gridy = 5;
 		panelInfo.add(btnCancel, gbc_btnCancel);
 
-		JButton btnSave = new JButton("Speichern");
+		btnSaveCompetition = new JButton("Speichern");
 		GridBagConstraints gbc_btnSave = new GridBagConstraints();
 		gbc_btnSave.anchor = GridBagConstraints.NORTH;
 		gbc_btnSave.insets = new Insets(0, 0, 0, 5);
 		gbc_btnSave.gridx = 1;
 		gbc_btnSave.gridy = 5;
-		panelInfo.add(btnSave, gbc_btnSave);
+		panelInfo.add(btnSaveCompetition, gbc_btnSave);
 
 		btnAddCompetition = new JButton("Hinzuf\u00fcgen");
 		GridBagConstraints gbc_btnAddCompetition = new GridBagConstraints();
@@ -312,12 +314,12 @@ public class CompetitionPanel extends JPanel implements Observer {
 		gbc_scrollPaneOverview.gridy = 0;
 		panelOverviewBorder.add(scrollPaneOverview, gbc_scrollPaneOverview);
 
-		tableCompetitions = new JTable();
+		tableCompetitionsOverview = new JTable();
 
 		competitionOverviewTableModel = new CompetitionOverviewTableModel(
 				gymCupController);
-		tableCompetitions.setModel(competitionOverviewTableModel);
-		scrollPaneOverview.setViewportView(tableCompetitions);
+		tableCompetitionsOverview.setModel(competitionOverviewTableModel);
+		scrollPaneOverview.setViewportView(tableCompetitionsOverview);
 
 		JPanel panelSquadsBorder = new JPanel();
 		panelSquadsBorder.setBorder(new TitledBorder(UIManager
@@ -349,8 +351,8 @@ public class CompetitionPanel extends JPanel implements Observer {
 		panelSquadsBorder.add(scrollPaneSquadsCompetition,
 				gbc_scrollPaneSquadsCompetition);
 
-		tableSquadsCompetition = new JTable();
-		scrollPaneSquadsCompetition.setViewportView(tableSquadsCompetition);
+		tableSquadsInCompetition = new JTable();
+		scrollPaneSquadsCompetition.setViewportView(tableSquadsInCompetition);
 
 		JButton btnEntfernen = new JButton("Entfernen");
 		GridBagConstraints gbc_btnEntfernen = new GridBagConstraints();
@@ -371,8 +373,8 @@ public class CompetitionPanel extends JPanel implements Observer {
 	private void updateCompetitionInfos() {
 		setSquadsTableModel();
 
-		int position = tableCompetitions
-				.convertRowIndexToModel(tableCompetitions.getSelectedRow());
+		int position = tableCompetitionsOverview
+				.convertRowIndexToModel(tableCompetitionsOverview.getSelectedRow());
 		setActualCompetition(gymCupController.getGymCup().getCompetitions()
 				.get(position));
 
@@ -385,16 +387,16 @@ public class CompetitionPanel extends JPanel implements Observer {
 	}
 
 	private void setSquadsTableModel() {
-		if (squadsTableModel == null) {
-			squadsTableModel = new SquadsCompetitionTableModel();
-			tableSquadsCompetition.setModel(squadsTableModel);
+		if (squadsInCompetitionTableModel == null) {
+			squadsInCompetitionTableModel = new SquadsInCompetitionTableModel();
+			tableSquadsInCompetition.setModel(squadsInCompetitionTableModel);
 
 		}
 	}
 
 	private void setActualCompetition(Competition competition) {
 		this.actualCompetition = competition;
-		squadsTableModel.setCompetition(this. actualCompetition);
+		squadsInCompetitionTableModel.setCompetition(actualCompetition);
 
 	}
 

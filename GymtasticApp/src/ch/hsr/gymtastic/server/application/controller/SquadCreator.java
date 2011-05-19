@@ -43,25 +43,21 @@ public class SquadCreator {
 			squadMap.put(squadNr, new Squad(squadNr));
 		}
 
-		for (List<String> line : importList) {
-			squadMap.get(Integer.parseInt(line.get(squadPositionImport)))
-					.addAthlet(
-							new Athlete(
-									Integer.parseInt(line
-											.get(squadPositionImport)),
-									Integer.parseInt(line
-											.get(startNrPositionImport)),
-									line.get(progClassPositionImport),
-									line.get(firstNamePositionImport),
-									line.get(lastNamePositionImport),
-									line.get(addressPositionImport),
-									Integer.parseInt(line
-											.get(yearPositionImport)),
-									new Association(
-											line.get(associationNamePositionImport),
-											line.get(associationPlacePositionImport))));
+		
+	for (List<String> line : importList) {
+	    Athlete tmpAthlete = new Athlete(Integer.parseInt(line.get(squadPositionImport)), Integer.parseInt(line
+		    .get(startNrPositionImport)), line.get(progClassPositionImport), line.get(firstNamePositionImport),
+		    line.get(lastNamePositionImport), line.get(addressPositionImport), Integer.parseInt(line
+			    .get(yearPositionImport)), new Association(line.get(associationNamePositionImport), line
+			    .get(associationPlacePositionImport)));
 
-		}
+	    Mark mark = new Mark(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+	    for (DeviceType dt : DeviceType.values()) {
+		tmpAthlete.addMark(dt, mark);
+	    }
+	    squadMap.get(Integer.parseInt(line.get(squadPositionImport))).addAthlet(tmpAthlete);
+	}
+
 
 		return squadMap;
 

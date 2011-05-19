@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,7 +21,7 @@ import ch.hsr.gymtastic.server.presentation.models.SquadSelectionTableModel;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
 
-public class SquadsSelectionFrame {
+public class SquadsSelectionFrame extends Observable{
 
 	private JFrame squadSelectionFrame;
 	private JTable tableSquads;
@@ -102,10 +103,16 @@ public class SquadsSelectionFrame {
 						System.out.println("Squad in Wettkampf hinzugefügt");
 					}
 					db.commit();
-					db.closeConnection();					
+					db.closeConnection();				
+					updateObservers();
 					squadSelectionFrame.dispose();
 				}
 
+			}
+
+			private void updateObservers() {
+				setChanged();
+				notifyObservers();
 			}
 		});
 

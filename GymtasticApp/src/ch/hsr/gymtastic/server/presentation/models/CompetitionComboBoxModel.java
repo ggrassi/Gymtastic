@@ -15,18 +15,14 @@ public class CompetitionComboBoxModel extends DefaultComboBoxModel {
 		addElements();
 	}
 
-	
-
 	public CompetitionComboBoxModel() {
 	}
-
-
 
 	private void addElements() {
 		for (Competition c : competitions) {
 			addElement(c);
 		}
-
+		addElement("Alle");
 	}
 
 }
