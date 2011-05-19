@@ -43,9 +43,11 @@ public class SquadsInCompetitionTableModel extends AbstractTableModel implements
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		switch (columnIndex) {
-		case 0:
-			return competition.getSquads().get(rowIndex);
+		if (competition != null) {
+			switch (columnIndex) {
+			case 0:
+				return competition.getSquads().get(rowIndex);
+			}
 		}
 		return "";
 	}
@@ -53,7 +55,7 @@ public class SquadsInCompetitionTableModel extends AbstractTableModel implements
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		fireTableDataChanged();
-		
+
 	}
 
 	public void setCompetition(Competition competition) {

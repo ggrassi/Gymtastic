@@ -32,6 +32,7 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.DateFormatter;
 
+import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.server.application.controller.DBController;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
@@ -576,6 +577,11 @@ public class CupManagementPanel extends JPanel implements Observer {
 				DBController.importAllSquads(gymCupController.getGymCup());
 				gymCupController.getGymCup().setSquads(
 						squadCreator.createSquads());
+				
+				for (Athlete athlete : gymCup.getAllAthletes()) {
+					DBController.addPrgClassToGymCup(gymCup, athlete);
+					gymCup.addProgramClass(athlete.getPrgClass());
+				}
 			}
 
 			private void setGymCupLogo(GymCup gymCup) {

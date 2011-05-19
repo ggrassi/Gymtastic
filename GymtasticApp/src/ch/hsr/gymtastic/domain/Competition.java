@@ -34,17 +34,13 @@ public class Competition extends Observable {
 		this.programClass = programClass;
 	}
 
-	public void importAllSquads() {
-
-	}
-
 	public List<Squad> getSquads() {
 		return squads;
 	}
 
 	public void setSquads(List<Squad> squads) {
 		this.squads = squads;
-		updateObservers();
+//		updateObservers();
 	}
 
 	public String getDescription() {
@@ -53,7 +49,7 @@ public class Competition extends Observable {
 
 	public void setDescription(String description) {
 		this.description = description;
-		updateObservers();
+//		updateObservers();
 	}
 
 	public String getStartTime() {
@@ -62,7 +58,7 @@ public class Competition extends Observable {
 
 	public void setStartTime(String startTime) {
 		this.startTime = startTime;
-		updateObservers();
+//		updateObservers();
 	}
 
 	public String getEndTime() {
@@ -71,7 +67,7 @@ public class Competition extends Observable {
 
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
-		updateObservers();
+//		updateObservers();
 	}
 
 	public GregorianCalendar getDate() {
@@ -80,7 +76,7 @@ public class Competition extends Observable {
 
 	public void setDate(GregorianCalendar date) {
 		this.date = date;
-		updateObservers();
+//		updateObservers();
 	}
 
 	public String getProgramClass() {
