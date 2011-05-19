@@ -504,7 +504,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 			double bonus = Double.valueOf(txtFieldBonus.getText());
 			return new Mark(dMark, eMark1, eMark2, eMark3, penalty, bonus);
 		} catch (NumberFormatException e) {
-			 JOptionPane.showMessageDialog(frameClient.getFrame(), "Es dürfen keine Notenfelder leer gelassen werden.",
+			 JOptionPane.showMessageDialog(frameClient.getFrame(), "Es dï¿½rfen keine Notenfelder leer gelassen werden.",
 					    "Eingabefehler", JOptionPane.ERROR_MESSAGE);
 		}
 		return null;

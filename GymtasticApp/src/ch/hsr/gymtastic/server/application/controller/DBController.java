@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.persistence.TypedQuery;
 
 import ch.hsr.gymtastic.domain.Athlete;
+import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.domain.Mark;
@@ -81,12 +82,25 @@ public class DBController {
 		dbConnection.closeConnection();
 	}
 
+
 	public static void addPrgClassToGymCup(GymCup gymCup, Athlete athlete) {
 		dbConnection = new DBConnection();
 		GymCup dbGymCup = dbConnection.getEm().find(GymCup.class, gymCup.getId());
 		dbGymCup.addProgramClass(athlete.getPrgClass());
 		dbConnection.commit();
 		dbConnection.closeConnection();
+	}
+	public static void updateCompetition(Competition newComp, Competition oldComp) {
+		dbConnection = new DBConnection();
+		Competition dbComp = dbConnection.getEm().find(Competition.class, oldComp.getId());
+		dbComp.setDescription(newComp.getDescription());
+		dbComp.setDate(newComp.getDate());
+		dbComp.setEndTime(newComp.getEndTime());
+		dbComp.setStartTime(newComp.getStartTime());
+		dbComp.setProgramClass(newComp.getProgramClass());		
+		dbConnection.commit();
+		dbConnection.closeConnection();
+
 	}
 		
 
