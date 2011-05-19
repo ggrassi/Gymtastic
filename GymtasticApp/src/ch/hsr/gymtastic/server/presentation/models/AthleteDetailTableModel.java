@@ -48,54 +48,33 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
 	    DeviceType deviceType = DeviceType.values()[rowIndex];
 	    if (deviceType != null) {
 		Mark mark = athlete.getMark(deviceType);
-		if (mark != null) {
-		    switch (columnIndex) {
-		    case 0:
-			return deviceType;
-		    case 1:
-			return mark.getdMark();
-		    case 2:
-			return mark.geteMarkOne();
-		    case 3:
-			return mark.getEmarkTwo();
-		    case 4:
-			return mark.geteMarkThree();
-		    case 5:
-			return mark.getBonus();
-		    case 6:
-			return mark.getPenalty();
-		    case 7:
-			return mark.getFinalMark();
-		    }
-		} else {
-		    switch (columnIndex) {
-		    case 0:
-			return deviceType;
-		    case 1:
-			return 0.0;
-		    case 2:
-			return 0.0;
-		    case 3:
-			return 0.0;
-		    case 4:
-			return 0.0;
-		    case 5:
-			return 0.0;
-		    case 6:
-			return 0.0;
-		    case 7:
-			return 0.0;
-		    }
+		switch (columnIndex) {
+		case 0:
+		    return deviceType;
+		case 1:
+		    return mark.getdMark();
+		case 2:
+		    return mark.geteMarkOne();
+		case 3:
+		    return mark.getEmarkTwo();
+		case 4:
+		    return mark.geteMarkThree();
+		case 5:
+		    return mark.getBonus();
+		case 6:
+		    return mark.getPenalty();
+		case 7:
+		    return mark.getFinalMark();
 		}
 	    }
 	}
 	return "";
     }
 
-    
-    public void setAthlete(Athlete athlete){
+    public void setAthlete(Athlete athlete) {
 	this.athlete = athlete;
     }
+
     public void update(Observable arg0, Object arg1) {
 	fireTableDataChanged();
     }

@@ -44,13 +44,17 @@ public class SquadCreator {
 	}
 
 	for (List<String> line : importList) {
-	    squadMap.get(Integer.parseInt(line.get(squadPositionImport))).addAthlet(
-		    new Athlete(Integer.parseInt(line.get(squadPositionImport)), Integer.parseInt(line
-			    .get(startNrPositionImport)), line.get(progClassPositionImport), line
-			    .get(firstNamePositionImport), line.get(lastNamePositionImport), line
-			    .get(addressPositionImport), Integer.parseInt(line.get(yearPositionImport)),
-			    new Association(line.get(associationNamePositionImport), line
-				    .get(associationPlacePositionImport))));
+	    Athlete tmpAthlete = new Athlete(Integer.parseInt(line.get(squadPositionImport)), Integer.parseInt(line
+		    .get(startNrPositionImport)), line.get(progClassPositionImport), line.get(firstNamePositionImport),
+		    line.get(lastNamePositionImport), line.get(addressPositionImport), Integer.parseInt(line
+			    .get(yearPositionImport)), new Association(line.get(associationNamePositionImport), line
+			    .get(associationPlacePositionImport)));
+
+	    Mark mark = new Mark(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+	    for (DeviceType dt : DeviceType.values()) {
+		tmpAthlete.addMark(dt, mark);
+	    }
+	    squadMap.get(Integer.parseInt(line.get(squadPositionImport))).addAthlet(tmpAthlete);
 	}
 
 	return squadMap;
@@ -86,14 +90,14 @@ public class SquadCreator {
 			    .get(yearPositionImport)), new Association(line.get(associationNamePositionImport), line
 			    .get(associationPlacePositionImport)));
 	    db.persist(atemp);
-	    
+
 	    Mark mtemp = new Mark(0, 0, 0, 0, 0, 0);
 	    db.persist(mtemp);
 	    for (DeviceType dt : DeviceType.values()) {
-	    	atemp.addMark(dt, mtemp);			
-		}
+		atemp.addMark(dt, mtemp);
+	    }
 	    db.persist(atemp);
-	    
+
 	    temp.addAthlet(atemp);
 	    db.persist(temp);
 
