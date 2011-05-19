@@ -7,12 +7,15 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -24,11 +27,10 @@ import ch.hsr.gymtastic.client.presentation.frames.ClientFrame;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Mark;
+import java.awt.FlowLayout;
 
 public class EvaluationPanel extends JPanel implements Observer {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFieldFinalMark;
 	private JTextField txtFieldBonus;
@@ -74,6 +76,22 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private JButton btnEndEvaluation;
 	private JPanel panelRightBtn;
 	private JPanel panelLeftBtn;
+
+	private class FocusAdapterMark extends FocusAdapter {
+		private final JTextField txtField;
+
+		public FocusAdapterMark(JTextField txtField) {
+			this.txtField = txtField;
+		}
+
+		public void focusLost(FocusEvent e) {
+			try {
+				Double.valueOf(txtField.getText());
+			} catch (NumberFormatException nfe) {
+				txtField.setText("");
+			}
+		}
+	};
 
 	public EvaluationPanel(final SquadController squadController,
 			DeviceType deviceType, ClientFrame frameClient) {
@@ -132,20 +150,10 @@ public class EvaluationPanel extends JPanel implements Observer {
 
 		panelSouthCenter = new JPanel();
 		panelSouth.add(panelSouthCenter, BorderLayout.CENTER);
-		GridBagLayout gbl_panelSouthCenter = new GridBagLayout();
-		gbl_panelSouthCenter.columnWidths = new int[] { 0, 0 };
-		gbl_panelSouthCenter.rowHeights = new int[] { 0, 0 };
-		gbl_panelSouthCenter.columnWeights = new double[] { 1.0,
-				Double.MIN_VALUE };
-		gbl_panelSouthCenter.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
-		panelSouthCenter.setLayout(gbl_panelSouthCenter);
+		panelSouthCenter.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		btnOverview = new JButton("Zur aktuellen Riege");
-
-		GridBagConstraints gbc_btnOverview = new GridBagConstraints();
-		gbc_btnOverview.gridx = 0;
-		gbc_btnOverview.gridy = 0;
-		panelSouthCenter.add(btnOverview, gbc_btnOverview);
+		panelSouthCenter.add(btnOverview);
 
 		panelRightBtn = new JPanel();
 		panelSouth.add(panelRightBtn, BorderLayout.EAST);
@@ -351,6 +359,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 		panelMarks.add(lblDMark, gbc_lblDMark);
 
 		txtFieldDMark = new JTextField();
+		txtFieldDMark.addFocusListener(new FocusAdapterMark(txtFieldDMark));
 		GridBagConstraints gbc_txtFieldDMark = new GridBagConstraints();
 		gbc_txtFieldDMark.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFieldDMark.fill = GridBagConstraints.HORIZONTAL;
@@ -368,6 +377,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 		panelMarks.add(lblEMark1, gbc_lblEMark1);
 
 		txtFieldEMark1 = new JTextField();
+		txtFieldEMark1.addFocusListener(new FocusAdapterMark(txtFieldEMark1));
 		GridBagConstraints gbc_txtFieldEMark1 = new GridBagConstraints();
 		gbc_txtFieldEMark1.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFieldEMark1.fill = GridBagConstraints.HORIZONTAL;
@@ -385,6 +395,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 		panelMarks.add(lblEMark2, gbc_lblEMark2);
 
 		txtFieldEMark2 = new JTextField();
+		txtFieldEMark2.addFocusListener(new FocusAdapterMark(txtFieldEMark2));
 		GridBagConstraints gbc_txtFieldEMark2 = new GridBagConstraints();
 		gbc_txtFieldEMark2.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFieldEMark2.fill = GridBagConstraints.HORIZONTAL;
@@ -402,6 +413,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 		panelMarks.add(lblEMark3, gbc_lblEMark3);
 
 		txtFieldEMark3 = new JTextField();
+		txtFieldEMark3.addFocusListener(new FocusAdapterMark(txtFieldEMark3));
 		GridBagConstraints gbc_txtFieldEMark3 = new GridBagConstraints();
 		gbc_txtFieldEMark3.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFieldEMark3.fill = GridBagConstraints.HORIZONTAL;
@@ -419,6 +431,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 		panelMarks.add(lblPenalty, gbc_lblPenalty);
 
 		txtFieldPenalty = new JTextField();
+		txtFieldPenalty.addFocusListener(new FocusAdapterMark(txtFieldPenalty));
 		txtFieldPenalty.setBackground(Color.RED);
 		txtFieldPenalty.setForeground(Color.WHITE);
 		GridBagConstraints gbc_txtFieldPenalty = new GridBagConstraints();
@@ -438,6 +451,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 		panelMarks.add(lblBonus, gbc_lblBonus);
 
 		txtFieldBonus = new JTextField();
+		txtFieldBonus.addFocusListener(new FocusAdapterMark(txtFieldBonus));
 		txtFieldBonus.setBackground(Color.YELLOW);
 		GridBagConstraints gbc_txtFieldBonus = new GridBagConstraints();
 		gbc_txtFieldBonus.anchor = GridBagConstraints.NORTH;
@@ -478,9 +492,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 	}
 
 	private Mark getMarkFromInput() {
-		/*
-		 * TODO: Input Verifier f�r Noten
-		 */
+
 		try {
 			double dMark = Double.valueOf(txtFieldDMark.getText());
 			double eMark1 = Double.valueOf(txtFieldEMark1.getText());
@@ -490,6 +502,8 @@ public class EvaluationPanel extends JPanel implements Observer {
 			double bonus = Double.valueOf(txtFieldBonus.getText());
 			return new Mark(dMark, eMark1, eMark2, eMark3, penalty, bonus);
 		} catch (NumberFormatException e) {
+			 JOptionPane.showMessageDialog(frameClient.getFrame(), "Es d�rfen keine Notenfelder leer gelassen werden.",
+					    "Eingabefehler", JOptionPane.ERROR_MESSAGE);
 		}
 		return null;
 

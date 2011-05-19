@@ -51,6 +51,7 @@ public class DBController {
 		DBConnection.setPath(path);
 	}
 
+
 	public static void saveReceivedSquad(Squad s, DeviceType deviceType) {
 	
 		dbConnection = new DBConnection();
@@ -93,6 +94,7 @@ public class DBController {
 		dbConnection.commit();
 		dbConnection.closeConnection();
 		
+
 	}
 		
 
