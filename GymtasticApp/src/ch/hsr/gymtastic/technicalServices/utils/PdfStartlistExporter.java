@@ -15,6 +15,8 @@ import ch.hsr.gymtastic.domain.Squad;
 
 public class PdfStartlistExporter extends PdfExporter {
 
+	private String competitionName = "";
+
 	public PdfStartlistExporter(GymCup gymCup, String path) {
 		super(gymCup, path);
 	}

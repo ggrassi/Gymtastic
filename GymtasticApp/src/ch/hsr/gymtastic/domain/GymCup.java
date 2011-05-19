@@ -3,9 +3,11 @@ package ch.hsr.gymtastic.domain;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -24,6 +26,10 @@ public class GymCup extends Observable {
 	private Map<Integer, Squad> squads = new HashMap<Integer, Squad>();
 	@OneToMany(cascade = CascadeType.ALL)
 	private ArrayList<Squad> squadsUnallocated = new ArrayList<Squad>();
+	private Set<String> programClasses = new HashSet<String>();
+	
+	
+
 	private GregorianCalendar startDate;
 	private GregorianCalendar endDate;
 	private String sponsors;
@@ -159,6 +165,21 @@ public class GymCup extends Observable {
 		}
 		return athletes;
 	}
+	
+	public Set<String> getProgramClasses() {
+		return programClasses;
+	}
+
+	public void setProgramClasses(Set<String> programClasses) {
+		this.programClasses = programClasses;
+	}
+	
+	public void addProgramClass(String programClass)
+	{
+		programClasses.add(programClass);
+		updateObservers();
+	}
+	
 	/*
 	 * TODO: Delete unused Methods
 	 */

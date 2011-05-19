@@ -22,7 +22,8 @@ import javax.swing.border.TitledBorder;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.server.application.controller.CompetitionController;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
-import ch.hsr.gymtastic.server.presentation.frames.CompetitionComboBoxModel;
+import ch.hsr.gymtastic.server.presentation.frames.ProgramClassComboBoxModel;
+import ch.hsr.gymtastic.server.presentation.models.CompetitionComboBoxModel;
 
 public class RoundAllocationPanel extends JPanel implements Observer {
 	/**

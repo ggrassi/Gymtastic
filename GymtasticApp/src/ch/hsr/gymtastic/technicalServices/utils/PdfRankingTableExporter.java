@@ -14,12 +14,11 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import ch.hsr.gymtastic.domain.Athlete;
-import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.GymCup;
-import ch.hsr.gymtastic.domain.Squad;
 
 public class PdfRankingTableExporter extends PdfExporter {
+	private String programClassName = "";
 
 	public PdfRankingTableExporter(GymCup gymCup, String path) {
 		super(gymCup, path);
@@ -32,11 +31,11 @@ public class PdfRankingTableExporter extends PdfExporter {
 		closeFile();
 	}
 
-	public void createCompetitionRankingList(String competitionName)
+	public void createProgramClassRankingList(String programClass)
 			throws FileNotFoundException, DocumentException {
-		this.competitionName = competitionName;
+		this.programClassName = programClass;
 		createFile();
-		writeCompetitionContent();
+		writeProgramClassContent();
 		closeFile();
 	}
 	
@@ -51,26 +50,26 @@ public class PdfRankingTableExporter extends PdfExporter {
 	private void writeTotalContent() throws DocumentException {
 		writeTotalTitle();
 
-		for (Competition competition : gymCup.getCompetitions()) {
-			writeCompetition(competition);
+		for (String programClass : gymCup.getProgramClasses()) {
+			writeProramClass(programClass);
 		}
 
 	}
 
-	private void writeCompetitionContent() throws DocumentException {
-		Competition competition = getCompetition();
+	private void writeProgramClassContent() throws DocumentException {
+		String programClass = getProgramClass();
 		writeTotalTitle();
-		writeCompetition(competition);
+		writeProramClass(programClass);
 	}
 
-	private void writeCompetition(Competition competition)
+	private void writeProramClass(String programClass)
 			throws DocumentException {
 		
-		writeCompetitionTitle(competition);
+		writeProgramClassTitle(programClass);
 		PdfPTable table = createTable();
 
 		int rank = 1;
-		List<Athlete> rankingList = getSortedList(competition);
+		List<Athlete> rankingList = getSortedList(programClass);
 		for (Athlete athlete : rankingList) {
 
 			table.addCell(rank + "");
@@ -164,32 +163,37 @@ public class PdfRankingTableExporter extends PdfExporter {
 		document.add(title);
 	}
 
-	private void writeCompetitionTitle(Competition competition)
+	private void writeProgramClassTitle(String programClass)
 			throws DocumentException {
-		Paragraph title = new Paragraph("Wettkampf "
-				+ competition.getDescription(),competitionRankingTitleFont);
+		Paragraph title = new Paragraph("Programm Klasse "
+				+ programClass ,programClassRankingTitleFont);
 		title.setAlignment(Paragraph.ALIGN_LEFT);
 		title.setSpacingAfter((float) 2.0);
 		document.add(title);
 
 	}
 
-	private Competition getCompetition() {
-		for (Competition competition : gymCup.getCompetitions()) {
-			if (competition.getDescription().equals(competitionName))
-				return competition;
+	private String getProgramClass() {
+		for (String programClass : gymCup.getProgramClasses()) {
+			if (programClass.equals(programClassName))
+				return programClass;
 		}
 		return null;
 	}
 
-	private List<Athlete> getSortedList(Competition competition) {
+	private List<Athlete> getSortedList(String programClass) {
 		List<Athlete> list = new ArrayList<Athlete>();
 
-		for (Squad squad : competition.getSquads()) {
-			for (Athlete athlete : squad.getAthlets()) {
+		for (Athlete athlete : gymCup.getAllAthletes()) {
+			if(athlete.getPrgClass().equals(programClass))
+			{
+				System.out.println(athlete.getFirstName());
+				System.out.println(athlete.getMarks().get(0));
 				list.add(athlete);
 			}
 		}
+		
+		
 		java.util.Collections.sort(list, comperator);
 		return list;
 	}

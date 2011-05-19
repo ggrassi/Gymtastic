@@ -30,7 +30,8 @@ import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.domain.Mark;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
-import ch.hsr.gymtastic.server.presentation.frames.CompetitionComboBoxModel;
+import ch.hsr.gymtastic.server.presentation.frames.ProgramClassComboBoxModel;
+import ch.hsr.gymtastic.server.presentation.models.CompetitionComboBoxModel;
 import ch.hsr.gymtastic.technicalServices.utils.PdfExporter;
 import ch.hsr.gymtastic.technicalServices.utils.PdfRankingTableExporter;
 import ch.hsr.gymtastic.technicalServices.utils.PdfStartlistExporter;
@@ -56,7 +57,7 @@ public class RankingPanel extends JPanel implements Observer {
 	private JFileChooser chooser;
 	private ButtonGroup buttonGroupParticipation;
 	private CompetitionComboBoxModel comboBoxStartlistModel;
-	private CompetitionComboBoxModel comboBoxRankingModel;
+	private ProgramClassComboBoxModel comboBoxRankingModel;
 	private GymCupController gymCupController;
 
 	public RankingPanel(GymCupController gymCupController) {
@@ -95,7 +96,7 @@ public class RankingPanel extends JPanel implements Observer {
 						} else {
 							try {
 								pdfRankingTableExporter
-										.createCompetitionRankingList(comboBoxRankingModel
+										.createProgramClassRankingList(comboBoxRankingModel
 												.getSelectedItem().toString());
 							} catch (FileNotFoundException e1) {
 								e1.printStackTrace();
@@ -120,7 +121,7 @@ public class RankingPanel extends JPanel implements Observer {
 						} else {
 							try {
 								pdfStartlistExporter
-										.createCompetitionStartlist(comboBoxRankingModel
+										.createCompetitionStartlist(comboBoxStartlistModel
 												.getSelectedItem().toString());
 							} catch (FileNotFoundException e1) {
 								e1.printStackTrace();
@@ -240,7 +241,7 @@ public class RankingPanel extends JPanel implements Observer {
 		panelRankingTable.add(rdbtnRankingList, gbc_rdbtnRankingList);
 
 		comboBoxRankingTable = new JComboBox();
-		comboBoxRankingModel = new CompetitionComboBoxModel();
+		comboBoxRankingModel = new ProgramClassComboBoxModel();
 		comboBoxRankingTable.setModel(comboBoxRankingModel);
 		GridBagConstraints gbc_comboBoxRankingTable = new GridBagConstraints();
 		gbc_comboBoxRankingTable.fill = GridBagConstraints.HORIZONTAL;
@@ -311,8 +312,8 @@ public class RankingPanel extends JPanel implements Observer {
 		comboBoxStartlistModel = new CompetitionComboBoxModel(gymCupController
 				.getGymCup().getCompetitions());
 		comboBoxStartlist.setModel(comboBoxStartlistModel);
-		comboBoxRankingModel = new CompetitionComboBoxModel(gymCupController
-				.getGymCup().getCompetitions());
+		comboBoxRankingModel = new ProgramClassComboBoxModel(gymCupController
+				.getGymCup().getProgramClasses());
 		comboBoxRankingTable.setModel(comboBoxRankingModel);
 	}
 
