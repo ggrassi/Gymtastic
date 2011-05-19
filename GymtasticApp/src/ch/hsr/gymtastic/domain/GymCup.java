@@ -175,38 +175,6 @@ public class GymCup extends Observable {
 	updateObservers();
     }
 
-    /*
-     * TODO: Delete unused Methods
-     */
-
-    // public void setStartDateStr(String strStartDate) {
-    // DBConnection db = new DBConnection();
-    // GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
-    // extractDateInto(strStartDate, tmpCup);
-    // db.commit();
-    // db.closeConnection();
-    // }
-
-    // private void extractDateInto(String strDate, GymCup tmpCup) {
-    // // if (!strDate.equals(null)) {
-    // if (!strDate.equals("")) {
-    // String[] tmp = strDate.split("\\.");
-    //
-    // tmpCup.setStartDate(new GregorianCalendar(Integer.parseInt(tmp[2]),
-    // Integer.parseInt(tmp[1]), Integer.parseInt(tmp[0])));
-    // } else {
-    // tmpCup.setStartDate(new GregorianCalendar());
-    // }
-    // }
-
-    // public void setEndDateStr(String strEndDate) {
-    // DBConnection db = new DBConnection();
-    // GymCup tmpCup = db.getEm().find(GymCup.class, this.getId());
-    // extractDateInto(strEndDate, tmpCup);
-    // db.commit();
-    // db.closeConnection();
-    // }
-
     public Boolean addCompetition(Competition competition) {
 	if (competition != null) {
 	    Boolean b = competitions.add(competition);
@@ -235,5 +203,4 @@ public class GymCup extends Observable {
 	squads.get(athlete.getSquadId()).removeAthlete(athlete);
 	updateObservers();
     }
-
 }
