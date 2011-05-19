@@ -6,8 +6,9 @@ import java.util.Observer;
 import javax.swing.table.AbstractTableModel;
 
 import ch.hsr.gymtastic.domain.Competition;
+import ch.hsr.gymtastic.server.application.controller.GymCupController;
 
-public class SquadsCompetitionTableModel extends AbstractTableModel implements
+public class SquadsInCompetitionTableModel extends AbstractTableModel implements
 		Observer {
 
 	/**
@@ -16,8 +17,9 @@ public class SquadsCompetitionTableModel extends AbstractTableModel implements
 	private static final long serialVersionUID = 1L;
 	private String[] columns = { "Riege" };
 	private Competition competition;
+	private GymCupController gymCupController;
 
-	public SquadsCompetitionTableModel() {
+	public SquadsInCompetitionTableModel() {
 	}
 
 	@Override
@@ -51,11 +53,11 @@ public class SquadsCompetitionTableModel extends AbstractTableModel implements
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		fireTableDataChanged();
+		
 	}
 
 	public void setCompetition(Competition competition) {
 		this.competition = competition;
-		this.competition.addObserver(this);
 		fireTableDataChanged();
 	}
 
