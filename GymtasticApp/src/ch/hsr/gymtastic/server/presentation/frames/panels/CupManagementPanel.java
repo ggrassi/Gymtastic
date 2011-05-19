@@ -596,7 +596,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 			}
 
 			private GymCup updateGymCupCredentials() throws ParseException {
-
 				DBConnection db = new DBConnection();
 				GymCup gymCup = db.getEm().find(GymCup.class,
 						gymCupController.getGymCup().getId());
@@ -623,18 +622,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 			}
 		});
 
-	}
-
-	private void setEnabledAllComponents(Boolean bool) {
-		txtFieldName.setEnabled(bool);
-		txtFieldLocation.setEnabled(bool);
-		txtAreaDescr.setEnabled(bool);
-		txtAreaSponsors.setEnabled(bool);
-		txtFieldEndDate.setEnabled(bool);
-		txtFieldStartDate.setEnabled(bool);
-		btnOpenCup.setEnabled(bool);
-		btnOpenPic.setEnabled(bool);
-		btnImportStartList.setEnabled(bool);
 	}
 
 	private void changesCupInformation() {

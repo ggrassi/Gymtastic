@@ -31,7 +31,6 @@ import ch.hsr.gymtastic.domain.Mark;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.frames.CompetitionComboBoxModel;
-import ch.hsr.gymtastic.technicalServices.utils.PdfExporter;
 import ch.hsr.gymtastic.technicalServices.utils.PdfRankingTableExporter;
 import ch.hsr.gymtastic.technicalServices.utils.PdfStartlistExporter;
 

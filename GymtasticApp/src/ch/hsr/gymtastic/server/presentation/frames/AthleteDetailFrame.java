@@ -9,8 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,7 +22,6 @@ import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.domain.Association;
 import ch.hsr.gymtastic.domain.Athlete;
-import ch.hsr.gymtastic.server.application.controller.DBController;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.models.AthleteDetailTableModel;
 

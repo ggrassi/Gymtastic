@@ -179,6 +179,7 @@ public class CompetitionPanel extends JPanel implements Observer {
 					db.commit();
 					db.closeConnection();
 					System.out.println("Wettkampf erfolgreich hinzugefuegt");
+					competitionOverviewTableModel.fireTableDataChanged();
 				} else {
 					System.out
 							.println("Wettkampf konnte nicht hinzugefuegt werden");

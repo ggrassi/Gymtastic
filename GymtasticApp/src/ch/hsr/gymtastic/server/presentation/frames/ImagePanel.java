@@ -10,7 +10,9 @@ import javax.swing.JPanel;
 
 public class ImagePanel extends JPanel {
 
-    private BufferedImage image = null;
+    
+	private static final long serialVersionUID = 1L;
+	private BufferedImage image = null;
     private String path = "";
 
     public BufferedImage getImage() {

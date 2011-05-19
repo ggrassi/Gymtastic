@@ -9,7 +9,6 @@ import java.util.Set;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.CompetitionInfo;
 import ch.hsr.gymtastic.domain.DeviceType;
-import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.domain.RoundInfo;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
@@ -19,12 +18,10 @@ public class CompetitionController extends Observable implements Observer {
 	private Competition competition;
 	private NetworkServerController networkController;
 	private ClientAllocator clientAllocator;
-	private GymCup gymCup;
 	private int actualRoundNr;
 	private Set<DeviceType> finishedClients;
 
-	public CompetitionController(NetworkServerController networkController,
-			GymCup gymCup) {
+	public CompetitionController(NetworkServerController networkController) {
 		this.networkController = networkController;
 		this.networkController.addObserver(this);
 		this.clientAllocator = this.networkController.getClientAllocater();
