@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
@@ -35,12 +34,11 @@ public class PdfStartlistExporter extends PdfExporter {
 		closeFile();
 	}
 	
-	protected void createFile() throws FileNotFoundException,
+	private void createFile() throws FileNotFoundException,
 	DocumentException {
 		document = new Document();
 		PdfWriter.getInstance(document, new FileOutputStream(path));
 		document.open();
-	
 	}
 
 	private void writeTotalContent() throws DocumentException {
@@ -49,7 +47,6 @@ public class PdfStartlistExporter extends PdfExporter {
 		for (Competition competition : gymCup.getCompetitions()) {
 			writeCompetition(competition);
 		}
-
 	}
 
 	private void writeCompetitionContent() throws DocumentException {
@@ -63,7 +60,6 @@ public class PdfStartlistExporter extends PdfExporter {
 
 		writeCompetitionTitle(competition);
 		
-		
 		for (Squad squad : competition.getSquads()) {
 			writeSquadTitle(squad);
 			for (Athlete athlete : squad.getAthlets()) {
@@ -72,18 +68,11 @@ public class PdfStartlistExporter extends PdfExporter {
 			}
 			document.add(new Paragraph(" "));
 		}
-		
 		document.newPage();
-
 	}
 
 	private void writeSquadTitle(Squad squad) throws DocumentException {
-		Paragraph title = new Paragraph("Riege " + squad.getSquadId() + " (" + squad.getAthlets().size() +" Athleten)");
-//		title.setAlignment(Paragraph.ALIGN_CENTER);
-//		title.setSpacingAfter((float) 10.0);
-//		Font titleFont = new Font();
-//		titleFont.setColor(20, 50, 10);
-//		title.setFont(titleFont);
+		Paragraph title = new Paragraph("Riege " + squad.getSquadId() + " (" + squad.getAthlets().size() +" Athleten)",squadStartlistTitleFont);
 		document.add(title);		
 	}
 
@@ -101,23 +90,19 @@ public class PdfStartlistExporter extends PdfExporter {
 								.getStartDate())
 						+ " bis "
 						+ DateFormatConverter.convertDateToString(gymCup
-								.getEndDate()));
+								.getEndDate()),totalStartlistTitleFont);
 		title.setAlignment(Paragraph.ALIGN_CENTER);
 		title.setSpacingAfter((float) 10.0);
-		Font titleFont = new Font();
-		titleFont.setColor(20, 50, 10);
-		title.setFont(titleFont);
 		document.add(title);
 	}
 
 	private void writeCompetitionTitle(Competition competition)
 			throws DocumentException {
 		Paragraph title = new Paragraph("Wettkampf "
-				+ competition.getDescription());
+				+ competition.getDescription(),competitionStartlistTitleFont);
 		title.setAlignment(Paragraph.ALIGN_LEFT);
 		title.setSpacingAfter((float) 2.0);
-		Font titleFont = new Font();
-		title.setFont(titleFont);
+		
 		document.add(title);
 
 	}
@@ -129,6 +114,4 @@ public class PdfStartlistExporter extends PdfExporter {
 		}
 		return null;
 	}
-
-
 }

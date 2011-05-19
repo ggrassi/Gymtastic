@@ -8,8 +8,6 @@ import java.util.List;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -107,12 +105,12 @@ public class PdfRankingTableExporter extends PdfExporter {
 
 	}
 
-	public static PdfPTable createTable() {
+	private static PdfPTable createTable() {
 		PdfPTable table = new PdfPTable(12);
-		table.setHorizontalAlignment(Element.ALIGN_LEFT);
+		table.setWidthPercentage(100);
 		
 		int[] widths = new int[12];
-		widths[0] = 65;
+		widths[0] = 60;
 		widths[1] = 120;
 		widths[2] = 120;
 		widths[3] = 120;
@@ -123,15 +121,13 @@ public class PdfRankingTableExporter extends PdfExporter {
 		widths[8] = 70;
 		widths[9] = 70;
 		widths[10] = 70;
-		widths[11] = 70;
+		widths[11] = 80;
 
 		try {
 			table.setWidths(widths);
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
-		
-		
 		
 		table.addCell("Rang");
 		table.addCell("Vorname");
@@ -151,6 +147,7 @@ public class PdfRankingTableExporter extends PdfExporter {
 
 	private void writeTotalTitle() throws DocumentException {
 
+		
 		Paragraph title = new Paragraph(
 				"Rangliste vom "
 						+ gymCup.getName()
@@ -161,24 +158,18 @@ public class PdfRankingTableExporter extends PdfExporter {
 								.getStartDate())
 						+ " bis "
 						+ DateFormatConverter.convertDateToString(gymCup
-								.getEndDate()));
+								.getEndDate()), totalRankingTitleFont);
 		title.setAlignment(Paragraph.ALIGN_CENTER);
 		title.setSpacingAfter((float) 10.0);
-		Font titleFont = new Font();
-		titleFont.setColor(20, 50, 10);
-		// titleFont.setSize((float) 50.0);
-		title.setFont(titleFont);
 		document.add(title);
 	}
 
 	private void writeCompetitionTitle(Competition competition)
 			throws DocumentException {
 		Paragraph title = new Paragraph("Wettkampf "
-				+ competition.getDescription());
+				+ competition.getDescription(),competitionRankingTitleFont);
 		title.setAlignment(Paragraph.ALIGN_LEFT);
 		title.setSpacingAfter((float) 2.0);
-		Font titleFont = new Font();
-		title.setFont(titleFont);
 		document.add(title);
 
 	}
@@ -199,16 +190,13 @@ public class PdfRankingTableExporter extends PdfExporter {
 				list.add(athlete);
 			}
 		}
-
 		java.util.Collections.sort(list, comperator);
-
 		return list;
 	}
 
 	
 
 	protected Comparator<Athlete> comperator = new Comparator<Athlete>() {
-
 		@Override
 		public int compare(Athlete athlete1, Athlete athlete2) {
 			if (athlete1.getSumOfEndMarks() > athlete2.getSumOfEndMarks()) {

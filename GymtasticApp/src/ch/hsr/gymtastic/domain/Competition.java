@@ -133,4 +133,8 @@ public class Competition extends Observable {
 		return description;
 	}
 
+	public void squadsAdded() {
+		updateObservers();
+	}
+
 }

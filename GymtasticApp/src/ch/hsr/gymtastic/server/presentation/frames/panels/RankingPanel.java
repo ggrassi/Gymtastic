@@ -102,7 +102,6 @@ public class RankingPanel extends JPanel implements Observer {
 							} catch (DocumentException e1) {
 								e1.printStackTrace();
 							}
-
 						}
 					} else {
 						PdfStartlistExporter pdfStartlistExporter = new PdfStartlistExporter(
@@ -128,13 +127,9 @@ public class RankingPanel extends JPanel implements Observer {
 							} catch (DocumentException e1) {
 								e1.printStackTrace();
 							}
-
 						}
-
 					}
-
 				}
-
 			}
 		});
 
