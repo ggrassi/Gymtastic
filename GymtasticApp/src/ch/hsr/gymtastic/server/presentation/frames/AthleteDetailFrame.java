@@ -463,6 +463,14 @@ public class AthleteDetailFrame {
 	tableMarks = new JTable();
 	athleteDetailTableModel = new AthleteDetailTableModel(athlete, gymCupController);
 	tableMarks.setModel(athleteDetailTableModel);
+	
+	// TODO: evt. brauch diese zeile nicht (jw)
+//	tableMarks.setCellSelectionEnabled(true);
+	
+//	tableMarks.getColumnModel().getColumn(1)
+//	.setCellEditor(new DeviceTypeEditor(cmbDeviceType));
+	
+	
 	scrollPaneMarks.setViewportView(tableMarks);
 
     }
