@@ -157,9 +157,12 @@ public class GymCup extends Observable{
 
 	public List<Athlete> getAllAthletes() {
 		List<Athlete> athletes = new ArrayList<Athlete>();
-		for (Competition c : competitions) {
-			athletes.addAll(c.getAllAthletes());
+		for (Squad squad : squads.values()) {
+		    athletes.addAll(squad.getAthlets());
 		}
+//		for (Competition c : competitions) {
+//			athletes.addAll(c.getAllAthletes());
+//		}
 		return athletes;
 	}
 
