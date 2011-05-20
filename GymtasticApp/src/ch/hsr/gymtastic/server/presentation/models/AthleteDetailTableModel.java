@@ -87,7 +87,6 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
     }
 
     public boolean isCellEditable(int row, int col) {
-	// if (col == 0 || col == 7) {
 	if (getColumnClass(col).equals(DeviceType.class) || col == (getColumnCount() - 1)) {
 	    return false;
 	} else {
@@ -122,8 +121,9 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
 		}
 	    }
 	}
-//	fireTableCellUpdated(rowIndex, columnIndex);
-	fireTableDataChanged();
+
+	fireTableCellUpdated(rowIndex, columnIndex);
+	// fireTableDataChanged();
     }
 
     public void setAthlete(Athlete athlete) {
