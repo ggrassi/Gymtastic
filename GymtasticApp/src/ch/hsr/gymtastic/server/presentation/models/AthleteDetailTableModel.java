@@ -24,6 +24,15 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
 	this.gymCupController.getGymCup().addObserver(this);
     }
 
+    @SuppressWarnings("unchecked")
+    Class[] columnTypes = new Class[] { DeviceType.class, Double.class, Double.class, Double.class, Double.class,
+	    Double.class, Double.class, Double.class };
+
+    @SuppressWarnings("unchecked")
+    public Class getColumnClass(int columnIndex) {
+	return columnTypes[columnIndex];
+    }
+
     @Override
     public String getColumnName(int columnIndex) {
 	return columns[columnIndex];
@@ -69,6 +78,48 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
 	    }
 	}
 	return "";
+    }
+
+    public boolean isCellEditable(int row, int col) {
+	// Note that the data/cell address is constant,
+	// no matter where the cell appears onscreen.
+	if (col == 0 || col == 7) {
+	    return false;
+	} else {
+	    return true;
+	}
+    }
+
+    public void setValueAt(Object value, int rowIndex, int columnIndex) {
+	if (athlete != null) {
+	    DeviceType deviceType = DeviceType.values()[rowIndex];
+	    if (deviceType != null) {
+		Mark mark = athlete.getMark(deviceType);
+		switch (columnIndex) {
+		case 0:
+		case 1:
+		    mark.setdMark((Double) value);
+//		    mark.setdMark((Double)getValueAt(rowIndex, columnIndex));
+		case 2:
+		    mark.seteMarkOne((Double) value);
+//		    mark.seteMarkOne((Double)getValueAt(rowIndex, columnIndex));
+		case 3:
+		    mark.setEmarkTwo((Double) value);
+//		    mark.setEmarkTwo((Double)getValueAt(rowIndex, columnIndex));
+		case 4:
+		    mark.seteMarkThree((Double) value);
+//		    mark.seteMarkThree((Double)getValueAt(rowIndex, columnIndex));
+		case 5:
+		    mark.setBonus((Double) value);
+//		    mark.setBonus((Double)getValueAt(rowIndex, columnIndex));
+		case 6:
+		    mark.setPenalty((Double) value);
+//		    mark.setPenalty((Double)getValueAt(rowIndex, columnIndex));
+		case 7:
+		}
+	    }
+	}
+	fireTableCellUpdated(rowIndex, columnIndex);
     }
 
     public void setAthlete(Athlete athlete) {
