@@ -72,7 +72,8 @@ public class DBController {
 		for (Squad s : competition.getSquads()) {
 			Squad dbSquad = dbConnection.getEm().find(Squad.class, s.getId());
 			dbComp.addSquad(dbSquad);
-			System.out.println("Squad in Wettkampf hinzugefügt [DBController]");
+			System.out
+					.println("Squad in Wettkampf hinzugefügt [DBController]");
 		}
 		dbConnection.persist(dbComp);
 		dbConnection.commit();
@@ -117,6 +118,23 @@ public class DBController {
 		dbConnection.commit();
 		dbConnection.closeConnection();
 
+	}
+
+	public static GymCup getExistingGymCup() {
+		DBConnection db = new DBConnection();
+		GymCup gymCup = null;
+		TypedQuery<GymCup> query = db.getEm().createQuery(
+				"SELECT p FROM GymCup p", GymCup.class);
+		List<GymCup> result = query.getResultList();
+		if (result.size() == 1) {
+			int first = 0;
+			gymCup = result.get(first);
+		}
+
+		db.commit();
+		db.closeConnection();
+
+		return gymCup;
 	}
 
 }
