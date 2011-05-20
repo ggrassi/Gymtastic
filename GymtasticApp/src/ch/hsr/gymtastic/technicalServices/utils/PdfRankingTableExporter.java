@@ -203,9 +203,9 @@ public class PdfRankingTableExporter extends PdfExporter {
 	protected Comparator<Athlete> comperator = new Comparator<Athlete>() {
 		@Override
 		public int compare(Athlete athlete1, Athlete athlete2) {
-			if (athlete1.getSumOfEndMarks() > athlete2.getSumOfEndMarks()) {
+			if (athlete1.getSumOfEndMarks() < athlete2.getSumOfEndMarks()) {
 				return 1;
-			} else if (athlete1.getSumOfEndMarks() < athlete2
+			} else if (athlete1.getSumOfEndMarks() > athlete2
 					.getSumOfEndMarks()) {
 				return 0;
 			} else {

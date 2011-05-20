@@ -56,7 +56,7 @@ public class DBController {
 	    Athlete dbAthlete = dbConnection.getEm().find(Athlete.class, ramAthlete.getId());
 	    Mark ramMark = ramAthlete.getMarks().get(deviceType);
 	    dbConnection.persist(ramMark);
-	    dbAthlete.getMarks().put(deviceType, ramMark);
+	    dbAthlete.addMark(deviceType, ramMark);
 	    dbConnection.persist(dbAthlete);
 	}
 	dbConnection.commit();

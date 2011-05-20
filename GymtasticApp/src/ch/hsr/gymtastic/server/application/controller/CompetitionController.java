@@ -85,6 +85,7 @@ public class CompetitionController extends Observable implements Observer {
 		DeviceType deviceType = roundAllocator.getDeviceType(squad, actualRoundNr);
 		DBController.saveReceivedSquad(squad, deviceType);
 		setDeviceTypeFinished(squad);
+		updateObservers();
 	}
 
 	private void setDeviceTypeFinished(Squad squad) {
