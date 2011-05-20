@@ -26,6 +26,7 @@ public class CompetitionController extends Observable implements Observer {
 	public CompetitionController(NetworkServerController networkController,
 			GymCup gymCup) {
 		this.networkController = networkController;
+		this.gymCup = gymCup;
 		this.networkController.addObserver(this);
 		this.clientAllocator = this.networkController.getClientAllocater();
 		finishedClients = new HashSet<DeviceType>();
@@ -47,7 +48,7 @@ public class CompetitionController extends Observable implements Observer {
 	public void notifyClientsCompetitionStarted() throws ConnectException {
 		CompetitionInfo competitionInfo = new CompetitionInfo(
 				competition.getDescription());
-			networkController.sendObjectToAllClients(competitionInfo);
+		networkController.sendObjectToAllClients(competitionInfo);
 	}
 
 	public void enableRound(Integer roundNr) throws ConnectException {
@@ -81,8 +82,9 @@ public class CompetitionController extends Observable implements Observer {
 	}
 
 	private void updateSquad(Squad squad) {
-		getCompetition().updateSquad(squad);
-		DeviceType deviceType = roundAllocator.getDeviceType(squad, actualRoundNr);
+		gymCup.updateSquad(squad);
+		DeviceType deviceType = roundAllocator.getDeviceType(squad,
+				actualRoundNr);
 		DBController.saveReceivedSquad(squad, deviceType);
 		setDeviceTypeFinished(squad);
 		updateObservers();
@@ -107,8 +109,13 @@ public class CompetitionController extends Observable implements Observer {
 	public int getActualRoundNr() {
 		return actualRoundNr;
 	}
+
 	public Set<DeviceType> getFinishedClients() {
 		return finishedClients;
+	}
+
+	public void setGymCup(GymCup gymCup) {
+		this.gymCup = gymCup;
 	}
 
 }

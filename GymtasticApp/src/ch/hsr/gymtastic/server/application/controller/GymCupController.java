@@ -49,6 +49,7 @@ public class GymCupController extends Observable {
 
 	public void setGymCup(GymCup gymCup) {
 		this.gymCup = gymCup;
+		competitionController.setGymCup(gymCup);
 		updateObservers();
 	}
 
