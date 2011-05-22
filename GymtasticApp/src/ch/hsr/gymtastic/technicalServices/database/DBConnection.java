@@ -10,6 +10,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.Squad;
 
 public class DBConnection {
@@ -96,6 +97,11 @@ public class DBConnection {
 	}
 	public static String getPath() {
 		return path;
+	}
+
+	public void remove(Object o) {
+		em.remove(o);
+		
 	}
 
 }

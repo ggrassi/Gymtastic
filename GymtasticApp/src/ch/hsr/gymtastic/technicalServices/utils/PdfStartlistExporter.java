@@ -3,17 +3,19 @@ package ch.hsr.gymtastic.technicalServices.utils;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
-
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.domain.Squad;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
 public class PdfStartlistExporter extends PdfExporter {
+
+	private String competitionName = "";
 
 	public PdfStartlistExporter(GymCup gymCup, String path) {
 		super(gymCup, path);

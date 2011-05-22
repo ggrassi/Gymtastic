@@ -27,7 +27,7 @@ import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.server.application.controller.CompetitionController;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.application.controller.RoundAllocator;
-import ch.hsr.gymtastic.server.presentation.frames.CompetitionComboBoxModel;
+import ch.hsr.gymtastic.server.presentation.models.CompetitionRoundAllocatorComboBoxModel;
 
 public class RoundAllocationPanel extends JPanel implements Observer {
 	/**
@@ -60,7 +60,7 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 	private JSpinner spnRound;
 	private JLabel lblDescrRound;
 	private JButton btnEnableRound;
-	private CompetitionComboBoxModel comboBoxCompetitionModel;
+	private CompetitionRoundAllocatorComboBoxModel comboBoxCompetitionModel;
 	private GymCupController gymCupController;
 	private CompetitionController competitionController;
 	private int actualRoundNr;
@@ -220,7 +220,8 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 
 		cmbCompetition = new JComboBox();
 		cmbCompetition.setMinimumSize(new Dimension(100, 20));
-		comboBoxCompetitionModel = new CompetitionComboBoxModel(gymCupController.getGymCup().getCompetitions());
+		comboBoxCompetitionModel = new CompetitionRoundAllocatorComboBoxModel(
+				gymCupController.getGymCup().getCompetitions());
 		cmbCompetition.setModel(comboBoxCompetitionModel);
 		GridBagConstraints gbc_cmbCompetition = new GridBagConstraints();
 		gbc_cmbCompetition.fill = GridBagConstraints.HORIZONTAL;
@@ -485,7 +486,7 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 	}
 
 	private void updateComboBox() {
-		comboBoxCompetitionModel = new CompetitionComboBoxModel(
+		comboBoxCompetitionModel = new CompetitionRoundAllocatorComboBoxModel(
 				gymCupController.getGymCup().getCompetitions());
 		cmbCompetition.setModel(comboBoxCompetitionModel);
 

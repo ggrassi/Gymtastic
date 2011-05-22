@@ -11,10 +11,9 @@ public class PdfExporter {
 	protected GymCup gymCup = null;
 	protected String path = "";
 	protected Document document = null;
-	protected String competitionName = "";
 	protected Font totalRankingTitleFont = new Font(FontFamily.HELVETICA, 21, Font.BOLD,
 			new BaseColor(0, 0, 0));
-	protected Font competitionRankingTitleFont = new Font(FontFamily.HELVETICA, 18, Font.BOLDITALIC,
+	protected Font programClassRankingTitleFont = new Font(FontFamily.HELVETICA, 18, Font.BOLDITALIC,
 			new BaseColor(0, 0, 0));
 	protected Font totalStartlistTitleFont = new Font(FontFamily.HELVETICA, 16, Font.BOLD,
 			new BaseColor(0, 0, 0));

@@ -37,7 +37,7 @@ public class CompetitionController extends Observable implements Observer {
 		roundAllocator = new RoundAllocator(this.competition.getSquads());
 	}
 
-	public Competition getCompetition() {
+	public Competition getActualCompetition() {
 		return competition;
 	}
 
@@ -78,7 +78,7 @@ public class CompetitionController extends Observable implements Observer {
 	}
 
 	private void updateSquad(Squad squad) {
-		getCompetition().updateSquad(squad);
+		getActualCompetition().updateSquad(squad);
 		DeviceType deviceType = roundAllocator.getDeviceType(squad, actualRoundNr);
 		DBController.saveReceivedSquad(squad, deviceType);
 		setDeviceTypeFinished(squad);

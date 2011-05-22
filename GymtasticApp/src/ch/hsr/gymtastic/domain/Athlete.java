@@ -40,7 +40,9 @@ public class Athlete extends Person {
 	this.marks = new HashMap<DeviceType, Mark>();
     }
 
-    public Athlete() {
+   
+
+	public Athlete() {
 	super();
     }
 
