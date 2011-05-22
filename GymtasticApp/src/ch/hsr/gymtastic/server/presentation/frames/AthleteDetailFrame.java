@@ -510,17 +510,11 @@ public class AthleteDetailFrame {
 		    && txtFieldLastName.getText().equals(athlete.getLastName())
 		    && cbProgramClass.getSelectedItem().equals(athlete.getPrgClass())
 		    && comboBoxSquad.getSelectedItem().equals(athlete.getSquadId())
-		    // &&
-		    // txtFieldProgramClass.getText().equals(athlete.getPrgClass())
-		    // && txtFieldSquad.getText().equals(athlete.getSquadId() +
-		    // "")
 		    && txtFieldStartNr.getText().equals(athlete.getStartNr() + "")
 		    && txtFieldYearOfBirth.getText().equals(athlete.getYearOfBirth() + "");
 	} else {
 	    return txtFieldAddress.getText().isEmpty() && txtFieldAssocation.getText().isEmpty()
 		    && txtFieldFirstName.getText().isEmpty() && txtFieldLastName.getText().isEmpty()
-		    // && txtFieldProgramClass.getText().isEmpty() &&
-		    // txtFieldSquad.getText().isEmpty()
 		    && txtFieldStartNr.getText().isEmpty() && txtFieldYearOfBirth.getText().isEmpty();
 	}
     }
@@ -533,8 +527,6 @@ public class AthleteDetailFrame {
 	    txtFieldLastName.setText(athlete.getLastName());
 	    cbProgramClass.setSelectedItem(athlete.getPrgClass());
 	    comboBoxSquad.setSelectedItem(athlete.getSquadId());
-	    // txtFieldProgramClass.setText(athlete.getPrgClass());
-	    // txtFieldSquad.setText(athlete.getSquadId() + "");
 	    txtFieldStartNr.setText(athlete.getStartNr() + "");
 	    txtFieldYearOfBirth.setText(athlete.getYearOfBirth() + "");
 
@@ -543,8 +535,6 @@ public class AthleteDetailFrame {
 	    txtFieldAssocation.setText("");
 	    txtFieldFirstName.setText("");
 	    txtFieldLastName.setText("");
-	    // txtFieldProgramClass.setText("");
-	    // txtFieldSquad.setText("");
 	    txtFieldStartNr.setText("");
 	    txtFieldYearOfBirth.setText("");
 	}
@@ -560,21 +550,16 @@ public class AthleteDetailFrame {
 			    .getLocation()));
 	    athlete.setFirstName(txtFieldFirstName.getText());
 	    athlete.setLastName(txtFieldLastName.getText());
-	    // athlete.setPrgClass(txtFieldProgramClass.getText());
 	    athlete.setPrgClass(cbProgramClass.getSelectedItem().toString());
 	    athlete.setSquadId((Integer) comboBoxSquad.getSelectedItem());
 	    athlete.setStartNr(Integer.parseInt(txtFieldStartNr.getText()));
 	    athlete.setYearOfBirth(Integer.parseInt(txtFieldYearOfBirth.getText()));
 
 	} else {
-	    athlete = new Athlete(/* Integer.parseInt(txtFieldSquad.getText()) */(Integer) comboBoxSquad
-		    .getSelectedItem(), gymCupController.getGymCup().getAllAthletes().size() + 1, cbProgramClass
-		    .getSelectedItem().toString()/*
-						  * txtFieldProgramClass.
-						  * getText ( )
-						  */, txtFieldFirstName.getText(), txtFieldLastName.getText(),
-		    txtFieldAddress.getText(), Integer.parseInt(txtFieldYearOfBirth.getText()), new Association(
-			    txtFieldAssocation.getText(), ""));
+	    athlete = new Athlete((Integer) comboBoxSquad.getSelectedItem(), gymCupController.getGymCup()
+		    .getAllAthletes().size() + 1, cbProgramClass.getSelectedItem().toString(), txtFieldFirstName
+		    .getText(), txtFieldLastName.getText(), txtFieldAddress.getText(), Integer
+		    .parseInt(txtFieldYearOfBirth.getText()), new Association(txtFieldAssocation.getText(), ""));
 	    gymCupController.getGymCup().addAthleteToSquad((Integer) comboBoxSquad.getSelectedItem(), athlete);
 	    athleteDetailTableModel.setAthlete(athlete);
 	    updateAfterCancel();
