@@ -83,7 +83,7 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
 		}
 	    }
 	}
-	return "";
+	return null;
     }
 
     public boolean isCellEditable(int row, int col) {
@@ -131,7 +131,7 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
     }
 
     public void update(Observable arg0, Object arg1) {
-	fireTableDataChanged();
+//	fireTableDataChanged();
     }
 
 }

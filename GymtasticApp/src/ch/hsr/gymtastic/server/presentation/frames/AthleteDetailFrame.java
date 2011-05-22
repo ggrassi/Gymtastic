@@ -19,12 +19,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.TableColumn;
 
 import ch.hsr.gymtastic.domain.Association;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
-import ch.hsr.gymtastic.server.presentation.editor.MarksEditor;
 import ch.hsr.gymtastic.server.presentation.models.AthleteDetailTableModel;
 
 public class AthleteDetailFrame {
@@ -465,17 +463,6 @@ public class AthleteDetailFrame {
 	tableMarks = new JTable();
 	athleteDetailTableModel = new AthleteDetailTableModel(athlete, gymCupController);
 	tableMarks.setModel(athleteDetailTableModel);
-
-//	tableMarks.setCellEditor(new MarksEditor());
-	 TableColumn col = tableMarks.getColumnModel().getColumn(1);
-	 col.setCellEditor(new MarksEditor());
-
-	// TODO: evt. brauch diese zeile nicht (jw)
-	// tableMarks.setCellSelectionEnabled(true);
-
-	// tableMarks.getColumnModel().getColumn(1)
-	// .setCellEditor(new MarksEditor(tableMarks.getde));
-
 	scrollPaneMarks.setViewportView(tableMarks);
 
     }

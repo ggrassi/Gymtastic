@@ -16,112 +16,105 @@ import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
 
 public class SquadCreator {
 
-	private static final int associationPlacePositionImport = 8;
-	private static final int associationNamePositionImport = 7;
-	private static final int yearPositionImport = 6;
-	private static final int addressPositionImport = 5;
-	private static final int lastNamePositionImport = 4;
-	private static final int firstNamePositionImport = 3;
-	private static final int progClassPositionImport = 2;
-	private static final int startNrPositionImport = 1;
-	private static final int squadPositionImport = 0;
+    private static final int associationPlacePositionImport = 8;
+    private static final int associationNamePositionImport = 7;
+    private static final int yearPositionImport = 6;
+    private static final int addressPositionImport = 5;
+    private static final int lastNamePositionImport = 4;
+    private static final int firstNamePositionImport = 3;
+    private static final int progClassPositionImport = 2;
+    private static final int startNrPositionImport = 1;
+    private static final int squadPositionImport = 0;
 
-	private ImportStartList startList;
-	private DBConnection db;
+    private ImportStartList startList;
+    private DBConnection db;
 
-	public SquadCreator(ImportStartList importStartList) {
-		this.startList = importStartList;
+    public SquadCreator(ImportStartList importStartList) {
+	this.startList = importStartList;
+    }
+
+    public Map<Integer, Squad> createSquads() {
+	List<List<String>> importList = startList.getImportList();
+
+	Set<Integer> squadsNrList = findSquadNumbers(importList);
+
+	Map<Integer, Squad> squadMap = new TreeMap<Integer, Squad>();
+	for (Integer squadNr : squadsNrList) {
+	    squadMap.put(squadNr, new Squad(squadNr));
 	}
 
-	public Map<Integer, Squad> createSquads() {
-		List<List<String>> importList = startList.getImportList();
+	for (List<String> line : importList) {
+	    Athlete tmpAthlete = getAthleteFrom(line);
 
-		Set<Integer> squadsNrList = findSquadNumbers(importList);
+	    for (DeviceType dt : DeviceType.values()) {
+		tmpAthlete.addMark(dt, new Mark(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+	    }
+	    squadMap.get(Integer.parseInt(line.get(squadPositionImport))).addAthlet(tmpAthlete);
+	}
+	return squadMap;
 
-		Map<Integer, Squad> squadMap = new TreeMap<Integer, Squad>();
-		for (Integer squadNr : squadsNrList) {
-			squadMap.put(squadNr, new Squad(squadNr));
-		}
+    }
 
-		for (List<String> line : importList) {
-			Athlete tmpAthlete = getAthleteFrom(line);
+    private Set<Integer> findSquadNumbers(List<List<String>> importList) {
+	Set<Integer> squadsNrList = new TreeSet<Integer>();
+	for (List<String> line : importList) {
+	    squadsNrList.add(Integer.parseInt(line.get(squadPositionImport)));
+	}
+	return squadsNrList;
+    }
 
-			Mark mark = new Mark(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-			for (DeviceType dt : DeviceType.values()) {
-				tmpAthlete.addMark(dt, mark);
-			}
-			squadMap.get(Integer.parseInt(line.get(squadPositionImport)))
-					.addAthlet(tmpAthlete);
-		}
-		return squadMap;
+    public void insertImportToDB() {
+	List<List<String>> importList = getImportList();
+	insertAthletes(importList);
+    }
+
+    private void insertAthletes(List<List<String>> importList) {
+	db = new DBConnection();
+	for (List<String> line : importList) {
+	    Squad tempSquad = new Squad(Integer.parseInt(line.get(squadPositionImport)));
+	    tempSquad = db.getEm().find(Squad.class, tempSquad.getSquadId());
+	    Athlete tempAthlete = getAthleteFrom(line);
+	    db.persist(tempAthlete);
+	    addEmptyMarksTo(tempAthlete);
+	    tempSquad.addAthlet(tempAthlete);
+	    db.persist(tempSquad);
 
 	}
+	db.commit();
 
-	private Set<Integer> findSquadNumbers(List<List<String>> importList) {
-		Set<Integer> squadsNrList = new TreeSet<Integer>();
-		for (List<String> line : importList) {
-			squadsNrList.add(Integer.parseInt(line.get(squadPositionImport)));
-		}
-		return squadsNrList;
+	db.closeConnection();
+    }
+
+    private List<List<String>> getImportList() {
+	db = new DBConnection();
+	List<List<String>> importList = startList.getImportList();
+	Set<Integer> squadsNrList = findSquadNumbers(importList);
+	for (Integer squadNr : squadsNrList) {
+	    Squad tempSquad = new Squad(squadNr);
+	    db.persist(tempSquad);
 	}
+	db.commit();
+	db.closeConnection();
+	return importList;
+    }
 
-	public void insertImportToDB() {
-		List<List<String>> importList = getImportList();
-		insertAthletes(importList);
+    private void addEmptyMarksTo(Athlete atemp) {
+
+	for (DeviceType dt : DeviceType.values()) {
+	    Mark mtemp = new Mark(0, 0, 0, 0, 0, 0);
+	    db.persist(mtemp);
+	    atemp.addMark(dt, mtemp);
 	}
+	db.persist(atemp);
+    }
 
-	private void insertAthletes(List<List<String>> importList) {
-		db = new DBConnection();
-		for (List<String> line : importList) {
-			Squad tempSquad = new Squad(Integer.parseInt(line
-					.get(squadPositionImport)));
-			tempSquad = db.getEm().find(Squad.class, tempSquad.getSquadId());
-			Athlete tempAthlete = getAthleteFrom(line);
-			db.persist(tempAthlete);
-			addEmptyMarksTo(tempAthlete);
-			tempSquad.addAthlet(tempAthlete);
-			db.persist(tempSquad);
-
-		}
-		db.commit();
-
-		db.closeConnection();
-	}
-
-	private List<List<String>> getImportList() {
-		db = new DBConnection();
-		List<List<String>> importList = startList.getImportList();
-		Set<Integer> squadsNrList = findSquadNumbers(importList);
-		for (Integer squadNr : squadsNrList) {
-			Squad tempSquad = new Squad(squadNr);
-			db.persist(tempSquad);
-		}
-		db.commit();
-		db.closeConnection();
-		return importList;
-	}
-
-	private void addEmptyMarksTo(Athlete atemp) {
-		Mark mtemp = new Mark(0, 0, 0, 0, 0, 0);
-		db.persist(mtemp);
-		for (DeviceType dt : DeviceType.values()) {
-			atemp.addMark(dt, mtemp);
-		}
-		db.persist(atemp);
-	}
-
-	private Athlete getAthleteFrom(List<String> line) {
-		Athlete atemp = new Athlete(Integer.parseInt(line
-				.get(squadPositionImport)), Integer.parseInt(line
-				.get(startNrPositionImport)),
-				line.get(progClassPositionImport),
-				line.get(firstNamePositionImport),
-				line.get(lastNamePositionImport),
-				line.get(addressPositionImport), Integer.parseInt(line
-						.get(yearPositionImport)), new Association(
-						line.get(associationNamePositionImport),
-						line.get(associationPlacePositionImport)));
-		return atemp;
-	}
+    private Athlete getAthleteFrom(List<String> line) {
+	Athlete atemp = new Athlete(Integer.parseInt(line.get(squadPositionImport)), Integer.parseInt(line
+		.get(startNrPositionImport)), line.get(progClassPositionImport), line.get(firstNamePositionImport),
+		line.get(lastNamePositionImport), line.get(addressPositionImport), Integer.parseInt(line
+			.get(yearPositionImport)), new Association(line.get(associationNamePositionImport), line
+			.get(associationPlacePositionImport)));
+	return atemp;
+    }
 
 }
