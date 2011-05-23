@@ -12,10 +12,19 @@ import java.util.Vector;
 
 import ch.hsr.gymtastic.domain.DeviceType;
 
+/**
+ * The Class RMIServer represents all Methods 
+ * which can be selected from the RMIServer
+ */
 public class RMIServer extends Observable implements RMIServerInterface {
 
 	Vector<ClientInformation> clientsWaitingForAllocation = new Vector<ClientInformation>();
 
+	/**
+	 * Instantiates a new RMI server.
+	 *
+	 * @throws RemoteException the remote exception
+	 */
 	public RMIServer() throws RemoteException {
 		RMIServerInterface stub = (RMIServerInterface) UnicastRemoteObject
 				.exportObject(this, 0);
@@ -23,6 +32,9 @@ public class RMIServer extends Observable implements RMIServerInterface {
 		registry.rebind("Gymtastic", stub);
 	}
 
+	/* (non-Javadoc)
+	 * @see ch.hsr.gymtastic.technicalServices.network.RMIServerInterface#addClient(ch.hsr.gymtastic.technicalServices.network.RMIClientInterface, java.io.Serializable)
+	 */
 	@Override
 	public void addClient(RMIClientInterface client, Serializable deviceType)
 			throws RemoteException, ServerNotActiveException {
@@ -33,6 +45,9 @@ public class RMIServer extends Observable implements RMIServerInterface {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see ch.hsr.gymtastic.technicalServices.network.RMIServerInterface#removeClient(ch.hsr.gymtastic.technicalServices.network.RMIClientInterface)
+	 */
 	@Override
 	public void removeClient(RMIClientInterface client) throws RemoteException {
 
@@ -43,12 +58,18 @@ public class RMIServer extends Observable implements RMIServerInterface {
 		updateObservers();
 	}
 
+	/**
+	 * Update observers.
+	 */
 	private void updateObservers() {
 		setChanged();
 		notifyObservers();
 
 	}
 
+	/* (non-Javadoc)
+	 * @see ch.hsr.gymtastic.technicalServices.network.RMIServerInterface#uploadObjectToServer(java.io.Serializable)
+	 */
 	@Override
 	public void uploadObjectToServer(Serializable object)
 			throws RemoteException {
@@ -56,11 +77,21 @@ public class RMIServer extends Observable implements RMIServerInterface {
 
 	}
 
+	/**
+	 * Update observers.
+	 *
+	 * @param object the object
+	 */
 	private void updateObservers(Serializable object) {
 		setChanged();
 		notifyObservers(object);
 	}
 
+	/**
+	 * Gets the clients waiting for allocation.
+	 *
+	 * @return the clients waiting for allocation
+	 */
 	public Vector<ClientInformation> getClientsWaitingForAllocation() {
 		return clientsWaitingForAllocation;
 	}

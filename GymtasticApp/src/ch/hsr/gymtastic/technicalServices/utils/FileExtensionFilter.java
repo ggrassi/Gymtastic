@@ -4,8 +4,17 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
-public class FileExtensionFilter extends FileFilter{
+/**
+ * The Class FileExtensionFilter filters the allowed Files from the not allowed
+ * files, which have the wrong file extension
+ */
+public class FileExtensionFilter extends FileFilter {
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.swing.filechooser.FileFilter#accept(java.io.File)
+	 */
 	public boolean accept(File f) {
 		if (f.isDirectory()) {
 			return true;
@@ -14,10 +23,10 @@ public class FileExtensionFilter extends FileFilter{
 		String extension = FileExtension.getExtension(f);
 		if (extension != null && !FileExtension.extensions.isEmpty()) {
 			for (String ext : FileExtension.extensions) {
-				System.out.println("accept: "+ext);
-				if(extension.equals(ext)){
+				System.out.println("accept: " + ext);
+				if (extension.equals(ext)) {
 					return true;
-				}else{
+				} else {
 					System.out.println("Falsches Format");
 					return false;
 				}
@@ -27,14 +36,25 @@ public class FileExtensionFilter extends FileFilter{
 		return false;
 	}
 
+	/**
+	 * Adds an extension to a FileExtension object
+	 * 
+	 * @param string
+	 *            the string
+	 */
 	public void addExtension(String string) {
 		FileExtension.addExtension(string);
-		
+
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.swing.filechooser.FileFilter#getDescription()
+	 */
 	@Override
 	public String getDescription() {
-		
+
 		return null;
 	}
 }

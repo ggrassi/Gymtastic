@@ -19,6 +19,10 @@ import ch.hsr.gymtastic.client.presentation.frames.panels.OverviewPanel;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ClientFrame represents the Client GUI.
+ */
 public class ClientFrame implements Observer {
 
 	private JFrame frmClient;
@@ -36,9 +40,10 @@ public class ClientFrame implements Observer {
 	private final NetworkClientController networkController;
 
 	/**
-	 * Launch the application.
-	 * 
-	 * @param networkController
+	 * Launch the Client application.
+	 *
+	 * @param squadController the squad controller
+	 * @param networkController the network controller
 	 */
 	public static void newClientFrame(final SquadController squadController,
 			final NetworkClientController networkController) {
@@ -57,8 +62,9 @@ public class ClientFrame implements Observer {
 
 	/**
 	 * Create the application.
-	 * 
-	 * @param squadController
+	 *
+	 * @param squadController the squad controller
+	 * @param networkController the network controller
 	 */
 	public ClientFrame(SquadController squadController,
 			NetworkClientController networkController) {
@@ -105,12 +111,20 @@ public class ClientFrame implements Observer {
 
 	}
 
+	/**
+	 * Sets the actual squad.
+	 *
+	 * @param actualSquad the new actual squad
+	 */
 	public void setActualSquad(Squad actualSquad) {
 		this.actualSquad = actualSquad;
 		createPanels();
 
 	}
 
+	/**
+	 * Creates the panels.
+	 */
 	public void createPanels() {
 		if (tabbedPane.getComponents().length == 1) {
 			panelEvaluation = new EvaluationPanel(squadController, deviceType,
@@ -123,6 +137,11 @@ public class ClientFrame implements Observer {
 
 	}
 
+	/**
+	 * Sets the focus on panel.
+	 *
+	 * @param panelIndex the new focus on panel
+	 */
 	public void setFocusOnPanel(int panelIndex) {
 		if (tabbedPane.getComponentAt(panelIndex) != null) {
 			tabbedPane.getModel().setSelectedIndex(panelIndex);
@@ -130,14 +149,27 @@ public class ClientFrame implements Observer {
 
 	}
 
+	/**
+	 * Gets the frame.
+	 *
+	 * @return the frame
+	 */
 	public JFrame getFrame() {
 		return frmClient;
 	}
 
+	/**
+	 * Gets the actual squad.
+	 *
+	 * @return the actual squad
+	 */
 	public Squad getActualSquad() {
 		return actualSquad;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
 
@@ -146,6 +178,9 @@ public class ClientFrame implements Observer {
 
 	}
 
+	/**
+	 * Update gym cup information and sets the appropriate DeviceType
+	 */
 	private void updateGymCupInfo() {
 		if (gymCupInfoController.getGymCupClientInfo() != null)
 			deviceType = gymCupInfoController.getGymCupClientInfo()
@@ -153,11 +188,17 @@ public class ClientFrame implements Observer {
 
 	}
 
+	/**
+	 * Updates the actual selected Squad.
+	 */
 	private void updateSquad() {
 		if (squadController.getSquad() != null)
 			actualSquad = squadController.getSquad();
 	}
 
+	/**
+	 * Ends a round on the client and to wait on the new Squad send from the server.
+	 */
 	public void endRound() {
 		tabbedPane.remove(panelActualSquad);
 		tabbedPane.remove(panelEvaluation);

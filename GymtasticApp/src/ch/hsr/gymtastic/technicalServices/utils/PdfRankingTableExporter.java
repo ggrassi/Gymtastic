@@ -17,13 +17,33 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+/**
+ * The Class PdfRankingTableExporter defines how the Ranking PDF is formatted and generated.
+ */
 public class PdfRankingTableExporter extends PdfExporter {
+
 	private String programClassName = "";
 
+	/**
+	 * Instantiates a new pdf ranking table exporter.
+	 * 
+	 * @param gymCup
+	 *            the gym cup
+	 * @param path
+	 *            the path
+	 */
 	public PdfRankingTableExporter(GymCup gymCup, String path) {
 		super(gymCup, path);
 	}
 
+	/**
+	 * Creates the total ranking list which contains the ranking of the Athletes
+	 * 
+	 * @throws FileNotFoundException
+	 *             the file not found exception
+	 * @throws DocumentException
+	 *             the document exception
+	 */
 	public void createTotalRankingList() throws FileNotFoundException,
 			DocumentException {
 		createFile();
@@ -31,6 +51,16 @@ public class PdfRankingTableExporter extends PdfExporter {
 		closeFile();
 	}
 
+	/**
+	 * Creates the program class ranking list per Programm Class
+	 * 
+	 * @param programClass
+	 *            the program class
+	 * @throws FileNotFoundException
+	 *             the file not found exception
+	 * @throws DocumentException
+	 *             the document exception
+	 */
 	public void createProgramClassRankingList(String programClass)
 			throws FileNotFoundException, DocumentException {
 		this.programClassName = programClass;
@@ -38,33 +68,59 @@ public class PdfRankingTableExporter extends PdfExporter {
 		writeProgramClassContent();
 		closeFile();
 	}
-	
-	private void createFile() throws FileNotFoundException,
-	DocumentException {
+
+	/**
+	 * Creates the PDF file.
+	 * 
+	 * @throws FileNotFoundException
+	 *             the file not found exception
+	 * @throws DocumentException
+	 *             the document exception
+	 */
+	private void createFile() throws FileNotFoundException, DocumentException {
 		document = new Document(PageSize.LETTER.rotate());
 		PdfWriter.getInstance(document, new FileOutputStream(path));
 		document.open();
-	
+
 	}
 
+	/**
+	 * Write the Content for the PDF File
+	 * 
+	 * @throws DocumentException
+	 *             the document exception
+	 */
 	private void writeTotalContent() throws DocumentException {
 		writeTotalTitle();
 
 		for (String programClass : gymCup.getProgramClasses()) {
-			writeProramClass(programClass);
+			writeProgramClass(programClass);
 		}
 
 	}
 
+	/**
+	 * Write the content of the program class for the PDF File 
+	 * 
+	 * @throws DocumentException
+	 *             the document exception
+	 */
 	private void writeProgramClassContent() throws DocumentException {
 		String programClass = getProgramClass();
 		writeTotalTitle();
-		writeProramClass(programClass);
+		writeProgramClass(programClass);
 	}
 
-	private void writeProramClass(String programClass)
-			throws DocumentException {
-		
+	/**
+	 * Write the detailed content from the Athletes to the PDF File
+	 * 
+	 * @param programClass
+	 *            the program class
+	 * @throws DocumentException
+	 *             the document exception
+	 */
+	private void writeProgramClass(String programClass) throws DocumentException {
+
 		writeProgramClassTitle(programClass);
 		PdfPTable table = createTable();
 
@@ -104,10 +160,15 @@ public class PdfRankingTableExporter extends PdfExporter {
 
 	}
 
+	/**
+	 * Creates the table in which the details of the Athletes appear
+	 * 
+	 * @return the pdf p table
+	 */
 	private static PdfPTable createTable() {
 		PdfPTable table = new PdfPTable(12);
 		table.setWidthPercentage(100);
-		
+
 		int[] widths = new int[12];
 		widths[0] = 60;
 		widths[1] = 120;
@@ -127,7 +188,7 @@ public class PdfRankingTableExporter extends PdfExporter {
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
-		
+
 		table.addCell("Rang");
 		table.addCell("Vorname");
 		table.addCell("Nachname");
@@ -144,35 +205,51 @@ public class PdfRankingTableExporter extends PdfExporter {
 		return table;
 	}
 
+	/**
+	 * Write the title of the total column
+	 * 
+	 * @throws DocumentException
+	 *             the document exception
+	 */
 	private void writeTotalTitle() throws DocumentException {
 
-		
-		Paragraph title = new Paragraph(
-				"Rangliste vom "
-						+ gymCup.getName()
-						+ " in "
-						+ gymCup.getLocation()
-						+ " vom "
-						+ DateFormatConverter.convertDateToString(gymCup
-								.getStartDate())
-						+ " bis "
-						+ DateFormatConverter.convertDateToString(gymCup
-								.getEndDate()), totalRankingTitleFont);
+		Paragraph title = new Paragraph("Rangliste vom "
+				+ gymCup.getName()
+				+ " in "
+				+ gymCup.getLocation()
+				+ " vom "
+				+ DateFormatConverter
+						.convertDateToString(gymCup.getStartDate()) + " bis "
+				+ DateFormatConverter.convertDateToString(gymCup.getEndDate()),
+				totalRankingTitleFont);
 		title.setAlignment(Paragraph.ALIGN_CENTER);
 		title.setSpacingAfter((float) 10.0);
 		document.add(title);
 	}
 
+	/**
+	 * Write the program class title.
+	 * 
+	 * @param programClass
+	 *            the program class
+	 * @throws DocumentException
+	 *             the document exception
+	 */
 	private void writeProgramClassTitle(String programClass)
 			throws DocumentException {
-		Paragraph title = new Paragraph("Programm Klasse "
-				+ programClass ,programClassRankingTitleFont);
+		Paragraph title = new Paragraph("Programm Klasse " + programClass,
+				programClassRankingTitleFont);
 		title.setAlignment(Paragraph.ALIGN_LEFT);
 		title.setSpacingAfter((float) 2.0);
 		document.add(title);
 
 	}
 
+	/**
+	 * Gets the program class.
+	 * 
+	 * @return the program class
+	 */
 	private String getProgramClass() {
 		for (String programClass : gymCup.getProgramClasses()) {
 			if (programClass.equals(programClassName))
@@ -181,31 +258,35 @@ public class PdfRankingTableExporter extends PdfExporter {
 		return null;
 	}
 
+	/**
+	 * Gets a sorted list of Athletes per ProgramClass
+	 * 
+	 * @param programClass
+	 *            the program class
+	 * @return the sorted list
+	 */
 	private List<Athlete> getSortedList(String programClass) {
 		List<Athlete> list = new ArrayList<Athlete>();
 
 		for (Athlete athlete : gymCup.getAllAthletes()) {
-			if(athlete.getPrgClass().equals(programClass))
-			{
+			if (athlete.getPrgClass().equals(programClass)) {
 				System.out.println(athlete.getFirstName());
 				System.out.println(athlete.getMarks().get(0));
 				list.add(athlete);
 			}
 		}
-		
-		
+
 		java.util.Collections.sort(list, comperator);
 		return list;
 	}
 
-	
-
-	private Comparator<Athlete> comperator = new Comparator<Athlete>() {
+	/** The comperator. */
+	protected Comparator<Athlete> comperator = new Comparator<Athlete>() {
 		@Override
 		public int compare(Athlete athlete1, Athlete athlete2) {
-			if (athlete1.getSumOfEndMarks() > athlete2.getSumOfEndMarks()) {
+			if (athlete1.getSumOfEndMarks() < athlete2.getSumOfEndMarks()) {
 				return 1;
-			} else if (athlete1.getSumOfEndMarks() < athlete2
+			} else if (athlete1.getSumOfEndMarks() > athlete2
 					.getSumOfEndMarks()) {
 				return 0;
 			} else {

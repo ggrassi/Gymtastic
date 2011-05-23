@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,12 +15,11 @@ import javax.swing.JTable;
 
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.Squad;
+import ch.hsr.gymtastic.server.application.controller.DBController;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.models.SquadSelectionTableModel;
-import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
-
-public class SquadsSelectionFrame extends Observable{
+public class SquadsSelectionFrame {
 
 	private JFrame squadSelectionFrame;
 	private JTable tableSquads;
@@ -32,10 +30,12 @@ public class SquadsSelectionFrame extends Observable{
 
 	/**
 	 * Create the application.
-	 * @param actualCompetition 
+	 * 
+	 * @param actualCompetition
 	 */
 
-	public SquadsSelectionFrame(GymCupController gymCupController, Competition actualCompetition) {
+	public SquadsSelectionFrame(GymCupController gymCupController,
+			Competition actualCompetition) {
 		this.gymCupController = gymCupController;
 		this.actualCompetition = actualCompetition;
 		initGUI();
@@ -70,6 +70,10 @@ public class SquadsSelectionFrame extends Observable{
 		panelSouth.add(btnAddSelectedSquads, BorderLayout.EAST);
 	}
 
+	
+	/**
+	 * invoke Frame runs a threat which shows a frame
+	 */
 	private void invokeFrame() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -82,40 +86,38 @@ public class SquadsSelectionFrame extends Observable{
 		});
 	}
 
+	/**
+	 * Initialize the listeners
+	 */
 	private void initListeners() {
 		btnAddSelectedSquads.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				List<Squad> selectedSquads = new ArrayList<Squad>();
 				if (tableSquads.getSelectedRows().length > 0) {
-					int[] rows = tableSquads.getSelectedRows();
-					DBConnection db = new DBConnection();
-					Competition tmpComp = db.getEm().find(Competition.class, actualCompetition.getId());
-					for (int i : rows) {
-						int modelRow = tableSquads.convertRowIndexToModel(i);
-						Squad tmpSquad = db.getEm().find(Squad.class, gymCupController.getGymCup().getUnallocatedSquads().get(modelRow).getId()); 
-						tmpComp.addSquad(tmpSquad);
-						selectedSquads.add(tmpSquad);
-						gymCupController.getGymCup().getUnallocatedSquads().remove(tmpSquad);
-						actualCompetition.addSquad(tmpSquad);
-						db.persist(tmpComp);
-						System.out.println("Squad in Wettkampf hinzugefügt");
-					}
-					db.commit();
-					db.closeConnection();				
-					updateObservers();
-					squadSelectionFrame.dispose();
+					
+					List<Squad> selectedSquads = getSelectedSquads(tableSquads
+							.getSelectedRows());
+					gymCupController.getGymCup().addSquadsToCompetition(
+							selectedSquads, actualCompetition);
+					DBController.saveCompetition(actualCompetition);
 				}
-
+				squadSelectionFrame.dispose();
 			}
 
-			private void updateObservers() {
-				setChanged();
-				notifyObservers();
-			}
 		});
 
+	}
+
+	private List<Squad> getSelectedSquads(int[] rows) {
+		List<Squad> squads = new ArrayList<Squad>();
+		for (int i : rows) {
+			int modelRow = tableSquads.convertRowIndexToModel(i);
+			Squad selectedSquad = gymCupController.getGymCup()
+					.getUnallocatedSquads().get(modelRow);
+			squads.add(selectedSquad);
+		}
+		return squads;
 	}
 
 }

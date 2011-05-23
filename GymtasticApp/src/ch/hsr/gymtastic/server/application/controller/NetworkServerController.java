@@ -11,11 +11,20 @@ import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 import ch.hsr.gymtastic.technicalServices.network.RMIClientInterface;
 import ch.hsr.gymtastic.technicalServices.network.RMIServer;
 
+/**
+ * The Class NetworkServerController holds an RMIServer and a ClientAllocator.
+ */
 public class NetworkServerController extends Observable implements Observer {
 
 	private RMIServer rmiServer;
 	private ClientAllocator clientsAllocater = new ClientAllocator();
 
+	/**
+	 * Instantiates a new network server controller.
+	 * 
+	 * @throws ConnectException
+	 *             the connect exception
+	 */
 	public NetworkServerController() throws ConnectException {
 		try {
 			rmiServer = new RMIServer();
@@ -25,10 +34,19 @@ public class NetworkServerController extends Observable implements Observer {
 		rmiServer.addObserver(this);
 	}
 
+	/**
+	 * Sends the object to all allocated clients.
+	 * 
+	 * @param obj
+	 *            the obj
+	 * @throws ConnectException
+	 *             the connect exception
+	 */
 	public void sendObjectToAllClients(Serializable obj)
 			throws ConnectException {
 		try {
-			for (RMIClientInterface client : clientsAllocater.getAllocatedClients()) {
+			for (RMIClientInterface client : clientsAllocater
+					.getAllocatedClients()) {
 				if (client != null) {
 					client.uploadObjectToClient(obj);
 				}
@@ -38,23 +56,49 @@ public class NetworkServerController extends Observable implements Observer {
 		}
 	}
 
+	/**
+	 * Gets all clients shich are waiting on the allocation to the server.
+	 * 
+	 * @return the clients waiting for allocation
+	 */
 	public Vector<ClientInformation> getClientsWaitingForAllocation() {
 		return rmiServer.getClientsWaitingForAllocation();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable o, Object obj) {
 		updateObservers(obj);
 	}
 
+	/**
+	 * Update observers.
+	 * 
+	 * @param obj
+	 *            the obj
+	 */
 	private void updateObservers(Object obj) {
 		setChanged();
 		notifyObservers(obj);
 
 	}
 
-	public void sendObjectToClient(RMIClientInterface client,
-			Serializable obj) throws ConnectException {
+	/**
+	 * Sends the object the client.
+	 * 
+	 * @param client
+	 *            the client
+	 * @param obj
+	 *            the obj
+	 * @throws ConnectException
+	 *             the connect exception
+	 */
+	public void sendObjectToClient(RMIClientInterface client, Serializable obj)
+			throws ConnectException {
 		if (client != null) {
 			try {
 				client.uploadObjectToClient(obj);
@@ -65,10 +109,21 @@ public class NetworkServerController extends Observable implements Observer {
 
 	}
 
+	/**
+	 * Sets the client allocator
+	 * 
+	 * @param clientsAllocated
+	 *            the new clients allocated
+	 */
 	public void setClientsAllocated(ClientAllocator clientsAllocated) {
 		this.clientsAllocater = clientsAllocated;
 	}
 
+	/**
+	 * Gets the client allocator
+	 * 
+	 * @return the client allocater
+	 */
 	public ClientAllocator getClientAllocater() {
 		return clientsAllocater;
 	}

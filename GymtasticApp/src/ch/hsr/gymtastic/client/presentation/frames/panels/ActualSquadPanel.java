@@ -22,12 +22,12 @@ import ch.hsr.gymtastic.client.presentation.models.AthleteOverviewTableModel;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
 
+/**
+ * The Class ActualSquadPanel shows the GUI with all Informations about the Squad.
+ */
 public class ActualSquadPanel extends JPanel {
-	/**
-     * 
-     */
+	
 	private static final long serialVersionUID = 9138092871453323277L;
-
 	private JTable tableOverview;
 	private JPanel panelAthletesTable;
 	private JPanel panelAthletes;
@@ -41,6 +41,14 @@ public class ActualSquadPanel extends JPanel {
 	private final ClientFrame clientFrame;
 
 
+	/**
+	 * Instantiates a new actual squad panel.
+	 *
+	 * @param actualSquad the actual squad
+	 * @param deviceType the device type
+	 * @param networkController the network controller
+	 * @param clientFrame the client frame
+	 */
 	public ActualSquadPanel(Squad actualSquad, DeviceType deviceType, NetworkClientController networkController, ClientFrame clientFrame) {
 		
 		this.actualSquad = actualSquad;
@@ -51,6 +59,9 @@ public class ActualSquadPanel extends JPanel {
 		initListeners();
 	}
 
+	/**
+	 * Inits the listeners.
+	 */
 	private void initListeners() {
 		btnFinishEvaluation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -65,6 +76,9 @@ public class ActualSquadPanel extends JPanel {
 		});
 	}
 
+	/**
+	 * Initialize the contents of the Panel
+	 */
 	private void initGUI() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0 };

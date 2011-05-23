@@ -147,10 +147,6 @@ public class ComponentBorder implements Border {
 		this.gap = gap;
 	}
 
-	//
-	// Implement the Border interface
-	//
-
 	public Insets getBorderInsets(Component c) {
 		return borderInsets;
 	}
@@ -172,7 +168,7 @@ public class ComponentBorder implements Border {
 		component.setLocation((int) x2, (int) y2);
 	}
 
-	/*
+	/**
 	 * Install this Border on the specified component by replacing the existing
 	 * Border with a CompoundBorder containing the original Border and our
 	 * ComponentBorder
@@ -186,8 +182,6 @@ public class ComponentBorder implements Border {
 
 		determineInsetsAndAlignment();
 
-		// Add this Border to the parent
-
 		Border current = parent.getBorder();
 
 		if (current == null) {
@@ -196,8 +190,6 @@ public class ComponentBorder implements Border {
 			CompoundBorder compound = new CompoundBorder(current, this);
 			parent.setBorder(compound);
 		}
-
-		// Add component to the parent
 
 		parent.add(component);
 	}
@@ -211,12 +203,6 @@ public class ComponentBorder implements Border {
 	 */
 	private void determineInsetsAndAlignment() {
 		borderInsets = new Insets(0, 0, 0, 0);
-
-		// The insets will only be updated for the edge the component will be
-		// diplayed on.
-		//
-		// The X, Y alignment of the component is controlled by both the edge
-		// and alignment parameters
 
 		if (edge == Edge.TOP) {
 			borderInsets.top = component.getPreferredSize().height + gap;
@@ -240,16 +226,8 @@ public class ComponentBorder implements Border {
 			adjustBorderInsets();
 	}
 
-	/*
-	 * The complimentary edges of the Border may need to be adjusted to allow
-	 * the component to fit completely in the bounds of the parent component.
-	 */
 	private void adjustBorderInsets() {
 		Insets parentInsets = parent.getInsets();
-
-		// May need to adust the height of the parent component to fit
-		// the component in the Border
-
 		if (edge == Edge.RIGHT || edge == Edge.LEFT) {
 			int parentHeight = parent.getPreferredSize().height
 					- parentInsets.top - parentInsets.bottom;
@@ -262,9 +240,6 @@ public class ComponentBorder implements Border {
 				borderInsets.bottom += bottomDiff;
 			}
 		}
-
-		// May need to adust the width of the parent component to fit
-		// the component in the Border
 
 		if (edge == Edge.TOP || edge == Edge.BOTTOM) {
 			int parentWidth = parent.getPreferredSize().width

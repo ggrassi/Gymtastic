@@ -24,11 +24,12 @@ import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.GymCupClientInfo;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 
+/**
+ * The Class OverviewPanel shows all the Information about the actual cup and the connection to the Server. 
+ */
 public class OverviewPanel extends JPanel implements Observer {
+	
 	private static final String WAIT_FOR_SERVER = "warte auf Server...";
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel panelOverview;
 	private JPanel panelCupInformation;
@@ -59,6 +60,15 @@ public class OverviewPanel extends JPanel implements Observer {
 	private ClientFrame frameClient;
 	private JLabel lblPlaceholder;
 
+	/**
+	 * Instantiates a new overview panel.
+	 *
+	 * @param gymCupInfoController the gym cup info controller
+	 * @param competitionInfoController the competition info controller
+	 * @param squadController the squad controller
+	 * @param deviceType the device type
+	 * @param frameClient the frame client
+	 */
 	public OverviewPanel(GymCupInfoController gymCupInfoController,
 			CompetitionInfoController competitionInfoController,
 			SquadController squadController, DeviceType deviceType,
@@ -75,6 +85,9 @@ public class OverviewPanel extends JPanel implements Observer {
 		initListeners();
 	}
 
+	/**
+	 * Inits the content of the Panel.
+	 */
 	private void initGUI() {
 		setLayout(new BorderLayout(0, 0));
 
@@ -295,6 +308,9 @@ public class OverviewPanel extends JPanel implements Observer {
 
 	}
 
+	/**
+	 * Inits the listeners.
+	 */
 	private void initListeners() {
 
 		btnStartRound.addActionListener(new ActionListener() {
@@ -305,6 +321,9 @@ public class OverviewPanel extends JPanel implements Observer {
 		});
 	}
 
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		if (o instanceof GymCupInfoController) {
@@ -317,6 +336,9 @@ public class OverviewPanel extends JPanel implements Observer {
 		}
 	}
 
+	/**
+	 * Sets the round informations into the Labels.
+	 */
 	private void setRoundInfos() {
 		lblActualRoundText.setText("" + squadController.getRoundNr());
 		lblActualSquadText
@@ -330,6 +352,9 @@ public class OverviewPanel extends JPanel implements Observer {
 
 	}
 
+	/**
+	 * Sets the competition infos into the labels.
+	 */
 	private void setCompetitionInfos() {
 		lblActualCompetitionText.setText(competitionInfoController
 				.getCompetitionInfo().getCompetitionName());
@@ -341,6 +366,9 @@ public class OverviewPanel extends JPanel implements Observer {
 
 	}
 
+	/**
+	 * Sets the gym cup infos into the labels.
+	 */
 	private void setGymCupInfos() {
 		GymCupClientInfo gymCupClientInfo = gymCupInfoController
 				.getGymCupClientInfo();
@@ -357,6 +385,9 @@ public class OverviewPanel extends JPanel implements Observer {
 		deviceType = gymCupClientInfo.getDeviceType();
 	}
 
+	/**
+	 * Wait for next round.
+	 */
 	public void waitForNextRound() {
 		btnStartRound.setEnabled(false);
 		lblActualSquadText.setText(WAIT_FOR_SERVER);

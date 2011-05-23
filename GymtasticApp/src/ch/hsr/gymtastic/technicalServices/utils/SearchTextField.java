@@ -10,38 +10,41 @@ import javax.swing.JTextField;
 import ch.hsr.gymtastic.FileFactory;
 import ch.hsr.gymtastic.technicalServices.utils.ComponentBorder.Edge;
 
+/**
+ * The Class SearchTextField is a JTextField optimized for a search field.
+ */
 public class SearchTextField extends JTextField {
 
-    /**
-	 * 
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Instantiates a new search text field.
 	 */
-    private static final long serialVersionUID = 1L;
+	public SearchTextField() {
+		JLabel searchIconLabel = new JLabel();
+		searchIconLabel.setIcon(new ImageIcon(FileFactory.class
+				.getResource(FileFactory.icons + FileFactory.searchIcon)));
+		ComponentBorder searchCB = new ComponentBorder(searchIconLabel);
+		searchCB.setEdge(Edge.LEFT);
+		searchCB.install(this);
+		setText("Suchen...");
+		addFocusListener(new FocusAdapter() {
 
-    public SearchTextField() {
-	JLabel searchIconLabel = new JLabel();
-	searchIconLabel
-		.setIcon(new ImageIcon(FileFactory.class.getResource(FileFactory.icons + FileFactory.searchIcon)));
-	ComponentBorder searchCB = new ComponentBorder(searchIconLabel);
-	searchCB.setEdge(Edge.LEFT);
-	searchCB.install(this);
-	setText("Suchen...");
-	addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				if (getText().equals("Suchen...")) {
+					setText("");
+				}
 
-	    @Override
-	    public void focusGained(FocusEvent arg0) {
-		if (getText().equals("Suchen...")) {
-		    setText("");
-		}
+			}
 
-	    }
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				if (getText().equals("")) {
+					setText("Suchen...");
+				}
+			}
+		});
 
-	    @Override
-	    public void focusLost(FocusEvent arg0) {
-		if (getText().equals("")) {
-		    setText("Suchen...");
-		}
-	    }
-	});
-
-    }
+	}
 }

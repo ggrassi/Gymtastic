@@ -42,11 +42,15 @@ import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 import ch.hsr.gymtastic.technicalServices.utils.FileExtensionFilter;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
+import javax.swing.JScrollPane;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CupManagementPanel manages the CRUD on a GymCup. Create a new
+ * GymCup and fill the Squads and Athletes with an CSV-Import-File or load a
+ * preconfigured Cup from a given objectDB File.
+ */
 public class CupManagementPanel extends JPanel implements Observer {
-	/**
-	 * 
-	 */
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtFieldLocation;
@@ -61,9 +65,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 	private JLabel lblEndDate;
 	private JLabel lblPlace;
 	private JLabel lblDescription;
-	private JTextArea txtAreaDescr;
 	private JLabel lblSponsers;
-	private JTextArea txtAreaSponsors;
 	private JPanel panelImportBorder;
 	private JPanel panelImport;
 	private JButton btnOpenCup;
@@ -88,7 +90,17 @@ public class CupManagementPanel extends JPanel implements Observer {
 	private Component verticalStrutMarginSouth;
 	private GymCupController gymCupController;
 	private boolean isNewImage = false;
+	private JScrollPane scrollPaneTextAreaDescr;
+	private JScrollPane scrollPaneTextAreaSponsors;
+	private JTextArea txtAreaDescr;
+	private JTextArea txtAreaSponsors;
 
+	/**
+	 * Instantiates a new cup management panel.
+	 * 
+	 * @param gymCupController
+	 *            the gym cup controller
+	 */
 	public CupManagementPanel(GymCupController gymCupController) {
 		this.gymCupController = gymCupController;
 		gymCupController.addObserver(this);
@@ -96,6 +108,9 @@ public class CupManagementPanel extends JPanel implements Observer {
 		initListeners();
 	}
 
+	/**
+	 * Inits the gui.
+	 */
 	private void initGUI() {
 		gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0 };
@@ -141,7 +156,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbl_panelGeneralInfoBorder.rowHeights = new int[] { 0, 0, 0 };
 		gbl_panelGeneralInfoBorder.columnWeights = new double[] { 1.0,
 				Double.MIN_VALUE };
-		gbl_panelGeneralInfoBorder.rowWeights = new double[] { 1.0, 1.0,
+		gbl_panelGeneralInfoBorder.rowWeights = new double[] { 0.0, 1.0,
 				Double.MIN_VALUE };
 		panelGeneralInfoBorder.setLayout(gbl_panelGeneralInfoBorder);
 
@@ -188,8 +203,10 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_lblStartDate.gridy = 1;
 		panelGeneralInfo.add(lblStartDate, gbc_lblStartDate);
 
-		txtFieldStartDate = new JTextField();
-	
+//		txtFieldStartDate = new JTextField();
+		txtFieldStartDate = new JFormattedTextField(new DateFormatter(DateFormat
+			.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
+
 		GridBagConstraints gbc_txtFieldStartDate = new GridBagConstraints();
 		gbc_txtFieldStartDate.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFieldStartDate.fill = GridBagConstraints.HORIZONTAL;
@@ -206,8 +223,8 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_lblEndDate.gridy = 2;
 		panelGeneralInfo.add(lblEndDate, gbc_lblEndDate);
 
-		txtFieldEndDate = new JFormattedTextField(new DateFormatter(
-				DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
+		txtFieldEndDate = new JFormattedTextField(new DateFormatter(DateFormat
+				.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
 		GridBagConstraints gbc_txtFieldEndDate = new GridBagConstraints();
 		gbc_txtFieldEndDate.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFieldEndDate.fill = GridBagConstraints.HORIZONTAL;
@@ -240,14 +257,17 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_lblDescription.gridx = 0;
 		gbc_lblDescription.gridy = 4;
 		panelGeneralInfo.add(lblDescription, gbc_lblDescription);
-
+		
+		scrollPaneTextAreaDescr = new JScrollPane();
+		GridBagConstraints gbc_scrollPaneTextAreaDescr = new GridBagConstraints();
+		gbc_scrollPaneTextAreaDescr.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPaneTextAreaDescr.fill = GridBagConstraints.BOTH;
+		gbc_scrollPaneTextAreaDescr.gridx = 1;
+		gbc_scrollPaneTextAreaDescr.gridy = 4;
+		panelGeneralInfo.add(scrollPaneTextAreaDescr, gbc_scrollPaneTextAreaDescr);
+		
 		txtAreaDescr = new JTextArea();
-		GridBagConstraints gbc_txtAreaDescr = new GridBagConstraints();
-		gbc_txtAreaDescr.insets = new Insets(0, 0, 5, 0);
-		gbc_txtAreaDescr.fill = GridBagConstraints.BOTH;
-		gbc_txtAreaDescr.gridx = 1;
-		gbc_txtAreaDescr.gridy = 4;
-		panelGeneralInfo.add(txtAreaDescr, gbc_txtAreaDescr);
+		scrollPaneTextAreaDescr.setViewportView(txtAreaDescr);
 
 		lblSponsers = new JLabel("Sponsoren:");
 		GridBagConstraints gbc_lblSponsers = new GridBagConstraints();
@@ -256,14 +276,16 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_lblSponsers.gridx = 0;
 		gbc_lblSponsers.gridy = 5;
 		panelGeneralInfo.add(lblSponsers, gbc_lblSponsers);
-
+		
+		scrollPaneTextAreaSponsors = new JScrollPane();
+		GridBagConstraints gbc_scrollPaneTextAreaSponsors = new GridBagConstraints();
+		gbc_scrollPaneTextAreaSponsors.fill = GridBagConstraints.BOTH;
+		gbc_scrollPaneTextAreaSponsors.gridx = 1;
+		gbc_scrollPaneTextAreaSponsors.gridy = 5;
+		panelGeneralInfo.add(scrollPaneTextAreaSponsors, gbc_scrollPaneTextAreaSponsors);
+		
 		txtAreaSponsors = new JTextArea();
-
-		GridBagConstraints gbc_txtAreaSponsers = new GridBagConstraints();
-		gbc_txtAreaSponsers.fill = GridBagConstraints.BOTH;
-		gbc_txtAreaSponsers.gridx = 1;
-		gbc_txtAreaSponsers.gridy = 5;
-		panelGeneralInfo.add(txtAreaSponsors, gbc_txtAreaSponsers);
+		scrollPaneTextAreaSponsors.setViewportView(txtAreaSponsors);
 
 		panelImportBorder = new JPanel();
 		panelImportBorder.setBorder(new TitledBorder(UIManager
@@ -390,6 +412,9 @@ public class CupManagementPanel extends JPanel implements Observer {
 
 	}
 
+	/**
+	 * Inits the listeners.
+	 */
 	private void initListeners() {
 		txtFieldEndDate.addKeyListener(new KeyAdapter() {
 			@Override
@@ -403,22 +428,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 				changesCupInformation();
 			}
 		});
-		txtFieldStartDate.addFocusListener(new FocusAdapter() {
-			public void focusLost(FocusEvent e) {
-				GregorianCalendar date = null;
-				try {
-					date = DateFormatConverter
-							.convertStringToDate(txtFieldStartDate.getText());
-				} catch (ParseException e1) {
-					if (date != new GregorianCalendar()) {
-						txtFieldStartDate
-								.setToolTipText("Bitte Format richtig eingeben: '01.02.2011'");
-						txtFieldStartDate.setText("");
-					}
-				}
-			}
-		});
-		
+
 		txtFieldEndDate.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				GregorianCalendar date = null;
@@ -435,18 +445,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 			}
 		});
 		txtFieldLocation.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				changesCupInformation();
-			}
-		});
-		txtAreaDescr.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				changesCupInformation();
-			}
-		});
-		txtAreaSponsors.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				changesCupInformation();
@@ -552,100 +550,26 @@ public class CupManagementPanel extends JPanel implements Observer {
 					btnOpenCup.setEnabled(false);
 
 				} else {
-					if (!nothingChanged()) {
+					if (!isNothingChanged()) {
 						try {
 							updateGymCupCredentials();
 						} catch (ParseException e) {
-							// TODO Auto-generated catch block
 						}
 					}
 
 				}
 			}
 
-			private void importListToApplication(GymCup gymCup) {
-				DBController.importGymCupToDB(gymCup);
-				try {
-					setGymCupDateCredentials(gymCup);
-				} catch (ParseException e) {
-				}
-				gymCupController.setGymCup(gymCup);
-				ImportStartList startList = new ImportStartList(pathImport);
-				startList.readImport();
-				SquadCreator squadCreator = new SquadCreator(startList);
-				squadCreator.insertImportToDB();
-				DBController.importAllSquads(gymCupController.getGymCup());
-				gymCupController.getGymCup().setSquads(
-						squadCreator.createSquads());
-				
-				for (Athlete athlete : gymCup.getAllAthletes()) {
-					gymCup.addProgramClass(athlete.getPrgClass());
-					DBController.addPrgClassToGymCup(gymCup, athlete);
-				}
-			}
-
-			private void setGymCupLogo(GymCup gymCup) {
-				if (panelLogo.isGenerated()) {
-					gymCup.setLogoImagePath(panelLogo.getPath());
-					lblLogo.setText("");
-					btnOpenPic.setEnabled(false);
-
-				}
-			}
-
-			private void setGymCupDateCredentials(GymCup gymCup)
-					throws ParseException {
-				gymCup.setStartDate(DateFormatConverter
-						.convertStringToDate(txtFieldStartDate.getText()));
-				gymCup.setEndDate(DateFormatConverter
-						.convertStringToDate(txtFieldEndDate.getText()));
-			}
-
-			private GymCup updateGymCupCredentials() throws ParseException {
-
-				DBConnection db = new DBConnection();
-				GymCup gymCup = db.getEm().find(GymCup.class,
-						gymCupController.getGymCup().getId());
-				gymCup.setName(txtFieldName.getText());
-				gymCup.setLocation(txtFieldLocation.getText());
-				gymCup.setSponsors(txtAreaSponsors.getText());
-				gymCup.setDescription(txtAreaDescr.getText());
-				setGymCupDateCredentials(gymCup);
-				db.persist(gymCup);
-				db.commit();
-				db.closeConnection();
-				gymCupController.setGymCup(gymCup);
-				return gymCup;
-			}
-
-			private GymCup createGymCupWithCredentials() {
-				GymCup gymCup = new GymCup(txtFieldName.getText(),
-						txtFieldLocation.getText());
-				gymCup.setName(txtFieldName.getText());
-				gymCup.setLocation(txtFieldLocation.getText());
-				gymCup.setSponsors(txtAreaSponsors.getText());
-				gymCup.setDescription(txtAreaDescr.getText());
-				return gymCup;
-			}
 		});
 
 	}
 
-	private void setEnabledAllComponents(Boolean bool) {
-		txtFieldName.setEnabled(bool);
-		txtFieldLocation.setEnabled(bool);
-		txtAreaDescr.setEnabled(bool);
-		txtAreaSponsors.setEnabled(bool);
-		txtFieldEndDate.setEnabled(bool);
-		txtFieldStartDate.setEnabled(bool);
-		btnOpenCup.setEnabled(bool);
-		btnOpenPic.setEnabled(bool);
-		btnImportStartList.setEnabled(bool);
-	}
-
+	/**
+	 * Changes the cup information.
+	 */
 	private void changesCupInformation() {
 		if (gymCupController.getGymCup() != null) {
-			if (nothingChanged()) {
+			if (isNothingChanged()) {
 				btnCancel.setEnabled(false);
 				btnSave.setEnabled(false);
 			} else {
@@ -655,7 +579,12 @@ public class CupManagementPanel extends JPanel implements Observer {
 		}
 	}
 
-	private boolean nothingChanged() {
+	/**
+	 * Checks if the content of the GymCup Credentials is still the same
+	 * 
+	 * @return true, if nothing has changed
+	 */
+	private boolean isNothingChanged() {
 		return txtFieldName.getText().equals(
 				gymCupController.getGymCup().getName())
 				&& txtAreaDescr.getText().equals(
@@ -673,6 +602,9 @@ public class CupManagementPanel extends JPanel implements Observer {
 						gymCupController.getGymCup().getLocation());
 	}
 
+	/**
+	 * Update the GymCup Credentials after the Action has been canceled
+	 */
 	private void updateAfterCancel() {
 		txtFieldName.setText(gymCupController.getGymCup().getName());
 		txtAreaDescr.setText(gymCupController.getGymCup().getDescription());
@@ -688,12 +620,20 @@ public class CupManagementPanel extends JPanel implements Observer {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		updateContent();
 		System.out.println("update from cupmgmt panel");
 	}
 
+	/**
+	 * Update content of the gym cup credentials in the GUI.
+	 */
 	private void updateContent() {
 
 		txtFieldName.setText(gymCupController.getGymCup().getName());
@@ -718,4 +658,94 @@ public class CupManagementPanel extends JPanel implements Observer {
 
 	}
 
+	/**
+	 * Imports a CSV (tabbed separated) to the Gymcup.
+	 *
+	 * @param gymCup the gym cup
+	 */
+	private void importListToApplication(GymCup gymCup) {
+		DBController.importGymCupToDB(gymCup);
+		try {
+			setGymCupDateCredentials(gymCup);
+		} catch (ParseException e) {
+		}
+		gymCupController.setGymCup(gymCup);
+		ImportStartList startList = new ImportStartList(pathImport);
+		startList.readImport();
+		SquadCreator squadCreator = new SquadCreator(startList);
+		squadCreator.insertImportToDB();
+		DBController.importAllSquads(gymCupController.getGymCup());
+		gymCupController.getGymCup().setSquads(
+				squadCreator.createSquads());
+		
+		for (Athlete athlete : gymCup.getAllAthletes()) {
+			gymCup.addProgramClass(athlete.getPrgClass());
+			DBController.addPrgClassToGymCup(gymCup, athlete);
+		}
+	}
+	
+	/**
+	 * Sets the logo to the gymcup
+	 *
+	 * @param gymCup the new gym cup logo
+	 */
+	private void setGymCupLogo(GymCup gymCup) {
+		if (panelLogo.isGenerated()) {
+			gymCup.setLogoImagePath(panelLogo.getPath());
+			lblLogo.setText("");
+			btnOpenPic.setEnabled(false);
+			
+		}
+	}
+	
+	/**
+	 * Sets the gym cup date credentials.
+	 *
+	 * @param gymCup the new gym cup date credentials
+	 * @throws ParseException the parse exception
+	 */
+	private void setGymCupDateCredentials(GymCup gymCup)
+	throws ParseException {
+		gymCup.setStartDate(DateFormatConverter
+				.convertStringToDate(txtFieldStartDate.getText()));
+		gymCup.setEndDate(DateFormatConverter
+				.convertStringToDate(txtFieldEndDate.getText()));
+	}
+	
+	/**
+	 * Writes the new gymcup credentials and to the DB. 
+	 *
+	 * @return the gym cup
+	 * @throws ParseException the parse exception
+	 */
+	private GymCup updateGymCupCredentials() throws ParseException {
+		DBConnection db = new DBConnection();
+		GymCup gymCup = db.getEm().find(GymCup.class,
+				gymCupController.getGymCup().getId());
+		gymCup.setName(txtFieldName.getText());
+		gymCup.setLocation(txtFieldLocation.getText());
+		gymCup.setSponsors(txtAreaSponsors.getText());
+		gymCup.setDescription(txtAreaDescr.getText());
+		setGymCupDateCredentials(gymCup);
+		db.persist(gymCup);
+		db.commit();
+		db.closeConnection();
+		gymCupController.setGymCup(gymCup);
+		return gymCup;
+	}
+	
+	/**
+	 * Creates the gym cup with credentials.
+	 *
+	 * @return the gym cup
+	 */
+	private GymCup createGymCupWithCredentials() {
+		GymCup gymCup = new GymCup(txtFieldName.getText(),
+				txtFieldLocation.getText());
+		gymCup.setName(txtFieldName.getText());
+		gymCup.setLocation(txtFieldLocation.getText());
+		gymCup.setSponsors(txtAreaSponsors.getText());
+		gymCup.setDescription(txtAreaDescr.getText());
+		return gymCup;
+	}
 }

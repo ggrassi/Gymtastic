@@ -17,11 +17,11 @@ import ch.hsr.gymtastic.server.application.controller.NetworkServerController;
 import ch.hsr.gymtastic.server.presentation.editor.DeviceTypeEditor;
 import ch.hsr.gymtastic.server.presentation.models.DeviceTypeTableModel;
 
+/**
+ * The Class DeviceTypePanel shows the connected Clients and its actual device.
+ */
 public class DeviceTypePanel extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private NetworkServerController networkController;
 	private JTable tableDevices;
@@ -33,6 +33,11 @@ public class DeviceTypePanel extends JPanel {
 	private ClientAllocator clientAllocator;
 	private GymCupController gymCupController;
 
+	/**
+	 * Instantiates a new device type panel.
+	 *
+	 * @param gymCupController the gym cup controller
+	 */
 	public DeviceTypePanel(GymCupController gymCupController) {
 		this.gymCupController = gymCupController;
 		this.networkController = gymCupController.getNetworkController();
@@ -41,6 +46,9 @@ public class DeviceTypePanel extends JPanel {
 		initListeners();
 	}
 
+	/**
+	 * Inits the listeners.
+	 */
 	private void initListeners() {
 		btnAllocateAllDevices.addActionListener(new ActionListener() {
 
@@ -57,6 +65,9 @@ public class DeviceTypePanel extends JPanel {
 
 	}
 
+	/**
+	 * Inits the gui.
+	 */
 	private void initGUI() {
 		setLayout(new BorderLayout(0, 0));
 		panelControl = new JPanel();

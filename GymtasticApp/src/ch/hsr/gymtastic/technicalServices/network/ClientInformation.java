@@ -2,32 +2,68 @@ package ch.hsr.gymtastic.technicalServices.network;
 
 import ch.hsr.gymtastic.domain.DeviceType;
 
+/**
+ * The Class ClientInformation holds the Information for the Client to connect to the Server.
+ */
 public class ClientInformation {
 
-    private RMIClientInterface stub;
-    private String ipAddress;
-    private DeviceType deviceType;
+	private RMIClientInterface stub;
+	private String ipAddress;
+	private DeviceType deviceType;
 
-    public ClientInformation(RMIClientInterface stub, String host, DeviceType deviceType) {
-	this.stub = stub;
-	this.ipAddress = host;
-	this.setDeviceType(deviceType);
-    }
+	/**
+	 * Instantiates a new client information.
+	 * 
+	 * @param stub
+	 *            the stub
+	 * @param host
+	 *            the host
+	 * @param deviceType
+	 *            the device type
+	 */
+	public ClientInformation(RMIClientInterface stub, String host,
+			DeviceType deviceType) {
+		this.stub = stub;
+		this.ipAddress = host;
+		this.setDeviceType(deviceType);
+	}
 
-    public String getHost() {
-	return ipAddress;
-    }
+	/**
+	 * Gets the host.
+	 * 
+	 * @return the host
+	 */
 
-    public RMIClientInterface getStub() {
-	return stub;
-    }
+	public String getHost() {
+		return ipAddress;
+	}
 
-    public void setDeviceType(DeviceType deviceType) {
-	this.deviceType = deviceType;
-    }
+	/**
+	 * Gets the stub.
+	 * 
+	 * @return the stub
+	 */
+	public RMIClientInterface getStub() {
+		return stub;
+	}
 
-    public DeviceType getDeviceType() {
-	return deviceType;
-    }
+	/**
+	 * Sets the device type.
+	 * 
+	 * @param deviceType
+	 *            the new device type
+	 */
+	public void setDeviceType(DeviceType deviceType) {
+		this.deviceType = deviceType;
+	}
+
+	/**
+	 * Gets the device type.
+	 * 
+	 * @return the device type
+	 */
+	public DeviceType getDeviceType() {
+		return deviceType;
+	}
 
 }

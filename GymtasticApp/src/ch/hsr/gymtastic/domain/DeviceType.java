@@ -2,6 +2,10 @@ package ch.hsr.gymtastic.domain;
 
 import java.io.Serializable;
 
+/**
+ * The Enum DeviceType contains the possible Excercise DeviceTypes. Each Type
+ * represents an Integer.
+ */
 public enum DeviceType implements Serializable {
 
 	FLOOR_EXCERCISE(0), POMMEL_HORSE(1), STILL_RINGS(2), VAULT(3), PARALLEL_BARS(
@@ -9,14 +13,32 @@ public enum DeviceType implements Serializable {
 
 	public int index;
 
+	/**
+	 * Instantiates a new device type.
+	 * 
+	 * @param index
+	 *            the index
+	 */
 	DeviceType(int index) {
 		this.index = index;
 	}
 
+	/**
+	 * Gets the index.
+	 * 
+	 * @return the index
+	 */
 	public int getIndex() {
 		return index;
 	}
 
+	/**
+	 * Gets the appropriate DeviceType in combination with his Index.
+	 * 
+	 * @param index
+	 *            the index
+	 * @return the device
+	 */
 	public DeviceType getDevice(int index) {
 		switch (index) {
 		case 0:
@@ -36,6 +58,11 @@ public enum DeviceType implements Serializable {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Enum#toString()
+	 */
 	public String toString() {
 		switch (index) {
 		case 0:
