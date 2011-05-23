@@ -21,8 +21,7 @@ public class GymCupController extends Observable {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
-		competitionController = new CompetitionController(networkController,
-				gymCup);
+		competitionController = new CompetitionController(networkController);
 		this.clientAllocator = networkController.getClientAllocater();
 	}
 

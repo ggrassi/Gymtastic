@@ -121,4 +121,8 @@ public class Competition extends Observable {
 		updateObservers();
 	}
 
+	public boolean removeSquad(Squad squad) {
+		return squads.remove(squad);
+	}
+
 }

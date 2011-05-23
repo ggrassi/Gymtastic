@@ -98,4 +98,9 @@ public class DBConnection {
 		return path;
 	}
 
+	public void remove(Object o) {
+		em.remove(o);
+		
+	}
+
 }

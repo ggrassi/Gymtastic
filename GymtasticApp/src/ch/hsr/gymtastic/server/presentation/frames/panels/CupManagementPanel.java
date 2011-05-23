@@ -189,7 +189,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		panelGeneralInfo.add(lblStartDate, gbc_lblStartDate);
 
 		txtFieldStartDate = new JTextField();
-	
+
 		GridBagConstraints gbc_txtFieldStartDate = new GridBagConstraints();
 		gbc_txtFieldStartDate.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFieldStartDate.fill = GridBagConstraints.HORIZONTAL;
@@ -206,8 +206,8 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_lblEndDate.gridy = 2;
 		panelGeneralInfo.add(lblEndDate, gbc_lblEndDate);
 
-		txtFieldEndDate = new JFormattedTextField(new DateFormatter(
-				DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
+		txtFieldEndDate = new JFormattedTextField(new DateFormatter(DateFormat
+				.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
 		GridBagConstraints gbc_txtFieldEndDate = new GridBagConstraints();
 		gbc_txtFieldEndDate.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFieldEndDate.fill = GridBagConstraints.HORIZONTAL;
@@ -418,7 +418,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 				}
 			}
 		});
-		
+
 		txtFieldEndDate.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				GregorianCalendar date = null;
@@ -576,7 +576,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 				DBController.importAllSquads(gymCupController.getGymCup());
 				gymCupController.getGymCup().setSquads(
 						squadCreator.createSquads());
-				
+
 				for (Athlete athlete : gymCup.getAllAthletes()) {
 					gymCup.addProgramClass(athlete.getPrgClass());
 					DBController.addPrgClassToGymCup(gymCup, athlete);
@@ -601,7 +601,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 			}
 
 			private GymCup updateGymCupCredentials() throws ParseException {
-
 				DBConnection db = new DBConnection();
 				GymCup gymCup = db.getEm().find(GymCup.class,
 						gymCupController.getGymCup().getId());
@@ -629,6 +628,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		});
 
 	}
+
 	private void changesCupInformation() {
 		if (gymCupController.getGymCup() != null) {
 			if (nothingChanged()) {
