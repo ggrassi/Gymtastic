@@ -21,8 +21,23 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
     public AthleteDetailTableModel(Athlete athlete, GymCupController gymCupController) {
 	this.athlete = athlete;
 	this.gymCupController = gymCupController;
-	this.gymCupController.getGymCup().addObserver(this);
+	this.gymCupController.getCompetitionController().addObserver(this);
+
     }
+
+    @SuppressWarnings("rawtypes")
+    Class[] columnTypes = new Class[] { DeviceType.class, Double.class, Double.class, Double.class, Double.class,
+	    Double.class, Double.class, Double.class };
+
+    @SuppressWarnings( { "unchecked", "rawtypes" })
+    public Class getColumnClass(int columnIndex) {
+	return columnTypes[columnIndex];
+    }
+
+    // @SuppressWarnings({ "unchecked", "rawtypes" })
+    // public Class getColumnClass(int columnIndex) {
+    // return (Class) getValueAt(0,columnIndex);
+    // }
 
     @Override
     public String getColumnName(int columnIndex) {
@@ -68,7 +83,47 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
 		}
 	    }
 	}
-	return "";
+	return null;
+    }
+
+    public boolean isCellEditable(int row, int col) {
+	if (getColumnClass(col).equals(DeviceType.class) || col == (getColumnCount() - 1)) {
+	    return false;
+	} else {
+	    return true;
+	}
+    }
+
+    public void setValueAt(Object value, int rowIndex, int columnIndex) {
+	if (athlete != null) {
+	    DeviceType deviceType = DeviceType.values()[rowIndex];
+	    if (deviceType != null) {
+		Mark mark = athlete.getMark(deviceType);
+		switch (columnIndex) {
+		case 1:
+		    mark.setdMark((Double) value);
+		    return;
+		case 2:
+		    mark.seteMarkOne((Double) value);
+		    return;
+		case 3:
+		    mark.setEmarkTwo((Double) value);
+		    return;
+		case 4:
+		    mark.seteMarkThree((Double) value);
+		    return;
+		case 5:
+		    mark.setBonus((Double) value);
+		    return;
+		case 6:
+		    mark.setPenalty((Double) value);
+		    return;
+		}
+	    }
+	}
+
+	fireTableCellUpdated(rowIndex, columnIndex);
+	// fireTableDataChanged();
     }
 
     public void setAthlete(Athlete athlete) {
@@ -76,7 +131,7 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
     }
 
     public void update(Observable arg0, Object arg1) {
-	fireTableDataChanged();
+//	fireTableDataChanged();
     }
 
 }

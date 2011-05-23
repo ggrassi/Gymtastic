@@ -99,17 +99,6 @@ public class Competition extends Observable {
 		squads.add(squad);
 	}
 
-	public void updateSquad(Squad squad) {
-		System.out.println("Updating Squad: " + squad.getSquadId());
-		for(Squad s: squads){
-			if(s.getSquadId() == squad.getSquadId()){
-				squads.set(squads.indexOf(s), squad);
-				System.out.println("Squad overriden");
-			}
-		}
-		updateObservers();
-	}
-
 	private void updateObservers() {
 		setChanged();
 		notifyObservers();
@@ -130,6 +119,10 @@ public class Competition extends Observable {
 
 	public void squadsAdded() {
 		updateObservers();
+	}
+
+	public boolean removeSquad(Squad squad) {
+		return squads.remove(squad);
 	}
 
 }

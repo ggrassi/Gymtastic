@@ -1,15 +1,11 @@
 package ch.hsr.gymtastic.server.application.controller;
 
 import java.net.ConnectException;
-import java.util.List;
 import java.util.Observable;
-
-import javax.persistence.TypedQuery;
 
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.domain.GymCupClientInfo;
-import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 
 public class GymCupController extends Observable {
@@ -30,24 +26,13 @@ public class GymCupController extends Observable {
 	}
 
 	public void setExistingGymcup() {
-		DBConnection db = new DBConnection();
-		System.out.println(DBConnection.getPath());
-		TypedQuery<GymCup> query = db.getEm().createQuery(
-				"SELECT p FROM GymCup p", GymCup.class);
-		List<GymCup> result = query.getResultList();
-		if (result.size() == 1) {
-			int first = 0;
-			this.gymCup = result.get(first);
-		}
-
-		db.commit();
-		db.closeConnection();
-		setGymCup(gymCup);
+		setGymCup(DBController.getExistingGymCup());
 		updateObservers();
 	}
 
 	public void setGymCup(GymCup gymCup) {
 		this.gymCup = gymCup;
+		this.competitionController.setGymCup(gymCup);
 		updateObservers();
 	}
 

@@ -156,8 +156,8 @@ public class GymCup extends Observable {
 
     public List<Athlete> getAllAthletes() {
 	List<Athlete> athletes = new ArrayList<Athlete>();
-	for (Squad s : squads.values()) {
-	    athletes.addAll(s.getAthlets());
+	for (Squad squad : squads.values()) {
+	    athletes.addAll(squad.getAthlets());
 	}
 	return athletes;
     }
@@ -178,12 +178,22 @@ public class GymCup extends Observable {
     public Boolean addCompetition(Competition competition) {
 	if (competition != null) {
 	    Boolean b = competitions.add(competition);
-
 	    updateObservers();
 	    return b;
 	} else {
 	    return false;
 	}
+    }
+
+    public void updateSquad(Squad squad) {
+	System.out.println("Updating Squad: " + squad.getSquadId());
+	for (Squad s : squads.values()) {
+	    if (s.getSquadId() == squad.getSquadId()) {
+		squads.put(squad.getSquadId(), squad);
+		System.out.println("Squad overriden");
+	    }
+	}
+	updateObservers();
     }
 
     private void updateObservers() {
@@ -203,4 +213,18 @@ public class GymCup extends Observable {
 	squads.get(athlete.getSquadId()).removeAthlete(athlete);
 	updateObservers();
     }
+
+    public void addSquadToCompetition(Squad squad, Competition competition) {
+	competition.addSquad(squads.get(squad.getSquadId()));
+	squadsUnallocated.remove(squad);
+    }
+
+    public void addSquadsToCompetition(List<Squad> selectedSquads, Competition competition) {
+	for (Squad squad : selectedSquads) {
+	    competition.addSquad(squads.get(squad.getSquadId()));
+	}
+	squadsUnallocated.removeAll(selectedSquads);
+
+    }
+
 }

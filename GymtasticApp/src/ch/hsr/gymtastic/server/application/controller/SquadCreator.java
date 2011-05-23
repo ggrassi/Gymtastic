@@ -43,22 +43,15 @@ public class SquadCreator {
 			squadMap.put(squadNr, new Squad(squadNr));
 		}
 
-		
-	for (List<String> line : importList) {
-	    Athlete tmpAthlete = new Athlete(Integer.parseInt(line.get(squadPositionImport)), Integer.parseInt(line
-		    .get(startNrPositionImport)), line.get(progClassPositionImport), line.get(firstNamePositionImport),
-		    line.get(lastNamePositionImport), line.get(addressPositionImport), Integer.parseInt(line
-			    .get(yearPositionImport)), new Association(line.get(associationNamePositionImport), line
-			    .get(associationPlacePositionImport)));
+		for (List<String> line : importList) {
+			Athlete tmpAthlete = getAthleteFrom(line);
 
-	    Mark mark = new Mark(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-	    for (DeviceType dt : DeviceType.values()) {
-		tmpAthlete.addMark(dt, mark);
-	    }
-	    squadMap.get(Integer.parseInt(line.get(squadPositionImport))).addAthlet(tmpAthlete);
-	}
-
-
+			for (DeviceType dt : DeviceType.values()) {
+				tmpAthlete.addMark(dt, new Mark(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+			}
+			squadMap.get(Integer.parseInt(line.get(squadPositionImport)))
+					.addAthlet(tmpAthlete);
+		}
 		return squadMap;
 
 	}
@@ -72,6 +65,29 @@ public class SquadCreator {
 	}
 
 	public void insertImportToDB() {
+		List<List<String>> importList = getImportList();
+		insertAthletes(importList);
+	}
+
+	private void insertAthletes(List<List<String>> importList) {
+		db = new DBConnection();
+		for (List<String> line : importList) {
+			Squad tempSquad = new Squad(Integer.parseInt(line
+					.get(squadPositionImport)));
+			tempSquad = db.getEm().find(Squad.class, tempSquad.getSquadId());
+			Athlete tempAthlete = getAthleteFrom(line);
+			db.persist(tempAthlete);
+			addEmptyMarksTo(tempAthlete);
+			tempSquad.addAthlet(tempAthlete);
+			db.persist(tempSquad);
+
+		}
+		db.commit();
+
+		db.closeConnection();
+	}
+
+	private List<List<String>> getImportList() {
 		db = new DBConnection();
 		List<List<String>> importList = startList.getImportList();
 		Set<Integer> squadsNrList = findSquadNumbers(importList);
@@ -81,38 +97,31 @@ public class SquadCreator {
 		}
 		db.commit();
 		db.closeConnection();
-		db = new DBConnection();
-		for (List<String> line : importList) {
-			Squad temp = new Squad(Integer.parseInt(line
-					.get(squadPositionImport)));
-			temp = db.getEm().find(Squad.class, temp.getSquadId());
+		return importList;
+	}
 
-			Athlete atemp = new Athlete(Integer.parseInt(line
-					.get(squadPositionImport)), Integer.parseInt(line
-					.get(startNrPositionImport)),
-					line.get(progClassPositionImport),
-					line.get(firstNamePositionImport),
-					line.get(lastNamePositionImport),
-					line.get(addressPositionImport), Integer.parseInt(line
-							.get(yearPositionImport)), new Association(
-							line.get(associationNamePositionImport),
-							line.get(associationPlacePositionImport)));
-			db.persist(atemp);
+	private void addEmptyMarksTo(Athlete atemp) {
 
+		for (DeviceType dt : DeviceType.values()) {
 			Mark mtemp = new Mark(0, 0, 0, 0, 0, 0);
 			db.persist(mtemp);
-			for (DeviceType dt : DeviceType.values()) {
-				atemp.addMark(dt, mtemp);
-			}
-			db.persist(atemp);
-
-			temp.addAthlet(atemp);
-			db.persist(temp);
-
+			atemp.addMark(dt, mtemp);
 		}
-		db.commit();
+		db.persist(atemp);
+	}
 
-		db.closeConnection();
+	private Athlete getAthleteFrom(List<String> line) {
+		Athlete atemp = new Athlete(Integer.parseInt(line
+				.get(squadPositionImport)), Integer.parseInt(line
+				.get(startNrPositionImport)),
+				line.get(progClassPositionImport), line
+						.get(firstNamePositionImport), line
+						.get(lastNamePositionImport), line
+						.get(addressPositionImport), Integer.parseInt(line
+						.get(yearPositionImport)), new Association(line
+						.get(associationNamePositionImport), line
+						.get(associationPlacePositionImport)));
+		return atemp;
 	}
 
 }
