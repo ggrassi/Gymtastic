@@ -4,13 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.ConnectException;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -37,17 +35,14 @@ public class ActualSquadPanel extends JPanel {
 	private AthleteOverviewTableModel tableOverviewModel;
 	private Squad actualSquad;
 	private DeviceType deviceType;
-	private JPanel panelAthleteInformation;
-	private JPanel panelControl;
 	private JButton btnFinishEvaluation;
-	private JLabel lblStatusInfo;
 	private JPanel panelAthleteControl;
-	private JButton btnEvaluateAthlete;
 	private NetworkClientController networkController;
 	private final ClientFrame clientFrame;
 
 
 	public ActualSquadPanel(Squad actualSquad, DeviceType deviceType, NetworkClientController networkController, ClientFrame clientFrame) {
+		
 		this.actualSquad = actualSquad;
 		this.deviceType = deviceType;
 		this.networkController = networkController;
@@ -71,37 +66,14 @@ public class ActualSquadPanel extends JPanel {
 	}
 
 	private void initGUI() {
-
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 0, 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 		tableOverviewModel = new AthleteOverviewTableModel(actualSquad,
 				deviceType);
-
-		panelAthleteInformation = new JPanel();
-		panelAthleteInformation.setBorder(new TitledBorder(null, "Information",
-				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagConstraints gbc_panelAthleteInformation = new GridBagConstraints();
-		gbc_panelAthleteInformation.insets = new Insets(0, 0, 5, 0);
-		gbc_panelAthleteInformation.fill = GridBagConstraints.BOTH;
-		gbc_panelAthleteInformation.gridx = 0;
-		gbc_panelAthleteInformation.gridy = 0;
-		add(panelAthleteInformation, gbc_panelAthleteInformation);
-		panelAthleteInformation.setLayout(new BorderLayout(0, 0));
-
-		panelControl = new JPanel();
-		panelAthleteInformation.add(panelControl, BorderLayout.SOUTH);
-		panelControl.setLayout(new BorderLayout(0, 0));
-
-		btnFinishEvaluation = new JButton("Bewertung abschliessen");
-
-		panelControl.add(btnFinishEvaluation, BorderLayout.EAST);
-
-		lblStatusInfo = new JLabel("Sie haben 5 von 7 Athleten bewertet.");
-		panelAthleteInformation.add(lblStatusInfo, BorderLayout.CENTER);
 
 		panelAthletesTable = new JPanel();
 		panelAthletesTable.setBorder(new TitledBorder(UIManager
@@ -111,7 +83,7 @@ public class ActualSquadPanel extends JPanel {
 		GridBagConstraints gbc_panelAthletesTable = new GridBagConstraints();
 		gbc_panelAthletesTable.fill = GridBagConstraints.BOTH;
 		gbc_panelAthletesTable.gridx = 0;
-		gbc_panelAthletesTable.gridy = 1;
+		gbc_panelAthletesTable.gridy = 0;
 		add(panelAthletesTable, gbc_panelAthletesTable);
 		panelAthletesTable.setLayout(new BorderLayout(0, 0));
 
@@ -138,9 +110,9 @@ public class ActualSquadPanel extends JPanel {
 		panelAthleteControl = new JPanel();
 		panelAthletesTable.add(panelAthleteControl, BorderLayout.SOUTH);
 		panelAthleteControl.setLayout(new BorderLayout(0, 0));
-
-		btnEvaluateAthlete = new JButton("Athlet bewerten");
-		panelAthleteControl.add(btnEvaluateAthlete, BorderLayout.EAST);
+		
+				btnFinishEvaluation = new JButton("Bewertung abschliessen");
+				panelAthleteControl.add(btnFinishEvaluation, BorderLayout.EAST);
 	}
 
 }

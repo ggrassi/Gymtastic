@@ -164,5 +164,16 @@ public class ClientFrame implements Observer {
 		panelOverview.waitForNextRound();
 
 	}
+	
+	public void setOverviewAndActualSquadPanelsDisabled()
+	{
+		tabbedPane.setEnabledAt(0, false);
+		tabbedPane.setEnabledAt(2, false);
+	}
+	public void setOverviewAndActualSquadPanelsEnabled()
+	{
+		tabbedPane.setEnabledAt(0, true);
+		tabbedPane.setEnabledAt(2, true);
+	}
 
 }
