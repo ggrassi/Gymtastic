@@ -65,15 +65,14 @@ public class DBController {
 
 	}
 
-	public static void persistCompetition(Competition competition) {
+	public static void updateCompetition(Competition competition) {
 		dbConnection = new DBConnection();
 		Competition dbComp = dbConnection.getEm().find(Competition.class,
 				competition.getId());
 		for (Squad s : competition.getSquads()) {
 			Squad dbSquad = dbConnection.getEm().find(Squad.class, s.getId());
 			dbComp.addSquad(dbSquad);
-			System.out
-					.println("Squad in Wettkampf hinzugefügt [DBController]");
+			System.out.println("Squad in Wettkampf hinzugefügt [DBController]");
 		}
 		dbConnection.persist(dbComp);
 		dbConnection.commit();
@@ -121,9 +120,9 @@ public class DBController {
 	}
 
 	public static GymCup getExistingGymCup() {
-		DBConnection db = new DBConnection();
+		dbConnection = new DBConnection();
 		GymCup gymCup = null;
-		TypedQuery<GymCup> query = db.getEm().createQuery(
+		TypedQuery<GymCup> query = dbConnection.getEm().createQuery(
 				"SELECT p FROM GymCup p", GymCup.class);
 		List<GymCup> result = query.getResultList();
 		if (result.size() == 1) {
@@ -131,10 +130,45 @@ public class DBController {
 			gymCup = result.get(first);
 		}
 
-		db.commit();
-		db.closeConnection();
+		dbConnection.commit();
+		dbConnection.closeConnection();
 
 		return gymCup;
+	}
+
+	public static void deleteCompetitionFromGymCup(Competition oldComp,
+			GymCup gymCup) {
+		dbConnection = new DBConnection();
+		GymCup dbGymCup = dbConnection.getEm().find(GymCup.class,
+				gymCup.getId());
+		dbGymCup.getCompetitions().remove(oldComp);
+		// dbConnection.remove(oldComp);
+		dbConnection.commit();
+		dbConnection.closeConnection();
+
+	}
+
+	public static void addCompetitionToGymCup(Competition competition,
+			GymCup gymCup) {
+		dbConnection = new DBConnection();
+		GymCup tmpCup = dbConnection.getEm().find(GymCup.class, gymCup.getId());
+		dbConnection.persist(competition);
+		tmpCup.addCompetition(competition);
+		dbConnection.persist(tmpCup);
+		dbConnection.commit();
+		dbConnection.closeConnection();
+
+	}
+
+	public static void removeSquadFromCompetition(Competition comp, Squad squad) {
+		dbConnection = new DBConnection();
+		Competition dbComp = dbConnection.getEm().find(Competition.class,
+				comp.getId());
+		Squad dbSquad = dbConnection.getEm().find(Squad.class, squad.getId());
+		dbComp.removeSquad(dbSquad);
+		dbConnection.commit();
+		dbConnection.closeConnection();
+
 	}
 
 }

@@ -19,12 +19,11 @@ public class CompetitionController extends Observable implements Observer {
 	private Competition competition;
 	private NetworkServerController networkController;
 	private ClientAllocator clientAllocator;
-	private GymCup gymCup;
 	private int actualRoundNr;
 	private Set<DeviceType> finishedClients;
+	private GymCup gymCup;
 
-	public CompetitionController(NetworkServerController networkController,
-			GymCup gymCup) {
+	public CompetitionController(NetworkServerController networkController) {
 		this.networkController = networkController;
 		this.gymCup = gymCup;
 		this.networkController.addObserver(this);
@@ -41,7 +40,7 @@ public class CompetitionController extends Observable implements Observer {
 		roundAllocator = new RoundAllocator(this.competition.getSquads());
 	}
 
-	public Competition getCompetition() {
+	public Competition getActualCompetition() {
 		return competition;
 	}
 

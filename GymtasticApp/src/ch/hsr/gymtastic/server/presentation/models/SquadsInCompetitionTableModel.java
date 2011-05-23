@@ -6,7 +6,6 @@ import java.util.Observer;
 import javax.swing.table.AbstractTableModel;
 
 import ch.hsr.gymtastic.domain.Competition;
-import ch.hsr.gymtastic.server.application.controller.GymCupController;
 
 public class SquadsInCompetitionTableModel extends AbstractTableModel implements
 		Observer {
@@ -17,7 +16,6 @@ public class SquadsInCompetitionTableModel extends AbstractTableModel implements
 	private static final long serialVersionUID = 1L;
 	private String[] columns = { "Riege" };
 	private Competition competition;
-	private GymCupController gymCupController;
 
 	public SquadsInCompetitionTableModel() {
 	}
