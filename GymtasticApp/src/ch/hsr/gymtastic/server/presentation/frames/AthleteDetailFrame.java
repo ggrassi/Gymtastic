@@ -24,6 +24,12 @@ import ch.hsr.gymtastic.domain.Association;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.models.AthleteDetailTableModel;
+import ch.hsr.gymtastic.server.presentation.models.ProgramClassAthleteComboBoxModel;
+import ch.hsr.gymtastic.server.presentation.models.SquadComboBoxModel;
+
+import javax.swing.JComboBox;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class AthleteDetailFrame {
 
@@ -35,8 +41,6 @@ public class AthleteDetailFrame {
     private JTextField txtFieldAddress;
     private JTextField txtFieldYearOfBirth;
     private JTextField txtFieldStartNr;
-    private JTextField txtFieldProgramClass;
-    private JTextField txtFieldSquad;
     private JTextField txtFieldRank;
     private Athlete athlete;
     private JButton btnCancel;
@@ -49,6 +53,10 @@ public class AthleteDetailFrame {
     private JPanel panelCompetitionInfoSaveCancel;
     private GymCupController gymCupController;
     private AthleteDetailTableModel athleteDetailTableModel;
+    private JComboBox cbProgramClass;
+    private ProgramClassAthleteComboBoxModel programClassCBModel;
+    private JComboBox comboBoxSquad;
+    private SquadComboBoxModel squadComboBoxModel;
 
     /**
      * Launch the application.
@@ -132,21 +140,21 @@ public class AthleteDetailFrame {
 	    }
 	});
 
-	txtFieldProgramClass.addKeyListener(new KeyAdapter() {
-	    public void keyReleased(KeyEvent e) {
-		changesAthleteInformation();
-	    }
-	});
-
-	txtFieldSquad.addKeyListener(new KeyAdapter() {
-	    public void keyReleased(KeyEvent e) {
-		changesAthleteInformation();
-	    }
-	});
-
 	btnSave.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		saveAthleteInfos();
+	    }
+	});
+
+	cbProgramClass.addItemListener(new ItemListener() {
+	    public void itemStateChanged(ItemEvent e) {
+		changesAthleteInformation();
+	    }
+	});
+
+	comboBoxSquad.addItemListener(new ItemListener() {
+	    public void itemStateChanged(ItemEvent e) {
+		changesAthleteInformation();
 	    }
 	});
     }
@@ -353,20 +361,19 @@ public class AthleteDetailFrame {
 
 	JLabel lblProgramClass = new JLabel("Programmklasse: ");
 	GridBagConstraints gbc_lblProgramClass = new GridBagConstraints();
-	gbc_lblProgramClass.anchor = GridBagConstraints.WEST;
+	gbc_lblProgramClass.anchor = GridBagConstraints.EAST;
 	gbc_lblProgramClass.insets = new Insets(0, 0, 5, 5);
 	gbc_lblProgramClass.gridx = 0;
 	gbc_lblProgramClass.gridy = 1;
 	panelCompetitionInfo.add(lblProgramClass, gbc_lblProgramClass);
 
-	txtFieldProgramClass = new JTextField();
-	GridBagConstraints gbc_txtFieldProgramClass = new GridBagConstraints();
-	gbc_txtFieldProgramClass.insets = new Insets(0, 0, 5, 0);
-	gbc_txtFieldProgramClass.fill = GridBagConstraints.HORIZONTAL;
-	gbc_txtFieldProgramClass.gridx = 1;
-	gbc_txtFieldProgramClass.gridy = 1;
-	panelCompetitionInfo.add(txtFieldProgramClass, gbc_txtFieldProgramClass);
-	txtFieldProgramClass.setColumns(10);
+	cbProgramClass = new JComboBox();
+	GridBagConstraints gbc_cbProgramClass = new GridBagConstraints();
+	gbc_cbProgramClass.insets = new Insets(0, 0, 5, 0);
+	gbc_cbProgramClass.fill = GridBagConstraints.HORIZONTAL;
+	gbc_cbProgramClass.gridx = 1;
+	gbc_cbProgramClass.gridy = 1;
+	panelCompetitionInfo.add(cbProgramClass, gbc_cbProgramClass);
 
 	JLabel lblSquad = new JLabel("Riege: ");
 	GridBagConstraints gbc_lblSquad = new GridBagConstraints();
@@ -376,15 +383,13 @@ public class AthleteDetailFrame {
 	gbc_lblSquad.gridy = 2;
 	panelCompetitionInfo.add(lblSquad, gbc_lblSquad);
 
-	txtFieldSquad = new JTextField();
-	GridBagConstraints gbc_txtFieldSquad = new GridBagConstraints();
-	gbc_txtFieldSquad.insets = new Insets(0, 0, 5, 0);
-	gbc_txtFieldSquad.fill = GridBagConstraints.HORIZONTAL;
-	gbc_txtFieldSquad.gridx = 1;
-	gbc_txtFieldSquad.gridy = 2;
-	panelCompetitionInfo.add(txtFieldSquad, gbc_txtFieldSquad);
-	txtFieldSquad.setColumns(10);
-	txtFieldSquad.setEnabled(false);
+	comboBoxSquad = new JComboBox();
+	GridBagConstraints gbc_cbSquad = new GridBagConstraints();
+	gbc_cbSquad.insets = new Insets(0, 0, 5, 0);
+	gbc_cbSquad.fill = GridBagConstraints.HORIZONTAL;
+	gbc_cbSquad.gridx = 1;
+	gbc_cbSquad.gridy = 2;
+	panelCompetitionInfo.add(comboBoxSquad, gbc_cbSquad);
 
 	JLabel lblRank = new JLabel("Rang: ");
 	GridBagConstraints gbc_lblRank = new GridBagConstraints();
@@ -468,18 +473,23 @@ public class AthleteDetailFrame {
     }
 
     private void inizializeFields() {
+	programClassCBModel = new ProgramClassAthleteComboBoxModel(gymCupController.getGymCup().getProgramClasses());
+	cbProgramClass.setModel(programClassCBModel);
+	squadComboBoxModel = new SquadComboBoxModel(gymCupController.getGymCup().getSquads());
+	comboBoxSquad.setModel(squadComboBoxModel);
 	if (athlete != null) {
 	    txtFieldAddress.setText(athlete.getAddress());
 	    txtFieldAssocation.setText(athlete.getAssociation().getName());
 	    txtFieldFirstName.setText(athlete.getFirstName());
 	    txtFieldLastName.setText(athlete.getLastName());
-	    txtFieldProgramClass.setText(athlete.getPrgClass());
-	    txtFieldSquad.setText("" + athlete.getSquadId());
 	    txtFieldStartNr.setText("" + athlete.getStartNr());
 	    txtFieldYearOfBirth.setText("" + athlete.getYearOfBirth());
+	    cbProgramClass.setSelectedItem(athlete.getPrgClass());
+	    comboBoxSquad.setSelectedItem(athlete.getSquadId());
 	} else {
-	    txtFieldSquad.setEnabled(true);
+	    comboBoxSquad.setEnabled(true);
 	}
+
     }
 
     private void changesAthleteInformation() {
@@ -498,14 +508,13 @@ public class AthleteDetailFrame {
 		    && txtFieldAssocation.getText().equals(athlete.getAssociation().getName())
 		    && txtFieldFirstName.getText().equals(athlete.getFirstName())
 		    && txtFieldLastName.getText().equals(athlete.getLastName())
-		    && txtFieldProgramClass.getText().equals(athlete.getPrgClass())
-		    && txtFieldSquad.getText().equals(athlete.getSquadId() + "")
+		    && cbProgramClass.getSelectedItem().equals(athlete.getPrgClass())
+		    && comboBoxSquad.getSelectedItem().equals(athlete.getSquadId())
 		    && txtFieldStartNr.getText().equals(athlete.getStartNr() + "")
 		    && txtFieldYearOfBirth.getText().equals(athlete.getYearOfBirth() + "");
 	} else {
 	    return txtFieldAddress.getText().isEmpty() && txtFieldAssocation.getText().isEmpty()
 		    && txtFieldFirstName.getText().isEmpty() && txtFieldLastName.getText().isEmpty()
-		    && txtFieldProgramClass.getText().isEmpty() && txtFieldSquad.getText().isEmpty()
 		    && txtFieldStartNr.getText().isEmpty() && txtFieldYearOfBirth.getText().isEmpty();
 	}
     }
@@ -516,8 +525,8 @@ public class AthleteDetailFrame {
 	    txtFieldAssocation.setText(athlete.getAssociation().getName());
 	    txtFieldFirstName.setText(athlete.getFirstName());
 	    txtFieldLastName.setText(athlete.getLastName());
-	    txtFieldProgramClass.setText(athlete.getPrgClass());
-	    txtFieldSquad.setText(athlete.getSquadId() + "");
+	    cbProgramClass.setSelectedItem(athlete.getPrgClass());
+	    comboBoxSquad.setSelectedItem(athlete.getSquadId());
 	    txtFieldStartNr.setText(athlete.getStartNr() + "");
 	    txtFieldYearOfBirth.setText(athlete.getYearOfBirth() + "");
 
@@ -526,8 +535,6 @@ public class AthleteDetailFrame {
 	    txtFieldAssocation.setText("");
 	    txtFieldFirstName.setText("");
 	    txtFieldLastName.setText("");
-	    txtFieldProgramClass.setText("");
-	    txtFieldSquad.setText("");
 	    txtFieldStartNr.setText("");
 	    txtFieldYearOfBirth.setText("");
 	}
@@ -543,17 +550,17 @@ public class AthleteDetailFrame {
 			    .getLocation()));
 	    athlete.setFirstName(txtFieldFirstName.getText());
 	    athlete.setLastName(txtFieldLastName.getText());
-	    athlete.setPrgClass(txtFieldProgramClass.getText());
-	    athlete.setSquadId(Integer.parseInt(txtFieldSquad.getText()));
+	    athlete.setPrgClass(cbProgramClass.getSelectedItem().toString());
+	    athlete.setSquadId((Integer) comboBoxSquad.getSelectedItem());
 	    athlete.setStartNr(Integer.parseInt(txtFieldStartNr.getText()));
 	    athlete.setYearOfBirth(Integer.parseInt(txtFieldYearOfBirth.getText()));
 
 	} else {
-	    athlete = new Athlete(Integer.parseInt(txtFieldSquad.getText()), gymCupController.getGymCup()
-		    .getAllAthletes().size(), txtFieldProgramClass.getText(), txtFieldFirstName.getText(),
-		    txtFieldLastName.getText(), txtFieldAddress.getText(), Integer.parseInt(txtFieldYearOfBirth
-			    .getText()), new Association(txtFieldAssocation.getText(), ""));
-	    gymCupController.getGymCup().addAthleteToSquad(Integer.parseInt(txtFieldSquad.getText()), athlete);
+	    athlete = new Athlete((Integer) comboBoxSquad.getSelectedItem(), gymCupController.getGymCup()
+		    .getAllAthletes().size() + 1, cbProgramClass.getSelectedItem().toString(), txtFieldFirstName
+		    .getText(), txtFieldLastName.getText(), txtFieldAddress.getText(), Integer
+		    .parseInt(txtFieldYearOfBirth.getText()), new Association(txtFieldAssocation.getText(), ""));
+	    gymCupController.getGymCup().addAthleteToSquad((Integer) comboBoxSquad.getSelectedItem(), athlete);
 	    athleteDetailTableModel.setAthlete(athlete);
 	    updateAfterCancel();
 	}
