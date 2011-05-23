@@ -141,7 +141,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbl_panelGeneralInfoBorder.rowHeights = new int[] { 0, 0, 0 };
 		gbl_panelGeneralInfoBorder.columnWeights = new double[] { 1.0,
 				Double.MIN_VALUE };
-		gbl_panelGeneralInfoBorder.rowWeights = new double[] { 1.0, 1.0,
+		gbl_panelGeneralInfoBorder.rowWeights = new double[] { 0.0, 1.0,
 				Double.MIN_VALUE };
 		panelGeneralInfoBorder.setLayout(gbl_panelGeneralInfoBorder);
 
@@ -188,7 +188,9 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_lblStartDate.gridy = 1;
 		panelGeneralInfo.add(lblStartDate, gbc_lblStartDate);
 
-		txtFieldStartDate = new JTextField();
+//		txtFieldStartDate = new JTextField();
+		txtFieldStartDate = new JFormattedTextField(new DateFormatter(DateFormat
+			.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
 
 		GridBagConstraints gbc_txtFieldStartDate = new GridBagConstraints();
 		gbc_txtFieldStartDate.insets = new Insets(0, 0, 5, 0);
@@ -401,21 +403,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				changesCupInformation();
-			}
-		});
-		txtFieldStartDate.addFocusListener(new FocusAdapter() {
-			public void focusLost(FocusEvent e) {
-				GregorianCalendar date = null;
-				try {
-					date = DateFormatConverter
-							.convertStringToDate(txtFieldStartDate.getText());
-				} catch (ParseException e1) {
-					if (date != new GregorianCalendar()) {
-						txtFieldStartDate
-								.setToolTipText("Bitte Format richtig eingeben: '01.02.2011'");
-						txtFieldStartDate.setText("");
-					}
-				}
 			}
 		});
 
