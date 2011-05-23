@@ -29,10 +29,13 @@ import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.application.controller.RoundAllocator;
 import ch.hsr.gymtastic.server.presentation.models.CompetitionRoundAllocatorComboBoxModel;
 
+/**
+ * With the Class RoundAllocationPanel we can start Competitions, controll the
+ * Mapping between Clients and DeviceTypes and it informs the Admin over the
+ * actual state of the clients,
+ */
 public class RoundAllocationPanel extends JPanel implements Observer {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JPanel panelCompetitionControlBorder;
 	private JPanel panelCompetitionControl;
@@ -66,6 +69,12 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 	private int actualRoundNr;
 	private boolean compStarted;
 
+	/**
+	 * Instantiates a new round allocation panel.
+	 * 
+	 * @param gymCupController
+	 *            the gym cup controller
+	 */
 	public RoundAllocationPanel(GymCupController gymCupController) {
 		this.gymCupController = gymCupController;
 		this.gymCupController.getGymCup().addObserver(this);
@@ -76,6 +85,9 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 		initListeners();
 	}
 
+	/**
+	 * Inits the listeners.
+	 */
 	private void initListeners() {
 		cmbCompetition.addPropertyChangeListener(new PropertyChangeListener() {
 
@@ -132,11 +144,20 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 
 	}
 
+	/**
+	 * Sets the actual round nr.
+	 * 
+	 * @param roundNr
+	 *            the new actual round nr
+	 */
 	private void setActualRoundNr(Integer roundNr) {
 		actualRoundNr = roundNr;
 
 	}
 
+	/**
+	 * Sets the information about the sent squad on the clients side.
+	 */
 	private void setInfoSquadsSent() {
 		RoundAllocator roundAllocator = competitionController
 				.getRoundAllocator();
@@ -159,6 +180,9 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 
 	}
 
+	/**
+	 * Inits the contents of the GUI
+	 */
 	private void initGUI() {
 
 		GridBagLayout gbl_RoundAllocatoin = new GridBagLayout();
@@ -448,6 +472,9 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 
 	}
 
+	/**
+	 * Update the client states
+	 */
 	private void updateClientStates() {
 		String stateFinished = "Bewertung abgeschlossen!";
 		for (DeviceType deviceType : competitionController.getFinishedClients()) {
@@ -477,6 +504,10 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 
 	}
 
+	/**
+	 * Check round buttons, if all clients are finished, we are allowed to push
+	 * the next round.
+	 */
 	private void checkRoundButtons() {
 		if (competitionController.getFinishedClients().size() == 6) {
 			spnRound.setEnabled(true);
@@ -485,6 +516,9 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 
 	}
 
+	/**
+	 * Update the combo box
+	 */
 	private void updateComboBox() {
 		comboBoxCompetitionModel = new CompetitionRoundAllocatorComboBoxModel(
 				gymCupController.getGymCup().getCompetitions());
@@ -492,6 +526,9 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 
 	}
 
+	/**
+	 * Notifys all connected clients about that the competition has started.
+	 */
 	private void notifyClientsCompetitionStarted() {
 		try {
 			competitionController.notifyClientsCompetitionStarted();
@@ -499,12 +536,21 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		updateComboBox();
 		updateClientStates();
 	}
 
+	/**
+	 * Check the status of the Buttons in dependencie of the state of
+	 * startedCompetition Boolean.
+	 */
 	private void checkAllButtons() {
 		btnStartCompetition.setEnabled(!compStarted);
 		btnStopCompetition.setEnabled(compStarted);

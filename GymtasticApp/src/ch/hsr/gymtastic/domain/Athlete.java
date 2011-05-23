@@ -10,13 +10,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Athlete holds all Informations of an Athlete. Important are the ID, ProgrammClass and all his Marks.
+ */
 @Entity
 public class Athlete extends Person {
 
-	/**
-     * 
-     */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -18961899248373223L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -29,6 +32,18 @@ public class Athlete extends Person {
 	@Embedded
 	private Association association;
 
+	/**
+	 * Instantiates a new athlete.
+	 *
+	 * @param squadID the squad id
+	 * @param startNr the start nr
+	 * @param prgClass the prg class
+	 * @param firstName the first name
+	 * @param lastName the last name
+	 * @param address the address
+	 * @param yearOfBirth the year of birth
+	 * @param association the association
+	 */
 	public Athlete(int squadID, int startNr, String prgClass, String firstName,
 			String lastName, String address, int yearOfBirth,
 			Association association) {
@@ -40,89 +55,182 @@ public class Athlete extends Person {
 		this.association = association;
 	}
 
+	/**
+	 * Instantiates a new athlete.
+	 */
 	public Athlete() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new athlete.
+	 *
+	 * @param firstName the first name
+	 * @param lastName the last name
+	 * @param address the address
+	 */
 	public Athlete(String firstName, String lastName, String address) {
 		super(firstName, lastName, address);
 	}
 
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(int id) {
 		this.id = id;
 		updateObservers();
 	}
 
+	/**
+	 * Gets the squad id.
+	 *
+	 * @return the squad id
+	 */
 	public int getSquadId() {
 		return squadId;
 	}
 
+	/**
+	 * Sets the squad id.
+	 *
+	 * @param squadId the new squad id
+	 */
 	public void setSquadId(int squadId) {
 		this.squadId = squadId;
 		updateObservers();
 	}
 
+	/**
+	 * Gets the start nr.
+	 *
+	 * @return the start nr
+	 */
 	public int getStartNr() {
 		return startNr;
 	}
 
+	/**
+	 * Sets the start nr.
+	 *
+	 * @param startNr the new start nr
+	 */
 	public void setStartNr(int startNr) {
 		this.startNr = startNr;
 		updateObservers();
 	}
 
+	/**
+	 * Gets the prg class.
+	 *
+	 * @return the prg class
+	 */
 	public String getPrgClass() {
 		return prgClass;
 	}
 
+	/**
+	 * Sets the prg class.
+	 *
+	 * @param prgClass the new prg class
+	 */
 	public void setPrgClass(String prgClass) {
 		this.prgClass = prgClass;
 		updateObservers();
 	}
 
+	/**
+	 * Gets the year of birth.
+	 *
+	 * @return the year of birth
+	 */
 	public int getYearOfBirth() {
 		return yearOfBirth;
 	}
 
+	/**
+	 * Sets the year of birth.
+	 *
+	 * @param yearOfBirth the new year of birth
+	 */
 	public void setYearOfBirth(int yearOfBirth) {
 		this.yearOfBirth = yearOfBirth;
 		updateObservers();
 	}
 
+	/**
+	 * Gets the marks.
+	 *
+	 * @return the marks
+	 */
 	public Map<DeviceType, Mark> getMarks() {
 		return marks;
 	}
 
+	/**
+	 * Sets the marks.
+	 *
+	 * @param marks the marks
+	 */
 	public void setMarks(Map<DeviceType, Mark> marks) {
 		this.marks = marks;
 		updateObservers();
 	}
 
+	/**
+	 * Gets the association.
+	 *
+	 * @return the association
+	 */
 	public Association getAssociation() {
 		return association;
 	}
 
+	/**
+	 * Sets the association.
+	 *
+	 * @param association the new association
+	 */
 	public void setAssociation(Association association) {
 		this.association = association;
 		updateObservers();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		// return String.format("(%d, %d)", this.squadId, this.startNr);
 		return super.getFirstName() + " " + super.getLastName();
 	}
 
+	/**
+	 * Adds a mark to a map containing marks.
+	 *
+	 * @param dt the dt
+	 * @param mark the mark
+	 */
 	public void addMark(DeviceType dt, Mark mark) {
 		marks.put(dt, mark);
 		updateObservers();
 
 	}
 
+	/**
+	 * Gets the sum of all end marks.
+	 *
+	 * @return the sum of end marks
+	 */
 	public double getSumOfEndMarks() {
 		double sumOfEndMarks = 0.0;
 		for (DeviceType deviceType : DeviceType.values()) {
@@ -132,11 +240,20 @@ public class Athlete extends Person {
 		return sumOfEndMarks;
 	}
 
+	/**
+	 * Update observers.
+	 */
 	private void updateObservers() {
 		setChanged();
 		notifyObservers();
 	}
 
+	/**
+	 * Gets the mark.
+	 *
+	 * @param deviceType the device type
+	 * @return the mark
+	 */
 	public Mark getMark(DeviceType deviceType) {
 		return marks.get(deviceType);
 	}

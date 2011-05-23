@@ -93,7 +93,7 @@ public class SquadsSelectionFrame extends Observable {
 				if (tableSquads.getSelectedRows().length > 0) {
 					List<Squad> selectedSquads = getSelectedSquads(tableSquads.getSelectedRows());
 					gymCupController.getGymCup().addSquadsToCompetition(selectedSquads, actualCompetition);
-					DBController.persistCompetition(actualCompetition);
+					DBController.saveCompetition(actualCompetition);
 				}
 				squadSelectionFrame.dispose();
 				updateObservers();

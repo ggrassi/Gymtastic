@@ -13,9 +13,19 @@ import ch.hsr.gymtastic.domain.Mark;
 import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
+/**
+ * The Class DBController manages the persistance of the entire Cup
+ */
 public class DBController {
+
 	private static DBConnection dbConnection;
 
+	/**
+	 * Import an gym cup to the db.
+	 * 
+	 * @param gymCup
+	 *            the gym cup
+	 */
 	public static void importGymCupToDB(GymCup gymCup) {
 		dbConnection = new DBConnection();
 		dbConnection.persist(gymCup);
@@ -23,6 +33,12 @@ public class DBController {
 		dbConnection.closeConnection();
 	}
 
+	/**
+	 * Imports all squads to a cup
+	 * 
+	 * @param gymCup
+	 *            the gym cup
+	 */
 	public static void importAllSquads(GymCup gymCup) {
 		dbConnection = new DBConnection();
 		TypedQuery<Squad> query = dbConnection.getEm().createQuery(
@@ -45,10 +61,24 @@ public class DBController {
 
 	}
 
+	/**
+	 * Sets the path of the DB Location
+	 * 
+	 * @param path
+	 *            the new path
+	 */
 	public static void setPath(String path) {
 		DBConnection.setPath(path);
 	}
 
+	/**
+	 * Saves an received squad to the db
+	 * 
+	 * @param s
+	 *            the s
+	 * @param deviceType
+	 *            the device type
+	 */
 	public static void saveReceivedSquad(Squad s, DeviceType deviceType) {
 		dbConnection = new DBConnection();
 		Collection<Athlete> ramAthletes = s.getAthlets();
@@ -65,7 +95,13 @@ public class DBController {
 
 	}
 
-	public static void persistCompetition(Competition competition) {
+	/**
+	 * Persist competition.
+	 * 
+	 * @param competition
+	 *            the competition
+	 */
+	public static void saveCompetition(Competition competition) {
 		dbConnection = new DBConnection();
 		Competition dbComp = dbConnection.getEm().find(Competition.class,
 				competition.getId());
@@ -80,6 +116,12 @@ public class DBController {
 
 	}
 
+	/**
+	 * Update the athlete informations
+	 * 
+	 * @param tmpAthlete
+	 *            the tmp athlete
+	 */
 	public static void updateAthlete(Athlete tmpAthlete) {
 		dbConnection = new DBConnection();
 		Athlete dbAthlete = dbConnection.getEm().find(Athlete.class,
@@ -95,6 +137,14 @@ public class DBController {
 		dbConnection.closeConnection();
 	}
 
+	/**
+	 * Adds the prg class to gym cup.
+	 * 
+	 * @param gymCup
+	 *            the gym cup
+	 * @param athlete
+	 *            the athlete
+	 */
 	public static void addPrgClassToGymCup(GymCup gymCup, Athlete athlete) {
 		dbConnection = new DBConnection();
 		GymCup dbGymCup = dbConnection.getEm().find(GymCup.class,
@@ -104,6 +154,14 @@ public class DBController {
 		dbConnection.closeConnection();
 	}
 
+	/**
+	 * Update the competition informations
+	 * 
+	 * @param newComp
+	 *            the new comp
+	 * @param oldComp
+	 *            the old comp
+	 */
 	public static void updateCompetition(Competition newComp,
 			Competition oldComp) {
 		dbConnection = new DBConnection();
@@ -119,7 +177,12 @@ public class DBController {
 
 	}
 
-	public static GymCup getExistingGymCup() {
+	/**
+	 * Gets the existing gym cup.
+	 * 
+	 * @return the existing gym cup
+	 */
+	public static GymCup getActualGymCup() {
 		DBConnection db = new DBConnection();
 		GymCup gymCup = null;
 		TypedQuery<GymCup> query = db.getEm().createQuery(
@@ -136,6 +199,14 @@ public class DBController {
 		return gymCup;
 	}
 
+	/**
+	 * Deletes a competition from a gymcup.
+	 * 
+	 * @param oldComp
+	 *            the old comp
+	 * @param gymCup
+	 *            the gym cup
+	 */
 	public static void deleteCompetitionFromGymCup(Competition oldComp,
 			GymCup gymCup) {
 		dbConnection = new DBConnection();
@@ -148,6 +219,14 @@ public class DBController {
 
 	}
 
+	/**
+	 * Adds a competition to the gymcup.
+	 * 
+	 * @param competition
+	 *            the competition
+	 * @param gymCup
+	 *            the gym cup
+	 */
 	public static void addCompetitionToGymCup(Competition competition,
 			GymCup gymCup) {
 		dbConnection = new DBConnection();
@@ -160,6 +239,14 @@ public class DBController {
 
 	}
 
+	/**
+	 * Removes the squad from competition.
+	 * 
+	 * @param comp
+	 *            the comp
+	 * @param squad
+	 *            the squad
+	 */
 	public static void removeSquadFromCompetition(Competition comp, Squad squad) {
 		dbConnection = new DBConnection();
 		Competition dbComp = dbConnection.getEm().find(Competition.class,
@@ -168,7 +255,6 @@ public class DBController {
 		dbComp.removeSquad(dbSquad);
 		dbConnection.commit();
 		dbConnection.closeConnection();
-
 	}
 
 }

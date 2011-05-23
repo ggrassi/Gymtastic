@@ -14,6 +14,9 @@ import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
 
+/**
+ * The Class SquadCreator
+ */
 public class SquadCreator {
 
 	private static final int associationPlacePositionImport = 8;
@@ -25,14 +28,23 @@ public class SquadCreator {
 	private static final int progClassPositionImport = 2;
 	private static final int startNrPositionImport = 1;
 	private static final int squadPositionImport = 0;
-
 	private ImportStartList startList;
 	private DBConnection db;
 
+	/**
+	 * Instantiates a new squad creator.
+	 *
+	 * @param importStartList the import start list
+	 */
 	public SquadCreator(ImportStartList importStartList) {
 		this.startList = importStartList;
 	}
 
+	/**
+	 * Creates a map of squads and fills it with the Athletes
+	 *
+	 * @return the map
+	 */
 	public Map<Integer, Squad> createSquads() {
 		List<List<String>> importList = startList.getImportList();
 
@@ -56,6 +68,12 @@ public class SquadCreator {
 
 	}
 
+	/**
+	 * Finding the index of the Squad and fill it up to a set.
+	 *
+	 * @param importList the import list
+	 * @return the sets the
+	 */
 	private Set<Integer> findSquadNumbers(List<List<String>> importList) {
 		Set<Integer> squadsNrList = new TreeSet<Integer>();
 		for (List<String> line : importList) {
@@ -64,12 +82,20 @@ public class SquadCreator {
 		return squadsNrList;
 	}
 
+	/**
+	 * Inserts the imported List to the DB
+	 */
 	public void insertImportToDB() {
 		List<List<String>> importList = getImportList();
-		insertAthletes(importList);
+		insertAthletesToDB(importList);
 	}
 
-	private void insertAthletes(List<List<String>> importList) {
+	/**
+	 * manages to persist the Athletes to the DB.
+	 *
+	 * @param importList the import list
+	 */
+	private void insertAthletesToDB(List<List<String>> importList) {
 		db = new DBConnection();
 		for (List<String> line : importList) {
 			Squad tempSquad = new Squad(Integer.parseInt(line
@@ -87,6 +113,11 @@ public class SquadCreator {
 		db.closeConnection();
 	}
 
+	/**
+	 * Gets the import list.
+	 *
+	 * @return the import list
+	 */
 	private List<List<String>> getImportList() {
 		db = new DBConnection();
 		List<List<String>> importList = startList.getImportList();
@@ -100,6 +131,11 @@ public class SquadCreator {
 		return importList;
 	}
 
+	/**
+	 * Adds the empty marks to an Athlete and persists it to the DB
+	 *
+	 * @param atemp the atemp
+	 */
 	private void addEmptyMarksTo(Athlete atemp) {
 
 		for (DeviceType dt : DeviceType.values()) {
@@ -110,6 +146,12 @@ public class SquadCreator {
 		db.persist(atemp);
 	}
 
+	/**
+	 * Gets the athlete out of the imported String line
+	 *
+	 * @param line the line
+	 * @return the athlete from
+	 */
 	private Athlete getAthleteFrom(List<String> line) {
 		Athlete atemp = new Athlete(Integer.parseInt(line
 				.get(squadPositionImport)), Integer.parseInt(line
