@@ -271,6 +271,7 @@ public class GymCup extends Observable {
 	 * @param squad
 	 *            the squad
 	 */
+
 	public void addSquad(int index, Squad squad) {
 		squads.put(index, squad);
 		updateObservers();
@@ -449,7 +450,7 @@ public class GymCup extends Observable {
 		for (Squad squad : selectedSquads) {
 			competition.addSquad(squads.get(squad.getSquadId()));
 		}
-		squadsUnallocated.removeAll(selectedSquads);
+//		squadsUnallocated.removeAll(selectedSquads);
 
 	}
 

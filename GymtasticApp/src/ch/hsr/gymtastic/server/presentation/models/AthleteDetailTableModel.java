@@ -86,6 +86,7 @@ public class AthleteDetailTableModel extends AbstractTableModel implements
 			return DeviceType.values().length;
 		} else
 			return 0;
+
 	}
 
 	/*
@@ -169,9 +170,9 @@ public class AthleteDetailTableModel extends AbstractTableModel implements
 				}
 			}
 		}
-
 		fireTableCellUpdated(rowIndex, columnIndex);
-	}
+    }
+
 
 	/**
 	 * Sets the athlete which gets shown
@@ -188,8 +189,9 @@ public class AthleteDetailTableModel extends AbstractTableModel implements
 	 * 
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
-	public void update(Observable arg0, Object arg1) {
-		// fireTableDataChanged();
-	}
+
+    public void update(Observable arg0, Object arg1) {
+	fireTableDataChanged();
+    }
 
 }

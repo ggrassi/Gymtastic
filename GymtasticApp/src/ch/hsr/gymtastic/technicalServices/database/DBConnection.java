@@ -4,6 +4,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
 /**
  * The Class DBConnection offers all the methods you need to CRUD on the DB.
  */
@@ -49,12 +52,6 @@ public class DBConnection {
 		em.getTransaction().commit();
 	}
 
-	/**
-	 * Connects to the objectDB File
-	 * 
-	 * @param path
-	 *            the path
-	 */
 	private void connect(String path) {
 		this.emf = Persistence.createEntityManagerFactory(path);
 		this.em = emf.createEntityManager();

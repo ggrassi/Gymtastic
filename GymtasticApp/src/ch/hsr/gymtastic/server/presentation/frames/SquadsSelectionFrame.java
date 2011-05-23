@@ -4,10 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.nio.channels.SelectableChannel;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,9 +18,8 @@ import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.server.application.controller.DBController;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.models.SquadSelectionTableModel;
-import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 
-public class SquadsSelectionFrame extends Observable {
+public class SquadsSelectionFrame {
 
 	private JFrame squadSelectionFrame;
 	private JTable tableSquads;
@@ -73,6 +70,10 @@ public class SquadsSelectionFrame extends Observable {
 		panelSouth.add(btnAddSelectedSquads, BorderLayout.EAST);
 	}
 
+	
+	/**
+	 * invoke Frame runs a threat which shows a frame
+	 */
 	private void invokeFrame() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -85,27 +86,27 @@ public class SquadsSelectionFrame extends Observable {
 		});
 	}
 
+	/**
+	 * Initialize the listeners
+	 */
 	private void initListeners() {
 		btnAddSelectedSquads.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (tableSquads.getSelectedRows().length > 0) {
-					List<Squad> selectedSquads = getSelectedSquads(tableSquads.getSelectedRows());
-					gymCupController.getGymCup().addSquadsToCompetition(selectedSquads, actualCompetition);
+					
+					List<Squad> selectedSquads = getSelectedSquads(tableSquads
+							.getSelectedRows());
+					gymCupController.getGymCup().addSquadsToCompetition(
+							selectedSquads, actualCompetition);
 					DBController.saveCompetition(actualCompetition);
 				}
 				squadSelectionFrame.dispose();
-				updateObservers();
 			}
 
 		});
 
-	}
-
-	private void updateObservers() {
-		setChanged();
-		notifyObservers();
 	}
 
 	private List<Squad> getSelectedSquads(int[] rows) {

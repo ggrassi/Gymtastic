@@ -183,9 +183,9 @@ public class DBController {
 	 * @return the existing gym cup
 	 */
 	public static GymCup getActualGymCup() {
-		DBConnection db = new DBConnection();
+		dbConnection = new DBConnection();
 		GymCup gymCup = null;
-		TypedQuery<GymCup> query = db.getEm().createQuery(
+		TypedQuery<GymCup> query = dbConnection.getEm().createQuery(
 				"SELECT p FROM GymCup p", GymCup.class);
 		List<GymCup> result = query.getResultList();
 		if (result.size() == 1) {
@@ -193,8 +193,8 @@ public class DBController {
 			gymCup = result.get(first);
 		}
 
-		db.commit();
-		db.closeConnection();
+		dbConnection.commit();
+		dbConnection.closeConnection();
 
 		return gymCup;
 	}
@@ -256,5 +256,6 @@ public class DBController {
 		dbConnection.commit();
 		dbConnection.closeConnection();
 	}
+
 
 }

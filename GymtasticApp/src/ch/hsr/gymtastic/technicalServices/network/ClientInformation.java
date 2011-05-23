@@ -33,6 +33,7 @@ public class ClientInformation {
 	 * 
 	 * @return the host
 	 */
+
 	public String getHost() {
 		return ipAddress;
 	}

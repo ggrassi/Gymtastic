@@ -321,16 +321,6 @@ public class AthletePanel extends JPanel implements Observer {
 		tableAthletes.setRowSorter(tableSorter);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-	 */
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		updateStatistics();
-	}
-
 	/**
 	 * Updates the statistic fields in the panel.
 	 */
@@ -340,5 +330,16 @@ public class AthletePanel extends JPanel implements Observer {
 		lblAthletesAmount.setText(""
 				+ gymCupController.getGymCup().getAllAthletes().size());
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
+    
+    @Override
+    public void update(Observable arg0, Object arg1) {
+	updateStatistics();
+    }
 
 }

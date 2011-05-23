@@ -6,6 +6,7 @@ import java.util.Observer;
 import javax.swing.table.AbstractTableModel;
 
 import ch.hsr.gymtastic.domain.Athlete;
+import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 
 /**
@@ -29,6 +30,15 @@ public class AthleteDataTableModel extends AbstractTableModel implements
 		this.gymCupController = gymCupController;
 		this.gymCupController.getGymCup().addObserver(this);
 	}
+   
+    
+    @SuppressWarnings("rawtypes")
+    Class[] columnTypes = new Class[] { String.class, String.class, Integer.class, String.class};
+
+    @SuppressWarnings( { "unchecked", "rawtypes" })
+    public Class getColumnClass(int columnIndex) {
+	return columnTypes[columnIndex];
+    }
 
 	/*
 	 * (non-Javadoc)
