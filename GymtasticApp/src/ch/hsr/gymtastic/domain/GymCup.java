@@ -53,6 +53,32 @@ public class GymCup extends Observable {
 		updateObservers();
 	}
 
+	public void athleteChanged() {
+		updateObservers();
+	}
+
+	public void addAthleteToSquad(int squadNr, Athlete athlete) {
+		squads.get(squadNr).addAthlet(athlete);
+		updateObservers();
+	}
+
+	public void removeAthleteFromSquad(Athlete athlete) {
+		squads.get(athlete.getSquadId()).removeAthlete(athlete);
+		updateObservers();
+	}
+
+	public void addSquadToCompetition(Squad squad, Competition competition) {
+		competition.addSquad(squads.get(squad.getSquadId()));
+		squadsUnallocated.remove(squad);
+	}
+
+	public void addSquadsToCompetition(List<Squad> selectedSquads,
+			Competition competition) {
+		for (Squad squad : selectedSquads) {
+			competition.addSquad(squads.get(squad.getSquadId()));
+		}
+	}
+
 	public String getLocation() {
 		return location;
 	}
@@ -199,33 +225,6 @@ public class GymCup extends Observable {
 	private void updateObservers() {
 		setChanged();
 		notifyObservers();
-	}
-
-	public void athleteChanged() {
-		updateObservers();
-	}
-
-	public void addAthleteToSquad(int squadNr, Athlete athlete) {
-		squads.get(squadNr).addAthlet(athlete);
-	}
-
-	public void removeAthleteFromSquad(Athlete athlete) {
-		squads.get(athlete.getSquadId()).removeAthlete(athlete);
-		updateObservers();
-	}
-
-	public void addSquadToCompetition(Squad squad, Competition competition) {
-		competition.addSquad(squads.get(squad.getSquadId()));
-		squadsUnallocated.remove(squad);
-	}
-
-	public void addSquadsToCompetition(List<Squad> selectedSquads,
-			Competition competition) {
-		for (Squad squad : selectedSquads) {
-			competition.addSquad(squads.get(squad.getSquadId()));
-		}
-		squadsUnallocated.removeAll(selectedSquads);
-
 	}
 
 }

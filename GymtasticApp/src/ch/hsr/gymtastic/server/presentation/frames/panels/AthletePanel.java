@@ -34,10 +34,9 @@ import ch.hsr.gymtastic.technicalServices.utils.SearchTextField;
 public class AthletePanel extends JPanel implements Observer {
 
     /**
-	 * 
-	 */
+     * 
+     */
     private static final long serialVersionUID = 1L;
-
     private JTextField txtFieldSearchAthlete;
     private JTable tableAthletes;
     private JPanel panelAthletesSearch;
@@ -287,14 +286,14 @@ public class AthletePanel extends JPanel implements Observer {
 
     }
 
-    @Override
-    public void update(Observable arg0, Object arg1) {
-	updateStatistics();
-    }
-
     private void updateStatistics() {
 	lblSquadsAmount.setText("" + gymCupController.getGymCup().getSquads().size());
 	lblAthletesAmount.setText("" + gymCupController.getGymCup().getAllAthletes().size());
+    }
+    
+    @Override
+    public void update(Observable arg0, Object arg1) {
+	updateStatistics();
     }
 
 }

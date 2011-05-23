@@ -21,7 +21,7 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
     public AthleteDetailTableModel(Athlete athlete, GymCupController gymCupController) {
 	this.athlete = athlete;
 	this.gymCupController = gymCupController;
-	this.gymCupController.getCompetitionController().addObserver(this);
+	this.gymCupController.getGymCup().addObserver(this);
 
     }
 
@@ -33,11 +33,6 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
     public Class getColumnClass(int columnIndex) {
 	return columnTypes[columnIndex];
     }
-
-    // @SuppressWarnings({ "unchecked", "rawtypes" })
-    // public Class getColumnClass(int columnIndex) {
-    // return (Class) getValueAt(0,columnIndex);
-    // }
 
     @Override
     public String getColumnName(int columnIndex) {
@@ -123,7 +118,6 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
 	}
 
 	fireTableCellUpdated(rowIndex, columnIndex);
-	// fireTableDataChanged();
     }
 
     public void setAthlete(Athlete athlete) {
@@ -131,7 +125,7 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
     }
 
     public void update(Observable arg0, Object arg1) {
-//	fireTableDataChanged();
+	fireTableDataChanged();
     }
 
 }
