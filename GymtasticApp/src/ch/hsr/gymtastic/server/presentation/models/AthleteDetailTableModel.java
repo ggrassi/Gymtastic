@@ -8,6 +8,7 @@ import javax.swing.table.AbstractTableModel;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Mark;
+import ch.hsr.gymtastic.server.application.controller.DBController;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 
 /**
@@ -151,6 +152,7 @@ public class AthleteDetailTableModel extends AbstractTableModel implements
 				switch (columnIndex) {
 				case 1:
 					mark.setdMark((Double) value);
+					DBController.updatedMark(mark);
 					return;
 				case 2:
 					mark.seteMarkOne((Double) value);
