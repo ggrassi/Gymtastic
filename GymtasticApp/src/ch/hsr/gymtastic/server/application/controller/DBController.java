@@ -81,18 +81,17 @@ public class DBController {
 	 */
 	public static void saveReceivedSquad(Squad s, DeviceType deviceType) {
 		dbConnection = new DBConnection();
-		Collection<Athlete> ramAthletes = s.getAthlets();
-		for (Athlete ramAthlete : ramAthletes) {
+		Collection<Athlete> athletes = s.getAthlets();
+		for (Athlete athlete : athletes) {
 			Athlete dbAthlete = dbConnection.getEm().find(Athlete.class,
-					ramAthlete.getStartNr());
-			Mark ramMark = ramAthlete.getMarks().get(deviceType);
+					athlete.getStartNr());
+			Mark ramMark = athlete.getMarks().get(deviceType);
 			dbConnection.persist(ramMark);
 			dbAthlete.addMark(deviceType, ramMark);
 			dbConnection.persist(dbAthlete);
 		}
 		dbConnection.commit();
 		dbConnection.closeConnection();
-
 	}
 
 	/**
@@ -108,7 +107,8 @@ public class DBController {
 		for (Squad s : competition.getSquads()) {
 			Squad dbSquad = dbConnection.getEm().find(Squad.class, s.getId());
 			dbComp.addSquad(dbSquad);
-			System.out.println("Squad in Wettkampf hinzugefügt [DBController]");
+			System.out
+					.println("Squad in Wettkampf hinzugefügt [DBController]");
 		}
 		dbConnection.persist(dbComp);
 		dbConnection.commit();
@@ -256,6 +256,5 @@ public class DBController {
 		dbConnection.commit();
 		dbConnection.closeConnection();
 	}
-
 
 }

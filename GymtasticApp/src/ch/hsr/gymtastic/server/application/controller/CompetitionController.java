@@ -36,7 +36,6 @@ public class CompetitionController extends Observable implements Observer {
 	 */
 	public CompetitionController(NetworkServerController networkController) {
 		this.networkController = networkController;
-		this.gymCup = gymCup;
 		this.networkController.addObserver(this);
 		this.clientAllocator = this.networkController.getClientAllocater();
 		finishedClients = new HashSet<DeviceType>();

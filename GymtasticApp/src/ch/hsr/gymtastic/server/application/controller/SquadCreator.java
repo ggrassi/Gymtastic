@@ -57,7 +57,6 @@ public class SquadCreator {
 
 		for (List<String> line : importList) {
 			Athlete tmpAthlete = getAthleteFrom(line);
-
 			for (DeviceType dt : DeviceType.values()) {
 				tmpAthlete.addMark(dt, new Mark(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 			}
@@ -138,8 +137,8 @@ public class SquadCreator {
 	 */
 	private void addEmptyMarksTo(Athlete atemp) {
 
+		Mark mtemp = new Mark(0, 0, 0, 0, 0, 0);
 		for (DeviceType dt : DeviceType.values()) {
-			Mark mtemp = new Mark(0, 0, 0, 0, 0, 0);
 			db.persist(mtemp);
 			atemp.addMark(dt, mtemp);
 		}
