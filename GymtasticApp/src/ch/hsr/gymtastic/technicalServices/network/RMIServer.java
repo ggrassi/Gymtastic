@@ -10,8 +10,6 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Observable;
 import java.util.Vector;
 
-import ch.hsr.gymtastic.domain.DeviceType;
-
 /**
  * The Class RMIServer represents all Methods 
  * which can be selected from the RMIServer
@@ -41,8 +39,6 @@ public class RMIServer extends Observable implements RMIServerInterface {
 		
 		clientsWaitingForAllocation.add(new ClientInformation(client,
 				RemoteServer.getClientHost(), deviceType));
-		System.out.println("Client added");
-		
 		updateObservers();
 
 	}

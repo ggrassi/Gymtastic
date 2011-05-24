@@ -120,6 +120,5 @@ public class NetworkClientController implements Observer {
 	 */
 	public void sendObjectToServer(Serializable obj) throws ConnectException {
 		rmiClient.sendObjectToServer(obj);
-		System.out.println("Sent Squad to Server!");
 	}
 }

@@ -1,7 +1,6 @@
 package ch.hsr.gymtastic.domain;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;

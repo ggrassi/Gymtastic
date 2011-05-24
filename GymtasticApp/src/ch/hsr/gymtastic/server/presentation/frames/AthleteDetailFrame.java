@@ -51,7 +51,6 @@ public class AthleteDetailFrame {
     private JTextField txtFieldAddress;
     private JFormattedTextField txtFieldYearOfBirth;
     private JTextField txtFieldStartNr;
-    private JTextField txtFieldRank;
     private JButton btnCancel;
     private JButton btnSave;
     private JComboBox cbProgramClass;
@@ -87,14 +86,10 @@ public class AthleteDetailFrame {
      * @param gymCupController
      */
 
-    /*
-     * TODO: muss nur observer sein wenn man zB will dass bei offenem
-     * Detail-Fenster der aktuelle Rang des Athleten geupdated wird
-     */
+    
     public AthleteDetailFrame(Athlete athlete, GymCupController gymCupController) {
 	this.athlete = athlete;
 	this.gymCupController = gymCupController;
-	// this.gymCupController.addObserver(this);
 	initGUI();
 	initListeners();
 	inizializeFields();
@@ -289,7 +284,6 @@ public class AthleteDetailFrame {
 	gbc_lblYearOfBirth.gridy = 4;
 	panelPerson.add(lblYearOfBirth, gbc_lblYearOfBirth);
 
-	// txtFieldYearOfBirth = new JTextField();
 	txtFieldYearOfBirth = new JFormattedTextField(NumberFormat.getInstance());
 	GridBagConstraints gbc_txtFieldYearOfBirth = new GridBagConstraints();
 	gbc_txtFieldYearOfBirth.fill = GridBagConstraints.HORIZONTAL;
@@ -395,23 +389,6 @@ public class AthleteDetailFrame {
 	gbc_cbSquad.gridx = 1;
 	gbc_cbSquad.gridy = 2;
 	panelCompetitionInfo.add(comboBoxSquad, gbc_cbSquad);
-
-	JLabel lblRank = new JLabel("Rang: ");
-	GridBagConstraints gbc_lblRank = new GridBagConstraints();
-	gbc_lblRank.anchor = GridBagConstraints.WEST;
-	gbc_lblRank.insets = new Insets(0, 0, 0, 5);
-	gbc_lblRank.gridx = 0;
-	gbc_lblRank.gridy = 3;
-	panelCompetitionInfo.add(lblRank, gbc_lblRank);
-
-	txtFieldRank = new JTextField();
-	GridBagConstraints gbc_txtFieldRank = new GridBagConstraints();
-	gbc_txtFieldRank.fill = GridBagConstraints.HORIZONTAL;
-	gbc_txtFieldRank.gridx = 1;
-	gbc_txtFieldRank.gridy = 3;
-	panelCompetitionInfo.add(txtFieldRank, gbc_txtFieldRank);
-	txtFieldRank.setColumns(10);
-	txtFieldRank.setEnabled(false);
 
 	panelSaveCancel = new JPanel();
 	GridBagConstraints gbc_panelSaveCancel = new GridBagConstraints();

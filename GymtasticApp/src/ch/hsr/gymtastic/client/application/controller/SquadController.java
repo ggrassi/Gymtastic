@@ -6,7 +6,6 @@ import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.RoundInfo;
 import ch.hsr.gymtastic.domain.Squad;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SquadController manages a squad.
  */

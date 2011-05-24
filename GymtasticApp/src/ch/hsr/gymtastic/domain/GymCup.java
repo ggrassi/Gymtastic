@@ -376,15 +376,7 @@ public class GymCup extends Observable {
 	 *            the squad
 	 */
 	public void updateSquad(Squad squad) {
-		System.out.println("Updating Squad: " + squad.getSquadId());
 		squads.get(squad.getSquadId()).setAthlets(squad.getAthlets());
-		System.out.println("Squad overriden");
-		
-//		for (Squad s : squads.values()) {
-//			if (s.getSquadId() == squad.getSquadId()) {
-////				squads.put(squad.getSquadId(), squad);
-//			}
-//		}
 		updateObservers();
 	}
 

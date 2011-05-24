@@ -108,7 +108,6 @@ public class DBController {
 		for (Squad s : competition.getSquads()) {
 			Squad dbSquad = dbConnection.getEm().find(Squad.class, s.getId());
 			dbComp.addSquad(dbSquad);
-			System.out.println("Squad in Wettkampf hinzugefügt [DBController]");
 		}
 		dbConnection.persist(dbComp);
 		dbConnection.commit();
@@ -213,7 +212,6 @@ public class DBController {
 		GymCup dbGymCup = dbConnection.getEm().find(GymCup.class,
 				gymCup.getId());
 		dbGymCup.getCompetitions().remove(oldComp);
-		// dbConnection.remove(oldComp);
 		dbConnection.commit();
 		dbConnection.closeConnection();
 
