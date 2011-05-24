@@ -2,6 +2,7 @@ package ch.hsr.gymtastic.server.application;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -24,6 +25,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class PdfRankingTableExporter extends PdfExporter {
 
 	private String programClassName = "";
+	DecimalFormat finalMarkFormat = new DecimalFormat("#0.00"); 
 
 	/**
 	 * Instantiates a new pdf ranking table exporter.
@@ -134,25 +136,19 @@ public class PdfRankingTableExporter extends PdfExporter {
 			table.addCell(athlete.getLastName());
 			table.addCell(athlete.getYearOfBirth() + "");
 			table.addCell(athlete.getAssociation() + "");
-			table.addCell(athlete.getMarks().get(DeviceType.FLOOR_EXCERCISE)
-					.getFinalMark()
-					+ "");
-			table.addCell(athlete.getMarks().get(DeviceType.POMMEL_HORSE)
-					.getFinalMark()
-					+ "");
-			table.addCell(athlete.getMarks().get(DeviceType.STILL_RINGS)
-					.getFinalMark()
-					+ "");
-			table.addCell(athlete.getMarks().get(DeviceType.VAULT)
-					.getFinalMark()
-					+ "");
-			table.addCell(athlete.getMarks().get(DeviceType.PARALLEL_BARS)
-					.getFinalMark()
-					+ "");
-			table.addCell(athlete.getMarks().get(DeviceType.HIGH_BAR)
-					.getFinalMark()
-					+ "");
-			table.addCell(athlete.getSumOfEndMarks() + "");
+			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.FLOOR_EXCERCISE)
+					.getFinalMark()));
+			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.POMMEL_HORSE)
+					.getFinalMark()));
+			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.STILL_RINGS)
+					.getFinalMark()));
+			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.VAULT)
+					.getFinalMark()));
+			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.PARALLEL_BARS)
+					.getFinalMark()));
+			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.HIGH_BAR)
+					.getFinalMark()));
+			table.addCell(finalMarkFormat.format(athlete.getSumOfEndMarks()));
 
 			rank++;
 		}
@@ -166,7 +162,7 @@ public class PdfRankingTableExporter extends PdfExporter {
 	 * 
 	 * @return the pdf p table
 	 */
-	private static PdfPTable createTable() {
+	private PdfPTable createTable() {
 		PdfPTable table = new PdfPTable(12);
 		table.setWidthPercentage(100);
 
@@ -206,6 +202,7 @@ public class PdfRankingTableExporter extends PdfExporter {
 		return table;
 	}
 
+	
 	/**
 	 * Write the title of the total column
 	 * 
@@ -271,8 +268,6 @@ public class PdfRankingTableExporter extends PdfExporter {
 
 		for (Athlete athlete : gymCup.getAllAthletes()) {
 			if (athlete.getPrgClass().equals(programClass)) {
-				System.out.println(athlete.getFirstName());
-				System.out.println(athlete.getMarks().get(0));
 				list.add(athlete);
 			}
 		}

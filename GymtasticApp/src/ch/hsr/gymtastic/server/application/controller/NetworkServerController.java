@@ -18,7 +18,6 @@ public class NetworkServerController extends Observable implements Observer {
 
 	private RMIServer rmiServer;
 	private ClientAllocator clientsAllocater = new ClientAllocator();
-	private Vector<ClientInformation> clientsWaitingForAllocation = new Vector<ClientInformation>();
 
 	/**
 	 * Instantiates a new network server controller.
@@ -65,6 +64,7 @@ public class NetworkServerController extends Observable implements Observer {
 	public Vector<ClientInformation> getClientsWaitingForAllocation() {
 		return rmiServer.getClientsWaitingForAllocation();
 	}
+	
 
 	/*
 	 * (non-Javadoc)
