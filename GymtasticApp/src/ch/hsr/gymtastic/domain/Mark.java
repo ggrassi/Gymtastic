@@ -3,6 +3,9 @@ package ch.hsr.gymtastic.domain;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * The Class Mark holds the different marktypes, penaltys, bonus and the finalmark.
@@ -11,6 +14,9 @@ import javax.persistence.Entity;
 public class Mark implements Serializable {
 
 	private static final long serialVersionUID = -2064909882686204715L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private double dMark;
 	private double eMarkOne;
 	private double eMarkTwo;
@@ -252,6 +258,14 @@ public class Mark implements Serializable {
 		finalMark = ((eMarkOne + eMarkTwo + eMarkThree) / 3) + dMark + bonus
 		- penalty;
 		
+	}
+
+	public void setId(int id) {
+	    this.id = id;
+	}
+
+	public int getId() {
+	    return id;
 	}
 
 }
