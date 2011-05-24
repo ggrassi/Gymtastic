@@ -13,12 +13,10 @@ import java.awt.event.FocusEvent;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
@@ -28,6 +26,8 @@ import ch.hsr.gymtastic.client.presentation.frames.ClientFrame;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Mark;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * The Class EvaluationPanel shows where we can give marks to the Athletes.
@@ -49,8 +49,6 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private JPanel panelCenter;
 	private JPanel panelAthleteInfoBorder;
 	private JPanel panelAthleteInfo;
-	private JRadioButton rdbtnValid;
-	private JRadioButton rdbtnInvalid;
 	private JLabel lblFirstName;
 	private JLabel lblFirstNameField;
 	private JLabel lblLastName;
@@ -70,7 +68,6 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private JLabel lblPenalty;
 	private JLabel lblBonus;
 	private JLabel lblFinalMark;
-	private ButtonGroup buttonGroupParticipation;
 	private SquadController squadController;
 	private Athlete athlete;
 	private DeviceType deviceType;
@@ -79,38 +76,10 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private JButton btnEndEvaluation;
 	private JPanel panelRightBtn;
 	private JPanel panelLeftBtn;
+	private double finalMark = 0.0;
 
-	/**
-	 * The Class FocusAdapterMark is an Adapter Class for receiving focus
-	 * inputs.
-	 */
-	private class FocusAdapterMark extends FocusAdapter {
 
-		private final JTextField txtField;
 
-		/**
-		 * Instantiates a new focus adapter mark.
-		 * 
-		 * @param txtField
-		 *            the txt field
-		 */
-		public FocusAdapterMark(JTextField txtField) {
-			this.txtField = txtField;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.FocusAdapter#focusLost(java.awt.event.FocusEvent)
-		 */
-		public void focusLost(FocusEvent e) {
-			try {
-				Double.valueOf(txtField.getText());
-			} catch (NumberFormatException nfe) {
-				txtField.setText("");
-			}
-		}
-	};
 
 	/**
 	 * Instantiates a new evaluation panel.
@@ -143,6 +112,9 @@ public class EvaluationPanel extends JPanel implements Observer {
 				getNextAthlete();
 				loadAthleteFields();
 				checkButtons();
+				calculateFinalMarkField();
+				setFocusOnFirstMark();
+
 			}
 
 		});
@@ -153,6 +125,9 @@ public class EvaluationPanel extends JPanel implements Observer {
 				getPreviousAthlete();
 				loadAthleteFields();
 				checkButtons();
+				calculateFinalMarkField();
+				setFocusOnFirstMark();
+
 			}
 
 		});
@@ -167,6 +142,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 
 		btnOverview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setMark();
 				showOverviewPanel();
 			}
 		});
@@ -245,6 +221,14 @@ public class EvaluationPanel extends JPanel implements Observer {
 		panelAthleteInfoBorder.add(panelAthleteInfo, gbc_panelAthleteInfo);
 		GridBagLayout gbl_panelAthleteInfo = new GridBagLayout();
 		gbl_panelAthleteInfo.columnWidths = new int[] { 121, 0, 0 };
+		gbl_panelAthleteInfo.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0 };
+		gbl_panelAthleteInfo.columnWeights = new double[] { 0.0, 0.0,
+				Double.MIN_VALUE };
+		gbl_panelAthleteInfo.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		panelAthleteInfo.setLayout(gbl_panelAthleteInfo);
+
 		gbl_panelAthleteInfo.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panelAthleteInfo.columnWeights = new double[] { 0.0, 0.0,
 				Double.MIN_VALUE };
@@ -252,32 +236,46 @@ public class EvaluationPanel extends JPanel implements Observer {
 				0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panelAthleteInfo.setLayout(gbl_panelAthleteInfo);
 
-		rdbtnValid = new JRadioButton("tritt an");
-		GridBagConstraints gbc_rdbtnValid = new GridBagConstraints();
-		gbc_rdbtnValid.anchor = GridBagConstraints.WEST;
-		gbc_rdbtnValid.insets = new Insets(0, 0, 5, 5);
-		gbc_rdbtnValid.gridx = 0;
-		gbc_rdbtnValid.gridy = 0;
-		panelAthleteInfo.add(rdbtnValid, gbc_rdbtnValid);
-
-		rdbtnInvalid = new JRadioButton("tritt nicht an");
-		GridBagConstraints gbc_rdbtnInvalid = new GridBagConstraints();
-		gbc_rdbtnInvalid.anchor = GridBagConstraints.WEST;
-		gbc_rdbtnInvalid.insets = new Insets(0, 0, 5, 5);
-		gbc_rdbtnInvalid.gridx = 0;
-		gbc_rdbtnInvalid.gridy = 1;
-		panelAthleteInfo.add(rdbtnInvalid, gbc_rdbtnInvalid);
-
-		buttonGroupParticipation = new ButtonGroup();
-		buttonGroupParticipation.add(rdbtnValid);
-		buttonGroupParticipation.add(rdbtnInvalid);
-		rdbtnValid.setSelected(true);
-
 		lblFirstName = new JLabel("Vorname:");
 		GridBagConstraints gbc_lblFirstName = new GridBagConstraints();
 		gbc_lblFirstName.anchor = GridBagConstraints.WEST;
 		gbc_lblFirstName.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFirstName.gridx = 0;
+		gbc_lblFirstName.gridy = 0;
+		panelAthleteInfo.add(lblFirstName, gbc_lblFirstName);
+
+		lblLastName = new JLabel("Nachname:");
+		GridBagConstraints gbc_lblLastName = new GridBagConstraints();
+		gbc_lblLastName.anchor = GridBagConstraints.WEST;
+		gbc_lblLastName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLastName.gridx = 0;
+		gbc_lblLastName.gridy = 1;
+		panelAthleteInfo.add(lblLastName, gbc_lblLastName);
+
+		lblSquad = new JLabel("Riege:");
+		GridBagConstraints gbc_lblSquad = new GridBagConstraints();
+		gbc_lblSquad.anchor = GridBagConstraints.WEST;
+		gbc_lblSquad.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSquad.gridx = 0;
+		gbc_lblSquad.gridy = 2;
+		panelAthleteInfo.add(lblSquad, gbc_lblSquad);
+
+		lblPrgClass = new JLabel("Programmklasse:");
+		GridBagConstraints gbc_lblPrgClass = new GridBagConstraints();
+		gbc_lblPrgClass.anchor = GridBagConstraints.WEST;
+		gbc_lblPrgClass.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPrgClass.gridx = 0;
+		gbc_lblPrgClass.gridy = 3;
+		panelAthleteInfo.add(lblPrgClass, gbc_lblPrgClass);
+
+		lblStartNr = new JLabel("Startnummer:");
+		GridBagConstraints gbc_lblStartNr = new GridBagConstraints();
+		gbc_lblStartNr.anchor = GridBagConstraints.WEST;
+		gbc_lblStartNr.insets = new Insets(0, 0, 5, 5);
+		gbc_lblStartNr.gridx = 0;
+		gbc_lblStartNr.gridy = 4;
+		panelAthleteInfo.add(lblStartNr, gbc_lblStartNr);
+
 		gbc_lblFirstName.gridy = 2;
 		panelAthleteInfo.add(lblFirstName, gbc_lblFirstName);
 
@@ -286,69 +284,82 @@ public class EvaluationPanel extends JPanel implements Observer {
 		gbc_lblFirstNameField.anchor = GridBagConstraints.WEST;
 		gbc_lblFirstNameField.insets = new Insets(0, 0, 5, 0);
 		gbc_lblFirstNameField.gridx = 1;
+		gbc_lblFirstNameField.gridy = 0;
+		panelAthleteInfo.add(lblFirstNameField, gbc_lblFirstNameField);
+
 		gbc_lblFirstNameField.gridy = 2;
 		panelAthleteInfo.add(lblFirstNameField, gbc_lblFirstNameField);
 
 		lblLastName = new JLabel("Nachname:");
-		GridBagConstraints gbc_lblLastName = new GridBagConstraints();
-		gbc_lblLastName.anchor = GridBagConstraints.WEST;
-		gbc_lblLastName.insets = new Insets(0, 0, 5, 5);
-		gbc_lblLastName.gridx = 0;
-		gbc_lblLastName.gridy = 3;
-		panelAthleteInfo.add(lblLastName, gbc_lblLastName);
+		GridBagConstraints gbc_lblLastName1 = new GridBagConstraints();
+		gbc_lblLastName1.anchor = GridBagConstraints.WEST;
+		gbc_lblLastName1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblLastName1.gridx = 0;
+		gbc_lblLastName1.gridy = 3;
+		panelAthleteInfo.add(lblLastName, gbc_lblLastName1);
 
 		lblLastNameField = new JLabel("");
 		GridBagConstraints gbc_lblLastNameField = new GridBagConstraints();
 		gbc_lblLastNameField.anchor = GridBagConstraints.WEST;
 		gbc_lblLastNameField.insets = new Insets(0, 0, 5, 0);
 		gbc_lblLastNameField.gridx = 1;
+		gbc_lblLastNameField.gridy = 1;
+		panelAthleteInfo.add(lblLastNameField, gbc_lblLastNameField);
+
 		gbc_lblLastNameField.gridy = 3;
 		panelAthleteInfo.add(lblLastNameField, gbc_lblLastNameField);
 
 		lblSquad = new JLabel("Riege:");
-		GridBagConstraints gbc_lblSquad = new GridBagConstraints();
-		gbc_lblSquad.anchor = GridBagConstraints.WEST;
-		gbc_lblSquad.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSquad.gridx = 0;
-		gbc_lblSquad.gridy = 4;
-		panelAthleteInfo.add(lblSquad, gbc_lblSquad);
+		GridBagConstraints gbc_lblSquad1 = new GridBagConstraints();
+		gbc_lblSquad1.anchor = GridBagConstraints.WEST;
+		gbc_lblSquad1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSquad1.gridx = 0;
+		gbc_lblSquad1.gridy = 4;
+		panelAthleteInfo.add(lblSquad, gbc_lblSquad1);
 
 		lblSquadField = new JLabel("");
 		GridBagConstraints gbc_lblSquadField = new GridBagConstraints();
 		gbc_lblSquadField.anchor = GridBagConstraints.WEST;
 		gbc_lblSquadField.insets = new Insets(0, 0, 5, 0);
 		gbc_lblSquadField.gridx = 1;
+		gbc_lblSquadField.gridy = 2;
+		panelAthleteInfo.add(lblSquadField, gbc_lblSquadField);
+
 		gbc_lblSquadField.gridy = 4;
 		panelAthleteInfo.add(lblSquadField, gbc_lblSquadField);
 
 		lblPrgClass = new JLabel("Programmklasse:");
-		GridBagConstraints gbc_lblPrgClass = new GridBagConstraints();
-		gbc_lblPrgClass.anchor = GridBagConstraints.WEST;
-		gbc_lblPrgClass.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPrgClass.gridx = 0;
-		gbc_lblPrgClass.gridy = 5;
-		panelAthleteInfo.add(lblPrgClass, gbc_lblPrgClass);
+		GridBagConstraints gbc_lblPrgClass1 = new GridBagConstraints();
+		gbc_lblPrgClass1.anchor = GridBagConstraints.WEST;
+		gbc_lblPrgClass1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPrgClass1.gridx = 0;
+		gbc_lblPrgClass1.gridy = 5;
+		panelAthleteInfo.add(lblPrgClass, gbc_lblPrgClass1);
 
 		lblPrgClassField = new JLabel("");
 		GridBagConstraints gbc_lblPrgClassField = new GridBagConstraints();
 		gbc_lblPrgClassField.anchor = GridBagConstraints.WEST;
 		gbc_lblPrgClassField.insets = new Insets(0, 0, 5, 0);
 		gbc_lblPrgClassField.gridx = 1;
+		gbc_lblPrgClassField.gridy = 3;
+		panelAthleteInfo.add(lblPrgClassField, gbc_lblPrgClassField);
+
 		gbc_lblPrgClassField.gridy = 5;
 		panelAthleteInfo.add(lblPrgClassField, gbc_lblPrgClassField);
 
 		lblStartNr = new JLabel("Startnummer:");
-		GridBagConstraints gbc_lblStartNr = new GridBagConstraints();
-		gbc_lblStartNr.anchor = GridBagConstraints.WEST;
-		gbc_lblStartNr.insets = new Insets(0, 0, 0, 5);
-		gbc_lblStartNr.gridx = 0;
-		gbc_lblStartNr.gridy = 6;
-		panelAthleteInfo.add(lblStartNr, gbc_lblStartNr);
+		GridBagConstraints gbc_lblStartNr1 = new GridBagConstraints();
+		gbc_lblStartNr1.anchor = GridBagConstraints.WEST;
+		gbc_lblStartNr1.insets = new Insets(0, 0, 0, 5);
+		gbc_lblStartNr1.gridx = 0;
+		gbc_lblStartNr1.gridy = 6;
+		panelAthleteInfo.add(lblStartNr, gbc_lblStartNr1);
 
 		lblStartNrField = new JLabel("");
 		GridBagConstraints gbc_lblStartNrField = new GridBagConstraints();
 		gbc_lblStartNrField.anchor = GridBagConstraints.WEST;
 		gbc_lblStartNrField.gridx = 1;
+		gbc_lblStartNrField.gridy = 4;
 		gbc_lblStartNrField.gridy = 6;
 		panelAthleteInfo.add(lblStartNrField, gbc_lblStartNrField);
 
@@ -515,16 +526,20 @@ public class EvaluationPanel extends JPanel implements Observer {
 		gbc_txtFieldFinalMark.gridy = 6;
 		panelMarks.add(txtFieldFinalMark, gbc_txtFieldFinalMark);
 		txtFieldFinalMark.setColumns(10);
+
 		getNextAthlete();
 		loadAthleteFields();
 		checkButtons();
+		setFocusOnFirstMark();
+
+		setKeyTypedListener();
+		txtFieldFinalMark.setText("" + finalMark);
 	}
 
 	/**
 	 * Sets the mark to the appropriate DeviceType
 	 */
 	private void setMark() {
-
 		athlete.addMark(deviceType, getMarkFromInput());
 
 	}
@@ -535,29 +550,24 @@ public class EvaluationPanel extends JPanel implements Observer {
 	 * @return the mark from input
 	 */
 	private Mark getMarkFromInput() {
-		/*
-		 * TODO: Input Verifier f�r Noten
-		 */
 		try {
 			double dMark = Double.valueOf(txtFieldDMark.getText());
 			double eMark1 = Double.valueOf(txtFieldEMark1.getText());
-			double eMark2 = Double.valueOf(txtFieldEMark1.getText());
-			double eMark3 = Double.valueOf(txtFieldEMark1.getText());
+			double eMark2 = Double.valueOf(txtFieldEMark2.getText());
+			double eMark3 = Double.valueOf(txtFieldEMark3.getText());
 			double penalty = Double.valueOf(txtFieldPenalty.getText());
 			double bonus = Double.valueOf(txtFieldBonus.getText());
 			return new Mark(dMark, eMark1, eMark2, eMark3, penalty, bonus);
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(frameClient.getFrame(),
+					"Es d\u00fcrfen keine Notenfelder leer gelassen werden.",
 					"Es d�rfen keine Notenfelder leer gelassen werden.",
-					"Eingabefehler", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.ERROR_MESSAGE);
 		}
 		return null;
 
 	}
 
-	/**
-	 * Load athlete fields with the appropriate Athlete Details
-	 */
 	private void loadAthleteFields() {
 		if (athlete != null) {
 			lblFirstNameField.setText(athlete.getFirstName());
@@ -569,9 +579,6 @@ public class EvaluationPanel extends JPanel implements Observer {
 		}
 	}
 
-	/**
-	 * Load ahtlete marks into the textfields
-	 */
 	private void loadAhtleteMarks() {
 		if (athlete.getMark(deviceType) != null) {
 			txtFieldDMark.setText("" + athlete.getMark(deviceType).getdMark());
@@ -589,9 +596,6 @@ public class EvaluationPanel extends JPanel implements Observer {
 		}
 	}
 
-	/**
-	 * Inits the mark fields.
-	 */
 	private void initMarkFields() {
 		txtFieldDMark.setText("");
 		txtFieldEMark1.setText("");
@@ -601,9 +605,6 @@ public class EvaluationPanel extends JPanel implements Observer {
 		txtFieldPenalty.setText("");
 	}
 
-	/**
-	 * Check if buttons should be enabled or not
-	 */
 	private void checkButtons() {
 		if (squadController.hasNextAthlete()) {
 			btnNext.setEnabled(true);
@@ -619,56 +620,112 @@ public class EvaluationPanel extends JPanel implements Observer {
 		}
 	}
 
-	/**
-	 * Show the end button if the last Athlete appears.
-	 */
 	private void showEndButton() {
 		btnNext.setVisible(false);
 		btnEndEvaluation.setVisible(true);
 	}
 
-	/**
-	 * Show next button.
-	 */
 	private void showNextButton() {
 		btnNext.setVisible(true);
 		btnEndEvaluation.setVisible(false);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-	 */
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		loadAthleteFields();
-
-	}
-
-	/**
-	 * Gets the next athlete.
-	 * 
-	 * @return the next athlete
-	 */
 	private void getNextAthlete() {
 		athlete = squadController.getNextAthlete();
 	}
 
-	/**
-	 * Gets the previous athlete.
-	 * 
-	 * @return the previous athlete
-	 */
 	private void getPreviousAthlete() {
 		athlete = squadController.getPreviousAthlete();
 	}
 
-	/**
-	 * Show overview panel.
-	 */
 	private void showOverviewPanel() {
 		frameClient.setFocusOnPanel(2);
+	}
+
+	private void setFocusOnFirstMark() {
+		txtFieldDMark.requestFocusInWindow();
+	}
+
+	private void setKeyTypedListener() {
+		txtFieldDMark.addKeyListener(calculateFinalMarkAdapter);
+		txtFieldEMark1.addKeyListener(calculateFinalMarkAdapter);
+		txtFieldEMark2.addKeyListener(calculateFinalMarkAdapter);
+		txtFieldEMark3.addKeyListener(calculateFinalMarkAdapter);
+		txtFieldBonus.addKeyListener(calculateFinalMarkAdapter);
+		txtFieldPenalty.addKeyListener(calculateFinalMarkAdapter);
+	}
+
+	private void calculateFinalMarkField() {
+		try {
+
+			finalMark = ((Double.parseDouble(txtFieldEMark1.getText())
+					+ Double.parseDouble(txtFieldEMark2.getText()) + Double
+					.parseDouble(txtFieldEMark3.getText())) / 3)
+					+ Double.parseDouble(txtFieldDMark.getText())
+					+ Double.parseDouble(txtFieldBonus.getText())
+					- Double.parseDouble(txtFieldPenalty.getText());
+			txtFieldFinalMark.setText("" + finalMark);
+
+			btnNext.setEnabled(true);
+			btnPrevious.setEnabled(true);
+			btnEndEvaluation.setEnabled(true);
+			btnOverview.setEnabled(true);
+			btnNext.setToolTipText(null);
+			btnPrevious.setToolTipText(null);
+			btnEndEvaluation.setToolTipText(null);
+			btnOverview.setToolTipText(null);
+
+			frameClient.setOverviewAndActualSquadPanelsEnabled();
+
+			checkButtons();
+
+		} catch (NumberFormatException nfe) {
+			txtFieldFinalMark.setText("Endnote kann nicht berechnet werden.");
+
+			frameClient.setOverviewAndActualSquadPanelsDisabled();
+
+			btnNext.setEnabled(false);
+			btnPrevious.setEnabled(false);
+			btnEndEvaluation.setEnabled(false);
+			btnOverview.setEnabled(false);
+			btnNext.setToolTipText("Der Athlet muss zuerst korrekt bewertet werden.");
+			btnPrevious
+					.setToolTipText("Der Athlet muss zuerst korrekt bewertet werden.");
+			btnEndEvaluation
+					.setToolTipText("Der Athlet muss zuerst korrekt bewertet werden.");
+			btnOverview
+					.setToolTipText("Der Athlet muss zuerst korrekt bewertet werden.");
+		}
+	}
+
+	private class FocusAdapterMark extends FocusAdapter {
+		private final JTextField txtField;
+
+		public FocusAdapterMark(JTextField txtField) {
+			this.txtField = txtField;
+		}
+
+		public void focusLost(FocusEvent e) {
+			try {
+				Double.valueOf(txtField.getText());
+			} catch (NumberFormatException nfe) {
+				txtField.setText("");
+			}
+		}
+	};
+
+	private KeyAdapter calculateFinalMarkAdapter = new KeyAdapter() {
+		@Override
+		public void keyReleased(KeyEvent e) {
+			calculateFinalMarkField();
+		}
+
+	};
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		loadAthleteFields();
+
 	}
 
 }
