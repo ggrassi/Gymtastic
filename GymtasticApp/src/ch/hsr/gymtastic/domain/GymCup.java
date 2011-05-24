@@ -450,7 +450,7 @@ public class GymCup extends Observable {
 		for (Squad squad : selectedSquads) {
 			competition.addSquad(squads.get(squad.getSquadId()));
 		}
-//		squadsUnallocated.removeAll(selectedSquads);
+		squadsUnallocated.removeAll(selectedSquads);
 
 	}
 
