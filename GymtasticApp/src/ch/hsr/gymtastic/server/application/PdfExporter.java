@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.technicalServices.utils;
+package ch.hsr.gymtastic.server.application;
 
 import ch.hsr.gymtastic.domain.GymCup;
 

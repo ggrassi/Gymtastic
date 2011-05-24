@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.server.presentation.frames.panels;
+package ch.hsr.gymtastic.server.presentation.panels;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
@@ -29,11 +29,11 @@ import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.domain.Mark;
 import ch.hsr.gymtastic.domain.Squad;
+import ch.hsr.gymtastic.server.application.PdfRankingTableExporter;
+import ch.hsr.gymtastic.server.application.PdfStartlistExporter;
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
 import ch.hsr.gymtastic.server.presentation.frames.ProgramClassComboBoxModel;
 import ch.hsr.gymtastic.server.presentation.models.CompetitionComboBoxModel;
-import ch.hsr.gymtastic.technicalServices.utils.PdfRankingTableExporter;
-import ch.hsr.gymtastic.technicalServices.utils.PdfStartlistExporter;
 
 import com.itextpdf.text.DocumentException;
 

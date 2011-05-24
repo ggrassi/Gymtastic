@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic;
+package ch.hsr.gymtastic.server.presentation;
 
 public class FileFactory {
     public static final String icons = "icons/";

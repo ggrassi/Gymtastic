@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.technicalServices.utils;
+package ch.hsr.gymtastic.server.presentation;
 
 import java.awt.Component;
 import java.awt.Cursor;

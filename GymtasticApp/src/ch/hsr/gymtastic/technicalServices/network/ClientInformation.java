@@ -1,6 +1,6 @@
 package ch.hsr.gymtastic.technicalServices.network;
 
-import ch.hsr.gymtastic.domain.DeviceType;
+import java.io.Serializable;
 
 /**
  * The Class ClientInformation holds the Information for the Client to connect to the Server.
@@ -9,7 +9,7 @@ public class ClientInformation {
 
 	private RMIClientInterface stub;
 	private String ipAddress;
-	private DeviceType deviceType;
+	private Serializable deviceType;
 
 	/**
 	 * Instantiates a new client information.
@@ -22,10 +22,10 @@ public class ClientInformation {
 	 *            the device type
 	 */
 	public ClientInformation(RMIClientInterface stub, String host,
-			DeviceType deviceType) {
+			Serializable deviceType) {
 		this.stub = stub;
 		this.ipAddress = host;
-		this.setDeviceType(deviceType);
+		this.deviceType =  deviceType;
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class ClientInformation {
 	 * @param deviceType
 	 *            the new device type
 	 */
-	public void setDeviceType(DeviceType deviceType) {
+	public void setDeviceType(Serializable deviceType) {
 		this.deviceType = deviceType;
 	}
 
@@ -62,7 +62,7 @@ public class ClientInformation {
 	 * 
 	 * @return the device type
 	 */
-	public DeviceType getDeviceType() {
+	public Serializable getDeviceType() {
 		return deviceType;
 	}
 

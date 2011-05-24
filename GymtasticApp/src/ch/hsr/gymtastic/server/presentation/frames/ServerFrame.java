@@ -11,12 +11,12 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
-import ch.hsr.gymtastic.server.presentation.frames.panels.AthletePanel;
-import ch.hsr.gymtastic.server.presentation.frames.panels.CompetitionPanel;
-import ch.hsr.gymtastic.server.presentation.frames.panels.CupManagementPanel;
-import ch.hsr.gymtastic.server.presentation.frames.panels.DeviceTypePanel;
-import ch.hsr.gymtastic.server.presentation.frames.panels.RankingPanel;
-import ch.hsr.gymtastic.server.presentation.frames.panels.RoundAllocationPanel;
+import ch.hsr.gymtastic.server.presentation.panels.AthletePanel;
+import ch.hsr.gymtastic.server.presentation.panels.CompetitionPanel;
+import ch.hsr.gymtastic.server.presentation.panels.CupManagementPanel;
+import ch.hsr.gymtastic.server.presentation.panels.DeviceTypePanel;
+import ch.hsr.gymtastic.server.presentation.panels.RankingPanel;
+import ch.hsr.gymtastic.server.presentation.panels.RoundAllocationPanel;
 
 public class ServerFrame implements Observer {
 

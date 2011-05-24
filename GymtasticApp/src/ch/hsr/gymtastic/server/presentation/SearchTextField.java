@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.technicalServices.utils;
+package ch.hsr.gymtastic.server.presentation;
 
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -7,8 +7,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import ch.hsr.gymtastic.FileFactory;
-import ch.hsr.gymtastic.technicalServices.utils.ComponentBorder.Edge;
+import ch.hsr.gymtastic.server.presentation.FileFactory;
+import ch.hsr.gymtastic.server.presentation.ComponentBorder.Edge;
 
 /**
  * The Class SearchTextField is a JTextField optimized for a search field.

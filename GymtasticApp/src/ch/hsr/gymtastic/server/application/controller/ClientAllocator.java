@@ -80,9 +80,7 @@ public class ClientAllocator {
 	 */
 	public void addAll(Vector<ClientInformation> clients) {
 		for (ClientInformation c : clients) {
-			System.out.println("Allocating Client: " + c.getHost() + " to "
-					+ c.getDeviceType());
-			alloc.put(c.getDeviceType(), c);
+			alloc.put((DeviceType) c.getDeviceType(), c);
 
 		}
 

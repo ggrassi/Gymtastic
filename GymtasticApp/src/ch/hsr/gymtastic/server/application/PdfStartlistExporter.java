@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.technicalServices.utils;
+package ch.hsr.gymtastic.server.application;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -7,6 +7,7 @@ import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.domain.Squad;
+import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;

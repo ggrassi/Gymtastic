@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.client.presentation.frames.panels;
+package ch.hsr.gymtastic.client.presentation.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

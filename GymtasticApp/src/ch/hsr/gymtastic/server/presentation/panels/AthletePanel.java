@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.server.presentation.frames.panels;
+package ch.hsr.gymtastic.server.presentation.panels;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -27,9 +27,9 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 
 import ch.hsr.gymtastic.server.application.controller.GymCupController;
+import ch.hsr.gymtastic.server.presentation.SearchTextField;
 import ch.hsr.gymtastic.server.presentation.frames.AthleteDetailFrame;
 import ch.hsr.gymtastic.server.presentation.models.AthleteDataTableModel;
-import ch.hsr.gymtastic.technicalServices.utils.SearchTextField;
 
 /**
  * The Class AthletePanel contains all Athletes of a Cup
