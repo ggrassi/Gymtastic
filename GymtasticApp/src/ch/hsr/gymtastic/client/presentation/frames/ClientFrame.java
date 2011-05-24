@@ -19,7 +19,6 @@ import ch.hsr.gymtastic.client.presentation.panels.OverviewPanel;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ClientFrame represents the Client GUI.
  */

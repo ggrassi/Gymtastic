@@ -91,7 +91,6 @@ public class DeviceTypeTableModel extends AbstractTableModel implements
 	private ClientInformation getClient(int rowIndex) {
 		ClientInformation client = networkController
 				.getClientsWaitingForAllocation().get(rowIndex);
-		System.out.println(client.getHost());
 		return client;
 	}
 
@@ -103,7 +102,6 @@ public class DeviceTypeTableModel extends AbstractTableModel implements
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		fireTableDataChanged();
-		System.out.println("TABLE UPDATE");
 	}
 
 	/*

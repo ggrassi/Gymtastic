@@ -36,7 +36,6 @@ public class ImagePanel extends JPanel {
 		repaint();
 	    }
 	} catch (IOException ex) {
-	    // handle exception...
 	}
 	return image;
     }

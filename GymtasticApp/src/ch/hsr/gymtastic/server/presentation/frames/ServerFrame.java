@@ -60,8 +60,6 @@ public class ServerFrame implements Observer {
 		this.gymCupController = new GymCupController();
 		this.gymCupController.addObserver(this);
 		initialize();
-		// invokeFrame();
-
 	}
 
 	public JFrame getFrameServer() {
@@ -77,7 +75,6 @@ public class ServerFrame implements Observer {
 		frameServer.setBounds(100, 100, 638, 474);
 		frameServer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frameServer.setTitle("Gymtastic Server");
-		// frameServer.setExtendedState(Frame.MAXIMIZED_BOTH);
 
 		tabbedPaneServer = new JTabbedPane(JTabbedPane.TOP);
 		frameServer.getContentPane().add(tabbedPaneServer, BorderLayout.CENTER);
@@ -94,84 +91,7 @@ public class ServerFrame implements Observer {
 
 	}
 
-	private void invokeFrame() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					// ServerFrame window = new ServerFrame();
-					// window.frameServer.setVisible(true);
-					frameServer.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/*
-	 * TODO: DELETE emulateCup()
-	 */
-	public static void emulateCup() {
-
-		/* create a cup */
-		// System.out.println("******** Cup *************");
-		// cup = new GymCup("HSR Cup", "Rapperswil");
-
-		/* Import the starter file */
-		// ImportStartList importList = new ImportStartList(
-		// "src/ch/hsr/gymtastic/technicalServices/utils/Startliste_Bsp.txt");
-		// System.out.println("******** Import *************");
-		// importList.readImport();
-		// importList.toString();
-
-		// /* generate Squads with importlist */
-		// System.out.println("******** Squad Generator *************");
-		// SquadCreator squadCreator = new SquadCreator(importList);
-		// squadCreator.insertImportToDB();
-		// cup.importAllSquads();
-		// // brauchts nur für Review damit Startliste generiert wird
-		// cup.addSquads(squadCreator.createSquads());
-
-		/* create a competition in the cup */
-		// System.out.println("******** Competition *************");
-		// Competition competition1 = new Competition("Wettkampf1", new
-		// GregorianCalendar(2011, 04, 04, 16, 0, 0),
-		// "Wettkampf Programm 1");
-		// cup.addCompetition(competition1);
-
-		/* Riegeneinteilung - die ersten 6 Riegen zum Wettkampf1 hinzuf�gen */
-		// System.out.println("******** Add squads to Competition *************");
-		// competition1.addSquad(cup.getSquad(1));
-		// competition1.addSquad(cup.getSquad(2));
-		// competition1.addSquad(cup.getSquad(3));
-		// competition1.addSquad(cup.getSquad(4));
-		// competition1.addSquad(cup.getSquad(5));
-		// competition1.addSquad(cup.getSquad(6));
-		//
-		// /* create the round allocation for the competition */
-		// RoundAllocation ra = new RoundAllocation(competition1.getSquads());
-		// competition1.addRoundAllocation(ra);
-
-		// System.out.println("******** Round Allocation Generator *************");
-		// RoundAllocation ra = new RoundAllocation(squads);
-		// System.out.println("Riege vor der Rotation");
-		// System.out.println(ra.getRoundAllocation(0));
-		// System.out.println("Riege nach der Rotation");
-		// System.out.println(ra.roundChange(ra.getRoundAllocation(0)));
-		// //
-
-		/* create a startlist pdf */
-		// PdfExport export = new PdfExport(cup.getSquads());
-		// try {
-		// export
-		// .createStartList("src/ch/hsr/gymtastic/technicalServices/utils/Startliste.pdf");
-		// } catch (FileNotFoundException e) {
-		// e.printStackTrace();
-		// } catch (DocumentException e) {
-		// e.printStackTrace();
-		// }
-	}
-
+	
 	private void createPanels() {
 		if (panelCompetition == null) {
 

@@ -63,7 +63,6 @@ public class Competition extends Observable {
 	 */
 	public void setSquads(List<Squad> squads) {
 		this.squads = squads;
-//		updateObservers();
 	}
 
 	/**
@@ -82,7 +81,6 @@ public class Competition extends Observable {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
-//		updateObservers();
 	}
 
 	/**
@@ -101,7 +99,6 @@ public class Competition extends Observable {
 	 */
 	public void setStartTime(String startTime) {
 		this.startTime = startTime;
-//		updateObservers();
 	}
 
 	/**
@@ -120,7 +117,6 @@ public class Competition extends Observable {
 	 */
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
-//		updateObservers();
 	}
 
 	/**
@@ -139,7 +135,6 @@ public class Competition extends Observable {
 	 */
 	public void setDate(GregorianCalendar date) {
 		this.date = date;
-//		updateObservers();
 	}
 
 	/**

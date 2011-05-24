@@ -203,7 +203,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_lblStartDate.gridy = 1;
 		panelGeneralInfo.add(lblStartDate, gbc_lblStartDate);
 
-//		txtFieldStartDate = new JTextField();
 		txtFieldStartDate = new JFormattedTextField(new DateFormatter(DateFormat
 			.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
 
@@ -471,8 +470,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 					String path = chooser.getSelectedFile().getAbsolutePath();
 					pathCup = path;
 					isNewCup = false;
-					// gymCupController.setExistingGymcup(pathImport);
-					System.out.println(path);
 					DBController.setPath(pathCup);
 					gymCupController.setExistingGymcup();
 					btnImportStartList.setEnabled(false);
@@ -499,7 +496,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 				int returnVal = chooser.showOpenDialog(panelImport);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					String path = chooser.getSelectedFile().getAbsolutePath();
-					System.out.println(path);
 					pathImport = path;
 					isNewImportList = true;
 					isNewCup = true;
@@ -520,7 +516,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 				int returnVal = chooser.showOpenDialog(panelImport);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					String path = chooser.getSelectedFile().getAbsolutePath();
-					System.out.println(path);
 					panelLogo.generateImage(path);
 					isNewImage = true;
 					lblLogo.setText("");
@@ -628,7 +623,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		updateContent();
-		System.out.println("update from cupmgmt panel");
 	}
 
 	/**

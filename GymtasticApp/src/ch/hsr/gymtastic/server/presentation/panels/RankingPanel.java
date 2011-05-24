@@ -76,59 +76,47 @@ public class RankingPanel extends JPanel implements Observer {
 				int result = chooser.showSaveDialog(null);
 
 				if (result == JFileChooser.APPROVE_OPTION) {
-					if (rdbtnRankingList.isSelected()) {
-						PdfRankingTableExporter pdfRankingTableExporter = new PdfRankingTableExporter(
-								gymCupController.getGymCup(), chooser
-										.getSelectedFile().getAbsolutePath());
 
-						if (comboBoxRankingModel.getSelectedItem().toString()
-								.equalsIgnoreCase("Alle")) {
+					try {
+						if (rdbtnRankingList.isSelected()) {
+							PdfRankingTableExporter pdfRankingTableExporter = new PdfRankingTableExporter(
+									gymCupController.getGymCup(), chooser
+											.getSelectedFile()
+											.getAbsolutePath());
 
-							try {
+							if (comboBoxRankingModel.getSelectedItem()
+									.toString().equalsIgnoreCase("Alle")) {
+
 								pdfRankingTableExporter
 										.createTotalRankingList();
-							} catch (FileNotFoundException e1) {
-								e1.printStackTrace();
-							} catch (DocumentException e1) {
-								e1.printStackTrace();
-							}
-						} else {
-							try {
+							} else {
 								pdfRankingTableExporter
 										.createProgramClassRankingList(comboBoxRankingModel
 												.getSelectedItem().toString());
-							} catch (FileNotFoundException e1) {
-								e1.printStackTrace();
-							} catch (DocumentException e1) {
-								e1.printStackTrace();
-							}
-						}
-					} else {
-						PdfStartlistExporter pdfStartlistExporter = new PdfStartlistExporter(
-								gymCupController.getGymCup(), chooser
-										.getSelectedFile().getAbsolutePath());
-						if (comboBoxStartlistModel.getSelectedItem().toString()
-								.equalsIgnoreCase("Alle")) {
-
-							try {
-								pdfStartlistExporter.createTotalStartlist();
-							} catch (FileNotFoundException e1) {
-								e1.printStackTrace();
-							} catch (DocumentException e1) {
-								e1.printStackTrace();
 							}
 						} else {
-							try {
+							PdfStartlistExporter pdfStartlistExporter = new PdfStartlistExporter(
+									gymCupController.getGymCup(), chooser
+											.getSelectedFile()
+											.getAbsolutePath());
+							if (comboBoxStartlistModel.getSelectedItem()
+									.toString().equalsIgnoreCase("Alle")) {
+
+								pdfStartlistExporter.createTotalStartlist();
+							} else {
 								pdfStartlistExporter
 										.createCompetitionStartlist(comboBoxStartlistModel
 												.getSelectedItem().toString());
-							} catch (FileNotFoundException e1) {
-								e1.printStackTrace();
-							} catch (DocumentException e1) {
-								e1.printStackTrace();
+
 							}
 						}
+
+					} catch (FileNotFoundException e1) {
+						e1.printStackTrace();
+					} catch (DocumentException e1) {
+						e1.printStackTrace();
 					}
+
 				}
 			}
 		});
@@ -278,7 +266,7 @@ public class RankingPanel extends JPanel implements Observer {
 	}
 
 	/**
-	 * Updates the ComboBoxes 
+	 * Updates the ComboBoxes
 	 */
 	private void updateComboBox() {
 		comboBoxStartlistModel = new CompetitionComboBoxModel(gymCupController
