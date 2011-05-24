@@ -6,22 +6,26 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.text.DateFormat;
 import java.text.ParseException;
-import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.DateFormatter;
 
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.Squad;
@@ -78,46 +82,19 @@ public class CompetitionPanel extends JPanel {
      */
     private void initListeners() {
 
-	txtFieldDate.addFocusListener(new FocusAdapter() {
-	    public void focusLost(FocusEvent e) {
-		GregorianCalendar date = null;
-		try {
-		    date = DateFormatConverter.convertStringToDate(txtFieldDate.getText());
-		} catch (ParseException e1) {
-		    if (date != new GregorianCalendar()) {
-			txtFieldDate.setToolTipText("Bitte Format richtig eingeben: '01.02.2011'");
-			txtFieldDate.setText("");
-		    }
-		}
-	    }
-	});
-
 	btnCancel.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-
 		if (isActualCompetitionChanged()) {
 		    updateCompetitionTextFields();
 		}
 		competitionOverviewTableModel.fireTableDataChanged();
-		actualCompetition = null;
+		updateSaveCanelButtons(false);
 	    }
-
 	});
 
 	btnDeleteCompetition.addActionListener(new ActionListener() {
-
 	    public void actionPerformed(ActionEvent e) {
-		if (actualCompetition == null) {
-		    System.out.println("keine Comp ausgewählt zum löschen");
-		    return;
-		}
-		if (actualCompetition.equals(gymCupController.getCompetitionController().getActualCompetition())) {
-
-		    System.out.println("aktive Comp ausgewählt, darf nicht gelöscht werden ");
-		    return;
-		}
-
 		if (gymCupController.getGymCup().getCompetitions().remove(actualCompetition)) {
 		    competitionOverviewTableModel.fireTableDataChanged();
 		    DBController.deleteCompetitionFromGymCup(actualCompetition, gymCupController.getGymCup());
@@ -128,49 +105,41 @@ public class CompetitionPanel extends JPanel {
 
 	btnSaveCompetition.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
-		if (isActualCompetitionChanged()) {
-		    try {
-			Competition newComp = new Competition(txtFieldDescription.getText(), DateFormatConverter
-				.convertStringToDate(txtFieldDate.getText()), txtFieldStartTime.getText(),
-				txtFieldEndTime.getText(), txtFieldProgramClass.getText());
-			DBController.updateCompetition(newComp, actualCompetition);
-			updateActualCompetition(newComp);
+		if (actualCompetition != null) {
+		    if (isActualCompetitionChanged()) {
+			try {
+			    Competition newComp = new Competition(txtFieldDescription.getText(), DateFormatConverter
+				    .convertStringToDate(txtFieldDate.getText()), txtFieldStartTime.getText(),
+				    txtFieldEndTime.getText(), txtFieldProgramClass.getText());
+			    DBController.updateCompetition(newComp, actualCompetition);
+			    updateActualCompetition(newComp);
 
-			competitionOverviewTableModel.fireTableDataChanged();
-			setActualCompetition(null);
+			    competitionOverviewTableModel.fireTableDataChanged();
+			    setActualCompetition(null);
 
-		    } catch (ParseException e1) {
+			} catch (ParseException e1) {
+			}
 		    }
-
+		} else {
+		    addCompetition();
+		    competitionOverviewTableModel.fireTableDataChanged();
+		    cleanCompetitionInfos();
 		}
 
+		btnAddCompetition.setEnabled(true);
 	    }
-
 	});
 
 	btnAddCompetition.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
-		Competition competition = null;
-		try {
-		    competition = new Competition(txtFieldDescription.getText(), DateFormatConverter
-			    .convertStringToDate(txtFieldDate.getText()), txtFieldStartTime.getText(), txtFieldEndTime
-			    .getText(), txtFieldProgramClass.getText());
-
-		} catch (ParseException e1) {
-		    e1.printStackTrace();
-		}
-		if (gymCupController.getGymCup().addCompetition(competition)) {
-		    DBController.addCompetitionToGymCup(competition, gymCupController.getGymCup());
-		    System.out.println("Wettkampf erfolgreich hinzugefuegt");
-		    competitionOverviewTableModel.fireTableDataChanged();
-		} else {
-		    System.out.println("Wettkampf konnte nicht hinzugefuegt werden");
-		}
+		cleanCompetitionInfos();
+		tableCompetitionsOverview.getSelectionModel().clearSelection();
+		txtFieldDescription.requestFocus();
+		btnAddCompetition.setEnabled(false);
 	    }
 	});
 
 	btnRemoveSquad.addActionListener(new ActionListener() {
-
 	    public void actionPerformed(ActionEvent e) {
 		if (actualCompetition != null) {
 		    removeActualSquadFromCompetition(actualCompetition, actualSquad);
@@ -195,6 +164,7 @@ public class CompetitionPanel extends JPanel {
 		if (tableCompetitionsOverview.getSelectedRowCount() > 0) {
 		    updateCompetitionInfos();
 		    updateButtons(true);
+		    updateSaveCanelButtons(false);
 		} else {
 		    cleanCompetitionInfos();
 		    updateButtons(false);
@@ -205,6 +175,41 @@ public class CompetitionPanel extends JPanel {
 	btnAddSquad.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		new SquadsSelectionFrame(gymCupController, actualCompetition);
+	    }
+	});
+
+	txtFieldDescription.addKeyListener(new KeyAdapter() {
+	    @Override
+	    public void keyReleased(KeyEvent e) {
+		changesCompetitionInfos();
+	    }
+	});
+
+	txtFieldDate.addKeyListener(new KeyAdapter() {
+	    @Override
+	    public void keyReleased(KeyEvent e) {
+		changesCompetitionInfos();
+	    }
+	});
+
+	txtFieldStartTime.addKeyListener(new KeyAdapter() {
+	    @Override
+	    public void keyReleased(KeyEvent e) {
+		changesCompetitionInfos();
+	    }
+	});
+
+	txtFieldEndTime.addKeyListener(new KeyAdapter() {
+	    @Override
+	    public void keyReleased(KeyEvent e) {
+		changesCompetitionInfos();
+	    }
+	});
+
+	txtFieldProgramClass.addKeyListener(new KeyAdapter() {
+	    @Override
+	    public void keyReleased(KeyEvent e) {
+		changesCompetitionInfos();
 	    }
 	});
     }
@@ -251,14 +256,18 @@ public class CompetitionPanel extends JPanel {
      * @return true, if actual competition has changed
      */
     private boolean isActualCompetitionChanged() {
-	if (!txtFieldDescription.getText().equals(actualCompetition.getDescription())
-		|| !txtFieldDate.getText().equals(actualCompetition.getDate())
-		|| !txtFieldEndTime.getText().equals(actualCompetition.getEndTime())
-		|| !txtFieldStartTime.getText().equals(actualCompetition.getStartTime())
-		|| !txtFieldProgramClass.getText().equals(actualCompetition.getProgramClass())) {
-	    return true;
+	if (actualCompetition != null) {
+	    return !(txtFieldDescription.getText().equals(actualCompetition.getDescription())
+		    && txtFieldDate.getText().equals(
+			    DateFormatConverter.convertDateToString(actualCompetition.getDate()))
+		    && txtFieldEndTime.getText().equals(actualCompetition.getEndTime())
+		    && txtFieldStartTime.getText().equals(actualCompetition.getStartTime()) && txtFieldProgramClass
+		    .getText().equals(actualCompetition.getProgramClass()));
+	} else {
+	    return !(txtFieldDescription.getText().equals("") && txtFieldDate.getText().equals("")
+		    && txtFieldEndTime.getText().equals("") && txtFieldStartTime.getText().equals("") && txtFieldProgramClass
+		    .getText().equals(""));
 	}
-	return false;
     }
 
     /**
@@ -327,7 +336,8 @@ public class CompetitionPanel extends JPanel {
 	gbc_lblDate.gridy = 1;
 	panelInfo.add(lblDate, gbc_lblDate);
 
-	txtFieldDate = new JTextField();
+	txtFieldDate = new JFormattedTextField(new DateFormatter(DateFormat.getDateInstance(DateFormat.SHORT,
+		Locale.GERMAN)));
 	GridBagConstraints gbc_txtFieldDate = new GridBagConstraints();
 	gbc_txtFieldDate.gridwidth = 4;
 	gbc_txtFieldDate.insets = new Insets(0, 0, 5, 0);
@@ -430,6 +440,7 @@ public class CompetitionPanel extends JPanel {
 	panelOverviewBorder.add(scrollPaneOverview, gbc_scrollPaneOverview);
 
 	tableCompetitionsOverview = new JTable();
+	tableCompetitionsOverview.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	competitionOverviewTableModel = new CompetitionOverviewTableModel(gymCupController);
 
 	tableCompetitionsOverview.setModel(competitionOverviewTableModel);
@@ -488,6 +499,7 @@ public class CompetitionPanel extends JPanel {
 	panelSquadsBorder.add(scrollPaneSquadsCompetition, gbc_scrollPaneSquadsCompetition);
 
 	tableSquadsInCompetition = new JTable();
+	tableSquadsInCompetition.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	scrollPaneSquadsCompetition.setViewportView(tableSquadsInCompetition);
 
 	btnRemoveSquad = new JButton("Entfernen");
@@ -509,11 +521,19 @@ public class CompetitionPanel extends JPanel {
     }
 
     private void updateCompetitionTextFields() {
-	txtFieldDescription.setText(actualCompetition.getDescription());
-	txtFieldDate.setText(DateFormatConverter.convertDateToString(actualCompetition.getDate()));
-	txtFieldEndTime.setText(actualCompetition.getEndTime());
-	txtFieldStartTime.setText(actualCompetition.getStartTime());
-	txtFieldProgramClass.setText(actualCompetition.getProgramClass());
+	if (actualCompetition != null) {
+	    txtFieldDescription.setText(actualCompetition.getDescription());
+	    txtFieldDate.setText(DateFormatConverter.convertDateToString(actualCompetition.getDate()));
+	    txtFieldEndTime.setText(actualCompetition.getEndTime());
+	    txtFieldStartTime.setText(actualCompetition.getStartTime());
+	    txtFieldProgramClass.setText(actualCompetition.getProgramClass());
+	} else {
+	    txtFieldDescription.setText("");
+	    txtFieldDate.setText("");
+	    txtFieldEndTime.setText("");
+	    txtFieldStartTime.setText("");
+	    txtFieldProgramClass.setText("");
+	}
 
     }
 
@@ -523,10 +543,8 @@ public class CompetitionPanel extends JPanel {
      */
     private void updateCompetitionInfos() {
 	setSquadsTableModel();
-
 	int position = tableCompetitionsOverview.convertRowIndexToModel(tableCompetitionsOverview.getSelectedRow());
 	setActualCompetition(gymCupController.getGymCup().getCompetitions().get(position));
-
 	updateCompetitionTextFields();
     }
 
@@ -545,11 +563,8 @@ public class CompetitionPanel extends JPanel {
 		comp.removeSquad(squad);
 		gymCupController.getGymCup().addSquadUnallocated(squad);
 		squadsInCompetitionTableModel.fireTableDataChanged();
-		System.out.println("richtige Competition");
 	    }
-	    System.out.println("falsche Competition");
 	}
-
     }
 
     /**
@@ -589,25 +604,48 @@ public class CompetitionPanel extends JPanel {
 
     }
 
-    /**
-     * Gets the actual competition.
-     * 
-     * @return the actual competition
-     */
-    private Competition getActualCompetition() {
-	return actualCompetition;
+    private void addCompetition() {
+	Competition competition = null;
+	try {
+	    competition = new Competition(txtFieldDescription.getText(), DateFormatConverter
+		    .convertStringToDate(txtFieldDate.getText()), txtFieldStartTime.getText(), txtFieldEndTime
+		    .getText(), txtFieldProgramClass.getText());
+
+	} catch (ParseException e1) {
+	}
+	if (gymCupController.getGymCup().addCompetition(competition)) {
+	    DBController.addCompetitionToGymCup(competition, gymCupController.getGymCup());
+	    competitionOverviewTableModel.fireTableDataChanged();
+	}
     }
 
     /**
      * Clean competition informations
      */
     private void cleanCompetitionInfos() {
-	squadsInCompetitionTableModel.setCompetition(null);
+	if (squadsInCompetitionTableModel != null) {
+	    squadsInCompetitionTableModel.setCompetition(null);
+	}
+	actualCompetition = null;
 	txtFieldDescription.setText("");
 	txtFieldDate.setText("");
 	txtFieldStartTime.setText("");
 	txtFieldEndTime.setText("");
 	txtFieldProgramClass.setText("");
+	updateSaveCanelButtons(false);
+    }
+
+    private void changesCompetitionInfos() {
+	if (isActualCompetitionChanged()) {
+	    updateSaveCanelButtons(true);
+	} else {
+	    updateSaveCanelButtons(false);
+	}
+    }
+
+    private void updateSaveCanelButtons(Boolean enable) {
+	btnCancel.setEnabled(enable);
+	btnSaveCompetition.setEnabled(enable);
     }
 
 }
