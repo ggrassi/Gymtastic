@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.text.DecimalFormat;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -76,7 +77,8 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private JButton btnEndEvaluation;
 	private JPanel panelRightBtn;
 	private JPanel panelLeftBtn;
-	private double finalMark = 0.0;
+	private double finalMark = 0.00;
+	DecimalFormat finalMarkFormat = new DecimalFormat("#0.00"); 
 
 	/**
 	 * Instantiates a new evaluation panel.
@@ -212,7 +214,8 @@ public class EvaluationPanel extends JPanel implements Observer {
 
 		panelAthleteInfo = new JPanel();
 		GridBagConstraints gbc_panelAthleteInfo = new GridBagConstraints();
-		gbc_panelAthleteInfo.fill = GridBagConstraints.BOTH;
+		gbc_panelAthleteInfo.anchor = GridBagConstraints.WEST;
+		gbc_panelAthleteInfo.fill = GridBagConstraints.VERTICAL;
 		gbc_panelAthleteInfo.gridx = 0;
 		gbc_panelAthleteInfo.gridy = 0;
 		panelAthleteInfoBorder.add(panelAthleteInfo, gbc_panelAthleteInfo);
@@ -234,6 +237,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 
 		lblLastNameField = new JLabel("");
 		GridBagConstraints gbc_lblLastNameField = new GridBagConstraints();
+		gbc_lblLastNameField.anchor = GridBagConstraints.WEST;
 		gbc_lblLastNameField.insets = new Insets(0, 0, 5, 0);
 		gbc_lblLastNameField.gridx = 1;
 		gbc_lblLastNameField.gridy = 1;
@@ -260,6 +264,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 
 		lblFirstNameField = new JLabel("");
 		GridBagConstraints gbc_lblFirstNameField = new GridBagConstraints();
+		gbc_lblFirstNameField.anchor = GridBagConstraints.WEST;
 		gbc_lblFirstNameField.insets = new Insets(0, 0, 5, 0);
 		gbc_lblFirstNameField.gridx = 1;
 		gbc_lblFirstNameField.gridy = 2;
@@ -275,6 +280,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 
 		lblSquadField = new JLabel("");
 		GridBagConstraints gbc_lblSquadField = new GridBagConstraints();
+		gbc_lblSquadField.anchor = GridBagConstraints.WEST;
 		gbc_lblSquadField.insets = new Insets(0, 0, 5, 0);
 		gbc_lblSquadField.gridx = 1;
 		gbc_lblSquadField.gridy = 3;
@@ -290,6 +296,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 
 		lblPrgClassField = new JLabel("");
 		GridBagConstraints gbc_lblPrgClassField = new GridBagConstraints();
+		gbc_lblPrgClassField.anchor = GridBagConstraints.WEST;
 		gbc_lblPrgClassField.insets = new Insets(0, 0, 5, 0);
 		gbc_lblPrgClassField.gridx = 1;
 		gbc_lblPrgClassField.gridy = 4;
@@ -305,6 +312,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 
 		lblStartNrField = new JLabel("");
 		GridBagConstraints gbc_lblStartNrField = new GridBagConstraints();
+		gbc_lblStartNrField.anchor = GridBagConstraints.WEST;
 		gbc_lblStartNrField.insets = new Insets(0, 0, 5, 0);
 		gbc_lblStartNrField.gridx = 1;
 		gbc_lblStartNrField.gridy = 5;
@@ -480,7 +488,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 		setFocusOnFirstMark();
 
 		setKeyTypedListener();
-		txtFieldFinalMark.setText("" + finalMark);
+		txtFieldFinalMark.setText("" + finalMarkFormat.format(finalMark));
 	}
 
 	/**
@@ -610,8 +618,8 @@ public class EvaluationPanel extends JPanel implements Observer {
 					+ Double.parseDouble(txtFieldDMark.getText())
 					+ Double.parseDouble(txtFieldBonus.getText())
 					- Double.parseDouble(txtFieldPenalty.getText());
-			txtFieldFinalMark.setText("" + finalMark);
-			setButtonEnabled();
+			txtFieldFinalMark.setText("" + finalMarkFormat.format(finalMark));
+			setButtonsEnabled();
 			frameClient.setOverviewAndActualSquadPanelsEnabled();
 			checkButtons();
 
@@ -619,11 +627,11 @@ public class EvaluationPanel extends JPanel implements Observer {
 			txtFieldFinalMark.setText("Endnote kann nicht berechnet werden.");
 
 			frameClient.setOverviewAndActualSquadPanelsDisabled();
-			setButtonDisabled();
+			setButtonsDisabled();
 		}
 	}
 
-	private void setButtonDisabled() {
+	private void setButtonsDisabled() {
 		btnNext.setEnabled(false);
 		btnPrevious.setEnabled(false);
 		btnEndEvaluation.setEnabled(false);
@@ -637,7 +645,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 				.setToolTipText("Der Athlet muss zuerst korrekt bewertet werden.");
 	}
 
-	private void setButtonEnabled() {
+	private void setButtonsEnabled() {
 		btnNext.setEnabled(true);
 		btnPrevious.setEnabled(true);
 		btnEndEvaluation.setEnabled(true);
@@ -661,6 +669,10 @@ public class EvaluationPanel extends JPanel implements Observer {
 			} catch (NumberFormatException nfe) {
 				txtField.setText("");
 			}
+		}
+		@Override
+		public void focusGained(FocusEvent e) {
+			txtField.selectAll();
 		}
 	};
 

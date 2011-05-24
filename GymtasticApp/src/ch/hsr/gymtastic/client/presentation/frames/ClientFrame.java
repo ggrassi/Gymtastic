@@ -185,6 +185,7 @@ public class ClientFrame implements Observer {
 		if (gymCupInfoController.getGymCupClientInfo() != null)
 			deviceType = gymCupInfoController.getGymCupClientInfo()
 					.getDeviceType();
+		frmClient.setTitle("Gymtastic Client - "+deviceType);
 
 	}
 

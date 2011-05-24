@@ -54,7 +54,6 @@ public class RankingPanel extends JPanel implements Observer {
 	private JPanel panelControl;
 	private JButton btnPreview;
 	private JButton btnSave;
-	private JPanel panelPreview;
 	private JFileChooser chooser;
 	private ButtonGroup buttonGroupParticipation;
 	private CompetitionComboBoxModel comboBoxStartlistModel;
@@ -301,18 +300,6 @@ public class RankingPanel extends JPanel implements Observer {
 		gbc_btnSave.gridx = 1;
 		gbc_btnSave.gridy = 0;
 		panelControl.add(btnSave, gbc_btnSave);
-
-		panelPreview = new JPanel();
-		panelPreview.setBorder(new TitledBorder(null, "Vorschau",
-				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagConstraints gbc_panelPreview = new GridBagConstraints();
-		gbc_panelPreview.insets = new Insets(0, 0, 0, 5);
-		gbc_panelPreview.fill = GridBagConstraints.BOTH;
-		gbc_panelPreview.gridx = 0;
-		gbc_panelPreview.gridy = 1;
-		gbc_panelPreview.gridwidth = 3;
-		panel.add(panelPreview, gbc_panelPreview);
-		panelPreview.setLayout(new BorderLayout(0, 0));
 		updateComboBox();
 	}
 
