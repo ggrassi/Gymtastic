@@ -101,7 +101,7 @@ public class Squad extends Observable implements Serializable {
 	 *
 	 * @return the athlets
 	 */
-	public Collection<Athlete> getAthlets() {
+	public List<Athlete> getAthlets() {
 		return athlets;
 	}
 
