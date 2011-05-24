@@ -50,15 +50,10 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private JPanel panelAthleteInfoBorder;
 	private JPanel panelAthleteInfo;
 	private JLabel lblFirstName;
-	private JLabel lblFirstNameField;
 	private JLabel lblLastName;
-	private JLabel lblLastNameField;
 	private JLabel lblSquad;
-	private JLabel lblSquadField;
 	private JLabel lblPrgClass;
-	private JLabel lblPrgClassField;
 	private JLabel lblStartNr;
-	private JLabel lblStartNrField;
 	private JPanel panelMarksBorder;
 	private JPanel panelMarks;
 	private JLabel lblDMark;
@@ -68,6 +63,11 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private JLabel lblPenalty;
 	private JLabel lblBonus;
 	private JLabel lblFinalMark;
+	private JLabel lblLastNameField;
+	private JLabel lblFirstNameField;
+	private JLabel lblSquadField;
+	private JLabel lblPrgClassField;
+	private JLabel lblStartNrField;
 	private SquadController squadController;
 	private Athlete athlete;
 	private DeviceType deviceType;
@@ -77,9 +77,6 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private JPanel panelRightBtn;
 	private JPanel panelLeftBtn;
 	private double finalMark = 0.0;
-
-
-
 
 	/**
 	 * Instantiates a new evaluation panel.
@@ -220,13 +217,12 @@ public class EvaluationPanel extends JPanel implements Observer {
 		gbc_panelAthleteInfo.gridy = 0;
 		panelAthleteInfoBorder.add(panelAthleteInfo, gbc_panelAthleteInfo);
 		GridBagLayout gbl_panelAthleteInfo = new GridBagLayout();
-		gbl_panelAthleteInfo.columnWidths = new int[] { 121, 0, 0 };
+		gbl_panelAthleteInfo.columnWidths = new int[] { 121, 0 };
 		gbl_panelAthleteInfo.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0 };
-		gbl_panelAthleteInfo.columnWeights = new double[] { 0.0, 0.0,
-				Double.MIN_VALUE };
+				0, 0 };
+		gbl_panelAthleteInfo.columnWeights = new double[] { 0.0, 0.0 };
 		gbl_panelAthleteInfo.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+				0.0, 0.0, 0.0 };
 		panelAthleteInfo.setLayout(gbl_panelAthleteInfo);
 
 		gbl_panelAthleteInfo.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -235,6 +231,13 @@ public class EvaluationPanel extends JPanel implements Observer {
 		gbl_panelAthleteInfo.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panelAthleteInfo.setLayout(gbl_panelAthleteInfo);
+
+		lblLastNameField = new JLabel("");
+		GridBagConstraints gbc_lblLastNameField = new GridBagConstraints();
+		gbc_lblLastNameField.insets = new Insets(0, 0, 5, 0);
+		gbc_lblLastNameField.gridx = 1;
+		gbc_lblLastNameField.gridy = 1;
+		panelAthleteInfo.add(lblLastNameField, gbc_lblLastNameField);
 
 		lblFirstName = new JLabel("Vorname:");
 		GridBagConstraints gbc_lblFirstName = new GridBagConstraints();
@@ -252,80 +255,29 @@ public class EvaluationPanel extends JPanel implements Observer {
 		gbc_lblLastName.gridy = 1;
 		panelAthleteInfo.add(lblLastName, gbc_lblLastName);
 
-		lblSquad = new JLabel("Riege:");
-		GridBagConstraints gbc_lblSquad = new GridBagConstraints();
-		gbc_lblSquad.anchor = GridBagConstraints.WEST;
-		gbc_lblSquad.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSquad.gridx = 0;
-		gbc_lblSquad.gridy = 2;
-		panelAthleteInfo.add(lblSquad, gbc_lblSquad);
-
-		lblPrgClass = new JLabel("Programmklasse:");
-		GridBagConstraints gbc_lblPrgClass = new GridBagConstraints();
-		gbc_lblPrgClass.anchor = GridBagConstraints.WEST;
-		gbc_lblPrgClass.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPrgClass.gridx = 0;
-		gbc_lblPrgClass.gridy = 3;
-		panelAthleteInfo.add(lblPrgClass, gbc_lblPrgClass);
-
-		lblStartNr = new JLabel("Startnummer:");
-		GridBagConstraints gbc_lblStartNr = new GridBagConstraints();
-		gbc_lblStartNr.anchor = GridBagConstraints.WEST;
-		gbc_lblStartNr.insets = new Insets(0, 0, 5, 5);
-		gbc_lblStartNr.gridx = 0;
-		gbc_lblStartNr.gridy = 4;
-		panelAthleteInfo.add(lblStartNr, gbc_lblStartNr);
-
 		gbc_lblFirstName.gridy = 2;
 		panelAthleteInfo.add(lblFirstName, gbc_lblFirstName);
 
 		lblFirstNameField = new JLabel("");
 		GridBagConstraints gbc_lblFirstNameField = new GridBagConstraints();
-		gbc_lblFirstNameField.anchor = GridBagConstraints.WEST;
 		gbc_lblFirstNameField.insets = new Insets(0, 0, 5, 0);
 		gbc_lblFirstNameField.gridx = 1;
-		gbc_lblFirstNameField.gridy = 0;
-		panelAthleteInfo.add(lblFirstNameField, gbc_lblFirstNameField);
-
 		gbc_lblFirstNameField.gridy = 2;
 		panelAthleteInfo.add(lblFirstNameField, gbc_lblFirstNameField);
-
-		lblLastName = new JLabel("Nachname:");
-		GridBagConstraints gbc_lblLastName1 = new GridBagConstraints();
-		gbc_lblLastName1.anchor = GridBagConstraints.WEST;
-		gbc_lblLastName1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblLastName1.gridx = 0;
-		gbc_lblLastName1.gridy = 3;
-		panelAthleteInfo.add(lblLastName, gbc_lblLastName1);
-
-		lblLastNameField = new JLabel("");
-		GridBagConstraints gbc_lblLastNameField = new GridBagConstraints();
-		gbc_lblLastNameField.anchor = GridBagConstraints.WEST;
-		gbc_lblLastNameField.insets = new Insets(0, 0, 5, 0);
-		gbc_lblLastNameField.gridx = 1;
-		gbc_lblLastNameField.gridy = 1;
-		panelAthleteInfo.add(lblLastNameField, gbc_lblLastNameField);
-
-		gbc_lblLastNameField.gridy = 3;
-		panelAthleteInfo.add(lblLastNameField, gbc_lblLastNameField);
 
 		lblSquad = new JLabel("Riege:");
 		GridBagConstraints gbc_lblSquad1 = new GridBagConstraints();
 		gbc_lblSquad1.anchor = GridBagConstraints.WEST;
 		gbc_lblSquad1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSquad1.gridx = 0;
-		gbc_lblSquad1.gridy = 4;
+		gbc_lblSquad1.gridy = 3;
 		panelAthleteInfo.add(lblSquad, gbc_lblSquad1);
 
 		lblSquadField = new JLabel("");
 		GridBagConstraints gbc_lblSquadField = new GridBagConstraints();
-		gbc_lblSquadField.anchor = GridBagConstraints.WEST;
 		gbc_lblSquadField.insets = new Insets(0, 0, 5, 0);
 		gbc_lblSquadField.gridx = 1;
-		gbc_lblSquadField.gridy = 2;
-		panelAthleteInfo.add(lblSquadField, gbc_lblSquadField);
-
-		gbc_lblSquadField.gridy = 4;
+		gbc_lblSquadField.gridy = 3;
 		panelAthleteInfo.add(lblSquadField, gbc_lblSquadField);
 
 		lblPrgClass = new JLabel("Programmklasse:");
@@ -333,34 +285,29 @@ public class EvaluationPanel extends JPanel implements Observer {
 		gbc_lblPrgClass1.anchor = GridBagConstraints.WEST;
 		gbc_lblPrgClass1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPrgClass1.gridx = 0;
-		gbc_lblPrgClass1.gridy = 5;
+		gbc_lblPrgClass1.gridy = 4;
 		panelAthleteInfo.add(lblPrgClass, gbc_lblPrgClass1);
 
 		lblPrgClassField = new JLabel("");
 		GridBagConstraints gbc_lblPrgClassField = new GridBagConstraints();
-		gbc_lblPrgClassField.anchor = GridBagConstraints.WEST;
 		gbc_lblPrgClassField.insets = new Insets(0, 0, 5, 0);
 		gbc_lblPrgClassField.gridx = 1;
-		gbc_lblPrgClassField.gridy = 3;
-		panelAthleteInfo.add(lblPrgClassField, gbc_lblPrgClassField);
-
-		gbc_lblPrgClassField.gridy = 5;
+		gbc_lblPrgClassField.gridy = 4;
 		panelAthleteInfo.add(lblPrgClassField, gbc_lblPrgClassField);
 
 		lblStartNr = new JLabel("Startnummer:");
 		GridBagConstraints gbc_lblStartNr1 = new GridBagConstraints();
 		gbc_lblStartNr1.anchor = GridBagConstraints.WEST;
-		gbc_lblStartNr1.insets = new Insets(0, 0, 0, 5);
+		gbc_lblStartNr1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblStartNr1.gridx = 0;
-		gbc_lblStartNr1.gridy = 6;
+		gbc_lblStartNr1.gridy = 5;
 		panelAthleteInfo.add(lblStartNr, gbc_lblStartNr1);
 
 		lblStartNrField = new JLabel("");
 		GridBagConstraints gbc_lblStartNrField = new GridBagConstraints();
-		gbc_lblStartNrField.anchor = GridBagConstraints.WEST;
+		gbc_lblStartNrField.insets = new Insets(0, 0, 5, 0);
 		gbc_lblStartNrField.gridx = 1;
-		gbc_lblStartNrField.gridy = 4;
-		gbc_lblStartNrField.gridy = 6;
+		gbc_lblStartNrField.gridy = 5;
 		panelAthleteInfo.add(lblStartNrField, gbc_lblStartNrField);
 
 		panelMarksBorder = new JPanel();
@@ -657,7 +604,6 @@ public class EvaluationPanel extends JPanel implements Observer {
 
 	private void calculateFinalMarkField() {
 		try {
-
 			finalMark = ((Double.parseDouble(txtFieldEMark1.getText())
 					+ Double.parseDouble(txtFieldEMark2.getText()) + Double
 					.parseDouble(txtFieldEMark3.getText())) / 3)
@@ -665,37 +611,41 @@ public class EvaluationPanel extends JPanel implements Observer {
 					+ Double.parseDouble(txtFieldBonus.getText())
 					- Double.parseDouble(txtFieldPenalty.getText());
 			txtFieldFinalMark.setText("" + finalMark);
-
-			btnNext.setEnabled(true);
-			btnPrevious.setEnabled(true);
-			btnEndEvaluation.setEnabled(true);
-			btnOverview.setEnabled(true);
-			btnNext.setToolTipText(null);
-			btnPrevious.setToolTipText(null);
-			btnEndEvaluation.setToolTipText(null);
-			btnOverview.setToolTipText(null);
-
+			setButtonEnabled();
 			frameClient.setOverviewAndActualSquadPanelsEnabled();
-
 			checkButtons();
 
 		} catch (NumberFormatException nfe) {
 			txtFieldFinalMark.setText("Endnote kann nicht berechnet werden.");
 
 			frameClient.setOverviewAndActualSquadPanelsDisabled();
-
-			btnNext.setEnabled(false);
-			btnPrevious.setEnabled(false);
-			btnEndEvaluation.setEnabled(false);
-			btnOverview.setEnabled(false);
-			btnNext.setToolTipText("Der Athlet muss zuerst korrekt bewertet werden.");
-			btnPrevious
-					.setToolTipText("Der Athlet muss zuerst korrekt bewertet werden.");
-			btnEndEvaluation
-					.setToolTipText("Der Athlet muss zuerst korrekt bewertet werden.");
-			btnOverview
-					.setToolTipText("Der Athlet muss zuerst korrekt bewertet werden.");
+			setButtonDisabled();
 		}
+	}
+
+	private void setButtonDisabled() {
+		btnNext.setEnabled(false);
+		btnPrevious.setEnabled(false);
+		btnEndEvaluation.setEnabled(false);
+		btnOverview.setEnabled(false);
+		btnNext.setToolTipText("Der Athlet muss zuerst korrekt bewertet werden.");
+		btnPrevious
+				.setToolTipText("Der Athlet muss zuerst korrekt bewertet werden.");
+		btnEndEvaluation
+				.setToolTipText("Der Athlet muss zuerst korrekt bewertet werden.");
+		btnOverview
+				.setToolTipText("Der Athlet muss zuerst korrekt bewertet werden.");
+	}
+
+	private void setButtonEnabled() {
+		btnNext.setEnabled(true);
+		btnPrevious.setEnabled(true);
+		btnEndEvaluation.setEnabled(true);
+		btnOverview.setEnabled(true);
+		btnNext.setToolTipText(null);
+		btnPrevious.setToolTipText(null);
+		btnEndEvaluation.setToolTipText(null);
+		btnOverview.setToolTipText(null);
 	}
 
 	private class FocusAdapterMark extends FocusAdapter {
