@@ -136,18 +136,11 @@ public class PdfRankingTableExporter extends PdfExporter {
 			table.addCell(athlete.getLastName());
 			table.addCell(athlete.getYearOfBirth() + "");
 			table.addCell(athlete.getAssociation() + "");
-			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.FLOOR_EXCERCISE)
-					.getFinalMark()));
-			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.POMMEL_HORSE)
-					.getFinalMark()));
-			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.STILL_RINGS)
-					.getFinalMark()));
-			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.VAULT)
-					.getFinalMark()));
-			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.PARALLEL_BARS)
-					.getFinalMark()));
-			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.HIGH_BAR)
-					.getFinalMark()));
+			for(DeviceType deviceType : DeviceType.values())
+			{
+				table.addCell(finalMarkFormat.format(athlete.getMarks().get(deviceType)
+						.getFinalMark()));
+			}
 			table.addCell(finalMarkFormat.format(athlete.getSumOfEndMarks()));
 
 			rank++;
@@ -166,19 +159,7 @@ public class PdfRankingTableExporter extends PdfExporter {
 		PdfPTable table = new PdfPTable(12);
 		table.setWidthPercentage(100);
 
-		int[] widths = new int[12];
-		widths[0] = 60;
-		widths[1] = 120;
-		widths[2] = 120;
-		widths[3] = 120;
-		widths[4] = 200;
-		widths[5] = 70;
-		widths[6] = 70;
-		widths[7] = 70;
-		widths[8] = 70;
-		widths[9] = 70;
-		widths[10] = 70;
-		widths[11] = 80;
+		int[] widths = {60,120,120,120,200,70,70,70,70,70,70,80};
 
 		try {
 			table.setWidths(widths);
