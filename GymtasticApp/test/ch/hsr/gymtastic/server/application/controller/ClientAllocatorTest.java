@@ -1,5 +1,6 @@
 package ch.hsr.gymtastic.server.application.controller;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -89,7 +90,14 @@ public class ClientAllocatorTest {
 		assertTrue(clientAllocator.getAllocatedClients().contains(
 				clientPommelHorse));
 		assertTrue(clientAllocator.getAllocatedClients().contains(clientVault));
-
+	}
+	
+	@Test
+	public void testRemoveAllocation(){
+		clientAllocator.addAll(allClients);
+		clientAllocator.removeAllocation(DeviceType.FLOOR_EXCERCISE);
+		assertFalse(clientAllocator.getAllocatedClients().contains(clientFloorExcercise));
+		
 	}
 
 	private void fillVector() {

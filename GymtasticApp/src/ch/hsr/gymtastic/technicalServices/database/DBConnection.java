@@ -21,7 +21,6 @@ public class DBConnection {
 	 *            the path
 	 */
 	public DBConnection(String path) {
-		super();
 		setPath(path);
 		connect(path);
 	}
@@ -30,7 +29,6 @@ public class DBConnection {
 	 * Instantiates a new dB connection.
 	 */
 	public DBConnection() {
-		super();
 		connect(path);
 	}
 
