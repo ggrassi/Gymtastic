@@ -30,7 +30,7 @@ public class NetworkClientController implements Observer {
 	 * @throws Exception
 	 *             the exception
 	 */
-	public NetworkClientController(){
+	public NetworkClientController() {
 		rmiClient = new RMIClient();
 		rmiClient.addObserver(this);
 	}

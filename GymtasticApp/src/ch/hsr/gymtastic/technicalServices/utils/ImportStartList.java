@@ -49,7 +49,7 @@ public class ImportStartList {
 	    readbuffer = new BufferedReader(new FileReader(fileName));
 	    String line;
 	    while ((line = readbuffer.readLine()) != null) {
-		String splitArray[] = line.split("\t");
+		String[] splitArray = line.split("\t");
 		List<String> importLine = new ArrayList<String>();
 		for (int i = 0; i < splitArray.length; i++) {
 		    importLine.add(splitArray[i]);

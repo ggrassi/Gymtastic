@@ -60,6 +60,9 @@ public class AthleteDetailFrame {
     private AthleteDetailTableModel athleteDetailTableModel;
     private SquadComboBoxModel squadComboBoxModel;
     private ProgramClassAthleteComboBoxModel programClassCBModel;
+    
+    private AthleteDetailFrame() {
+    }
 
     /**
      * Launch the application.

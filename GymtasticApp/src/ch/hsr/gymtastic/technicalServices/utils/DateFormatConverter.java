@@ -9,7 +9,10 @@ import java.util.GregorianCalendar;
 /**
  * The Class DateFormatConverter converts a GregorianDate into a string and viceversa.
  */
-public class DateFormatConverter {
+public final class DateFormatConverter {
+    
+    private DateFormatConverter() {
+    }
 
     /**
      * Convert string to date.

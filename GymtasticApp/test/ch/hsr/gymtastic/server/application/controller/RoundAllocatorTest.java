@@ -14,15 +14,15 @@ import ch.hsr.gymtastic.domain.Squad;
 
 public class RoundAllocatorTest {
 
-	RoundAllocator roundAllocator;
-	List<Squad> squads;
-	Squad s1;
-	Squad s2;
-	Squad s3;
-	Squad s4;
-	Squad s5;
-	Squad s6;
-	int roundNr = 1;
+	private RoundAllocator roundAllocator;
+	private List<Squad> squads;
+	private Squad s1;
+	private Squad s2;
+	private Squad s3;
+	private Squad s4;
+	private Squad s5;
+	private Squad s6;
+	private int roundNr = 1;
 
 	@Before
 	public void setUp() {
@@ -47,7 +47,7 @@ public class RoundAllocatorTest {
 
 	@Test
 	public void getDeviceTypeBySquad() {
-		DeviceType allocatedDeviceType = roundAllocator.getDeviceType(s1,roundNr);
+	DeviceType allocatedDeviceType = roundAllocator.getDeviceType(s1, roundNr);
 		assertEquals(DeviceType.FLOOR_EXCERCISE, allocatedDeviceType);
 		allocatedDeviceType = roundAllocator.getDeviceType(s2, roundNr);
 		assertEquals(DeviceType.POMMEL_HORSE, allocatedDeviceType);

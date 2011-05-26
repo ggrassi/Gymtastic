@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import ch.hsr.gymtastic.server.presentation.FileFactory;
 import ch.hsr.gymtastic.server.presentation.ComponentBorder.Edge;
 
 /**

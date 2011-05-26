@@ -42,7 +42,7 @@ public class ImagePanel extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-    	g.drawImage(image,0,0,this.getWidth(),this.getHeight(),this);
+	g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), this);
     }
 
     public boolean isGenerated() {

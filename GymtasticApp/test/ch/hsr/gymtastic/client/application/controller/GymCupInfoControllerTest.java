@@ -1,11 +1,10 @@
 package ch.hsr.gymtastic.client.application.controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.text.ParseException;
 import java.util.GregorianCalendar;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 

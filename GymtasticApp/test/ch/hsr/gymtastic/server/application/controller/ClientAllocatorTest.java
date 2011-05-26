@@ -27,16 +27,16 @@ public class ClientAllocatorTest {
 
 	}
 
-	ClientAllocator clientAllocator;
-	Vector<ClientInformation> allClients;
-	RMIClientInterface clientPommelHorse;
-	RMIClientInterface clientStillRings;
-	RMIClientInterface clientFloorExcercise;
-	RMIClientInterface clientVault;
-	ClientInformation clientInformationPommelHorse;
-	ClientInformation clientInformationStillRings;
-	ClientInformation clientInformationFloorExcercise;
-	ClientInformation clientInformationVault;
+	private ClientAllocator clientAllocator;
+	private Vector<ClientInformation> allClients;
+	private RMIClientInterface clientPommelHorse;
+	private RMIClientInterface clientStillRings;
+	private RMIClientInterface clientFloorExcercise;
+	private RMIClientInterface clientVault;
+	private ClientInformation clientInformationPommelHorse;
+	private ClientInformation clientInformationStillRings;
+	private ClientInformation clientInformationFloorExcercise;
+	private ClientInformation clientInformationVault;
 
 	@Before
 	public void setUp() {
@@ -93,7 +93,7 @@ public class ClientAllocatorTest {
 	}
 	
 	@Test
-	public void testRemoveAllocation(){
+	public void testRemoveAllocation() {
 		clientAllocator.addAll(allClients);
 		clientAllocator.removeAllocation(DeviceType.FLOOR_EXCERCISE);
 		assertFalse(clientAllocator.getAllocatedClients().contains(clientFloorExcercise));

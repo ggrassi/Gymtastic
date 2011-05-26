@@ -7,7 +7,10 @@ import java.util.ArrayList;
  * The Class FileExtension holds an Array over all file extensions
  * which are desired
  */
-public class FileExtension {
+public final class FileExtension {
+    
+    private FileExtension() {
+    }
 
 	public static ArrayList<String> extensions = new ArrayList<String>();
 

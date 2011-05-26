@@ -16,9 +16,12 @@ import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 /**
  * The Class DBController manages the persistance of the entire Cup
  */
-public class DBController {
+public final class DBController {
 
 	private static DBConnection dbConnection;
+	
+	private DBController() {
+	}
 
 	/**
 	 * Import an gym cup to the db.
