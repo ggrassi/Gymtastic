@@ -19,12 +19,10 @@ import ch.hsr.gymtastic.domain.Squad;
 public class CompetitionControllerTest {
 
     private CompetitionController competitionController;
-    private RoundAllocator roundAllocator;
     public static GymCupController gymCupController = new GymCupController();
     private Competition competition;
     private List<Squad> squads = new ArrayList<Squad>();
     private int roundNr;
-    private NetworkServerController networkcontroller;
 
     @Before
     public void setUp() throws ConnectException {
@@ -42,7 +40,6 @@ public class CompetitionControllerTest {
 	}
 	competition.setSquads(squads);
 	competitionController.setCompetition(competition);
-	roundAllocator = competitionController.getRoundAllocator();
 	roundNr = 1;
     }
 

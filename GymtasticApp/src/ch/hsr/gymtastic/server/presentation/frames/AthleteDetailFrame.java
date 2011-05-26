@@ -465,7 +465,7 @@ public class AthleteDetailFrame {
 	    txtFieldFirstName.setText(athlete.getFirstName());
 	    txtFieldLastName.setText(athlete.getLastName());
 	    txtFieldStartNr.setText("" + athlete.getStartNr());
-	    txtFieldYearOfBirth.setValue(new Integer(athlete.getYearOfBirth()));
+	    txtFieldYearOfBirth.setValue(Integer.valueOf(athlete.getYearOfBirth()));
 	    cbProgramClass.setSelectedItem(athlete.getPrgClass());
 	    comboBoxSquad.setSelectedItem(athlete.getSquadId());
 	} else {
@@ -515,7 +515,7 @@ public class AthleteDetailFrame {
 	    cbProgramClass.setSelectedItem(athlete.getPrgClass());
 	    comboBoxSquad.setSelectedItem(athlete.getSquadId());
 	    txtFieldStartNr.setText(athlete.getStartNr() + "");
-	    txtFieldYearOfBirth.setValue(new Integer(athlete.getYearOfBirth()));
+	    txtFieldYearOfBirth.setValue(Integer.valueOf(athlete.getYearOfBirth()));
 
 	} else {
 	    txtFieldAddress.setText("");

@@ -428,21 +428,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 			}
 		});
 
-		txtFieldEndDate.addFocusListener(new FocusAdapter() {
-			public void focusLost(FocusEvent e) {
-				GregorianCalendar date = null;
-				try {
-					date = DateFormatConverter
-							.convertStringToDate(txtFieldStartDate.getText());
-				} catch (ParseException e1) {
-					if (date != new GregorianCalendar()) {
-						txtFieldStartDate
-								.setToolTipText("Bitte Format richtig eingeben: '01.02.2011'");
-						txtFieldStartDate.setText("");
-					}
-				}
-			}
-		});
 		txtFieldLocation.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
