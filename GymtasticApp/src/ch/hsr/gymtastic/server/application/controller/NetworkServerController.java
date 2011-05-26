@@ -29,6 +29,7 @@ public class NetworkServerController extends Observable implements Observer {
 		try {
 			rmiServer = new RMIServer("Gymtastic");
 		} catch (RemoteException e) {
+			e.printStackTrace();
 			throw new ConnectException();
 		}
 		rmiServer.addObserver(this);

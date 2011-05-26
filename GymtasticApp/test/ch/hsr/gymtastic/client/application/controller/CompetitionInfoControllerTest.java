@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.hsr.gymtastic.client.application.controller.CompetitionInfoController;
 import ch.hsr.gymtastic.domain.CompetitionInfo;
 
 public class CompetitionInfoControllerTest {

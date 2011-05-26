@@ -131,4 +131,8 @@ public class GymCupController extends Observable {
 		return gymCupInfo;
 	}
 
+	public void setNetworkController(NetworkServerController object) {
+	    networkController = object;
+	}
+
 }
