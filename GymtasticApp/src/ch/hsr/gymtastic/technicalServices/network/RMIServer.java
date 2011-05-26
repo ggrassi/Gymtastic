@@ -11,8 +11,8 @@ import java.util.Observable;
 import java.util.Vector;
 
 /**
- * The Class RMIServer represents all Methods 
- * which can be selected from the RMIServer
+ * The Class RMIServer represents all Methods which can be selected from the
+ * RMIServer
  */
 public class RMIServer extends Observable implements RMIServerInterface {
 
@@ -20,31 +20,51 @@ public class RMIServer extends Observable implements RMIServerInterface {
 
 	/**
 	 * Instantiates a new RMI server.
-	 *
-	 * @throws RemoteException the remote exception
+	 * 
+	 * @throws RemoteException
+	 *             the remote exception
 	 */
-	public RMIServer() throws RemoteException {
+	public RMIServer() {
+
+	}
+
+	/**
+	 * Instantiates a new RMI server.
+	 * 
+	 * @throws RemoteException
+	 *             the remote exception
+	 */
+	public RMIServer(String name) throws RemoteException {
 		RMIServerInterface stub = (RMIServerInterface) UnicastRemoteObject
 				.exportObject(this, 0);
 		Registry registry = LocateRegistry.createRegistry(1099);
-		registry.rebind("Gymtastic", stub);
+		registry.rebind(name, stub);
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.hsr.gymtastic.technicalServices.network.RMIServerInterface#addClient(ch.hsr.gymtastic.technicalServices.network.RMIClientInterface, java.io.Serializable)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * ch.hsr.gymtastic.technicalServices.network.RMIServerInterface#addClient
+	 * (ch.hsr.gymtastic.technicalServices.network.RMIClientInterface,
+	 * java.io.Serializable)
 	 */
 	@Override
 	public void addClient(RMIClientInterface client, Serializable deviceType)
 			throws RemoteException, ServerNotActiveException {
-		
+
 		clientsWaitingForAllocation.add(new ClientInformation(client,
 				RemoteServer.getClientHost(), deviceType));
 		updateObservers();
 
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.hsr.gymtastic.technicalServices.network.RMIServerInterface#removeClient(ch.hsr.gymtastic.technicalServices.network.RMIClientInterface)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * ch.hsr.gymtastic.technicalServices.network.RMIServerInterface#removeClient
+	 * (ch.hsr.gymtastic.technicalServices.network.RMIClientInterface)
 	 */
 	@Override
 	public void removeClient(RMIClientInterface client) throws RemoteException {
@@ -65,8 +85,11 @@ public class RMIServer extends Observable implements RMIServerInterface {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see ch.hsr.gymtastic.technicalServices.network.RMIServerInterface#uploadObjectToServer(java.io.Serializable)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see ch.hsr.gymtastic.technicalServices.network.RMIServerInterface#
+	 * uploadObjectToServer(java.io.Serializable)
 	 */
 	@Override
 	public void uploadObjectToServer(Serializable object)
@@ -77,8 +100,9 @@ public class RMIServer extends Observable implements RMIServerInterface {
 
 	/**
 	 * Update observers.
-	 *
-	 * @param object the object
+	 * 
+	 * @param object
+	 *            the object
 	 */
 	private void updateObservers(Serializable object) {
 		setChanged();
@@ -87,7 +111,7 @@ public class RMIServer extends Observable implements RMIServerInterface {
 
 	/**
 	 * Gets the clients waiting for allocation.
-	 *
+	 * 
 	 * @return the clients waiting for allocation
 	 */
 	public Vector<ClientInformation> getClientsWaitingForAllocation() {

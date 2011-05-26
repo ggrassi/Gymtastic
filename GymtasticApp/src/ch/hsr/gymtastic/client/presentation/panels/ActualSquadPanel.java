@@ -21,6 +21,7 @@ import ch.hsr.gymtastic.client.presentation.frames.ClientFrame;
 import ch.hsr.gymtastic.client.presentation.models.AthleteOverviewTableModel;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
+import ch.hsr.gymtastic.technicalServices.network.exceptions.TransmissionException;
 
 /**
  * The Class ActualSquadPanel shows the GUI with all Informations about the Squad.
@@ -68,7 +69,7 @@ public class ActualSquadPanel extends JPanel {
 				try {
 					networkController.sendObjectToServer(actualSquad);
 					clientFrame.endRound();
-				} catch (ConnectException e) {
+				} catch (TransmissionException e) {
 					JOptionPane.showMessageDialog(clientFrame.getFrame(), "Das Senden zum Server ist fehlgeschlagen.",
 						    "Verbindungsfehler", JOptionPane.ERROR_MESSAGE);
 				}
