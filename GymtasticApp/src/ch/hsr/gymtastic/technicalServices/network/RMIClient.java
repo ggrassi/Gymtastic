@@ -1,7 +1,6 @@
 package ch.hsr.gymtastic.technicalServices.network;
 
 import java.io.Serializable;
-import java.net.ConnectException;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

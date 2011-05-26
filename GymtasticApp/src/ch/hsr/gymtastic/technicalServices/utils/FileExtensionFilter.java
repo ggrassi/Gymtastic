@@ -23,11 +23,9 @@ public class FileExtensionFilter extends FileFilter {
 		String extension = FileExtension.getExtension(f);
 		if (extension != null && !FileExtension.extensions.isEmpty()) {
 			for (String ext : FileExtension.extensions) {
-				System.out.println("accept: " + ext);
 				if (extension.equals(ext)) {
 					return true;
 				} else {
-					System.out.println("Falsches Format");
 					return false;
 				}
 			}

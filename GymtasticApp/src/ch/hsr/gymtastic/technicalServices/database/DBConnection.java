@@ -48,8 +48,8 @@ public class DBConnection {
 	}
 
 	private void connect(String path) {
-		this.emf = Persistence.createEntityManagerFactory(path);
-		this.em = emf.createEntityManager();
+		emf = Persistence.createEntityManagerFactory(path);
+		em = emf.createEntityManager();
 		startTransaction();
 	}
 
@@ -57,7 +57,7 @@ public class DBConnection {
 	 * Starts a DB transaction.
 	 */
 	private void startTransaction() {
-		this.em.getTransaction().begin();
+		em.getTransaction().begin();
 	}
 
 	/**

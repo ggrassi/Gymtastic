@@ -560,7 +560,6 @@ public class CompetitionPanel extends JPanel {
 	actualCompetition.setEndTime(newComp.getEndTime());
 	actualCompetition.setStartTime(newComp.getStartTime());
 	actualCompetition.setProgramClass(newComp.getProgramClass());
-
     }
 
     /**
@@ -572,7 +571,6 @@ public class CompetitionPanel extends JPanel {
     private void setActualCompetition(Competition competition) {
 	this.actualCompetition = competition;
 	squadsInCompetitionTableModel.setCompetition(actualCompetition);
-
     }
 
     private void addCompetition() {
