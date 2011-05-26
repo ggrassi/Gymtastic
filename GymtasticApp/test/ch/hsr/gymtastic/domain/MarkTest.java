@@ -1,6 +1,5 @@
 package ch.hsr.gymtastic.domain;
 
-//import static org.junit.Assert.assertEquals;
 
 import static junit.framework.Assert.assertEquals;
 
