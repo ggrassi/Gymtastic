@@ -78,7 +78,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private JPanel panelRightBtn;
 	private JPanel panelLeftBtn;
 	private double finalMark = 0.00;
-	DecimalFormat finalMarkFormat = new DecimalFormat("#0.00"); 
+	private DecimalFormat finalMarkFormat = new DecimalFormat("#0.00"); 
 
 	/**
 	 * Instantiates a new evaluation panel.

@@ -86,7 +86,6 @@ public class AthleteDetailFrame {
      * @param gymCupController
      */
 
-    
     public AthleteDetailFrame(Athlete athlete, GymCupController gymCupController) {
 	this.athlete = athlete;
 	this.gymCupController = gymCupController;
@@ -99,43 +98,6 @@ public class AthleteDetailFrame {
 	btnCancel.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		updateAfterCancel();
-	    }
-	});
-
-	txtFieldFirstName.addKeyListener(new KeyAdapter() {
-	    @Override
-	    public void keyReleased(KeyEvent e) {
-		changesAthleteInformation();
-	    }
-	});
-
-	txtFieldYearOfBirth.addKeyListener(new KeyAdapter() {
-	    public void keyReleased(KeyEvent e) {
-		changesAthleteInformation();
-	    }
-	});
-
-	txtFieldLastName.addKeyListener(new KeyAdapter() {
-	    public void keyReleased(KeyEvent e) {
-		changesAthleteInformation();
-	    }
-	});
-
-	txtFieldAssocation.addKeyListener(new KeyAdapter() {
-	    public void keyReleased(KeyEvent e) {
-		changesAthleteInformation();
-	    }
-	});
-
-	txtFieldAddress.addKeyListener(new KeyAdapter() {
-	    public void keyReleased(KeyEvent e) {
-		changesAthleteInformation();
-	    }
-	});
-
-	txtFieldStartNr.addKeyListener(new KeyAdapter() {
-	    public void keyReleased(KeyEvent e) {
-		changesAthleteInformation();
 	    }
 	});
 
@@ -217,6 +179,7 @@ public class AthleteDetailFrame {
 	panelPerson.add(lblFirstName, gbc_lblFirstName);
 
 	txtFieldFirstName = new JTextField();
+	txtFieldFirstName.addKeyListener(new KeyReleasedApater());
 	GridBagConstraints gbc_txtFieldFirstName = new GridBagConstraints();
 	gbc_txtFieldFirstName.insets = new Insets(0, 0, 5, 0);
 	gbc_txtFieldFirstName.fill = GridBagConstraints.HORIZONTAL;
@@ -234,6 +197,7 @@ public class AthleteDetailFrame {
 	panelPerson.add(lblLastName, gbc_lblLastName);
 
 	txtFieldLastName = new JTextField();
+	txtFieldLastName.addKeyListener(new KeyReleasedApater());
 	GridBagConstraints gbc_txtFieldLastName = new GridBagConstraints();
 	gbc_txtFieldLastName.insets = new Insets(0, 0, 5, 0);
 	gbc_txtFieldLastName.fill = GridBagConstraints.HORIZONTAL;
@@ -251,6 +215,7 @@ public class AthleteDetailFrame {
 	panelPerson.add(lblAssociation, gbc_lblAssociation);
 
 	txtFieldAssocation = new JTextField();
+	txtFieldAssocation.addKeyListener(new KeyReleasedApater());
 	GridBagConstraints gbc_txtFieldAssocation = new GridBagConstraints();
 	gbc_txtFieldAssocation.insets = new Insets(0, 0, 5, 0);
 	gbc_txtFieldAssocation.fill = GridBagConstraints.HORIZONTAL;
@@ -268,6 +233,7 @@ public class AthleteDetailFrame {
 	panelPerson.add(lblAddress, gbc_lblAddress);
 
 	txtFieldAddress = new JTextField();
+	txtFieldAddress.addKeyListener(new KeyReleasedApater());
 	GridBagConstraints gbc_txtFieldAddress = new GridBagConstraints();
 	gbc_txtFieldAddress.insets = new Insets(0, 0, 5, 0);
 	gbc_txtFieldAddress.fill = GridBagConstraints.HORIZONTAL;
@@ -285,6 +251,7 @@ public class AthleteDetailFrame {
 	panelPerson.add(lblYearOfBirth, gbc_lblYearOfBirth);
 
 	txtFieldYearOfBirth = new JFormattedTextField(NumberFormat.getInstance());
+	txtFieldYearOfBirth.addKeyListener(new KeyReleasedApater());
 	GridBagConstraints gbc_txtFieldYearOfBirth = new GridBagConstraints();
 	gbc_txtFieldYearOfBirth.fill = GridBagConstraints.HORIZONTAL;
 	gbc_txtFieldYearOfBirth.gridx = 1;
@@ -557,6 +524,13 @@ public class AthleteDetailFrame {
 	btnSave.setEnabled(false);
 	btnCancel.setEnabled(false);
 	gymCupController.getGymCup().athleteChanged();
+    }
+
+    private class KeyReleasedApater extends KeyAdapter {
+
+	public void keyReleased(KeyEvent e) {
+	    changesAthleteInformation();
+	}
     }
 
 }

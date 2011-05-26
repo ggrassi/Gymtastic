@@ -178,40 +178,6 @@ public class CompetitionPanel extends JPanel {
 	    }
 	});
 
-	txtFieldDescription.addKeyListener(new KeyAdapter() {
-	    @Override
-	    public void keyReleased(KeyEvent e) {
-		changesCompetitionInfos();
-	    }
-	});
-
-	txtFieldDate.addKeyListener(new KeyAdapter() {
-	    @Override
-	    public void keyReleased(KeyEvent e) {
-		changesCompetitionInfos();
-	    }
-	});
-
-	txtFieldStartTime.addKeyListener(new KeyAdapter() {
-	    @Override
-	    public void keyReleased(KeyEvent e) {
-		changesCompetitionInfos();
-	    }
-	});
-
-	txtFieldEndTime.addKeyListener(new KeyAdapter() {
-	    @Override
-	    public void keyReleased(KeyEvent e) {
-		changesCompetitionInfos();
-	    }
-	});
-
-	txtFieldProgramClass.addKeyListener(new KeyAdapter() {
-	    @Override
-	    public void keyReleased(KeyEvent e) {
-		changesCompetitionInfos();
-	    }
-	});
     }
 
     /**
@@ -319,6 +285,7 @@ public class CompetitionPanel extends JPanel {
 	panelInfo.add(lblDescription, gbc_lblDescription);
 
 	txtFieldDescription = new JTextField();
+	txtFieldDescription.addKeyListener(new KeyReleasedApater());
 	GridBagConstraints gbc_txtFieldDescription = new GridBagConstraints();
 	gbc_txtFieldDescription.gridwidth = 4;
 	gbc_txtFieldDescription.insets = new Insets(0, 0, 5, 0);
@@ -338,6 +305,7 @@ public class CompetitionPanel extends JPanel {
 
 	txtFieldDate = new JFormattedTextField(new DateFormatter(DateFormat.getDateInstance(DateFormat.SHORT,
 		Locale.GERMAN)));
+	txtFieldDate.addKeyListener(new KeyReleasedApater());
 	GridBagConstraints gbc_txtFieldDate = new GridBagConstraints();
 	gbc_txtFieldDate.gridwidth = 4;
 	gbc_txtFieldDate.insets = new Insets(0, 0, 5, 0);
@@ -356,6 +324,7 @@ public class CompetitionPanel extends JPanel {
 	panelInfo.add(lblStartTime, gbc_lblStartTime);
 
 	txtFieldStartTime = new JTextField();
+	txtFieldStartTime.addKeyListener(new KeyReleasedApater());
 	GridBagConstraints gbc_txtFieldStartTime = new GridBagConstraints();
 	gbc_txtFieldStartTime.gridwidth = 4;
 	gbc_txtFieldStartTime.insets = new Insets(0, 0, 5, 0);
@@ -374,6 +343,7 @@ public class CompetitionPanel extends JPanel {
 	panelInfo.add(lblEndTime, gbc_lblEndTime);
 
 	txtFieldEndTime = new JTextField();
+	txtFieldEndTime.addKeyListener(new KeyReleasedApater());
 	GridBagConstraints gbc_txtFieldEndTime = new GridBagConstraints();
 	gbc_txtFieldEndTime.gridwidth = 4;
 	gbc_txtFieldEndTime.insets = new Insets(0, 0, 5, 0);
@@ -392,6 +362,7 @@ public class CompetitionPanel extends JPanel {
 	panelInfo.add(lblProgramClass, gbc_lblProgramClass);
 
 	txtFieldProgramClass = new JTextField();
+	txtFieldProgramClass.addKeyListener(new KeyReleasedApater());
 	GridBagConstraints gbc_txtFieldProgramClass = new GridBagConstraints();
 	gbc_txtFieldProgramClass.gridwidth = 4;
 	gbc_txtFieldProgramClass.insets = new Insets(0, 0, 5, 0);
@@ -646,6 +617,13 @@ public class CompetitionPanel extends JPanel {
     private void updateSaveCanelButtons(Boolean enable) {
 	btnCancel.setEnabled(enable);
 	btnSaveCompetition.setEnabled(enable);
+    }
+    
+    private class KeyReleasedApater extends KeyAdapter {
+
+	public void keyReleased(KeyEvent e) {
+	    changesCompetitionInfos();
+	}
     }
 
 }

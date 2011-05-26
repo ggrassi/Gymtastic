@@ -1,5 +1,6 @@
 package ch.hsr.gymtastic.server.presentation.models;
 
+import java.text.DecimalFormat;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -22,6 +23,7 @@ public class AthleteDetailTableModel extends AbstractTableModel implements
 			"E-Note 3", "Bonus", "Penalty", "Gesamtnote" };
 	private Athlete athlete;
 	private GymCupController gymCupController;
+	private DecimalFormat finalMarkFormat = new DecimalFormat("#0.00"); 
 
 	/**
 	 * Instantiates a new athlete detail table model.
@@ -117,7 +119,7 @@ public class AthleteDetailTableModel extends AbstractTableModel implements
 				case 6:
 					return mark.getPenalty();
 				case 7:
-					return mark.getFinalMark();
+					return Double.valueOf(finalMarkFormat.format(mark.getFinalMark()));
 				}
 			}
 		}
