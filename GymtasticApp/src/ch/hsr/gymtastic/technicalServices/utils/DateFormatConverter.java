@@ -20,7 +20,7 @@ public class DateFormatConverter {
      */
     public static GregorianCalendar convertStringToDate(String s) throws ParseException {
 	if (!s.equals("")) {
-	    DateFormat df = new SimpleDateFormat("dd.mm.yy");
+	    DateFormat df = new SimpleDateFormat("dd.MM.yy");
 	    Date d = df.parse(s);
 	    GregorianCalendar date = new GregorianCalendar();
 	    date.setTime(d);
