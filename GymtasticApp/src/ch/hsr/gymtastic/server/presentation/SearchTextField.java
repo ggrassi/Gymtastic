@@ -15,7 +15,28 @@ import ch.hsr.gymtastic.server.presentation.ComponentBorder.Edge;
 public class SearchTextField extends JTextField {
 
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * The Class SearchFieldFocusListener deletes/sets  "Suchen..." text, when the focus is gained/lost.
+	 */
+	private class SearchFieldFocusListener extends FocusAdapter{
+		@Override
+		public void focusGained(FocusEvent arg0) {
+			if (getText().equals("Suchen...")) {
+				setText("");
+			}
 
+		}
+
+		@Override
+		public void focusLost(FocusEvent arg0) {
+			if (getText().equals("")) {
+				setText("Suchen...");
+			}
+		}
+		
+	}
+	
 	/**
 	 * Instantiates a new search text field.
 	 */
@@ -27,23 +48,7 @@ public class SearchTextField extends JTextField {
 		searchCB.setEdge(Edge.LEFT);
 		searchCB.install(this);
 		setText("Suchen...");
-		addFocusListener(new FocusAdapter() {
-
-			@Override
-			public void focusGained(FocusEvent arg0) {
-				if (getText().equals("Suchen...")) {
-					setText("");
-				}
-
-			}
-
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				if (getText().equals("")) {
-					setText("Suchen...");
-				}
-			}
-		});
+		addFocusListener(new SearchFieldFocusListener());
 
 	}
 }

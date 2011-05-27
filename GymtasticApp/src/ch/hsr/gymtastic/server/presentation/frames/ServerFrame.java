@@ -39,11 +39,7 @@ public class ServerFrame implements Observer {
 	 */
 
 	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-
-		}
+		setLookAndFeel();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -54,6 +50,14 @@ public class ServerFrame implements Observer {
 				}
 			}
 		});
+	}
+
+	private static void setLookAndFeel() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public ServerFrame() {
@@ -91,7 +95,6 @@ public class ServerFrame implements Observer {
 
 	}
 
-	
 	private void createPanels() {
 		if (panelCompetition == null) {
 

@@ -1,7 +1,6 @@
 package ch.hsr.gymtastic.client.application.controller;
 
 import java.io.Serializable;
-import java.net.ConnectException;
 import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;

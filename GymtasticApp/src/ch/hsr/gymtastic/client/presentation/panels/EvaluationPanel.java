@@ -78,7 +78,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 	private JPanel panelRightBtn;
 	private JPanel panelLeftBtn;
 	private double finalMark = 0.00;
-	private DecimalFormat finalMarkFormat = new DecimalFormat("#0.00"); 
+	private DecimalFormat finalMarkFormat = new DecimalFormat("#0.00");
 
 	/**
 	 * Instantiates a new evaluation panel.
@@ -506,21 +506,29 @@ public class EvaluationPanel extends JPanel implements Observer {
 	 */
 	private Mark getMarkFromInput() {
 		try {
-			double dMark = Double.valueOf(txtFieldDMark.getText());
-			double eMark1 = Double.valueOf(txtFieldEMark1.getText());
-			double eMark2 = Double.valueOf(txtFieldEMark2.getText());
-			double eMark3 = Double.valueOf(txtFieldEMark3.getText());
-			double penalty = Double.valueOf(txtFieldPenalty.getText());
-			double bonus = Double.valueOf(txtFieldBonus.getText());
-			return new Mark(dMark, eMark1, eMark2, eMark3, penalty, bonus);
+			return createMarkFromInput();
 		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(frameClient.getFrame(),
-					"Es d\u00fcrfen keine Notenfelder leer gelassen werden.",
-					"Es d�rfen keine Notenfelder leer gelassen werden.",
-					JOptionPane.ERROR_MESSAGE);
+			showErrorMessage();
 		}
 		return null;
 
+	}
+
+	private Mark createMarkFromInput() {
+		double dMark = Double.valueOf(txtFieldDMark.getText());
+		double eMark1 = Double.valueOf(txtFieldEMark1.getText());
+		double eMark2 = Double.valueOf(txtFieldEMark2.getText());
+		double eMark3 = Double.valueOf(txtFieldEMark3.getText());
+		double penalty = Double.valueOf(txtFieldPenalty.getText());
+		double bonus = Double.valueOf(txtFieldBonus.getText());
+		return new Mark(dMark, eMark1, eMark2, eMark3, penalty, bonus);
+	}
+
+	private void showErrorMessage() {
+		JOptionPane.showMessageDialog(frameClient.getFrame(),
+				"Es d\u00fcrfen keine Notenfelder leer gelassen werden.",
+				"Es d�rfen keine Notenfelder leer gelassen werden.",
+				JOptionPane.ERROR_MESSAGE);
 	}
 
 	private void loadAthleteFields() {
@@ -670,6 +678,7 @@ public class EvaluationPanel extends JPanel implements Observer {
 				txtField.setText("");
 			}
 		}
+
 		@Override
 		public void focusGained(FocusEvent e) {
 			txtField.selectAll();

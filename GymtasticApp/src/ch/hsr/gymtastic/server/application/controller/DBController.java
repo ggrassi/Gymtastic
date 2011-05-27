@@ -19,7 +19,7 @@ import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 public final class DBController {
 
 	private static DBConnection dbConnection;
-	
+
 	private DBController() {
 	}
 
@@ -46,6 +46,11 @@ public final class DBController {
 		TypedQuery<Squad> query = dbConnection.getEm().createQuery(
 				"SELECT p FROM Squad p", Squad.class);
 		List<Squad> results = query.getResultList();
+		addSquadsToCup(gymCup, results);
+		commitAndClose();
+	}
+
+	private static void addSquadsToCup(GymCup gymCup, List<Squad> results) {
 		GymCup tmpCup;
 		Squad tmpSquad;
 		for (Squad squad : results) {
@@ -57,9 +62,6 @@ public final class DBController {
 			gymCup.addSquad(squad.getId(), squad);
 			gymCup.addSquadUnallocated(squad);
 		}
-
-		commitAndClose();
-
 	}
 
 	/**

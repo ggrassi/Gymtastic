@@ -47,25 +47,26 @@ public class SquadCreator {
      * @return the map
      */
     public Map<Integer, Squad> createSquads() {
-	List<List<String>> importList = startList.getImportList();
-
-	Set<Integer> squadsNrList = findSquadNumbers(importList);
-
+	Set<Integer> squadsNrList = findSquadNumbers(startList.getImportList());
 	Map<Integer, Squad> squadMap = new TreeMap<Integer, Squad>();
 	for (Integer squadNr : squadsNrList) {
 	    squadMap.put(squadNr, new Squad(squadNr));
 	}
-
-	for (List<String> line : importList) {
-	    Athlete tmpAthlete = getAthleteFrom(line);
-	    for (DeviceType dt : DeviceType.values()) {
-		tmpAthlete.addMark(dt, new Mark(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-	    }
-	    squadMap.get(Integer.parseInt(line.get(squadPositionImport))).addAthlet(tmpAthlete);
-	}
+	addAthletes(startList.getImportList(), squadMap);
 	return squadMap;
 
     }
+
+	private void addAthletes(List<List<String>> importList,
+			Map<Integer, Squad> squadMap) {
+		for (List<String> line : importList) {
+		    Athlete tmpAthlete = getAthleteFrom(line);
+		    for (DeviceType dt : DeviceType.values()) {
+			tmpAthlete.addMark(dt, new Mark(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+		    }
+		    squadMap.get(Integer.parseInt(line.get(squadPositionImport))).addAthlet(tmpAthlete);
+		}
+	}
 
     /**
      * Finding the index of the Squad and fill it up to a set.

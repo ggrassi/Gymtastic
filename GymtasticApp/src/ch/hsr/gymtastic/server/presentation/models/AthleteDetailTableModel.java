@@ -42,7 +42,7 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
     /** The column types. */
 
     @SuppressWarnings("unchecked")
-    Class[] columnTypes = new Class[] { DeviceType.class, Double.class, Double.class, Double.class, Double.class,
+    private Class[] columnTypes = new Class[] { DeviceType.class, Double.class, Double.class, Double.class, Double.class,
 	    Double.class, Double.class, Double.class };
 
     /*

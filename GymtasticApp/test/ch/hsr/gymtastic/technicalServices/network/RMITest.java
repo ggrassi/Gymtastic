@@ -17,7 +17,7 @@ import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.technicalServices.network.exceptions.TransmissionException;
 
 public class RMITest {
-    private static class TestableRMIServer extends RMIServer {
+    private class TestableRMIServer extends RMIServer {
 
 	private List<RMIClientInterface> clients;
 	private Object received;
@@ -46,7 +46,7 @@ public class RMITest {
 
     }
 
-    private static class TestableRMIClient extends RMIClient {
+    private class TestableRMIClient extends RMIClient {
 
 	private Object received;
 
@@ -66,9 +66,8 @@ public class RMITest {
 
     }
 
-    private static TestableRMIServer rmiServer;
-    private static TestableRMIClient rmiClient;
-    private DeviceType deviceType;
+    private TestableRMIServer rmiServer;
+    private TestableRMIClient rmiClient;
     private Athlete athlete;
 
     @Before
@@ -76,7 +75,6 @@ public class RMITest {
 	athlete = new Athlete("Jules", "Weder", "Irgendwo");
 	rmiServer = new TestableRMIServer();
 	rmiClient = new TestableRMIClient(rmiServer);
-	deviceType = DeviceType.FLOOR_EXCERCISE;
     }
 
     @Test

@@ -8,11 +8,8 @@ import java.util.ArrayList;
  * which are desired
  */
 public final class FileExtension {
-    
-    private FileExtension() {
-    }
 
-	public static ArrayList<String> extensions = new ArrayList<String>();
+	private static ArrayList<String> extensions = new ArrayList<String>();
 
 	/**
 	 * Gets the extension of a file.
@@ -37,7 +34,16 @@ public final class FileExtension {
 	 * @param string the string
 	 */
 	public static void addExtension(String string) {
-		extensions.add(string);
+		getExtensions().add(string);
 
+	}
+	
+	/**
+	 * Returns the field extensions
+	 *
+	 * @return extensions
+	 */
+	public static ArrayList<String> getExtensions() {
+		return extensions;
 	}
 }

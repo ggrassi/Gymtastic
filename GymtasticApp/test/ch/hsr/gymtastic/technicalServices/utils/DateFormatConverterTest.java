@@ -28,3 +28,4 @@ public class DateFormatConverterTest {
 	assertEquals(dateGC, DateFormatConverter.convertStringToDate(DateFormatConverter.convertDateToString(dateGC)));
     }
 }
+

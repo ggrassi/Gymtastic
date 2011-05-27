@@ -15,5 +15,5 @@ public interface RMIClientInterface extends Remote {
 	 * @param object the object
 	 * @throws RemoteException the remote exception
 	 */
-	public void uploadObjectToClient(Serializable object) throws RemoteException;
+	void uploadObjectToClient(Serializable object) throws RemoteException;
 }

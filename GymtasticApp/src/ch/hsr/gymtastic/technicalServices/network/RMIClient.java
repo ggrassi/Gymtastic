@@ -1,7 +1,6 @@
 package ch.hsr.gymtastic.technicalServices.network;
 
 import java.io.Serializable;
-import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -68,7 +67,7 @@ public class RMIClient extends Observable implements RMIClientInterface {
 	 *             the server not active exception
 	 */
 	public RMIServerInterface connect(Serializable deviceType)
-			throws RemoteException, NotBoundException, AccessException,
+			throws RemoteException, NotBoundException,
 			ServerNotActiveException {
 		Registry registry = LocateRegistry.getRegistry(getServerIP());
 		setRMIServerInterface((RMIServerInterface) registry.lookup("Gymtastic"));
