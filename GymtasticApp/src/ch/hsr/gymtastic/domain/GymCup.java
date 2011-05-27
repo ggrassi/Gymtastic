@@ -363,9 +363,8 @@ public class GymCup extends Observable {
 			Boolean b = competitions.add(competition);
 			updateObservers();
 			return b;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	/**
@@ -451,5 +450,4 @@ public class GymCup extends Observable {
 		return new GymCupClientInfo(getName(), getLocation(), getStartDate(),
 				getEndDate(), deviceType);
 	}
-
 }
