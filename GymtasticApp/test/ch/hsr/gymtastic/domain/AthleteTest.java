@@ -10,14 +10,14 @@ public class AthleteTest {
     private Athlete athlete;
     private Athlete emptyAthlete;
     private Athlete athleteAllInformations;
-    private Association association;
+    private String association;
     private Mark mark1;
     private Mark mark2;
 
     @Before
     public void setUp() throws Exception {
 	athlete = new Athlete("Chuck", "Norris", "Roundhousekick Ave.");
-	association = new Association("Rheintal TV", "Rheintal");
+	association = "Rheintal TV";
 	athleteAllInformations = new Athlete(1, 33, "E1", "Jolly", "Jumper", "Desertstreet 12", 1980, association);
 	mark1 = new Mark(4.5, 4.3, 3.4, 4.5, 0.2, 0.5);
 	mark2 = new Mark(6.656, 3.232, 4.433, 5.544, 0.445, 1.255);

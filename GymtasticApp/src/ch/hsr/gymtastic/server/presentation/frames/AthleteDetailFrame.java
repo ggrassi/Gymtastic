@@ -26,7 +26,6 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
-import ch.hsr.gymtastic.domain.Association;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Mark;
@@ -502,8 +501,8 @@ public final class AthleteDetailFrame {
 
 	private boolean hasChanged() {
 		return txtFieldAddress.getText().equals(athlete.getAddress())
-				&& txtFieldAssocation.getText().equals(
-						athlete.getAssociation().getName())
+				&& txtFieldAssocation.getText()
+						.equals(athlete.getAssociation())
 				&& txtFieldFirstName.getText().equals(athlete.getFirstName())
 				&& txtFieldLastName.getText().equals(athlete.getLastName())
 				&& cbProgramClass.getSelectedItem().equals(
@@ -526,7 +525,7 @@ public final class AthleteDetailFrame {
 
 	private void fillTextFields() {
 		txtFieldAddress.setText(athlete.getAddress());
-		txtFieldAssocation.setText(athlete.getAssociation().getName());
+		txtFieldAssocation.setText(athlete.getAssociation());
 		txtFieldFirstName.setText(athlete.getFirstName());
 		txtFieldLastName.setText(athlete.getLastName());
 		cbProgramClass.setSelectedItem(athlete.getPrgClass());
@@ -549,13 +548,28 @@ public final class AthleteDetailFrame {
 			setAthleteInformation();
 
 		} else {
-			athlete = createEmptyAthlete();
-			setAthleteInformation();
-			athleteDetailTableModel.setAthlete(athlete);
-			updateAfterCancel();
+			createAthleteFromInput();
+
 		}
 		setButtonsEnabled(false);
 		gymCupController.getGymCup().athleteChanged();
+	}
+
+	private void createAthleteFromInput() {
+		athlete = new Athlete((Integer) comboBoxSquad.getSelectedItem(),
+				gymCupController.getGymCup().getAllAthletes().size() + 1,
+				cbProgramClass.getSelectedItem().toString(),
+				txtFieldFirstName.getText(), txtFieldLastName.getText(),
+				txtFieldAddress.getText(),
+				((Number) txtFieldYearOfBirth.getValue()).intValue(),
+				txtFieldAssocation.getText());
+		gymCupController.getGymCup().addAthleteToSquad(
+				(Integer) comboBoxSquad.getSelectedItem(), athlete);
+		for (DeviceType dt : DeviceType.values()) {
+			athlete.addMark(dt, new Mark(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+		}
+		athleteDetailTableModel.setAthlete(athlete);
+		updateAfterCancel();
 	}
 
 	private void setButtonsEnabled(boolean bool) {
@@ -563,18 +577,9 @@ public final class AthleteDetailFrame {
 		btnCancel.setEnabled(bool);
 	}
 
-	private Athlete createEmptyAthlete() {
-		Athlete athlete = new Athlete();
-		for (DeviceType dt : DeviceType.values()) {
-			athlete.addMark(dt, new Mark(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
-		}
-		return athlete;
-	}
-
 	private void setAthleteInformation() {
 		athlete.setAddress(txtFieldAddress.getText());
-		athlete.setAssociation(new Association(txtFieldAssocation.getText(),
-				athlete.getAssociation().getLocation()));
+		athlete.setAssociation(txtFieldAssocation.getText());
 		athlete.setFirstName(txtFieldFirstName.getText());
 		athlete.setLastName(txtFieldLastName.getText());
 		athlete.setPrgClass(cbProgramClass.getSelectedItem().toString());

@@ -1,7 +1,9 @@
 package ch.hsr.gymtastic.domain;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -10,16 +12,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Athlete holds all Informations of an Athlete. Important are the ID, ProgrammClass and all his Marks.
+ * The Class Athlete holds all Informations of an Athlete. Important are the ID,
+ * ProgrammClass and all his Marks.
  */
 @Entity
-public class Athlete extends Person {
+public class Athlete extends Observable implements Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -18961899248373223L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -30,27 +32,43 @@ public class Athlete extends Person {
 	@OneToMany
 	private Map<DeviceType, Mark> marks = new HashMap<DeviceType, Mark>();
 	@Embedded
-	private Association association;
+	private String association;
+
+	private String firstName;
+
+	private String lastName;
+
+	private String address;
 
 	/**
 	 * Instantiates a new athlete.
-	 *
-	 * @param squadID the squad id
-	 * @param startNr the start nr
-	 * @param prgClass the prg class
-	 * @param firstName the first name
-	 * @param lastName the last name
-	 * @param address the address
-	 * @param yearOfBirth the year of birth
-	 * @param association the association
+	 * 
+	 * @param squadID
+	 *            the squad id
+	 * @param startNr
+	 *            the start nr
+	 * @param prgClass
+	 *            the prg class
+	 * @param firstName
+	 *            the first name
+	 * @param lastName
+	 *            the last name
+	 * @param address
+	 *            the address
+	 * @param yearOfBirth
+	 *            the year of birth
+	 * @param association
+	 *            the association
 	 */
 	public Athlete(int squadID, int startNr, String prgClass, String firstName,
 			String lastName, String address, int yearOfBirth,
-			Association association) {
-		super(firstName, lastName, address);
+			String association) {
 		this.squadId = squadID;
 		this.startNr = startNr;
 		this.prgClass = prgClass;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
 		this.yearOfBirth = yearOfBirth;
 		this.association = association;
 	}
@@ -59,23 +77,27 @@ public class Athlete extends Person {
 	 * Instantiates a new athlete.
 	 */
 	public Athlete() {
-		super();
 	}
 
 	/**
 	 * Instantiates a new athlete.
-	 *
-	 * @param firstName the first name
-	 * @param lastName the last name
-	 * @param address the address
+	 * 
+	 * @param firstName
+	 *            the first name
+	 * @param lastName
+	 *            the last name
+	 * @param address
+	 *            the address
 	 */
 	public Athlete(String firstName, String lastName, String address) {
-		super(firstName, lastName, address);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
 	}
 
 	/**
 	 * Gets the id.
-	 *
+	 * 
 	 * @return the id
 	 */
 	public long getId() {
@@ -84,8 +106,9 @@ public class Athlete extends Person {
 
 	/**
 	 * Sets the id.
-	 *
-	 * @param id the new id
+	 * 
+	 * @param id
+	 *            the new id
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -94,7 +117,7 @@ public class Athlete extends Person {
 
 	/**
 	 * Gets the squad id.
-	 *
+	 * 
 	 * @return the squad id
 	 */
 	public int getSquadId() {
@@ -103,8 +126,9 @@ public class Athlete extends Person {
 
 	/**
 	 * Sets the squad id.
-	 *
-	 * @param squadId the new squad id
+	 * 
+	 * @param squadId
+	 *            the new squad id
 	 */
 	public void setSquadId(int squadId) {
 		this.squadId = squadId;
@@ -113,7 +137,7 @@ public class Athlete extends Person {
 
 	/**
 	 * Gets the start nr.
-	 *
+	 * 
 	 * @return the start nr
 	 */
 	public int getStartNr() {
@@ -122,8 +146,9 @@ public class Athlete extends Person {
 
 	/**
 	 * Sets the start nr.
-	 *
-	 * @param startNr the new start nr
+	 * 
+	 * @param startNr
+	 *            the new start nr
 	 */
 	public void setStartNr(int startNr) {
 		this.startNr = startNr;
@@ -132,7 +157,7 @@ public class Athlete extends Person {
 
 	/**
 	 * Gets the prg class.
-	 *
+	 * 
 	 * @return the prg class
 	 */
 	public String getPrgClass() {
@@ -141,8 +166,9 @@ public class Athlete extends Person {
 
 	/**
 	 * Sets the prg class.
-	 *
-	 * @param prgClass the new prg class
+	 * 
+	 * @param prgClass
+	 *            the new prg class
 	 */
 	public void setPrgClass(String prgClass) {
 		this.prgClass = prgClass;
@@ -151,7 +177,7 @@ public class Athlete extends Person {
 
 	/**
 	 * Gets the year of birth.
-	 *
+	 * 
 	 * @return the year of birth
 	 */
 	public int getYearOfBirth() {
@@ -160,8 +186,9 @@ public class Athlete extends Person {
 
 	/**
 	 * Sets the year of birth.
-	 *
-	 * @param yearOfBirth the new year of birth
+	 * 
+	 * @param yearOfBirth
+	 *            the new year of birth
 	 */
 	public void setYearOfBirth(int yearOfBirth) {
 		this.yearOfBirth = yearOfBirth;
@@ -170,7 +197,7 @@ public class Athlete extends Person {
 
 	/**
 	 * Gets the marks.
-	 *
+	 * 
 	 * @return the marks
 	 */
 	public Map<DeviceType, Mark> getMarks() {
@@ -179,8 +206,9 @@ public class Athlete extends Person {
 
 	/**
 	 * Sets the marks.
-	 *
-	 * @param marks the marks
+	 * 
+	 * @param marks
+	 *            the marks
 	 */
 	public void setMarks(Map<DeviceType, Mark> marks) {
 		this.marks = marks;
@@ -189,36 +217,41 @@ public class Athlete extends Person {
 
 	/**
 	 * Gets the association.
-	 *
+	 * 
 	 * @return the association
 	 */
-	public Association getAssociation() {
+	public String getAssociation() {
 		return association;
 	}
 
 	/**
 	 * Sets the association.
-	 *
-	 * @param association the new association
+	 * 
+	 * @param association
+	 *            the new association
 	 */
-	public void setAssociation(Association association) {
+	public void setAssociation(String association) {
 		this.association = association;
 		updateObservers();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return super.getFirstName() + " " + super.getLastName();
+		return getFirstName() + " " + getLastName();
 	}
 
 	/**
 	 * Adds a mark to a map containing marks.
-	 *
-	 * @param dt the dt
-	 * @param mark the mark
+	 * 
+	 * @param dt
+	 *            the dt
+	 * @param mark
+	 *            the mark
 	 */
 	public void addMark(DeviceType dt, Mark mark) {
 		marks.put(dt, mark);
@@ -228,7 +261,7 @@ public class Athlete extends Person {
 
 	/**
 	 * Gets the sum of all end marks.
-	 *
+	 * 
 	 * @return the sum of end marks
 	 */
 	public double getSumOfEndMarks() {
@@ -250,11 +283,69 @@ public class Athlete extends Person {
 
 	/**
 	 * Gets the mark.
-	 *
-	 * @param deviceType the device type
+	 * 
+	 * @param deviceType
+	 *            the device type
 	 * @return the mark
 	 */
 	public Mark getMark(DeviceType deviceType) {
 		return marks.get(deviceType);
+	}
+
+	/**
+	 * Gets the first name.
+	 * 
+	 * @return the first name
+	 */
+	public String getFirstName() {
+		return this.firstName;
+	}
+
+	/**
+	 * Sets the first name.
+	 * 
+	 * @param firstName
+	 *            the new first name
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	/**
+	 * Gets the last name.
+	 * 
+	 * @return the last name
+	 */
+	public String getLastName() {
+		return this.lastName;
+	}
+
+	/**
+	 * Sets the last name.
+	 * 
+	 * @param lastName
+	 *            the new last name
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	/**
+	 * Gets the address.
+	 * 
+	 * @return the address
+	 */
+	public String getAddress() {
+		return this.address;
+	}
+
+	/**
+	 * Sets the address.
+	 * 
+	 * @param address
+	 *            the new address
+	 */
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }

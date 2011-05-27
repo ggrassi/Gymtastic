@@ -11,7 +11,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.hsr.gymtastic.domain.Association;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.Squad;
@@ -33,7 +32,7 @@ public class CompetitionControllerTest {
 	    Squad squad = new Squad(i);
 	    for (int j = 0; j < 5; j++) {
 		Athlete athlete = new Athlete(i, 0, "Test Programm", "FirstName ", "LastName ", "Test address ", 2000,
-			new Association("Association ", "Testlocation"));
+			"Association");
 		squad.addAthlet(athlete);
 	    }
 	    squads.add(squad);
