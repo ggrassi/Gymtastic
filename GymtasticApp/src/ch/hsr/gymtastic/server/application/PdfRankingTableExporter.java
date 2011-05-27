@@ -198,7 +198,10 @@ public class PdfRankingTableExporter extends PdfExporter {
 	 */
 	private void writeTotalTitle() throws DocumentException {
 
-		Paragraph title = new Paragraph("Rangliste vom " + gymCup.toString(),
+		Paragraph title = new Paragraph("Rangliste vom " + gymCup.getName() + " in " + gymCup.getLocation() + " vom "
+				+ DateFormatConverter.convertDateToString(gymCup.getStartDate())
+				+ " bis "
+				+ DateFormatConverter.convertDateToString(gymCup.getEndDate()),
 				totalRankingTitleFont);
 		title.setAlignment(Paragraph.ALIGN_CENTER);
 		title.setSpacingAfter((float) 10.0);

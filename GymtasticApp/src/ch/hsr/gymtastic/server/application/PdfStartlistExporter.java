@@ -7,6 +7,7 @@ import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.domain.Squad;
+import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -157,7 +158,10 @@ public class PdfStartlistExporter extends PdfExporter {
 	 */
 	private void writeTotalTitle() throws DocumentException {
 
-		Paragraph title = new Paragraph("Startliste vom " + gymCup.toString(),
+		Paragraph title = new Paragraph("Startliste vom " + gymCup.getName() + " in " + gymCup.getLocation() + " vom "
+				+ DateFormatConverter.convertDateToString(gymCup.getStartDate())
+				+ " bis "
+				+ DateFormatConverter.convertDateToString(gymCup.getEndDate()),
 				totalStartlistTitleFont);
 		title.setAlignment(Paragraph.ALIGN_CENTER);
 		title.setSpacingAfter((float) 10.0);

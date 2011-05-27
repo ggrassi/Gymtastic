@@ -14,8 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
-
 /**
  * The Class GymCup is the main Class and holds all Informations about the Cup.
  * The most important Infos are all competitions and all Squads with its
@@ -454,11 +452,4 @@ public class GymCup extends Observable {
 				getEndDate(), deviceType);
 	}
 
-	@Override
-	public String toString() {
-		return getName() + " in " + getLocation() + " vom "
-				+ DateFormatConverter.convertDateToString(getStartDate())
-				+ " bis "
-				+ DateFormatConverter.convertDateToString(getEndDate());
-	}
 }
