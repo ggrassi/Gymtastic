@@ -12,6 +12,11 @@ public class ImportStartListTest {
 
 	public class ImportStartListStub extends ImportStartList {
 
+
+		public ImportStartListStub() {
+			super();
+		}
+
 		public void readImport(String line) {
 			
 				String splitArray[] = line.split("\t");
