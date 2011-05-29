@@ -28,7 +28,7 @@ import ch.hsr.gymtastic.domain.DeviceType;
 /**
  * The Class ClientConnectionFrame.
  */
-public class ClientConnectionFrame {
+public final class ClientConnectionFrame {
 
 	private JFrame frmClientConnection;
 	private JLabel lblIpAddress = new JLabel("IP-Adresse:");
@@ -50,10 +50,7 @@ public class ClientConnectionFrame {
 	 */
 
 	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e1) {
-		}
+		setLookAndFeel();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -66,13 +63,21 @@ public class ClientConnectionFrame {
 		});
 	}
 
+	private static void setLookAndFeel() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Creates the application and initiates the Client frame.
 	 * 
 	 * @throws Exception
 	 *             the exception
 	 */
-	public ClientConnectionFrame() throws Exception {
+	private ClientConnectionFrame() throws Exception {
 		this.squadController = new SquadController();
 		this.networkController = new NetworkClientController();
 		initGUI();

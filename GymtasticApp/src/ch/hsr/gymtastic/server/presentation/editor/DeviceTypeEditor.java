@@ -7,7 +7,7 @@ import javax.swing.JComboBox;
 import ch.hsr.gymtastic.domain.DeviceType;
 
 
-public class DeviceTypeEditor extends DefaultCellEditor{
+public class DeviceTypeEditor extends DefaultCellEditor {
 
 	/**
 	 * 

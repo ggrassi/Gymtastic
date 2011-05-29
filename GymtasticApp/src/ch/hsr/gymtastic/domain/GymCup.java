@@ -14,7 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GymCup is the main Class and holds all Informations about the Cup.
  * The most important Infos are all competitions and all Squads with its
@@ -364,9 +363,8 @@ public class GymCup extends Observable {
 			Boolean b = competitions.add(competition);
 			updateObservers();
 			return b;
-		} else {
-			return false;
 		}
+		return false;
 	}
 
 	/**
@@ -448,4 +446,8 @@ public class GymCup extends Observable {
 
 	}
 
+	public GymCupClientInfo getGymCupClientInfo(DeviceType deviceType) {
+		return new GymCupClientInfo(getName(), getLocation(), getStartDate(),
+				getEndDate(), deviceType);
+	}
 }

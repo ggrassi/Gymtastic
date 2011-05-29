@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Vector;
-import java.util.Map.Entry;
 
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
@@ -64,14 +62,6 @@ public class ClientAllocator {
 		return alloc.size();
 	}
 
-	/**
-	 * Returns an Entry set of the allocation map.
-	 *
-	 * @return the sets the
-	 */
-	public Set<Entry<DeviceType, ClientInformation>> entrySet() {
-		return alloc.entrySet();
-	}
 
 	/**
 	 * Adds a vektor which contains Clientinformations to the allocation map.

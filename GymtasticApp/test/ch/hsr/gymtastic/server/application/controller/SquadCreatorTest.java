@@ -12,7 +12,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.hsr.gymtastic.domain.Association;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Mark;
@@ -34,7 +33,7 @@ public class SquadCreatorTest {
 			List<String> squadOneWithOneAthlete = new ArrayList<String>();
 			squadMapOriginal = new TreeMap<Integer, Squad>();
 			Squad firstSquad = new Squad(1);
-			firstSquad.addAthlet(new Athlete(1, 1, "P1", "Luca11", "Schweiwiler", "Test Strasse 1", 2000, new Association("TZR", "sg")));
+			firstSquad.addAthlet(new Athlete(1, 1, "P1", "Luca11", "Schweiwiler", "Test Strasse 1", 2000, "TZR sg"));
 			squadMapOriginal.put(1, firstSquad);
 			
 			squadOneWithOneAthlete.add("1");
@@ -50,7 +49,7 @@ public class SquadCreatorTest {
 			
 			List<String> squadTwoWithFirstAthlete = new ArrayList<String>();
 			Squad secondSquad = new Squad(2);
-			secondSquad.addAthlet(new Athlete(2, 2, "P3", "Luca21", "Schweiwiler", "Test Strasse 1", 2000, new Association("TZR", "sg")));
+			secondSquad.addAthlet(new Athlete(2, 2, "P3", "Luca21", "Schweiwiler", "Test Strasse 1", 2000, "TZR sg"));
 			squadTwoWithFirstAthlete.add("2");
 			squadTwoWithFirstAthlete.add("2");
 			squadTwoWithFirstAthlete.add("P3");
@@ -63,7 +62,7 @@ public class SquadCreatorTest {
 			importList.add(squadTwoWithFirstAthlete);
 			
 			List<String> squadTwoWithSecondAthlete = new ArrayList<String>();
-			secondSquad.addAthlet(new Athlete(2, 3, "P3", "Luca22", "Schweiwiler", "Test Strasse 1", 2000, new Association("TZR", "sg")));
+			secondSquad.addAthlet(new Athlete(2, 3, "P3", "Luca22", "Schweiwiler", "Test Strasse 1", 2000, "TZR sg"));
 			squadMapOriginal.put(2, secondSquad);
 			squadTwoWithSecondAthlete .add("2");
 			squadTwoWithSecondAthlete.add("3");
@@ -114,7 +113,6 @@ public class SquadCreatorTest {
 	public void testFindSquadNumbers(){
 		int first = 0;
 		String firstAthleteSquadNumber = "1";
-		System.out.println("diesen "+importList.get(first));
 		assertEquals(firstAthleteSquadNumber, importList.get(first).get(0));
 	}
 	

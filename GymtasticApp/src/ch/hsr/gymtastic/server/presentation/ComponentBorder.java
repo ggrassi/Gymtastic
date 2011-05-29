@@ -222,8 +222,9 @@ public class ComponentBorder implements Border {
 			component.setAlignmentY(alignment);
 		}
 
-		if (adjustInsets)
+		if (adjustInsets) {
 			adjustBorderInsets();
+		}
 	}
 
 	private void adjustBorderInsets() {

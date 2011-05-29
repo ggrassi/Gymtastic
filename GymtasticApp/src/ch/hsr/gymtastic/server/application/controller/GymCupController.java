@@ -125,10 +125,12 @@ public class GymCupController extends Observable {
 	 * @return the gym cup info
 	 */
 	private GymCupClientInfo getGymCupInfo(DeviceType deviceType) {
-		GymCupClientInfo gymCupInfo = new GymCupClientInfo(gymCup.getName(),
-				gymCup.getLocation(), gymCup.getStartDate(), gymCup
-						.getEndDate(), deviceType);
+		GymCupClientInfo gymCupInfo = gymCup.getGymCupClientInfo(deviceType);
 		return gymCupInfo;
+	}
+
+	public void setNetworkController(NetworkServerController object) {
+	    networkController = object;
 	}
 
 }

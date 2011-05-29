@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import ch.hsr.gymtastic.domain.Association;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Mark;
@@ -33,8 +32,9 @@ public class SquadCreator {
 
 	/**
 	 * Instantiates a new squad creator.
-	 *
-	 * @param importStartList the import start list
+	 * 
+	 * @param importStartList
+	 *            the import start list
 	 */
 	public SquadCreator(ImportStartList importStartList) {
 		this.startList = importStartList;
@@ -46,19 +46,22 @@ public class SquadCreator {
 
 	/**
 	 * Creates a map of squads and fills it with the Athletes
-	 *
+	 * 
 	 * @return the map
 	 */
 	public Map<Integer, Squad> createSquads() {
-		List<List<String>> importList = startList.getImportList();
-
-		Set<Integer> squadsNrList = findSquadNumbers(importList);
-
+		Set<Integer> squadsNrList = findSquadNumbers(startList.getImportList());
 		Map<Integer, Squad> squadMap = new TreeMap<Integer, Squad>();
 		for (Integer squadNr : squadsNrList) {
 			squadMap.put(squadNr, new Squad(squadNr));
 		}
+		addAthletes(startList.getImportList(), squadMap);
+		return squadMap;
 
+	}
+
+	private void addAthletes(List<List<String>> importList,
+			Map<Integer, Squad> squadMap) {
 		for (List<String> line : importList) {
 			Athlete tmpAthlete = getAthleteFrom(line);
 			for (DeviceType dt : DeviceType.values()) {
@@ -67,14 +70,13 @@ public class SquadCreator {
 			squadMap.get(Integer.parseInt(line.get(squadPositionImport)))
 					.addAthlet(tmpAthlete);
 		}
-		return squadMap;
-
 	}
 
 	/**
 	 * Finding the index of the Squad and fill it up to a set.
-	 *
-	 * @param importList the import list
+	 * 
+	 * @param importList
+	 *            the import list
 	 * @return the sets the
 	 */
 	protected Set<Integer> findSquadNumbers(List<List<String>> importList) {
@@ -95,8 +97,9 @@ public class SquadCreator {
 
 	/**
 	 * manages to persist the Athletes to the DB.
-	 *
-	 * @param importList the import list
+	 * 
+	 * @param importList
+	 *            the import list
 	 */
 	private void insertAthletesToDB(List<List<String>> importList) {
 		db = new DBConnection();
@@ -118,7 +121,7 @@ public class SquadCreator {
 
 	/**
 	 * Gets the import list.
-	 *
+	 * 
 	 * @return the import list
 	 */
 	private List<List<String>> getImportList() {
@@ -136,13 +139,14 @@ public class SquadCreator {
 
 	/**
 	 * Adds the empty marks to an Athlete and persists it to the DB
-	 *
-	 * @param atemp the atemp
+	 * 
+	 * @param atemp
+	 *            the atemp
 	 */
 	private void addEmptyMarksTo(Athlete atemp) {
 
-		Mark mtemp = new Mark(0, 0, 0, 0, 0, 0);
 		for (DeviceType dt : DeviceType.values()) {
+			Mark mtemp = new Mark(0, 0, 0, 0, 0, 0);
 			db.persist(mtemp);
 			atemp.addMark(dt, mtemp);
 		}
@@ -151,21 +155,22 @@ public class SquadCreator {
 
 	/**
 	 * Gets the athlete out of the imported String line
-	 *
-	 * @param line the line
+	 * 
+	 * @param line
+	 *            the line
 	 * @return the athlete from
 	 */
 	protected Athlete getAthleteFrom(List<String> line) {
 		Athlete atemp = new Athlete(Integer.parseInt(line
 				.get(squadPositionImport)), Integer.parseInt(line
 				.get(startNrPositionImport)),
-				line.get(progClassPositionImport), line
-						.get(firstNamePositionImport), line
-						.get(lastNamePositionImport), line
-						.get(addressPositionImport), Integer.parseInt(line
-						.get(yearPositionImport)), new Association(line
-						.get(associationNamePositionImport), line
-						.get(associationPlacePositionImport)));
+				line.get(progClassPositionImport),
+				line.get(firstNamePositionImport),
+				line.get(lastNamePositionImport),
+				line.get(addressPositionImport), Integer.parseInt(line
+						.get(yearPositionImport)),
+				line.get(associationNamePositionImport) + " "
+						+ line.get(associationPlacePositionImport));
 		return atemp;
 	}
 

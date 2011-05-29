@@ -16,9 +16,12 @@ import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 /**
  * The Class DBController manages the persistance of the entire Cup
  */
-public class DBController {
+public final class DBController {
 
 	private static DBConnection dbConnection;
+
+	private DBController() {
+	}
 
 	/**
 	 * Import an gym cup to the db.
@@ -29,8 +32,7 @@ public class DBController {
 	public static void importGymCupToDB(GymCup gymCup) {
 		dbConnection = new DBConnection();
 		dbConnection.persist(gymCup);
-		dbConnection.commit();
-		dbConnection.closeConnection();
+		commitAndClose();
 	}
 
 	/**
@@ -44,6 +46,11 @@ public class DBController {
 		TypedQuery<Squad> query = dbConnection.getEm().createQuery(
 				"SELECT p FROM Squad p", Squad.class);
 		List<Squad> results = query.getResultList();
+		addSquadsToCup(gymCup, results);
+		commitAndClose();
+	}
+
+	private static void addSquadsToCup(GymCup gymCup, List<Squad> results) {
 		GymCup tmpCup;
 		Squad tmpSquad;
 		for (Squad squad : results) {
@@ -55,10 +62,6 @@ public class DBController {
 			gymCup.addSquad(squad.getId(), squad);
 			gymCup.addSquadUnallocated(squad);
 		}
-
-		dbConnection.commit();
-		dbConnection.closeConnection();
-
 	}
 
 	/**
@@ -90,8 +93,7 @@ public class DBController {
 			dbAthlete.addMark(deviceType, ramMark);
 			dbConnection.persist(dbAthlete);
 		}
-		dbConnection.commit();
-		dbConnection.closeConnection();
+		commitAndClose();
 
 	}
 
@@ -110,8 +112,7 @@ public class DBController {
 			dbComp.addSquad(dbSquad);
 		}
 		dbConnection.persist(dbComp);
-		dbConnection.commit();
-		dbConnection.closeConnection();
+		commitAndClose();
 
 	}
 
@@ -132,8 +133,7 @@ public class DBController {
 		dbAthlete.setStartNr(tmpAthlete.getStartNr());
 		dbAthlete.setYearOfBirth(tmpAthlete.getYearOfBirth());
 		dbAthlete.setAssociation(tmpAthlete.getAssociation());
-		dbConnection.commit();
-		dbConnection.closeConnection();
+		commitAndClose();
 	}
 
 	/**
@@ -149,8 +149,7 @@ public class DBController {
 		GymCup dbGymCup = dbConnection.getEm().find(GymCup.class,
 				gymCup.getId());
 		dbGymCup.addProgramClass(athlete.getPrgClass());
-		dbConnection.commit();
-		dbConnection.closeConnection();
+		commitAndClose();
 	}
 
 	/**
@@ -171,8 +170,7 @@ public class DBController {
 		dbComp.setEndTime(newComp.getEndTime());
 		dbComp.setStartTime(newComp.getStartTime());
 		dbComp.setProgramClass(newComp.getProgramClass());
-		dbConnection.commit();
-		dbConnection.closeConnection();
+		commitAndClose();
 
 	}
 
@@ -192,8 +190,7 @@ public class DBController {
 			gymCup = result.get(first);
 		}
 
-		dbConnection.commit();
-		dbConnection.closeConnection();
+		commitAndClose();
 
 		return gymCup;
 	}
@@ -212,8 +209,7 @@ public class DBController {
 		GymCup dbGymCup = dbConnection.getEm().find(GymCup.class,
 				gymCup.getId());
 		dbGymCup.getCompetitions().remove(oldComp);
-		dbConnection.commit();
-		dbConnection.closeConnection();
+		commitAndClose();
 
 	}
 
@@ -232,8 +228,7 @@ public class DBController {
 		dbConnection.persist(competition);
 		tmpCup.addCompetition(competition);
 		dbConnection.persist(tmpCup);
-		dbConnection.commit();
-		dbConnection.closeConnection();
+		commitAndClose();
 
 	}
 
@@ -251,14 +246,17 @@ public class DBController {
 				comp.getId());
 		Squad dbSquad = dbConnection.getEm().find(Squad.class, squad.getId());
 		dbComp.removeSquad(dbSquad);
-		dbConnection.commit();
-		dbConnection.closeConnection();
+		commitAndClose();
 	}
 
 	public static void updatedMark(Mark mark) {
 		dbConnection = new DBConnection();
 		Mark dbMark = dbConnection.getEm().find(Mark.class, mark.getId());
 		dbMark.setdMark(mark.getdMark());
+		commitAndClose();
+	}
+
+	private static void commitAndClose() {
 		dbConnection.commit();
 		dbConnection.closeConnection();
 	}

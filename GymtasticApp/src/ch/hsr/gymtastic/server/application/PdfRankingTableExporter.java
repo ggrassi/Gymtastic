@@ -20,12 +20,13 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 /**
- * The Class PdfRankingTableExporter defines how the Ranking PDF is formatted and generated.
+ * The Class PdfRankingTableExporter defines how the Ranking PDF is formatted
+ * and generated.
  */
 public class PdfRankingTableExporter extends PdfExporter {
 
 	private String programClassName = "";
-	DecimalFormat finalMarkFormat = new DecimalFormat("#0.00"); 
+	private DecimalFormat finalMarkFormat = new DecimalFormat("#0.00");
 
 	/**
 	 * Instantiates a new pdf ranking table exporter.
@@ -103,7 +104,7 @@ public class PdfRankingTableExporter extends PdfExporter {
 	}
 
 	/**
-	 * Write the content of the program class for the PDF File 
+	 * Write the content of the program class for the PDF File
 	 * 
 	 * @throws DocumentException
 	 *             the document exception
@@ -122,32 +123,20 @@ public class PdfRankingTableExporter extends PdfExporter {
 	 * @throws DocumentException
 	 *             the document exception
 	 */
-	private void writeProgramClass(String programClass) throws DocumentException {
+	private void writeProgramClass(String programClass)
+			throws DocumentException {
 
 		writeProgramClassTitle(programClass);
-		PdfPTable table = createTable();
-
+		table = createTable();
 		int rank = 1;
-		List<Athlete> rankingList = getSortedList(programClass);
-		for (Athlete athlete : rankingList) {
 
-			table.addCell(rank + "");
-			table.addCell(athlete.getFirstName());
-			table.addCell(athlete.getLastName());
-			table.addCell(athlete.getYearOfBirth() + "");
-			table.addCell(athlete.getAssociation() + "");
-			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.FLOOR_EXCERCISE)
-					.getFinalMark()));
-			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.POMMEL_HORSE)
-					.getFinalMark()));
-			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.STILL_RINGS)
-					.getFinalMark()));
-			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.VAULT)
-					.getFinalMark()));
-			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.PARALLEL_BARS)
-					.getFinalMark()));
-			table.addCell(finalMarkFormat.format(athlete.getMarks().get(DeviceType.HIGH_BAR)
-					.getFinalMark()));
+		for (Athlete athlete : getSortedList(programClass)) {
+
+			addAthleteInformation(rank, athlete);
+			for (DeviceType deviceType : DeviceType.values()) {
+				table.addCell(finalMarkFormat.format(athlete.getMarks()
+						.get(deviceType).getFinalMark()));
+			}
 			table.addCell(finalMarkFormat.format(athlete.getSumOfEndMarks()));
 
 			rank++;
@@ -155,6 +144,14 @@ public class PdfRankingTableExporter extends PdfExporter {
 		document.add(table);
 		document.newPage();
 
+	}
+
+	private void addAthleteInformation(int rank, Athlete athlete) {
+		table.addCell(rank + "");
+		table.addCell(athlete.getFirstName());
+		table.addCell(athlete.getLastName());
+		table.addCell(athlete.getYearOfBirth() + "");
+		table.addCell(athlete.getAssociation() + "");
 	}
 
 	/**
@@ -166,19 +163,7 @@ public class PdfRankingTableExporter extends PdfExporter {
 		PdfPTable table = new PdfPTable(12);
 		table.setWidthPercentage(100);
 
-		int[] widths = new int[12];
-		widths[0] = 60;
-		widths[1] = 120;
-		widths[2] = 120;
-		widths[3] = 120;
-		widths[4] = 200;
-		widths[5] = 70;
-		widths[6] = 70;
-		widths[7] = 70;
-		widths[8] = 70;
-		widths[9] = 70;
-		widths[10] = 70;
-		widths[11] = 80;
+		int[] widths = { 60, 120, 120, 120, 200, 70, 70, 70, 70, 70, 70, 80 };
 
 		try {
 			table.setWidths(widths);
@@ -186,6 +171,11 @@ public class PdfRankingTableExporter extends PdfExporter {
 			e.printStackTrace();
 		}
 
+		addTableHeader(table);
+		return table;
+	}
+
+	private void addTableHeader(PdfPTable table) {
 		table.addCell("Rang");
 		table.addCell("Vorname");
 		table.addCell("Nachname");
@@ -198,11 +188,8 @@ public class PdfRankingTableExporter extends PdfExporter {
 		table.addCell("Barren");
 		table.addCell("Reck");
 		table.addCell("Endnote");
-
-		return table;
 	}
 
-	
 	/**
 	 * Write the title of the total column
 	 * 
@@ -211,13 +198,9 @@ public class PdfRankingTableExporter extends PdfExporter {
 	 */
 	private void writeTotalTitle() throws DocumentException {
 
-		Paragraph title = new Paragraph("Rangliste vom "
-				+ gymCup.getName()
-				+ " in "
-				+ gymCup.getLocation()
-				+ " vom "
-				+ DateFormatConverter
-						.convertDateToString(gymCup.getStartDate()) + " bis "
+		Paragraph title = new Paragraph("Rangliste vom " + gymCup.getName() + " in " + gymCup.getLocation() + " vom "
+				+ DateFormatConverter.convertDateToString(gymCup.getStartDate())
+				+ " bis "
 				+ DateFormatConverter.convertDateToString(gymCup.getEndDate()),
 				totalRankingTitleFont);
 		title.setAlignment(Paragraph.ALIGN_CENTER);
@@ -250,8 +233,9 @@ public class PdfRankingTableExporter extends PdfExporter {
 	 */
 	private String getProgramClass() {
 		for (String programClass : gymCup.getProgramClasses()) {
-			if (programClass.equals(programClassName))
+			if (programClass.equals(programClassName)) {
 				return programClass;
+			}
 		}
 		return null;
 	}
@@ -290,5 +274,6 @@ public class PdfRankingTableExporter extends PdfExporter {
 			}
 		}
 	};
+	private PdfPTable table;
 
 }

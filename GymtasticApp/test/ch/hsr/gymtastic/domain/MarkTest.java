@@ -1,6 +1,5 @@
 package ch.hsr.gymtastic.domain;
 
-//import static org.junit.Assert.assertEquals;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -9,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class MarkTest {
-	Mark mark;
-	Mark emptyMark;
+	private Mark mark;
+	private Mark emptyMark;
 
 	@Before
 	public void runBeforeEveryTest() {

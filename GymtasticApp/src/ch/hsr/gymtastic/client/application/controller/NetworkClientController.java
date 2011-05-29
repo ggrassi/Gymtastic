@@ -1,7 +1,6 @@
 package ch.hsr.gymtastic.client.application.controller;
 
 import java.io.Serializable;
-import java.net.ConnectException;
 import java.rmi.RemoteException;
 import java.util.Observable;
 import java.util.Observer;
@@ -26,18 +25,20 @@ public class NetworkClientController implements Observer {
 
 	/**
 	 * Instantiates a new network client controller.
-	 *
-	 * @throws Exception the exception
+	 * 
+	 * @throws Exception
+	 *             the exception
 	 */
-	public NetworkClientController() throws Exception {
+	public NetworkClientController() {
 		rmiClient = new RMIClient();
 		rmiClient.addObserver(this);
 	}
 
 	/**
 	 * Sets the server ip.
-	 *
-	 * @param serverIP the new server ip
+	 * 
+	 * @param serverIP
+	 *            the new server ip
 	 */
 	public void setServerIP(String serverIP) {
 		rmiClient.setServerIP(serverIP);
@@ -45,9 +46,11 @@ public class NetworkClientController implements Observer {
 
 	/**
 	 * Connects to the client which is registred under a certain DeviceType
-	 *
-	 * @param deviceType the device type
-	 * @throws ConnectionFailedException the connection failed exception
+	 * 
+	 * @param deviceType
+	 *            the device type
+	 * @throws ConnectionFailedException
+	 *             the connection failed exception
 	 */
 	public void connect(DeviceType deviceType) throws ConnectionFailedException {
 		try {
@@ -59,8 +62,9 @@ public class NetworkClientController implements Observer {
 
 	/**
 	 * Disconnects all Clients.
-	 *
-	 * @throws TransmissionException the transmission exception
+	 * 
+	 * @throws TransmissionException
+	 *             the transmission exception
 	 */
 	public void disconnect() throws TransmissionException {
 		try {
@@ -72,14 +76,17 @@ public class NetworkClientController implements Observer {
 
 	/**
 	 * Sets the squad controller.
-	 *
-	 * @param squadController the new squad controller
+	 * 
+	 * @param squadController
+	 *            the new squad controller
 	 */
 	public void setSquadController(SquadController squadController) {
 		this.squadController = squadController;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
@@ -95,8 +102,9 @@ public class NetworkClientController implements Observer {
 
 	/**
 	 * Sets the gym cup info controller.
-	 *
-	 * @param gymCupInfoController the new gym cup info controller
+	 * 
+	 * @param gymCupInfoController
+	 *            the new gym cup info controller
 	 */
 	public void setGymCupInfoController(
 			GymCupInfoController gymCupInfoController) {
@@ -105,20 +113,25 @@ public class NetworkClientController implements Observer {
 
 	/**
 	 * Sets the round info controller.
-	 *
-	 * @param competitionInfoController the new round info controller
+	 * 
+	 * @param competitionInfoController
+	 *            the new round info controller
 	 */
-	public void setRoundInfoController(CompetitionInfoController competitionInfoController) {
+	public void setRoundInfoController(
+			CompetitionInfoController competitionInfoController) {
 		this.competitionInfoController = competitionInfoController;
 	}
 
 	/**
 	 * Sends an object from the client to the server.
-	 *
-	 * @param obj the obj
-	 * @throws ConnectException the connect exception
+	 * 
+	 * @param obj
+	 *            the obj
+	 * @throws ConnectException
+	 *             the connect exception
 	 */
-	public void sendObjectToServer(Serializable obj) throws ConnectException {
+	public void sendObjectToServer(Serializable obj)
+			throws TransmissionException {
 		rmiClient.sendObjectToServer(obj);
 	}
 }

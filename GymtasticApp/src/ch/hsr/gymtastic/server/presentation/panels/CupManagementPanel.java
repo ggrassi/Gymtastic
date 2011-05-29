@@ -8,13 +8,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
@@ -25,6 +22,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -42,7 +40,6 @@ import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 import ch.hsr.gymtastic.technicalServices.utils.FileExtensionFilter;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
-import javax.swing.JScrollPane;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -80,9 +77,9 @@ public class CupManagementPanel extends JPanel implements Observer {
 	private JPanel panelSaveCancel;
 	private JButton btnCancel;
 	private JButton btnSave;
-	protected JFileChooser chooser;
-	protected boolean isNewCup = true;
-	protected boolean isNewImportList = false;
+	private JFileChooser chooser;
+	private boolean isNewCup = true;
+	private boolean isNewImportList = false;
 	private JPanel panelNorth;
 	private String pathCup;
 	private String pathImport;
@@ -186,7 +183,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		panelGeneralInfo.add(lblName, gbc_lblName);
 
 		txtFieldName = new JTextField();
-
+		txtFieldName.addKeyListener(new KeyReleasedApater());
 		GridBagConstraints gbc_txtFieldName = new GridBagConstraints();
 		gbc_txtFieldName.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFieldName.fill = GridBagConstraints.HORIZONTAL;
@@ -203,9 +200,9 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_lblStartDate.gridy = 1;
 		panelGeneralInfo.add(lblStartDate, gbc_lblStartDate);
 
-		txtFieldStartDate = new JFormattedTextField(new DateFormatter(DateFormat
-			.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
-
+		txtFieldStartDate = new JFormattedTextField(new DateFormatter(
+				DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
+		txtFieldStartDate.addKeyListener(new KeyReleasedApater());
 		GridBagConstraints gbc_txtFieldStartDate = new GridBagConstraints();
 		gbc_txtFieldStartDate.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFieldStartDate.fill = GridBagConstraints.HORIZONTAL;
@@ -222,8 +219,9 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_lblEndDate.gridy = 2;
 		panelGeneralInfo.add(lblEndDate, gbc_lblEndDate);
 
-		txtFieldEndDate = new JFormattedTextField(new DateFormatter(DateFormat
-				.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
+		txtFieldEndDate = new JFormattedTextField(new DateFormatter(
+				DateFormat.getDateInstance(DateFormat.SHORT, Locale.GERMAN)));
+		txtFieldEndDate.addKeyListener(new KeyReleasedApater());
 		GridBagConstraints gbc_txtFieldEndDate = new GridBagConstraints();
 		gbc_txtFieldEndDate.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFieldEndDate.fill = GridBagConstraints.HORIZONTAL;
@@ -241,6 +239,7 @@ public class CupManagementPanel extends JPanel implements Observer {
 		panelGeneralInfo.add(lblPlace, gbc_lblPlace);
 
 		txtFieldLocation = new JTextField();
+		txtFieldLocation.addKeyListener(new KeyReleasedApater());
 		GridBagConstraints gbc_txtFieldLocation = new GridBagConstraints();
 		gbc_txtFieldLocation.insets = new Insets(0, 0, 5, 0);
 		gbc_txtFieldLocation.fill = GridBagConstraints.HORIZONTAL;
@@ -256,16 +255,18 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_lblDescription.gridx = 0;
 		gbc_lblDescription.gridy = 4;
 		panelGeneralInfo.add(lblDescription, gbc_lblDescription);
-		
+
 		scrollPaneTextAreaDescr = new JScrollPane();
 		GridBagConstraints gbc_scrollPaneTextAreaDescr = new GridBagConstraints();
 		gbc_scrollPaneTextAreaDescr.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPaneTextAreaDescr.fill = GridBagConstraints.BOTH;
 		gbc_scrollPaneTextAreaDescr.gridx = 1;
 		gbc_scrollPaneTextAreaDescr.gridy = 4;
-		panelGeneralInfo.add(scrollPaneTextAreaDescr, gbc_scrollPaneTextAreaDescr);
-		
+		panelGeneralInfo.add(scrollPaneTextAreaDescr,
+				gbc_scrollPaneTextAreaDescr);
+
 		txtAreaDescr = new JTextArea();
+		txtAreaDescr.addKeyListener(new KeyReleasedApater());
 		scrollPaneTextAreaDescr.setViewportView(txtAreaDescr);
 
 		lblSponsers = new JLabel("Sponsoren:");
@@ -275,15 +276,17 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gbc_lblSponsers.gridx = 0;
 		gbc_lblSponsers.gridy = 5;
 		panelGeneralInfo.add(lblSponsers, gbc_lblSponsers);
-		
+
 		scrollPaneTextAreaSponsors = new JScrollPane();
 		GridBagConstraints gbc_scrollPaneTextAreaSponsors = new GridBagConstraints();
 		gbc_scrollPaneTextAreaSponsors.fill = GridBagConstraints.BOTH;
 		gbc_scrollPaneTextAreaSponsors.gridx = 1;
 		gbc_scrollPaneTextAreaSponsors.gridy = 5;
-		panelGeneralInfo.add(scrollPaneTextAreaSponsors, gbc_scrollPaneTextAreaSponsors);
-		
+		panelGeneralInfo.add(scrollPaneTextAreaSponsors,
+				gbc_scrollPaneTextAreaSponsors);
+
 		txtAreaSponsors = new JTextArea();
+		txtAreaSponsors.addKeyListener(new KeyReleasedApater());
 		scrollPaneTextAreaSponsors.setViewportView(txtAreaSponsors);
 
 		panelImportBorder = new JPanel();
@@ -415,49 +418,8 @@ public class CupManagementPanel extends JPanel implements Observer {
 	 * Inits the listeners.
 	 */
 	private void initListeners() {
-		txtFieldEndDate.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				changesCupInformation();
-			}
-		});
-		txtFieldStartDate.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				changesCupInformation();
-			}
-		});
-
-		txtFieldEndDate.addFocusListener(new FocusAdapter() {
-			public void focusLost(FocusEvent e) {
-				GregorianCalendar date = null;
-				try {
-					date = DateFormatConverter
-							.convertStringToDate(txtFieldStartDate.getText());
-				} catch (ParseException e1) {
-					if (date != new GregorianCalendar()) {
-						txtFieldStartDate
-								.setToolTipText("Bitte Format richtig eingeben: '01.02.2011'");
-						txtFieldStartDate.setText("");
-					}
-				}
-			}
-		});
-		txtFieldLocation.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				changesCupInformation();
-			}
-		});
-		txtFieldName.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				changesCupInformation();
-			}
-		});
 
 		btnOpenCup.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				chooser = new JFileChooser();
@@ -483,7 +445,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 			public void actionPerformed(ActionEvent e) {
 				updateAfterCancel();
 			}
-
 		});
 
 		btnImportStartList.addActionListener(new ActionListener() {
@@ -500,7 +461,6 @@ public class CupManagementPanel extends JPanel implements Observer {
 					isNewImportList = true;
 					isNewCup = true;
 				}
-
 			}
 		});
 
@@ -622,14 +582,28 @@ public class CupManagementPanel extends JPanel implements Observer {
 	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		updateContent();
+		updateGUI();
 	}
 
 	/**
 	 * Update content of the gym cup credentials in the GUI.
 	 */
-	private void updateContent() {
+	private void updateGUI() {
+		fillTextFields();
+		setLogo();
+	}
 
+	private void setLogo() {
+		if (!isNewCup && !isNewImage) {
+			if (gymCupController.getGymCup().getLogoImagePath() != "") {
+				panelLogo.setPath(gymCupController.getGymCup()
+						.getLogoImagePath());
+			}
+		}
+		lblLogo.setText("");
+	}
+
+	private void fillTextFields() {
 		txtFieldName.setText(gymCupController.getGymCup().getName());
 		txtFieldLocation.setText(gymCupController.getGymCup().getLocation());
 		txtAreaDescr.setText(gymCupController.getGymCup().getDescription());
@@ -641,76 +615,80 @@ public class CupManagementPanel extends JPanel implements Observer {
 				.setText(DateFormatConverter
 						.convertDateToString(gymCupController.getGymCup()
 								.getEndDate()));
-
-		if (!isNewCup && !isNewImage) {
-			if (gymCupController.getGymCup().getLogoImagePath() != "") {
-				panelLogo.setPath(gymCupController.getGymCup()
-						.getLogoImagePath());
-			}
-		}
-		lblLogo.setText("");
-
 	}
 
 	/**
 	 * Imports a CSV (tabbed separated) to the Gymcup.
-	 *
-	 * @param gymCup the gym cup
+	 * 
+	 * @param gymCup
+	 *            the gym cup
 	 */
 	private void importListToApplication(GymCup gymCup) {
+		createAndPersistGymCup(gymCup);
+		createAndPersistSquads();
+		addProgramClasses(gymCup);
+	}
+
+	private void createAndPersistSquads() {
+		ImportStartList startList = new ImportStartList(pathImport);
+		startList.readImport();
+		SquadCreator squadCreator = new SquadCreator(startList);
+		squadCreator.insertImportToDB();
+		DBController.importAllSquads(gymCupController.getGymCup());
+		gymCupController.getGymCup().setSquads(squadCreator.createSquads());
+	}
+
+	private void addProgramClasses(GymCup gymCup) {
+		for (Athlete athlete : gymCup.getAllAthletes()) {
+			gymCup.addProgramClass(athlete.getPrgClass());
+			DBController.addPrgClassToGymCup(gymCup, athlete);
+		}
+	}
+
+	private void createAndPersistGymCup(GymCup gymCup) {
 		DBController.importGymCupToDB(gymCup);
 		try {
 			setGymCupDateCredentials(gymCup);
 		} catch (ParseException e) {
 		}
 		gymCupController.setGymCup(gymCup);
-		ImportStartList startList = new ImportStartList(pathImport);
-		startList.readImport();
-		SquadCreator squadCreator = new SquadCreator(startList);
-		squadCreator.insertImportToDB();
-		DBController.importAllSquads(gymCupController.getGymCup());
-		gymCupController.getGymCup().setSquads(
-				squadCreator.createSquads());
-		
-		for (Athlete athlete : gymCup.getAllAthletes()) {
-			gymCup.addProgramClass(athlete.getPrgClass());
-			DBController.addPrgClassToGymCup(gymCup, athlete);
-		}
 	}
-	
+
 	/**
 	 * Sets the logo to the gymcup
-	 *
-	 * @param gymCup the new gym cup logo
+	 * 
+	 * @param gymCup
+	 *            the new gym cup logo
 	 */
 	private void setGymCupLogo(GymCup gymCup) {
 		if (panelLogo.isGenerated()) {
 			gymCup.setLogoImagePath(panelLogo.getPath());
 			lblLogo.setText("");
 			btnOpenPic.setEnabled(false);
-			
 		}
 	}
-	
+
 	/**
 	 * Sets the gym cup date credentials.
-	 *
-	 * @param gymCup the new gym cup date credentials
-	 * @throws ParseException the parse exception
+	 * 
+	 * @param gymCup
+	 *            the new gym cup date credentials
+	 * @throws ParseException
+	 *             the parse exception
 	 */
-	private void setGymCupDateCredentials(GymCup gymCup)
-	throws ParseException {
+	private void setGymCupDateCredentials(GymCup gymCup) throws ParseException {
 		gymCup.setStartDate(DateFormatConverter
 				.convertStringToDate(txtFieldStartDate.getText()));
 		gymCup.setEndDate(DateFormatConverter
 				.convertStringToDate(txtFieldEndDate.getText()));
 	}
-	
+
 	/**
-	 * Writes the new gymcup credentials and to the DB. 
-	 *
+	 * Writes the new gymcup credentials and to the DB.
+	 * 
 	 * @return the gym cup
-	 * @throws ParseException the parse exception
+	 * @throws ParseException
+	 *             the parse exception
 	 */
 	private GymCup updateGymCupCredentials() throws ParseException {
 		DBConnection db = new DBConnection();
@@ -727,10 +705,10 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gymCupController.setGymCup(gymCup);
 		return gymCup;
 	}
-	
+
 	/**
 	 * Creates the gym cup with credentials.
-	 *
+	 * 
 	 * @return the gym cup
 	 */
 	private GymCup createGymCupWithCredentials() {
@@ -741,5 +719,12 @@ public class CupManagementPanel extends JPanel implements Observer {
 		gymCup.setSponsors(txtAreaSponsors.getText());
 		gymCup.setDescription(txtAreaDescr.getText());
 		return gymCup;
+	}
+
+	private class KeyReleasedApater extends KeyAdapter {
+
+		public void keyReleased(KeyEvent e) {
+			changesCupInformation();
+		}
 	}
 }

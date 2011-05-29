@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class ImportStartListTest {
 
-	public class ImportStartListStub extends ImportStartList {
+	private class ImportStartListStub extends ImportStartList {
 
 
 		public ImportStartListStub() {
@@ -18,15 +18,15 @@ public class ImportStartListTest {
 		}
 
 		public void readImport(String line) {
-			
-				String splitArray[] = line.split("\t");
-				List<String> importLine = new ArrayList<String>();
-				for (int i = 0; i < splitArray.length; i++) {
-					importLine.add(splitArray[i]);
-				}
-				System.out.println(importLine);
-				importList.add(importLine);
-			
+
+			String[] splitArray = line.split("\t");
+			List<String> importLine = new ArrayList<String>();
+			for (int i = 0; i < splitArray.length; i++) {
+				importLine.add(splitArray[i]);
+			}
+			System.out.println(importLine);
+			importList.add(importLine);
+
 		}
 
 	}
@@ -52,11 +52,10 @@ public class ImportStartListTest {
 		tmp.add("sg");
 	}
 
-
 	@Test
 	public void testReadImport() {
 		startList.readImport(line);
-		assertEquals(startList.importList.get(0).get(0),tmp.get(0) );
+		assertEquals(startList.importList.get(0).get(0), tmp.get(0));
 	}
 
 }

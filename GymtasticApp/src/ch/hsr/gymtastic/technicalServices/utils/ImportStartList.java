@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class ImportStartList {
 
-	private String filePath;
+	private String fileName;
 	protected List<List<String>> importList = new ArrayList<List<String>>();
 
 	/**
@@ -28,7 +28,7 @@ public class ImportStartList {
 	 *            the file name
 	 */
 	public ImportStartList(String filePath) {
-		this.filePath = filePath;
+		this.fileName = filePath;
 	}
 
 
@@ -50,26 +50,34 @@ public class ImportStartList {
 		BufferedReader readbuffer = null;
 		try {
 
-			readbuffer = new BufferedReader(new FileReader(filePath));
-			String line;
-
-			while ((line = readbuffer.readLine()) != null) {
-				String splitArray[] = line.split("\t");
-				List<String> importLine = new ArrayList<String>();
-				for (int i = 0; i < splitArray.length; i++) {
-					importLine.add(splitArray[i]);
-				}
-				importList.add(importLine);
-			}
+			readbuffer = new BufferedReader(new FileReader(fileName));
+			readLines(readbuffer);
 			removeFirstLine();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				readbuffer.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+			closeReadBuffer(readbuffer);
+		}
+	}
+
+	private String readLines(BufferedReader readbuffer) throws IOException {
+		String line;
+		while ((line = readbuffer.readLine()) != null) {
+			String[] splitArray = line.split("\t");
+			List<String> importLine = new ArrayList<String>();
+			for (int i = 0; i < splitArray.length; i++) {
+				importLine.add(splitArray[i]);
 			}
+			importList.add(importLine);
+		}
+		return line;
+	}
+
+	private void closeReadBuffer(BufferedReader readbuffer) {
+		try {
+			readbuffer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

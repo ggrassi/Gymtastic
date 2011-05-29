@@ -6,7 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.ConnectException;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -21,12 +20,14 @@ import ch.hsr.gymtastic.client.presentation.frames.ClientFrame;
 import ch.hsr.gymtastic.client.presentation.models.AthleteOverviewTableModel;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
+import ch.hsr.gymtastic.technicalServices.network.exceptions.TransmissionException;
 
 /**
- * The Class ActualSquadPanel shows the GUI with all Informations about the Squad.
+ * The Class ActualSquadPanel shows the GUI with all Informations about the
+ * Squad.
  */
 public class ActualSquadPanel extends JPanel {
-	
+
 	private static final long serialVersionUID = 9138092871453323277L;
 	private JTable tableOverview;
 	private JPanel panelAthletesTable;
@@ -40,17 +41,21 @@ public class ActualSquadPanel extends JPanel {
 	private NetworkClientController networkController;
 	private final ClientFrame clientFrame;
 
-
 	/**
 	 * Instantiates a new actual squad panel.
-	 *
-	 * @param actualSquad the actual squad
-	 * @param deviceType the device type
-	 * @param networkController the network controller
-	 * @param clientFrame the client frame
+	 * 
+	 * @param actualSquad
+	 *            the actual squad
+	 * @param deviceType
+	 *            the device type
+	 * @param networkController
+	 *            the network controller
+	 * @param clientFrame
+	 *            the client frame
 	 */
-	public ActualSquadPanel(Squad actualSquad, DeviceType deviceType, NetworkClientController networkController, ClientFrame clientFrame) {
-		
+	public ActualSquadPanel(Squad actualSquad, DeviceType deviceType,
+			NetworkClientController networkController, ClientFrame clientFrame) {
+
 		this.actualSquad = actualSquad;
 		this.deviceType = deviceType;
 		this.networkController = networkController;
@@ -68,9 +73,10 @@ public class ActualSquadPanel extends JPanel {
 				try {
 					networkController.sendObjectToServer(actualSquad);
 					clientFrame.endRound();
-				} catch (ConnectException e) {
-					JOptionPane.showMessageDialog(clientFrame.getFrame(), "Das Senden zum Server ist fehlgeschlagen.",
-						    "Verbindungsfehler", JOptionPane.ERROR_MESSAGE);
+				} catch (TransmissionException e) {
+					JOptionPane.showMessageDialog(clientFrame.getFrame(),
+							"Das Senden zum Server ist fehlgeschlagen.",
+							"Verbindungsfehler", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -124,9 +130,9 @@ public class ActualSquadPanel extends JPanel {
 		panelAthleteControl = new JPanel();
 		panelAthletesTable.add(panelAthleteControl, BorderLayout.SOUTH);
 		panelAthleteControl.setLayout(new BorderLayout(0, 0));
-		
-				btnFinishEvaluation = new JButton("Bewertung abschliessen");
-				panelAthleteControl.add(btnFinishEvaluation, BorderLayout.EAST);
+
+		btnFinishEvaluation = new JButton("Bewertung abschliessen");
+		panelAthleteControl.add(btnFinishEvaluation, BorderLayout.EAST);
 	}
 
 }

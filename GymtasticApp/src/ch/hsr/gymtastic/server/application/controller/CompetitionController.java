@@ -128,7 +128,6 @@ public class CompetitionController extends Observable implements Observer {
 			Squad s = (Squad) obj;
 			updateSquad(s);
 		}
-
 	}
 
 	/**

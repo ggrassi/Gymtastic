@@ -20,7 +20,7 @@ public interface RMIServerInterface extends Remote {
      * @throws RemoteException the remote exception
      * @throws ServerNotActiveException the server not active exception
      */
-    public void addClient(RMIClientInterface client, Serializable deviceType) throws RemoteException, ServerNotActiveException;
+    void addClient(RMIClientInterface client, Serializable deviceType) throws RemoteException, ServerNotActiveException;
 
     /**
      * Removes a client from the Server
@@ -28,7 +28,7 @@ public interface RMIServerInterface extends Remote {
      * @param client the client
      * @throws RemoteException the remote exception
      */
-    public void removeClient(RMIClientInterface client) throws RemoteException;
+    void removeClient(RMIClientInterface client) throws RemoteException;
 
     /**
      * Uploads an object to the server.
@@ -36,5 +36,5 @@ public interface RMIServerInterface extends Remote {
      * @param object the object
      * @throws RemoteException the remote exception
      */
-    public void uploadObjectToServer(Serializable object) throws RemoteException;
+    void uploadObjectToServer(Serializable object) throws RemoteException;
 }

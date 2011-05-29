@@ -10,7 +10,7 @@ import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
 
 /**
- * The Class AthleteOverviewTableModel 
+ * The Class AthleteOverviewTableModel
  */
 public class AthleteOverviewTableModel extends AbstractTableModel implements
 		Observer {
@@ -23,9 +23,11 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements
 
 	/**
 	 * Instantiates a new athlete overview table model.
-	 *
-	 * @param actualSquad the actual squad
-	 * @param deviceType the device type
+	 * 
+	 * @param actualSquad
+	 *            the actual squad
+	 * @param deviceType
+	 *            the device type
 	 */
 	public AthleteOverviewTableModel(Squad actualSquad, DeviceType deviceType) {
 		this.squad = actualSquad;
@@ -33,7 +35,9 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements
 		this.squad.addObserver(this);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.swing.table.AbstractTableModel#getColumnName(int)
 	 */
 	@Override
@@ -41,7 +45,9 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements
 		return columns[columnIndex];
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.swing.table.TableModel#getColumnCount()
 	 */
 	@Override
@@ -49,7 +55,9 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements
 		return columns.length;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.swing.table.TableModel#getRowCount()
 	 */
 	@Override
@@ -61,7 +69,9 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.swing.table.TableModel#getValueAt(int, int)
 	 */
 	@Override
@@ -77,16 +87,18 @@ public class AthleteOverviewTableModel extends AbstractTableModel implements
 		case 3:
 			return athlete.getPrgClass();
 		case 4:
-			if(athlete.getMarks().get(deviceType) == null){
+			if (athlete.getMarks().get(deviceType) == null) {
 				return "0";
-			}else{
+			} else {
 				return athlete.getMarks().get(deviceType).getFinalMark();
 			}
 		}
 		return "";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override

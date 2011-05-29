@@ -50,7 +50,8 @@ public class PdfStartlistExporter extends PdfExporter {
 	}
 
 	/**
-	 * Creates the competition startlist which contains the startlist for the Athletes
+	 * Creates the competition startlist which contains the startlist for the
+	 * Athletes
 	 * 
 	 * @param competitionName
 	 *            the competition name
@@ -123,14 +124,10 @@ public class PdfStartlistExporter extends PdfExporter {
 		for (Squad squad : competition.getSquads()) {
 			writeSquadTitle(squad);
 			for (Athlete athlete : squad.getAthlets()) {
-				Paragraph athleteParagraph = new Paragraph(athlete
-						.getFirstName()
-						+ " "
-						+ athlete.getLastName()
-						+ " "
-						+ athlete.getYearOfBirth()
-						+ " "
-						+ athlete.getAssociation().getName());
+				Paragraph athleteParagraph = new Paragraph(
+						athlete.getFirstName() + " " + athlete.getLastName()
+								+ " " + athlete.getYearOfBirth() + " "
+								+ athlete.getAssociation());
 				document.add(athleteParagraph);
 			}
 			document.add(new Paragraph(" "));
@@ -161,13 +158,9 @@ public class PdfStartlistExporter extends PdfExporter {
 	 */
 	private void writeTotalTitle() throws DocumentException {
 
-		Paragraph title = new Paragraph("Startliste vom "
-				+ gymCup.getName()
-				+ " in "
-				+ gymCup.getLocation()
-				+ " vom "
-				+ DateFormatConverter
-						.convertDateToString(gymCup.getStartDate()) + " bis "
+		Paragraph title = new Paragraph("Startliste vom " + gymCup.getName() + " in " + gymCup.getLocation() + " vom "
+				+ DateFormatConverter.convertDateToString(gymCup.getStartDate())
+				+ " bis "
 				+ DateFormatConverter.convertDateToString(gymCup.getEndDate()),
 				totalStartlistTitleFont);
 		title.setAlignment(Paragraph.ALIGN_CENTER);
@@ -201,8 +194,9 @@ public class PdfStartlistExporter extends PdfExporter {
 	 */
 	private Competition getCompetition() {
 		for (Competition competition : gymCup.getCompetitions()) {
-			if (competition.getDescription().equals(competitionName))
+			if (competition.getDescription().equals(competitionName)) {
 				return competition;
+			}
 		}
 		return null;
 	}

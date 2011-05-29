@@ -32,7 +32,7 @@ public class AthleteDataTableModel extends AbstractTableModel implements
    
     
     @SuppressWarnings("rawtypes")
-    Class[] columnTypes = new Class[] { String.class, String.class, Integer.class, String.class};
+    private Class[] columnTypes = new Class[] { String.class, String.class, Integer.class, String.class};
 
     @SuppressWarnings( { "unchecked", "rawtypes" })
     public Class getColumnClass(int columnIndex) {
