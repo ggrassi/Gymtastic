@@ -26,7 +26,7 @@ public class SquadCreator {
 	private static final int firstNamePositionImport = 3;
 	private static final int progClassPositionImport = 2;
 	private static final int startNrPositionImport = 1;
-	private static final int squadPositionImport = 0;
+	protected static final int squadPositionImport = 0;
 	private ImportStartList startList;
 	private DBConnection db;
 
@@ -38,6 +38,10 @@ public class SquadCreator {
 	 */
 	public SquadCreator(ImportStartList importStartList) {
 		this.startList = importStartList;
+	}
+
+	public SquadCreator() {
+		
 	}
 
 	/**
@@ -75,7 +79,7 @@ public class SquadCreator {
 	 *            the import list
 	 * @return the sets the
 	 */
-	private Set<Integer> findSquadNumbers(List<List<String>> importList) {
+	protected Set<Integer> findSquadNumbers(List<List<String>> importList) {
 		Set<Integer> squadsNrList = new TreeSet<Integer>();
 		for (List<String> line : importList) {
 			squadsNrList.add(Integer.parseInt(line.get(squadPositionImport)));
@@ -156,7 +160,7 @@ public class SquadCreator {
 	 *            the line
 	 * @return the athlete from
 	 */
-	private Athlete getAthleteFrom(List<String> line) {
+	protected Athlete getAthleteFrom(List<String> line) {
 		Athlete atemp = new Athlete(Integer.parseInt(line
 				.get(squadPositionImport)), Integer.parseInt(line
 				.get(startNrPositionImport)),

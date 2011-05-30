@@ -15,6 +15,24 @@ public class ImportStartList {
 	protected List<List<String>> importList = new ArrayList<List<String>>();
 
 	/**
+	 * Instantiates a new import start list.
+	 */
+	public ImportStartList() {
+		super();
+	
+	}
+	/**
+	 * Instantiates a new import start list.
+	 * 
+	 * @param filePath
+	 *            the file name
+	 */
+	public ImportStartList(String filePath) {
+		this.fileName = filePath;
+	}
+
+
+	/**
 	 * Gets the import list.
 	 * 
 	 * @return the import list
@@ -23,21 +41,6 @@ public class ImportStartList {
 		return importList;
 	}
 
-	/**
-	 * Instantiates a new import start list.
-	 */
-	public ImportStartList() {
-	}
-
-	/**
-	 * Instantiates a new import start list.
-	 * 
-	 * @param fileName
-	 *            the file name
-	 */
-	public ImportStartList(String fileName) {
-		this.fileName = fileName;
-	}
 
 	/**
 	 * Reads the import of a appropriate CSV File and inserts line per line into
@@ -46,6 +49,7 @@ public class ImportStartList {
 	public void readImport() {
 		BufferedReader readbuffer = null;
 		try {
+
 			readbuffer = new BufferedReader(new FileReader(fileName));
 			readLines(readbuffer);
 			removeFirstLine();
