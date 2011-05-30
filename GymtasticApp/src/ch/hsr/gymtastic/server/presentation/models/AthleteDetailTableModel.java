@@ -18,7 +18,7 @@ import ch.hsr.gymtastic.server.application.controller.GymCupController;
 public class AthleteDetailTableModel extends AbstractTableModel implements Observer {
 
     private static final long serialVersionUID = 1L;
-    private String[] columns = { "Gerät", "D-Note", "E-Note 1", "E-Note 2", "E-Note 3", "Bonus", "Penalty",
+    private String[] columns = { "Ger\u00e4t", "D-Note", "E-Note 1", "E-Note 2", "E-Note 3", "Bonus", "Penalty",
 	    "Gesamtnote" };
     private Athlete athlete;
     private GymCupController gymCupController;
