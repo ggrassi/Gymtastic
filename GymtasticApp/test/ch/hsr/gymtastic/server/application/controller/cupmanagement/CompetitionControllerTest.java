@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.server.application.controller;
+package ch.hsr.gymtastic.server.application.controller.cupmanagement;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -14,6 +14,8 @@ import org.junit.Test;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.Squad;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.CompetitionController;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.GymCupController;
 
 public class CompetitionControllerTest {
 

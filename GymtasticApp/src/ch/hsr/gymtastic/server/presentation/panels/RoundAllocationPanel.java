@@ -24,9 +24,9 @@ import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.DeviceType;
-import ch.hsr.gymtastic.server.application.controller.CompetitionController;
-import ch.hsr.gymtastic.server.application.controller.GymCupController;
-import ch.hsr.gymtastic.server.application.controller.RoundAllocator;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.CompetitionController;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.GymCupController;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.RoundAllocator;
 import ch.hsr.gymtastic.server.presentation.models.CompetitionRoundAllocatorComboBoxModel;
 
 /**

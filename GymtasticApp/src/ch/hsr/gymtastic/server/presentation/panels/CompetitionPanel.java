@@ -29,8 +29,8 @@ import javax.swing.text.DateFormatter;
 
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.Squad;
-import ch.hsr.gymtastic.server.application.controller.DBController;
-import ch.hsr.gymtastic.server.application.controller.GymCupController;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.GymCupController;
+import ch.hsr.gymtastic.server.application.controller.persistence.DBController;
 import ch.hsr.gymtastic.server.presentation.frames.SquadsSelectionFrame;
 import ch.hsr.gymtastic.server.presentation.models.CompetitionOverviewTableModel;
 import ch.hsr.gymtastic.server.presentation.models.SquadsInCompetitionTableModel;

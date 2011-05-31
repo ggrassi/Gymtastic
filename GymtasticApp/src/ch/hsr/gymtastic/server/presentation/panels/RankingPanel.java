@@ -21,7 +21,7 @@ import javax.swing.border.TitledBorder;
 
 import ch.hsr.gymtastic.server.application.PdfRankingTableExporter;
 import ch.hsr.gymtastic.server.application.PdfStartlistExporter;
-import ch.hsr.gymtastic.server.application.controller.GymCupController;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.GymCupController;
 import ch.hsr.gymtastic.server.presentation.models.CompetitionComboBoxModel;
 import ch.hsr.gymtastic.server.presentation.models.ProgramClassComboBoxModel;
 

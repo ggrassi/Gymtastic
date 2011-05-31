@@ -33,11 +33,8 @@ public class Athlete extends Observable implements Serializable {
 	private Map<DeviceType, Mark> marks = new HashMap<DeviceType, Mark>();
 	@Embedded
 	private String association;
-
 	private String firstName;
-
 	private String lastName;
-
 	private String address;
 
 	/**

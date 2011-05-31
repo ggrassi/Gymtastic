@@ -1,9 +1,10 @@
-package ch.hsr.gymtastic.server.application.controller;
+package ch.hsr.gymtastic.server.application.controller.cupmanagement;
 
 import static junit.framework.Assert.assertEquals;
 import java.util.GregorianCalendar;
 import org.junit.Test;
 import ch.hsr.gymtastic.domain.GymCup;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.GymCupController;
 
 public class GymCupControllerTest {
 

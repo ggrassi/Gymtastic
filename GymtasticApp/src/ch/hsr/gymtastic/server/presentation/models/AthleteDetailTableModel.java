@@ -9,8 +9,8 @@ import javax.swing.table.AbstractTableModel;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Mark;
-import ch.hsr.gymtastic.server.application.controller.DBController;
-import ch.hsr.gymtastic.server.application.controller.GymCupController;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.GymCupController;
+import ch.hsr.gymtastic.server.application.controller.persistence.DBController;
 
 /**
  * The Class AthleteDetailTableModel defines the behavior

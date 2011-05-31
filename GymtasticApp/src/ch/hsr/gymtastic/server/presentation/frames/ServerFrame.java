@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
-import ch.hsr.gymtastic.server.application.controller.GymCupController;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.GymCupController;
 import ch.hsr.gymtastic.server.presentation.panels.AthletePanel;
 import ch.hsr.gymtastic.server.presentation.panels.CompetitionPanel;
 import ch.hsr.gymtastic.server.presentation.panels.CupManagementPanel;
