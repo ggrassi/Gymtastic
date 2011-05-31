@@ -210,11 +210,9 @@ public final class DBController {
 				oldComp.getId());
 		GymCup dbGymCup = dbConnection.getEm().find(GymCup.class,
 				gymCup.getId());
-		
 		dbGymCup.getCompetitions().remove(dbComp);
 		dbConnection.remove(dbComp);
 		commitAndClose();
-
 	}
 
 	/**
@@ -258,6 +256,7 @@ public final class DBController {
 		dbConnection = new DBConnection();
 		Mark dbMark = dbConnection.getEm().find(Mark.class, mark.getId());
 		dbMark.setdMark(mark.getdMark());
+		dbConnection.persist(dbMark);
 		commitAndClose();
 	}
 
