@@ -91,6 +91,7 @@ public class SquadsInCompetitionTableModel extends AbstractTableModel implements
      */
     public void setCompetition(Competition competition) {
 	this.competition = competition;
+	competition.addObserver(this);
 	fireTableDataChanged();
     }
 

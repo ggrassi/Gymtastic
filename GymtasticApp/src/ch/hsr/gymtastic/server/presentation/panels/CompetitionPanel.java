@@ -174,7 +174,8 @@ public class CompetitionPanel extends JPanel {
 
 	btnAddSquad.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
-		new SquadsSelectionFrame(gymCupController, actualCompetition);
+	    	SquadsSelectionFrame squadSelectionFrame = new SquadsSelectionFrame(gymCupController, actualCompetition);
+			squadSelectionFrame.addObserver(squadsInCompetitionTableModel);
 	    }
 	});
 
