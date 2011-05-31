@@ -32,9 +32,9 @@ import javax.swing.text.DateFormatter;
 
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.GymCup;
-import ch.hsr.gymtastic.server.application.controller.DBController;
-import ch.hsr.gymtastic.server.application.controller.GymCupController;
-import ch.hsr.gymtastic.server.application.controller.SquadCreator;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.GymCupController;
+import ch.hsr.gymtastic.server.application.controller.persistence.DBController;
+import ch.hsr.gymtastic.server.application.controller.persistence.SquadCreator;
 import ch.hsr.gymtastic.server.presentation.frames.ImagePanel;
 import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;

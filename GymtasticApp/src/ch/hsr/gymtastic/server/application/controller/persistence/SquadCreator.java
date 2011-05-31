@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.server.application.controller;
+package ch.hsr.gymtastic.server.application.controller.persistence;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.server.application.controller;
+package ch.hsr.gymtastic.server.application.controller.cupmanagement;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.hsr.gymtastic.domain.DeviceType;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.ClientAllocator;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 import ch.hsr.gymtastic.technicalServices.network.RMIClientInterface;
 

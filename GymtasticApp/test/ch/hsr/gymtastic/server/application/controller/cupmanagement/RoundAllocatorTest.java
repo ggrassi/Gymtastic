@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.server.application.controller;
+package ch.hsr.gymtastic.server.application.controller.cupmanagement;
 
 import static org.junit.Assert.*;
 
@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Squad;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.RoundAllocator;
 
 public class RoundAllocatorTest {
 

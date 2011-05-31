@@ -11,9 +11,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
-import ch.hsr.gymtastic.server.application.controller.ClientAllocator;
-import ch.hsr.gymtastic.server.application.controller.GymCupController;
-import ch.hsr.gymtastic.server.application.controller.NetworkServerController;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.ClientAllocator;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.GymCupController;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.NetworkServerController;
 import ch.hsr.gymtastic.server.presentation.editor.DeviceTypeEditor;
 import ch.hsr.gymtastic.server.presentation.models.DeviceTypeTableModel;
 

@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.server.application.controller;
+package ch.hsr.gymtastic.server.application.controller.cupmanagement;
 
 import java.net.ConnectException;
 import java.util.Observable;
@@ -6,6 +6,7 @@ import java.util.Observable;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.GymCup;
 import ch.hsr.gymtastic.domain.GymCupClientInfo;
+import ch.hsr.gymtastic.server.application.controller.persistence.DBController;
 import ch.hsr.gymtastic.technicalServices.network.ClientInformation;
 
 /**

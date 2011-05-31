@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.server.application.controller;
+package ch.hsr.gymtastic.server.application.controller.persistence;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,26 +16,26 @@ import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Mark;
 import ch.hsr.gymtastic.domain.Squad;
+import ch.hsr.gymtastic.server.application.controller.persistence.SquadCreator;
 
 public class SquadCreatorTest {
-	
+
 	private SquadCreatorStub squadCreator;
 	private Map<Integer, Squad> squadMapOriginal;
 	private Map<Integer, Squad> squadMapUnderTest;
 	private List<List<String>> importList = new ArrayList<List<String>>();
-	
-	public class SquadCreatorStub extends SquadCreator{
 
-		
+	private class SquadCreatorStub extends SquadCreator {
+
 		public SquadCreatorStub() {
-			super();
-			
+
 			List<String> squadOneWithOneAthlete = new ArrayList<String>();
 			squadMapOriginal = new TreeMap<Integer, Squad>();
 			Squad firstSquad = new Squad(1);
-			firstSquad.addAthlet(new Athlete(1, 1, "P1", "Luca11", "Schweiwiler", "Test Strasse 1", 2000, "TZR sg"));
+			firstSquad.addAthlet(new Athlete(1, 1, "P1", "Luca11",
+					"Schweiwiler", "Test Strasse 1", 2000, "TZR sg"));
 			squadMapOriginal.put(1, firstSquad);
-			
+
 			squadOneWithOneAthlete.add("1");
 			squadOneWithOneAthlete.add("1");
 			squadOneWithOneAthlete.add("P1");
@@ -46,10 +46,11 @@ public class SquadCreatorTest {
 			squadOneWithOneAthlete.add("TZR");
 			squadOneWithOneAthlete.add("sg");
 			importList.add(squadOneWithOneAthlete);
-			
+
 			List<String> squadTwoWithFirstAthlete = new ArrayList<String>();
 			Squad secondSquad = new Squad(2);
-			secondSquad.addAthlet(new Athlete(2, 2, "P3", "Luca21", "Schweiwiler", "Test Strasse 1", 2000, "TZR sg"));
+			secondSquad.addAthlet(new Athlete(2, 2, "P3", "Luca21",
+					"Schweiwiler", "Test Strasse 1", 2000, "TZR sg"));
 			squadTwoWithFirstAthlete.add("2");
 			squadTwoWithFirstAthlete.add("2");
 			squadTwoWithFirstAthlete.add("P3");
@@ -60,11 +61,12 @@ public class SquadCreatorTest {
 			squadTwoWithFirstAthlete.add("TZR");
 			squadTwoWithFirstAthlete.add("sg");
 			importList.add(squadTwoWithFirstAthlete);
-			
+
 			List<String> squadTwoWithSecondAthlete = new ArrayList<String>();
-			secondSquad.addAthlet(new Athlete(2, 3, "P3", "Luca22", "Schweiwiler", "Test Strasse 1", 2000, "TZR sg"));
+			secondSquad.addAthlet(new Athlete(2, 3, "P3", "Luca22",
+					"Schweiwiler", "Test Strasse 1", 2000, "TZR sg"));
 			squadMapOriginal.put(2, secondSquad);
-			squadTwoWithSecondAthlete .add("2");
+			squadTwoWithSecondAthlete.add("2");
 			squadTwoWithSecondAthlete.add("3");
 			squadTwoWithSecondAthlete.add("P3");
 			squadTwoWithSecondAthlete.add("Luca22");
@@ -75,6 +77,7 @@ public class SquadCreatorTest {
 			squadTwoWithSecondAthlete.add("sg");
 			importList.add(squadTwoWithSecondAthlete);
 		}
+
 		@Override
 		public Map<Integer, Squad> createSquads() {
 			Set<Integer> squadsNrList = findSquadNumbers(importList);
@@ -87,35 +90,36 @@ public class SquadCreatorTest {
 			for (List<String> line : importList) {
 				Athlete tmpAthlete = getAthleteFrom(line);
 				for (DeviceType dt : DeviceType.values()) {
-					tmpAthlete.addMark(dt, new Mark(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+					tmpAthlete.addMark(dt, new Mark(0.0, 0.0, 0.0, 0.0, 0.0,
+							0.0));
 				}
 				squadMap.get(Integer.parseInt(line.get(squadPositionImport)))
 						.addAthlet(tmpAthlete);
 			}
 			return squadMap;
-			
+
 		}
 	}
 
 	@Before
 	public void setUp() {
 		squadCreator = new SquadCreatorStub();
-		squadMapUnderTest=squadCreator.createSquads();
+		squadMapUnderTest = squadCreator.createSquads();
 	}
-	
+
 	@After
-	public void tearDown(){
+	public void tearDown() {
 		squadMapUnderTest.clear();
 		squadCreator = null;
 	}
 
 	@Test
-	public void testFindSquadNumbers(){
+	public void testFindSquadNumbers() {
 		int first = 0;
 		String firstAthleteSquadNumber = "1";
 		assertEquals(firstAthleteSquadNumber, importList.get(first).get(0));
 	}
-	
+
 	@Test
 	public void testCreateSquads() {
 		assertEquals(squadMapOriginal.size(), squadMapUnderTest.size());

@@ -1,4 +1,4 @@
-package ch.hsr.gymtastic.server.application.controller;
+package ch.hsr.gymtastic.server.application.controller.cupmanagement;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -14,6 +14,8 @@ import org.junit.Test;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.Competition;
 import ch.hsr.gymtastic.domain.Squad;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.CompetitionController;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.GymCupController;
 
 public class CompetitionControllerTest {
 
@@ -25,7 +27,7 @@ public class CompetitionControllerTest {
 
     @Before
     public void setUp() throws ConnectException {
-	competitionController = new CompetitionController(gymCupController.getNetworkController());
+	competitionController = gymCupController.getCompetitionController();
 	competition = new Competition("TestCompetition", new GregorianCalendar(), "08:00", "09:00",
 		"Test Programmklasse");
 	for (int i = 0; i < 6; i++) {

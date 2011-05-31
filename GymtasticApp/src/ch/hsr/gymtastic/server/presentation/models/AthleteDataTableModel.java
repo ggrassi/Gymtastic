@@ -6,7 +6,7 @@ import java.util.Observer;
 import javax.swing.table.AbstractTableModel;
 
 import ch.hsr.gymtastic.domain.Athlete;
-import ch.hsr.gymtastic.server.application.controller.GymCupController;
+import ch.hsr.gymtastic.server.application.controller.cupmanagement.GymCupController;
 
 /**
  * The Class AthleteDataTableModel defines the behavior of its table
