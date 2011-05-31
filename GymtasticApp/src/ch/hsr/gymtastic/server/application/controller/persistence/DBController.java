@@ -206,11 +206,32 @@ public final class DBController {
 	public static void deleteCompetitionFromGymCup(Competition oldComp,
 			GymCup gymCup) {
 		dbConnection = new DBConnection();
+		Competition dbComp = dbConnection.getEm().find(Competition.class,
+				oldComp.getId());
 		GymCup dbGymCup = dbConnection.getEm().find(GymCup.class,
 				gymCup.getId());
-		dbGymCup.getCompetitions().remove(oldComp);
+		
+		dbGymCup.getCompetitions().remove(dbComp);
+		dbConnection.remove(dbComp);
 		commitAndClose();
 
+	}
+
+	/**
+	 * Removes the squad from competition.
+	 * 
+	 * @param comp
+	 *            the comp
+	 * @param squad
+	 *            the squad
+	 */
+	public static void removeSquadFromCompetition(Competition comp, Squad squad) {
+		dbConnection = new DBConnection();
+		Competition dbComp = dbConnection.getEm().find(Competition.class,
+				comp.getId());
+		Squad dbSquad = dbConnection.getEm().find(Squad.class, squad.getId());
+		dbComp.removeSquad(dbSquad);
+		commitAndClose();
 	}
 
 	/**
@@ -232,22 +253,6 @@ public final class DBController {
 
 	}
 
-	/**
-	 * Removes the squad from competition.
-	 * 
-	 * @param comp
-	 *            the comp
-	 * @param squad
-	 *            the squad
-	 */
-	public static void removeSquadFromCompetition(Competition comp, Squad squad) {
-		dbConnection = new DBConnection();
-		Competition dbComp = dbConnection.getEm().find(Competition.class,
-				comp.getId());
-		Squad dbSquad = dbConnection.getEm().find(Squad.class, squad.getId());
-		dbComp.removeSquad(dbSquad);
-		commitAndClose();
-	}
 
 	public static void updatedMark(Mark mark) {
 		dbConnection = new DBConnection();

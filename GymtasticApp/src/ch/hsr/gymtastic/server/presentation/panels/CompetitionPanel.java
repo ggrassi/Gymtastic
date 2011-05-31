@@ -96,8 +96,8 @@ public class CompetitionPanel extends JPanel {
 	btnDeleteCompetition.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		if (gymCupController.getGymCup().getCompetitions().remove(actualCompetition)) {
-		    competitionOverviewTableModel.fireTableDataChanged();
 		    DBController.deleteCompetitionFromGymCup(actualCompetition, gymCupController.getGymCup());
+		    competitionOverviewTableModel.fireTableDataChanged();
 		    setActualCompetition(null);
 		}
 	    }
