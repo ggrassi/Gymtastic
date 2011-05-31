@@ -27,7 +27,7 @@ public class CompetitionControllerTest {
 
     @Before
     public void setUp() throws ConnectException {
-	competitionController = new CompetitionController(gymCupController.getNetworkController());
+	competitionController = gymCupController.getCompetitionController();
 	competition = new Competition("TestCompetition", new GregorianCalendar(), "08:00", "09:00",
 		"Test Programmklasse");
 	for (int i = 0; i < 6; i++) {
