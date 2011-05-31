@@ -2,6 +2,7 @@ package ch.hsr.gymtastic.client.presentation.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -25,10 +26,11 @@ import ch.hsr.gymtastic.domain.GymCupClientInfo;
 import ch.hsr.gymtastic.technicalServices.utils.DateFormatConverter;
 
 /**
- * The Class OverviewPanel shows all the Information about the actual cup and the connection to the Server. 
+ * The Class OverviewPanel shows all the Information about the actual cup and
+ * the connection to the Server.
  */
 public class OverviewPanel extends JPanel implements Observer {
-	
+
 	private static final String WAIT_FOR_SERVER = "warte auf Server...";
 	private static final long serialVersionUID = 1L;
 	private JPanel panelOverview;
@@ -62,12 +64,17 @@ public class OverviewPanel extends JPanel implements Observer {
 
 	/**
 	 * Instantiates a new overview panel.
-	 *
-	 * @param gymCupInfoController the gym cup info controller
-	 * @param competitionInfoController the competition info controller
-	 * @param squadController the squad controller
-	 * @param deviceType the device type
-	 * @param frameClient the frame client
+	 * 
+	 * @param gymCupInfoController
+	 *            the gym cup info controller
+	 * @param competitionInfoController
+	 *            the competition info controller
+	 * @param squadController
+	 *            the squad controller
+	 * @param deviceType
+	 *            the device type
+	 * @param frameClient
+	 *            the frame client
 	 */
 	public OverviewPanel(GymCupInfoController gymCupInfoController,
 			CompetitionInfoController competitionInfoController,
@@ -321,7 +328,9 @@ public class OverviewPanel extends JPanel implements Observer {
 		});
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
@@ -340,29 +349,41 @@ public class OverviewPanel extends JPanel implements Observer {
 	 * Sets the round informations into the Labels.
 	 */
 	private void setRoundInfos() {
-		lblActualRoundText.setText("" + squadController.getRoundNr());
-		lblActualSquadText
-				.setText("" + squadController.getSquad().getSquadId());
-		btnStartRound.setEnabled(true);
-		lblRoundInfo
-				.setText("Status: Der Durchgang Nr. "
+
+		EventQueue.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				lblActualRoundText.setText("" + squadController.getRoundNr());
+				lblActualSquadText.setText(""
+						+ squadController.getSquad().getSquadId());
+				btnStartRound.setEnabled(true);
+				lblRoundInfo.setText("Status: Der Durchgang Nr. "
 						+ squadController.getRoundNr()
 						+ " wurde freigeschaltet. Sie k\u00f6nnen die Bewertung der Riege "
 						+ squadController.getSquad().getSquadId() + " starten.");
-
+			}
+		});
 	}
 
 	/**
 	 * Sets the competition infos into the labels.
 	 */
 	private void setCompetitionInfos() {
-		lblActualCompetitionText.setText(competitionInfoController
-				.getCompetitionInfo().getCompetitionName());
-		lblRoundInfo
-				.setText("Status: Der Wettkampf "
-						+ competitionInfoController.getCompetitionInfo()
-								.getCompetitionName()
-						+ " wurde freigeschaltet. Bitte warten Sie auf die Freigabe des Durchgangs.");
+		EventQueue.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				lblActualCompetitionText.setText(competitionInfoController
+						.getCompetitionInfo().getCompetitionName());
+				lblRoundInfo
+						.setText("Status: Der Wettkampf "
+								+ competitionInfoController
+										.getCompetitionInfo()
+										.getCompetitionName()
+								+ " wurde freigeschaltet. Bitte warten Sie auf die Freigabe des Durchgangs.");
+			}
+		});
 
 	}
 
@@ -370,19 +391,26 @@ public class OverviewPanel extends JPanel implements Observer {
 	 * Sets the gym cup infos into the labels.
 	 */
 	private void setGymCupInfos() {
-		GymCupClientInfo gymCupClientInfo = gymCupInfoController
-				.getGymCupClientInfo();
-		lblCupName.setText(gymCupClientInfo.getName());
-		lblCupLocation.setText(gymCupClientInfo.getLocation());
-		deviceType = gymCupClientInfo.getDeviceType();
-		lblDevice.setText(deviceType.toString());
-		lblStartDate.setText(DateFormatConverter
-				.convertDateToString(gymCupClientInfo.getStartDate()));
-		lblEndDate.setText(DateFormatConverter
-				.convertDateToString(gymCupClientInfo.getEndDate()));
-		lblRoundInfo
-				.setText("Status: Der Cup wurde auf dem Server erstellt. Bitte warten Sie auf die Freigabe des Wettkampfes.");
-		deviceType = gymCupClientInfo.getDeviceType();
+		EventQueue.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				GymCupClientInfo gymCupClientInfo = gymCupInfoController
+						.getGymCupClientInfo();
+				lblCupName.setText(gymCupClientInfo.getName());
+				lblCupLocation.setText(gymCupClientInfo.getLocation());
+				deviceType = gymCupClientInfo.getDeviceType();
+				lblDevice.setText(deviceType.toString());
+				lblStartDate.setText(DateFormatConverter
+						.convertDateToString(gymCupClientInfo.getStartDate()));
+				lblEndDate.setText(DateFormatConverter
+						.convertDateToString(gymCupClientInfo.getEndDate()));
+				lblRoundInfo
+						.setText("Status: Der Cup wurde auf dem Server erstellt. Bitte warten Sie auf die Freigabe des Wettkampfes.");
+				deviceType = gymCupClientInfo.getDeviceType();
+			}
+		});
+
 	}
 
 	/**
