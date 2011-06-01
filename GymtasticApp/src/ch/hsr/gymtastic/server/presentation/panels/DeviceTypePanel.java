@@ -62,6 +62,7 @@ public class DeviceTypePanel extends JPanel {
 			private void allocateClients() {
 				clientAllocator.addAll(networkController
 						.getClientsWaitingForAllocation());
+				networkController.removeWaitingClients();
 			}
 		});
 
