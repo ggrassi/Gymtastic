@@ -58,8 +58,7 @@ public class Athlete extends Observable implements Serializable {
 	 *            the association
 	 */
 	public Athlete(int squadID, int startNr, String prgClass, String firstName,
-			String lastName, String address, int yearOfBirth,
-			String association) {
+			String lastName, String address, int yearOfBirth, String association) {
 		this.squadId = squadID;
 		this.startNr = startNr;
 		this.prgClass = prgClass;
@@ -98,17 +97,17 @@ public class Athlete extends Observable implements Serializable {
 	 * @return the id
 	 */
 	public long getId() {
-		return id;
+		return startNr;
 	}
 
 	/**
-	 * Sets the id.
+	 * would set the id but is just for the JPA framework
 	 * 
 	 * @param id
 	 *            the new id
 	 */
 	public void setId(int id) {
-		this.id = id;
+
 		updateObservers();
 	}
 
@@ -142,13 +141,14 @@ public class Athlete extends Observable implements Serializable {
 	}
 
 	/**
-	 * Sets the start nr.
+	 * Sets the start nr. but its not allowed to change it, thats why it does
+	 * nothing, but we need it for JPA
 	 * 
 	 * @param startNr
 	 *            the new start nr
 	 */
 	public void setStartNr(int startNr) {
-		this.startNr = startNr;
+		this.startNr= startNr;
 		updateObservers();
 	}
 

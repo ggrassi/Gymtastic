@@ -30,6 +30,7 @@ import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Mark;
 import ch.hsr.gymtastic.server.application.controller.cupmanagement.GymCupController;
+import ch.hsr.gymtastic.server.application.controller.persistence.DBController;
 import ch.hsr.gymtastic.server.presentation.models.AthleteDetailTableModel;
 import ch.hsr.gymtastic.server.presentation.models.ProgramClassAthleteComboBoxModel;
 import ch.hsr.gymtastic.server.presentation.models.SquadComboBoxModel;
@@ -549,7 +550,6 @@ public final class AthleteDetailFrame {
 
 		} else {
 			createAthleteFromInput();
-
 		}
 		setButtonsEnabled(false);
 		gymCupController.getGymCup().athleteChanged();
@@ -568,6 +568,7 @@ public final class AthleteDetailFrame {
 		for (DeviceType dt : DeviceType.values()) {
 			athlete.addMark(dt, new Mark(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 		}
+		DBController.addAthlete(athlete);
 		athleteDetailTableModel.setAthlete(athlete);
 		updateAfterCancel();
 	}
