@@ -87,7 +87,7 @@ public final class DBController {
 		Collection<Athlete> ramAthletes = s.getAthlets();
 		for (Athlete ramAthlete : ramAthletes) {
 			Athlete dbAthlete = dbConnection.getEm().find(Athlete.class,
-					ramAthlete.getStartNr());
+					ramAthlete.getId());
 			Mark ramMark = ramAthlete.getMarks().get(deviceType);
 			dbConnection.persist(ramMark);
 			dbAthlete.addMark(deviceType, ramMark);
@@ -172,26 +172,46 @@ public final class DBController {
 		commitAndClose();
 
 	}
-	
-	public static void addAthlete(Athlete newAthlete, Squad oldSquad){
+
+	public static void addAthlete(Athlete newAthlete, Squad oldSquad) {
 		dbConnection = new DBConnection();
-		Squad dbSquad = dbConnection.getEm().find(Squad.class, oldSquad.getSquadId());	
+		Squad dbSquad = dbConnection.getEm().find(Squad.class,
+				oldSquad.getSquadId());
 		dbConnection.persist(newAthlete);
+		addEmptyMarksTo(newAthlete);
 		dbSquad.addAthlet(newAthlete);
 		dbConnection.persist(dbSquad);
 		commitAndClose();
 	}
-	public static void updateMark(Mark newMark) {
+	
+	/**
+	 * Adds the empty marks to an Athlete and persists it to the DB
+	 * 
+	 * @param atemp
+	 *            the atemp
+	 */
+	private static void addEmptyMarksTo(Athlete atemp) {
+
+		for (DeviceType dt : DeviceType.values()) {
+			Mark mtemp = new Mark(0, 0, 0, 0, 0, 0);
+			dbConnection.persist(mtemp);
+			atemp.addMark(dt, mtemp);
+		}
+		dbConnection.persist(atemp);
+	}
+
+	public static void updateMark(Mark newMark, Athlete ramAthlete,
+			DeviceType deviceType) {
 		dbConnection = new DBConnection();
-			Mark dbMark = dbConnection.getEm().find(Mark.class, newMark.getId());			
-			dbMark.setdMark(newMark.getdMark());
-			dbMark.seteMarkOne(newMark.geteMarkOne());
-			dbMark.setEmarkTwo(newMark.getEmarkTwo());
-			dbMark.seteMarkThree(newMark.geteMarkThree());
-			dbMark.setFinalMark(newMark.getFinalMark());
-			dbMark.setPenalty(newMark.getPenalty());
-			dbConnection.persist(dbMark);	
+		Athlete dbAthlete = dbConnection.getEm().find(Athlete.class,
+				ramAthlete.getStartNr());
+		Mark ramMark = newMark;
+		dbConnection.persist(newMark);
+//		dbAthlete.getMarks().remove(deviceType);
+		dbAthlete.addMark(deviceType, ramMark);
+		dbConnection.persist(dbAthlete);
 		commitAndClose();
+	
 	}
 
 	/**
@@ -251,15 +271,19 @@ public final class DBController {
 		dbComp.removeSquad(dbSquad);
 		commitAndClose();
 	}
-	
-	public static void removeAthleteFromSquad(Athlete removableAthlete, Squad oldSquad) {
+
+	public static void removeAthleteFromSquad(Athlete removableAthlete,
+			Squad oldSquad) {
 		dbConnection = new DBConnection();
-		Squad dbSquad = dbConnection.getEm().find(Squad.class, oldSquad.getId());
-		Athlete dbAthlete = dbConnection.getEm().find(Athlete.class, removableAthlete.getStartNr());
+		Squad dbSquad = dbConnection.getEm()
+				.find(Squad.class, oldSquad.getId());
+		Athlete dbAthlete = dbConnection.getEm().find(Athlete.class,
+				removableAthlete.getStartNr());
 		dbSquad.removeAthlete(dbAthlete);
+		dbConnection.remove(dbAthlete);
 		commitAndClose();
 	}
-	
+
 	/**
 	 * Adds a competition to the gymcup.
 	 * 

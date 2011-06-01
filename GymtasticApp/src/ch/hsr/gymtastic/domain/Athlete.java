@@ -21,7 +21,9 @@ public class Athlete extends Observable implements Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -18961899248373223L;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private int squadId;
 	private int startNr;
 	private String prgClass;
@@ -321,5 +323,13 @@ public class Athlete extends Observable implements Serializable {
 	 */
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public int getId() {
+		return startNr;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

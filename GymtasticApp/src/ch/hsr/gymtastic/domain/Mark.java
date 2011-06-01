@@ -9,7 +9,7 @@ import javax.persistence.Entity;
  * finalmark.
  */
 @Entity
-public class Mark implements Serializable {
+public class Mark implements Serializable, Cloneable {
 
     private static final long serialVersionUID = -2064909882686204715L;
     private int id = 0;
@@ -21,7 +21,7 @@ public class Mark implements Serializable {
     private double penalty;
     private double bonus;
     private double finalMark = 0;
-
+    
     /**
      * Instantiates a new mark.
      */

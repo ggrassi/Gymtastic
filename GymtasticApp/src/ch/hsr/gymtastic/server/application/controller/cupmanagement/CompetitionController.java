@@ -138,12 +138,14 @@ public class CompetitionController extends Observable implements Observer {
 	 *            the squad
 	 */
 	private void updateSquad(Squad squad) {
-		gymCup.updateSquad(squad);
-		DeviceType deviceType = roundAllocator.getDeviceType(squad,
-				actualRoundNr);
-		DBController.saveReceivedSquad(squad, deviceType);
-		setDeviceTypeFinished(squad);
-		updateObservers();
+		if (squad != null) {
+			gymCup.updateSquad(squad);
+			DeviceType deviceType = roundAllocator.getDeviceType(squad,
+					actualRoundNr);
+			DBController.saveReceivedSquad(squad, deviceType);
+			setDeviceTypeFinished(squad);
+			updateObservers();
+		}
 	}
 
 	/**

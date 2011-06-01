@@ -590,6 +590,7 @@ public final class AthleteDetailFrame {
 		athlete.setStartNr(Integer.parseInt(txtFieldStartNr.getText()));
 		athlete.setYearOfBirth(((Number) txtFieldYearOfBirth.getValue())
 				.intValue());
+		DBController.updateAthlete(athlete);
 	}
 
 	private class KeyReleasedApater extends KeyAdapter {
