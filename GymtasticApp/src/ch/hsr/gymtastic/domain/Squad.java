@@ -33,7 +33,6 @@ public class Squad extends Observable implements Serializable {
      * Instantiates a new squad.
      */
     public Squad() {
-	super();
 	athlets = new LinkedList<Athlete>();
     }
 
@@ -44,7 +43,6 @@ public class Squad extends Observable implements Serializable {
      *            the squad id
      */
     public Squad(int squadId) {
-	super();
 	this.squadId = squadId;
 	athlets = new LinkedList<Athlete>();
     }

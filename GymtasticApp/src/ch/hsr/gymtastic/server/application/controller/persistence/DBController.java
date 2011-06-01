@@ -206,8 +206,8 @@ public final class DBController {
 		Athlete dbAthlete = dbConnection.getEm().find(Athlete.class,
 				ramAthlete.getStartNr());
 		Mark ramMark = newMark;
+		ramMark.setFinalMark(ramMark.getFinalMark());
 		dbConnection.persist(newMark);
-//		dbAthlete.getMarks().remove(deviceType);
 		dbAthlete.addMark(deviceType, ramMark);
 		dbConnection.persist(dbAthlete);
 		commitAndClose();
