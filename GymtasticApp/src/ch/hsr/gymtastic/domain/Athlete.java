@@ -21,10 +21,6 @@ public class Athlete extends Observable implements Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -18961899248373223L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
 	private int squadId;
 	private int startNr;
 	private String prgClass;
@@ -89,26 +85,6 @@ public class Athlete extends Observable implements Serializable {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
-	}
-
-	/**
-	 * Gets the id.
-	 * 
-	 * @return the id
-	 */
-	public long getId() {
-		return startNr;
-	}
-
-	/**
-	 * would set the id but is just for the JPA framework
-	 * 
-	 * @param id
-	 *            the new id
-	 */
-	public void setId(int id) {
-
-		updateObservers();
 	}
 
 	/**

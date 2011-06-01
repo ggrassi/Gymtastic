@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 public class Mark implements Serializable {
 
     private static final long serialVersionUID = -2064909882686204715L;
-    private int id;
+    private int id = 0;
     private static int markId = 0;
     private double dMark;
     private double eMarkOne;
@@ -46,13 +46,15 @@ public class Mark implements Serializable {
      *            the bonus
      */
     public Mark(double dMark, double eMarkOne, double emarkTwo, double eMarkThree, double penalty, double bonus) {
-	this.dMark = dMark;
+    setId(++markId);
+    this.dMark = dMark;
 	this.eMarkOne = eMarkOne;
 	this.eMarkTwo = emarkTwo;
 	this.eMarkThree = eMarkThree;
 	this.penalty = penalty;
 	this.bonus = bonus;
 	calcFinalMark();
+	
     }
 
     /*

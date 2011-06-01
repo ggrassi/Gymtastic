@@ -125,7 +125,7 @@ public final class DBController {
 	public static void updateAthlete(Athlete tmpAthlete) {
 		dbConnection = new DBConnection();
 		Athlete dbAthlete = dbConnection.getEm().find(Athlete.class,
-				tmpAthlete.getId());
+				tmpAthlete.getStartNr());
 		dbAthlete.setAddress(tmpAthlete.getAddress());
 		dbAthlete.setFirstName(tmpAthlete.getFirstName());
 		dbAthlete.setLastName(tmpAthlete.getLastName());
@@ -255,7 +255,7 @@ public final class DBController {
 	public static void removeAthleteFromSquad(Athlete removableAthlete, Squad oldSquad) {
 		dbConnection = new DBConnection();
 		Squad dbSquad = dbConnection.getEm().find(Squad.class, oldSquad.getId());
-		Athlete dbAthlete = dbConnection.getEm().find(Athlete.class, removableAthlete.getId());
+		Athlete dbAthlete = dbConnection.getEm().find(Athlete.class, removableAthlete.getStartNr());
 		dbSquad.removeAthlete(dbAthlete);
 		commitAndClose();
 	}
