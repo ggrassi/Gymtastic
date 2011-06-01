@@ -22,7 +22,6 @@ public class Athlete extends Observable implements Serializable {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -18961899248373223L;
 
-	
 	private int squadId;
 	private int startNr;
 	private String prgClass;

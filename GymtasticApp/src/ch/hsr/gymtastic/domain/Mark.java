@@ -8,11 +8,11 @@ import javax.persistence.Entity;
  * The Class Mark holds the different marktypes, penaltys, bonus and the
  * finalmark.
  */
-@Entity 
+@Entity
 public class Mark implements Serializable {
 
     private static final long serialVersionUID = -2064909882686204715L;
-    private int id;
+    private int id = 0;
     private static int markId = 0;
     private double dMark;
     private double eMarkOne;
@@ -53,6 +53,7 @@ public class Mark implements Serializable {
 	this.penalty = penalty;
 	this.bonus = bonus;
 	calcFinalMark();
+
     }
 
     /*
@@ -65,7 +66,6 @@ public class Mark implements Serializable {
 	return "Mark [dMark=" + dMark + ", eMarkOne=" + eMarkOne + ", emarkTwo=" + eMarkTwo + ", eMarkThree="
 		+ eMarkThree + ", penalty=" + penalty + ", bonus=" + bonus + ", finalmark=" + finalMark + "]";
     }
-
 
     /**
      * Gets the dmark.
