@@ -65,7 +65,6 @@ public class NetworkServerController extends Observable implements Observer {
 	public Vector<ClientInformation> getClientsWaitingForAllocation() {
 		return rmiServer.getClientsWaitingForAllocation();
 	}
-	
 
 	/*
 	 * (non-Javadoc)
@@ -128,6 +127,12 @@ public class NetworkServerController extends Observable implements Observer {
 	 */
 	public ClientAllocator getClientAllocater() {
 		return clientsAllocater;
+	}
+
+	public void removeWaitingClients() {
+		rmiServer.getClientsWaitingForAllocation().clear();
+		updateObservers(null);
+
 	}
 
 }
