@@ -1,6 +1,7 @@
 package ch.hsr.gymtastic.server.presentation.models;
 
 import java.text.DecimalFormat;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -143,11 +144,15 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
 	if (athlete != null) {
 	    DeviceType deviceType = DeviceType.values()[rowIndex];
 	    if (deviceType != null) {
+		
+		
+		
 		Mark mark = athlete.getMark(deviceType);
+		mark.setId(athlete.getMark(deviceType).getId());
 		switch (columnIndex) {
 		case 1:
 		    mark.setdMark((Double) value);
-		    DBController.updatedMark(mark);
+		    DBController.updatedMark(mark, athlete);
 		    return;
 		case 2:
 		    mark.seteMarkOne((Double) value);
