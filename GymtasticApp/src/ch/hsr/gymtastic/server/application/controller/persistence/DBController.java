@@ -125,7 +125,7 @@ public final class DBController {
 	public static void updateAthlete(Athlete tmpAthlete) {
 		dbConnection = new DBConnection();
 		Athlete dbAthlete = dbConnection.getEm().find(Athlete.class,
-				tmpAthlete.getId());
+				tmpAthlete.getStartNr());
 		dbAthlete.setAddress(tmpAthlete.getAddress());
 		dbAthlete.setFirstName(tmpAthlete.getFirstName());
 		dbAthlete.setLastName(tmpAthlete.getLastName());
@@ -173,9 +173,9 @@ public final class DBController {
 
 	}
 	
-	public static void addAthlete(Athlete newAthlete){
+	public static void addAthlete(Athlete newAthlete, Squad oldSquad){
 		dbConnection = new DBConnection();
-		Squad dbSquad = dbConnection.getEm().find(Squad.class, newAthlete.getSquadId());	
+		Squad dbSquad = dbConnection.getEm().find(Squad.class, oldSquad.getSquadId());	
 		dbConnection.persist(newAthlete);
 		dbSquad.addAthlet(newAthlete);
 		dbConnection.persist(dbSquad);
@@ -255,7 +255,7 @@ public final class DBController {
 	public static void removeAthleteFromSquad(Athlete removableAthlete, Squad oldSquad) {
 		dbConnection = new DBConnection();
 		Squad dbSquad = dbConnection.getEm().find(Squad.class, oldSquad.getId());
-		Athlete dbAthlete = dbConnection.getEm().find(Athlete.class, removableAthlete.getId());
+		Athlete dbAthlete = dbConnection.getEm().find(Athlete.class, removableAthlete.getStartNr());
 		dbSquad.removeAthlete(dbAthlete);
 		commitAndClose();
 	}
@@ -276,7 +276,6 @@ public final class DBController {
 		tmpCup.addCompetition(competition);
 		dbConnection.persist(tmpCup);
 		commitAndClose();
-
 	}
 
 	private static void commitAndClose() {

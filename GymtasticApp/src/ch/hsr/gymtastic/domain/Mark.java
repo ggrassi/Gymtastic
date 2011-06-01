@@ -26,7 +26,6 @@ public class Mark implements Serializable {
      * Instantiates a new mark.
      */
     public Mark() {
-    	setId(++markId);
     }
 
     /**
@@ -46,6 +45,7 @@ public class Mark implements Serializable {
      *            the bonus
      */
     public Mark(double dMark, double eMarkOne, double emarkTwo, double eMarkThree, double penalty, double bonus) {
+	setId(++markId);
 	this.dMark = dMark;
 	this.eMarkOne = eMarkOne;
 	this.eMarkTwo = emarkTwo;
