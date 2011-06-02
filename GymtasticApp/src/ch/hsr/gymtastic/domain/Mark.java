@@ -73,6 +73,7 @@ public class Mark implements Serializable, Cloneable {
 
 	public void setdMark(double dMark) {
 		this.dMark = dMark;
+		calcFinalMark();
 	}
 
 	public double geteMarkOne() {
