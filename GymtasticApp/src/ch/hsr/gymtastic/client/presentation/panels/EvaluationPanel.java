@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.util.Observable;
 import java.util.Observer;
@@ -27,8 +29,6 @@ import ch.hsr.gymtastic.client.presentation.frames.ClientFrame;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Mark;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 /**
  * The Class EvaluationPanel shows where we can give marks to the Athletes.
