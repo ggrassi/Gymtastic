@@ -23,21 +23,11 @@ public class RoundInfo implements Serializable {
 		this.roundNr = roundNr;
 		
 	}
-	
-	/**
-	 * Gets the squad.
-	 *
-	 * @return the squad
-	 */
+
 	public Squad getSquad() {
 		return squad;
 	}
-	
-	/**
-	 * Gets the round nr.
-	 *
-	 * @return the round nr
-	 */
+
 	public int getRoundNr() {
 		return roundNr;
 	}

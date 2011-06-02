@@ -31,7 +31,7 @@ import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Mark;
 
 /**
- * The Class EvaluationPanel shows where we can give marks to the Athletes.
+ * The Class EvaluationPanel shows where you can give marks to the Athletes.
  */
 public class EvaluationPanel extends JPanel implements Observer {
 

@@ -67,8 +67,7 @@ public class RMIClient extends Observable implements RMIClientInterface {
 	 *             the server not active exception
 	 */
 	public RMIServerInterface connect(Serializable deviceType)
-			throws RemoteException, NotBoundException,
-			ServerNotActiveException {
+			throws RemoteException, NotBoundException, ServerNotActiveException {
 		Registry registry = LocateRegistry.getRegistry(getServerIP());
 		setRMIServerInterface((RMIServerInterface) registry.lookup("Gymtastic"));
 		RMIClientInterface stub = (RMIClientInterface) UnicastRemoteObject
@@ -88,30 +87,14 @@ public class RMIClient extends Observable implements RMIClientInterface {
 		getRMIServerInterface().removeClient(this);
 	}
 
-	/**
-	 * Sets the server ip.
-	 * 
-	 * @param serverIP
-	 *            the new server ip
-	 */
 	public void setServerIP(String serverIP) {
 		this.serverIP = serverIP;
 	}
 
-	/**
-	 * Gets the server ip.
-	 * 
-	 * @return the server ip
-	 */
 	public String getServerIP() {
 		return serverIP;
 	}
 
-	/**
-	 * Gets the rmi server interface.
-	 * 
-	 * @return the rmi server interface
-	 */
 	public RMIServerInterface getRMIServerInterface() {
 		return rmiServerInterface;
 	}

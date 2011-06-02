@@ -23,7 +23,7 @@ public class FileExtensionFilter extends FileFilter {
 		String extension = FileExtension.getExtension(f);
 		if (extension != null && !FileExtension.getExtensions().isEmpty()) {
 			for (String ext : FileExtension.getExtensions()) {
-			    return extension.equals(ext);
+				return extension.equals(ext);
 			}
 		}
 

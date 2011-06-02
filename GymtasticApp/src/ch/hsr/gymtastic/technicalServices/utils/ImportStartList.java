@@ -19,8 +19,9 @@ public class ImportStartList {
 	 */
 	public ImportStartList() {
 		super();
-	
+
 	}
+
 	/**
 	 * Instantiates a new import start list.
 	 * 
@@ -31,16 +32,9 @@ public class ImportStartList {
 		this.fileName = filePath;
 	}
 
-
-	/**
-	 * Gets the import list.
-	 * 
-	 * @return the import list
-	 */
 	public List<List<String>> getImportList() {
 		return importList;
 	}
-
 
 	/**
 	 * Reads the import of a appropriate CSV File and inserts line per line into
@@ -60,6 +54,14 @@ public class ImportStartList {
 		}
 	}
 
+	/**
+	 * Reads line per line from the BufferedReader and splits each line at every
+	 * tab and puts it into an array
+	 * 
+	 * @param readBuffer
+	 *            the readBuffer
+	 * @return line
+	 */
 	private String readLines(BufferedReader readbuffer) throws IOException {
 		String line;
 		while ((line = readbuffer.readLine()) != null) {
@@ -73,6 +75,9 @@ public class ImportStartList {
 		return line;
 	}
 
+	/**
+	 * Closes the Buffered Reader
+	 */
 	private void closeReadBuffer(BufferedReader readbuffer) {
 		try {
 			readbuffer.close();

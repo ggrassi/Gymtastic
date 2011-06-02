@@ -34,67 +34,35 @@ public class GymCupController extends Observable {
 		this.clientAllocator = networkController.getClientAllocater();
 	}
 
-	/**
-	 * Sets the existing gymcup.
-	 */
 	public void setExistingGymcup() {
 		setGymCup(DBController.getActualGymCup());
 		updateObservers();
 	}
 
-	/**
-	 * Sets the gym cup.
-	 * 
-	 * @param gymCup
-	 *            the new gym cup
-	 */
 	public void setGymCup(GymCup gymCup) {
 		this.gymCup = gymCup;
 		this.competitionController.setGymCup(gymCup);
 		updateObservers();
 	}
 
-	/**
-	 * Gets the gym cup.
-	 * 
-	 * @return the gym cup
-	 */
 	public GymCup getGymCup() {
 		return gymCup;
 	}
 
-	/**
-	 * Update observers.
-	 */
 	private void updateObservers() {
 		setChanged();
 		notifyObservers();
 
 	}
 
-	/**
-	 * Gets the competition controller.
-	 * 
-	 * @return the competition controller
-	 */
 	public CompetitionController getCompetitionController() {
 		return competitionController;
 	}
 
-	/**
-	 * Gets the client allocator.
-	 * 
-	 * @return the client allocator
-	 */
 	public ClientAllocator getClientAllocator() {
 		return clientAllocator;
 	}
 
-	/**
-	 * Gets the network controller.
-	 * 
-	 * @return the network controller
-	 */
 	public NetworkServerController getNetworkController() {
 		return networkController;
 	}

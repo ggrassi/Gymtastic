@@ -88,61 +88,27 @@ public class ComponentBorder implements Border {
 		this.adjustInsets = adjustInsets;
 	}
 
-	/**
-	 * Get the component alignment along the Border Edge
-	 * 
-	 * @return the alignment
-	 */
 	public float getAlignment() {
 		return alignment;
 	}
 
-	/**
-	 * Set the component alignment along the Border Edge
-	 * 
-	 * @param alignment
-	 *            a value in the range 0 - 1.0. Standard values would be CENTER
-	 *            (default), LEFT and RIGHT.
-	 */
 	public void setAlignment(float alignment) {
 		this.alignment = alignment > 1.0f ? 1.0f : alignment < 0.0f ? 0.0f
 				: alignment;
 	}
 
-	/**
-	 * Get the Edge the component is positioned along
-	 * 
-	 * @return the Edge
-	 */
 	public Edge getEdge() {
 		return edge;
 	}
 
-	/**
-	 * Set the Edge the component is positioned along
-	 * 
-	 * @param edge
-	 *            the Edge the component is position on.
-	 */
 	public void setEdge(Edge edge) {
 		this.edge = edge;
 	}
 
-	/**
-	 * Get the gap between the border component and the parent component
-	 * 
-	 * @return the gap in pixels.
-	 */
 	public int getGap() {
 		return gap;
 	}
 
-	/**
-	 * Set the gap between the border component and the parent component
-	 * 
-	 * @param gap
-	 *            the gap in pixels (default is 5)
-	 */
 	public void setGap(int gap) {
 		this.gap = gap;
 	}

@@ -34,92 +34,42 @@ public class GymCupClientInfo implements Serializable {
 		this.setEndDate(endDate);
 	}
 
-	/**
-	 * Sets the start date.
-	 *
-	 * @param startDate the new start date
-	 */
 	public void setStartDate(GregorianCalendar startDate) {
 		this.startDate = startDate;
 	}
 
-	/**
-	 * Gets the start date.
-	 *
-	 * @return the start date
-	 */
 	public GregorianCalendar getStartDate() {
 		return startDate;
 	}
 
-	/**
-	 * Sets the end date.
-	 *
-	 * @param endDate the new end date
-	 */
 	public void setEndDate(GregorianCalendar endDate) {
 		this.endDate = endDate;
 	}
 
-	/**
-	 * Gets the end date.
-	 *
-	 * @return the end date
-	 */
 	public GregorianCalendar getEndDate() {
 		return endDate;
 	}
 
-	/**
-	 * Gets the location.
-	 *
-	 * @return the location
-	 */
 	public String getLocation() {
 		return location;
 	}
 
-	/**
-	 * Sets the location.
-	 *
-	 * @param location the new location
-	 */
 	public void setLocation(String location) {
 		this.location = location;
 	}
 
-	/**
-	 * Gets the name.
-	 *
-	 * @return the name
-	 */
 	public String getName() {
 		return name;
 	}
 
-	/**
-	 * Sets the name.
-	 *
-	 * @param name the new name
-	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	/**
-	 * Sets the device type.
-	 *
-	 * @param deviceType the new device type
-	 */
 	public void setDeviceType(DeviceType deviceType) {
 		this.deviceType = deviceType;
 	}
 
-	/**
-	 * Gets the device type.
-	 *
-	 * @return the device type
-	 */
 	public DeviceType getDeviceType() {
 		return deviceType;
 	}

@@ -11,8 +11,7 @@ public class DBConnection {
 
 	private EntityManager em;
 	private EntityManagerFactory emf;
-	private static String path = "$objectdb/db/gymtastic_"
-			+ System.currentTimeMillis() + ".odb";
+	private static String path = "";
 
 	/**
 	 * Instantiates a new dB connection.
@@ -24,7 +23,7 @@ public class DBConnection {
 		setPath(path);
 		connect(path);
 	}
-	
+
 	/**
 	 * Instantiates a new dB connection.
 	 */
@@ -79,25 +78,19 @@ public class DBConnection {
 		return em;
 	}
 
-	/**
-	 * Sets the path to the objectDB File
-	 * 
-	 * @param path
-	 *            the new path
-	 */
 	public static void setPath(String path) {
 		DBConnection.path = path;
 	}
 
-	/**
-	 * Gets the path of the objectDB File
-	 * 
-	 * @return the path
-	 */
 	public static String getPath() {
 		return path;
 	}
-
+	
+	/**
+	 * Removes the Object from DB
+	 * 
+	 * @return the em
+	 */
 	public void remove(Object o) {
 		em.remove(o);
 	}

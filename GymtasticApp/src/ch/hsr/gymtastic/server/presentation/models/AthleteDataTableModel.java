@@ -29,15 +29,15 @@ public class AthleteDataTableModel extends AbstractTableModel implements
 		this.gymCupController = gymCupController;
 		this.gymCupController.getGymCup().addObserver(this);
 	}
-   
-    
-    @SuppressWarnings("rawtypes")
-    private Class[] columnTypes = new Class[] { String.class, String.class, Integer.class, String.class};
 
-    @SuppressWarnings( { "unchecked", "rawtypes" })
-    public Class getColumnClass(int columnIndex) {
-	return columnTypes[columnIndex];
-    }
+	@SuppressWarnings("unchecked")
+	private Class[] columnTypes = new Class[] { String.class, String.class,
+			Integer.class, String.class };
+
+	@SuppressWarnings("unchecked")
+	public Class getColumnClass(int columnIndex) {
+		return columnTypes[columnIndex];
+	}
 
 	/*
 	 * (non-Javadoc)

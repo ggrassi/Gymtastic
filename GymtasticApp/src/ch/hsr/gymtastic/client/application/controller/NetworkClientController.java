@@ -14,7 +14,7 @@ import ch.hsr.gymtastic.technicalServices.network.exceptions.ConnectionFailedExc
 import ch.hsr.gymtastic.technicalServices.network.exceptions.TransmissionException;
 
 /**
- * The Class NetworkClientController.
+ * The Class NetworkClientController is the client side Interface between RMI and client.
  */
 public class NetworkClientController implements Observer {
 
@@ -74,12 +74,6 @@ public class NetworkClientController implements Observer {
 		}
 	}
 
-	/**
-	 * Sets the squad controller.
-	 * 
-	 * @param squadController
-	 *            the new squad controller
-	 */
 	public void setSquadController(SquadController squadController) {
 		this.squadController = squadController;
 	}
@@ -100,23 +94,11 @@ public class NetworkClientController implements Observer {
 		}
 	}
 
-	/**
-	 * Sets the gym cup info controller.
-	 * 
-	 * @param gymCupInfoController
-	 *            the new gym cup info controller
-	 */
 	public void setGymCupInfoController(
 			GymCupInfoController gymCupInfoController) {
 		this.gymCupInfoController = gymCupInfoController;
 	}
 
-	/**
-	 * Sets the round info controller.
-	 * 
-	 * @param competitionInfoController
-	 *            the new round info controller
-	 */
 	public void setRoundInfoController(
 			CompetitionInfoController competitionInfoController) {
 		this.competitionInfoController = competitionInfoController;

@@ -11,137 +11,92 @@ import ch.hsr.gymtastic.domain.Squad;
  */
 public class SquadController extends Observable {
 
-    private Squad squad;
-    private int numberOfAthletes = 0;
-    private int roundNr;
-    private int index = -1;
+	private Squad squad;
+	private int numberOfAthletes = 0;
+	private int roundNr;
+	private int index = -1;
 
-    /**
-     * Instantiates a new squad controller.
-     */
-    public SquadController() {
-    }
-
-    /**
-     * Checks for next athlete.
-     * 
-     * @return true, if successful
-     */
-    public boolean hasNextAthlete() {
-	if (index < numberOfAthletes - 1) {
-	    return true;
+	/**
+	 * Instantiates a new squad controller.
+	 */
+	public SquadController() {
 	}
-	return false;
-    }
 
-    /**
-     * Gets the next athlete.
-     * 
-     * @return the next athlete
-     */
-    public Athlete getNextAthlete() {
-	return squad.getAthlete(++index);
-    }
 
-    /**
-     * Checks for previous athlete.
-     * 
-     * @return true, if successful
-     */
-    public boolean hasPreviousAthlete() {
-	if (index > 0) {
-	    return true;
+	public Athlete getNextAthlete() {
+		return squad.getAthlete(++index);
 	}
-	return false;
 
-    }
+	/**
+	 * Checks for next athlete.
+	 * 
+	 * @return true, if successful
+	 */
+	public boolean hasNextAthlete() {
+		if (index < numberOfAthletes - 1) {
+			return true;
+		}
+		return false;
+	}
 
-    /**
-     * Gets the previous athlete.
-     * 
-     * @return the previous athlete
-     */
-    public Athlete getPreviousAthlete() {
-	return squad.getAthlete(--index);
-    }
+	/**
+	 * Checks for previous athlete.
+	 * 
+	 * @return true, if successful
+	 */
+	public boolean hasPreviousAthlete() {
+		if (index > 0) {
+			return true;
+		}
+		return false;
 
-    /**
-     * Gets the number of athletes.
-     * 
-     * @return the number of athletes
-     */
-    public int getNumberOfAthletes() {
-	return numberOfAthletes;
-    }
+	}
 
-    /**
-     * Sets the squad.
-     * 
-     * @param squad
-     *            the new squad
-     */
-    public void setSquad(Squad squad) {
-	this.squad = squad;
-	numberOfAthletes = this.squad.getSquadSize();
-	reset();
-	updateObservers();
-    }
+	public Athlete getPreviousAthlete() {
+		return squad.getAthlete(--index);
+	}
 
-    /**
-     * Gets the squad.
-     * 
-     * @return the squad
-     */
-    public Squad getSquad() {
-	return squad;
-    }
+	public int getNumberOfAthletes() {
+		return numberOfAthletes;
+	}
 
-    /**
-     * Reset.
-     */
-    public void reset() {
-	index = -1;
-    }
+	public void setSquad(Squad squad) {
+		this.squad = squad;
+		numberOfAthletes = this.squad.getSquadSize();
+		reset();
+		updateObservers();
+	}
 
-    /**
-     * Sets the round info.
-     * 
-     * @param arg
-     *            the new round info
-     */
-    public void setRoundInfo(Object arg) {
-	RoundInfo roundInfo = (RoundInfo) arg;
-	setSquad(roundInfo.getSquad());
-	setRoundNr(roundInfo.getRoundNr());
+	public Squad getSquad() {
+		return squad;
+	}
 
-    }
+	/**
+	 * Reset to the last Squad.
+	 */
+	public void reset() {
+		index = -1;
+	}
 
-    /**
-     * Sets the round nr.
-     * 
-     * @param roundNr
-     *            the new round nr
-     */
-    public void setRoundNr(int roundNr) {
-	this.roundNr = roundNr;
-	updateObservers();
-    }
+	public void setRoundInfo(Object arg) {
+		RoundInfo roundInfo = (RoundInfo) arg;
+		setSquad(roundInfo.getSquad());
+		setRoundNr(roundInfo.getRoundNr());
 
-    /**
-     * Gets the round nr.
-     * 
-     * @return the round nr
-     */
-    public int getRoundNr() {
-	return roundNr;
-    }
+	}
 
-    /**
-     * Update observers.
-     */
-    private void updateObservers() {
-	setChanged();
-	notifyObservers();
-    }
+	public void setRoundNr(int roundNr) {
+		this.roundNr = roundNr;
+		updateObservers();
+	}
+
+	public int getRoundNr() {
+		return roundNr;
+	}
+
+	private void updateObservers() {
+		setChanged();
+		notifyObservers();
+	}
 
 }

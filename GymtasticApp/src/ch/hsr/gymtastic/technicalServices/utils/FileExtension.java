@@ -4,19 +4,13 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * The Class FileExtension holds an Array over all file extensions
- * which are desired
+ * The Class FileExtension holds an Array over all file extensions which are
+ * desired
  */
 public final class FileExtension {
 
 	private static ArrayList<String> extensions = new ArrayList<String>();
 
-	/**
-	 * Gets the extension of a file.
-	 *
-	 * @param f the f
-	 * @return the extension
-	 */
 	public static String getExtension(File f) {
 		String ext = null;
 		String s = f.getName();
@@ -30,17 +24,18 @@ public final class FileExtension {
 
 	/**
 	 * Adds the extension into the Array
-	 *
-	 * @param string the string
+	 * 
+	 * @param string
+	 *            the string
 	 */
 	public static void addExtension(String string) {
 		getExtensions().add(string);
 
 	}
-	
+
 	/**
 	 * Returns the field extensions
-	 *
+	 * 
 	 * @return extensions
 	 */
 	public static ArrayList<String> getExtensions() {

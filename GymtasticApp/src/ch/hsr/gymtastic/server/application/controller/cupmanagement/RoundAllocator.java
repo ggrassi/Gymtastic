@@ -35,15 +35,7 @@ public class RoundAllocator {
 			roundList.add(roundChange(getRoundAllocation(i)));
 		}
 	}
-
-	/**
-	 * Gets the actual round allocation, which tells us for every DeviceType his
-	 * client.
-	 * 
-	 * @param roundNr
-	 *            the round nr
-	 * @return the round allocation
-	 */
+	
 	private Map<DeviceType, Squad> getRoundAllocation(int roundNr) {
 		return roundList.get(roundNr - 1);
 	}

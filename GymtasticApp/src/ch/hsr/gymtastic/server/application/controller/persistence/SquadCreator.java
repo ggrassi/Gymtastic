@@ -14,7 +14,8 @@ import ch.hsr.gymtastic.technicalServices.database.DBConnection;
 import ch.hsr.gymtastic.technicalServices.utils.ImportStartList;
 
 /**
- * The Class SquadCreator
+ * The Class SquadCreator creates Squads and fill them with Athletes. It needs
+ * an appropriate ImportStartList to do that
  */
 public class SquadCreator {
 
@@ -41,7 +42,7 @@ public class SquadCreator {
 	}
 
 	public SquadCreator() {
-		
+
 	}
 
 	/**
@@ -119,11 +120,6 @@ public class SquadCreator {
 		db.closeConnection();
 	}
 
-	/**
-	 * Gets the import list.
-	 * 
-	 * @return the import list
-	 */
 	private List<List<String>> getImportList() {
 		db = new DBConnection();
 		List<List<String>> importList = startList.getImportList();
@@ -164,13 +160,13 @@ public class SquadCreator {
 		Athlete atemp = new Athlete(Integer.parseInt(line
 				.get(squadPositionImport)), Integer.parseInt(line
 				.get(startNrPositionImport)),
-				line.get(progClassPositionImport),
-				line.get(firstNamePositionImport),
-				line.get(lastNamePositionImport),
-				line.get(addressPositionImport), Integer.parseInt(line
-						.get(yearPositionImport)),
-				line.get(associationNamePositionImport) + " "
-						+ line.get(associationPlacePositionImport));
+				line.get(progClassPositionImport), line
+						.get(firstNamePositionImport), line
+						.get(lastNamePositionImport), line
+						.get(addressPositionImport), Integer.parseInt(line
+						.get(yearPositionImport)), line
+						.get(associationNamePositionImport)
+						+ " " + line.get(associationPlacePositionImport));
 		return atemp;
 	}
 

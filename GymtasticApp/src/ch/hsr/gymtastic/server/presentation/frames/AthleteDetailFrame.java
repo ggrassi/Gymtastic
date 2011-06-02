@@ -36,6 +36,9 @@ import ch.hsr.gymtastic.server.presentation.models.AthleteDetailTableModel;
 import ch.hsr.gymtastic.server.presentation.models.ProgramClassAthleteComboBoxModel;
 import ch.hsr.gymtastic.server.presentation.models.SquadComboBoxModel;
 
+/**
+ * The Class AthleteDetailFrame.
+ */
 public final class AthleteDetailFrame {
 
 	private JFrame frmAthletDetailansicht;
@@ -453,7 +456,9 @@ public final class AthleteDetailFrame {
 		scrollPaneMarks.setViewportView(tableMarks);
 
 	}
-
+	/**
+	 * initialize fields
+	 */
 	private void initializeFields() {
 		programClassCBModel = new ProgramClassAthleteComboBoxModel(
 				gymCupController.getGymCup().getProgramClasses());
@@ -468,7 +473,9 @@ public final class AthleteDetailFrame {
 		}
 
 	}
-
+	/**
+	 *	if the Athlete Information changes it returns true
+	 */
 	private void changesAthleteInformation() {
 		if (nothingChanged()) {
 			btnCancel.setEnabled(false);
@@ -479,6 +486,9 @@ public final class AthleteDetailFrame {
 		}
 	}
 
+	/**
+	 *	if nothing has changed it returns true
+	 */
 	private boolean nothingChanged() {
 		if (athlete != null) {
 			try {
@@ -491,7 +501,9 @@ public final class AthleteDetailFrame {
 			return areFieldsEmpty();
 		}
 	}
-
+	/**
+	 *	if the Fields are empty it returns true
+	 */
 	private boolean areFieldsEmpty() {
 		return txtFieldAddress.getText().isEmpty()
 				&& txtFieldAssocation.getText().isEmpty()
@@ -500,7 +512,9 @@ public final class AthleteDetailFrame {
 				&& txtFieldStartNr.getText().isEmpty()
 				&& txtFieldYearOfBirth.getValue() != null;
 	}
-
+	/**
+	 *	if the fields has changes it returns true
+	 */
 	private boolean hasChanged() {
 		return txtFieldAddress.getText().equals(athlete.getAddress())
 				&& txtFieldAssocation.getText()
@@ -514,7 +528,9 @@ public final class AthleteDetailFrame {
 				&& ((Number) txtFieldYearOfBirth.getValue()).intValue() == athlete
 						.getYearOfBirth();
 	}
-
+	/**
+	 *	sets all fields to the prior state if sb pushes the cancel button
+	 */
 	private void updateAfterCancel() {
 		if (athlete != null) {
 			fillTextFields();
@@ -524,7 +540,10 @@ public final class AthleteDetailFrame {
 		}
 		setButtonsEnabled(false);
 	}
-
+	
+	/**
+	 *	fills the Text Fields with the appropriate text
+	 */
 	private void fillTextFields() {
 		txtFieldAddress.setText(athlete.getAddress());
 		txtFieldAssocation.setText(athlete.getAssociation());
@@ -535,7 +554,10 @@ public final class AthleteDetailFrame {
 		txtFieldStartNr.setText(athlete.getStartNr() + "");
 		txtFieldYearOfBirth.setValue(Integer.valueOf(athlete.getYearOfBirth()));
 	}
-
+	
+	/**
+	 *	clears the text fields
+	 */
 	private void clearTextFields() {
 		txtFieldAddress.setText("");
 		txtFieldAssocation.setText("");
@@ -544,7 +566,10 @@ public final class AthleteDetailFrame {
 		txtFieldStartNr.setText("");
 		txtFieldYearOfBirth.setValue("");
 	}
-
+	
+	/**
+	 *	saves the athlete infos
+	 */
 	private void saveAthleteInfos() {
 		if (athlete != null) {
 			setAthleteInformation();
@@ -555,7 +580,10 @@ public final class AthleteDetailFrame {
 		setButtonsEnabled(false);
 		gymCupController.getGymCup().athleteChanged();
 	}
-
+	
+	/**
+	 *	creates an Athlete from the input fields
+	 */
 	private void createAthleteFromInput() {
 		athlete = new Athlete((Integer) comboBoxSquad.getSelectedItem(),
 				gymCupController.getGymCup().getAllAthletes().size() + 1,
@@ -574,7 +602,7 @@ public final class AthleteDetailFrame {
 		athleteDetailTableModel.setAthlete(athlete);
 		updateAfterCancel();
 	}
-
+	
 	private void setButtonsEnabled(boolean bool) {
 		btnSave.setEnabled(bool);
 		btnCancel.setEnabled(bool);
@@ -592,7 +620,10 @@ public final class AthleteDetailFrame {
 				.intValue());
 		DBController.updateAthlete(athlete);
 	}
-
+	
+	/**
+	 *	class KeyReleaseAdapter reacts on a key release and changes the athlete information
+	 */
 	private class KeyReleasedApater extends KeyAdapter {
 
 		public void keyReleased(KeyEvent e) {

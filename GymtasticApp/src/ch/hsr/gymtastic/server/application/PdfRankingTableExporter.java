@@ -226,11 +226,6 @@ public class PdfRankingTableExporter extends PdfExporter {
 
 	}
 
-	/**
-	 * Gets the program class.
-	 * 
-	 * @return the program class
-	 */
 	private String getProgramClass() {
 		for (String programClass : gymCup.getProgramClasses()) {
 			if (programClass.equals(programClassName)) {

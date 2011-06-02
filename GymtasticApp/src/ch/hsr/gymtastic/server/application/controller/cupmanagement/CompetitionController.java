@@ -42,37 +42,21 @@ public class CompetitionController extends Observable implements Observer {
 		finishedClients = new HashSet<DeviceType>();
 	}
 
-	/**
-	 * Gets the round allocator
-	 * 
-	 * @return the round allocator
-	 */
 	public RoundAllocator getRoundAllocator() {
 		return roundAllocator;
 	}
 
-	/**
-	 * Sets the competition.
-	 * 
-	 * @param competition
-	 *            the new competition
-	 */
 	public void setCompetition(Competition competition) {
 		this.competition = competition;
 		roundAllocator = new RoundAllocator(this.competition.getSquads());
 	}
 
-	/**
-	 * Gets the actual competition.
-	 * 
-	 * @return the actual competition
-	 */
 	public Competition getActualCompetition() {
 		return competition;
 	}
 
 	/**
-	 * Notify the clients because the competition started
+	 * Notify the clients because the competition has started
 	 * 
 	 * @throws ConnectException
 	 *             the connect exception
@@ -105,13 +89,6 @@ public class CompetitionController extends Observable implements Observer {
 
 	}
 
-	/**
-	 * Gets the round information for a certain DeviceType
-	 * 
-	 * @param deviceType
-	 *            the device type
-	 * @return the round info for
-	 */
 	private RoundInfo getRoundInfoFor(DeviceType deviceType) {
 		return new RoundInfo(
 				roundAllocator.getSquad(deviceType, actualRoundNr),
@@ -132,7 +109,7 @@ public class CompetitionController extends Observable implements Observer {
 	}
 
 	/**
-	 * Update squad.
+	 * Update squad saves the received Squad into the DB.
 	 * 
 	 * @param squad
 	 *            the squad
@@ -148,61 +125,30 @@ public class CompetitionController extends Observable implements Observer {
 		}
 	}
 
-	/**
-	 * Sets the device type finished.
-	 * 
-	 * @param squad
-	 *            the new device type finished
-	 */
 	private void setDeviceTypeFinished(Squad squad) {
 		finishedClients.add(roundAllocator.getDeviceType(squad, actualRoundNr));
 		updateObservers();
 	}
 
-	/**
-	 * Update observers.
-	 */
 	private void updateObservers() {
 		setChanged();
 		notifyObservers();
 	}
 
-	/**
-	 * Sets the actual round nr.
-	 * 
-	 * @param roundNr
-	 *            the new actual round nr
-	 */
 	public void setActualRoundNr(Integer roundNr) {
 		actualRoundNr = roundNr;
 		finishedClients.clear();
 		updateObservers();
 	}
 
-	/**
-	 * Gets the actual round nr.
-	 * 
-	 * @return the actual round nr
-	 */
 	public int getActualRoundNr() {
 		return actualRoundNr;
 	}
 
-	/**
-	 * Gets the finished clients.
-	 * 
-	 * @return the finished clients
-	 */
 	public Set<DeviceType> getFinishedClients() {
 		return finishedClients;
 	}
 
-	/**
-	 * Sets the gym cup.
-	 * 
-	 * @param gymCup
-	 *            the new gym cup
-	 */
 	public void setGymCup(GymCup gymCup) {
 		this.gymCup = gymCup;
 	}

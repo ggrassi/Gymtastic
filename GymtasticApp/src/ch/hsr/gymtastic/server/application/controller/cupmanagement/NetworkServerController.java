@@ -57,11 +57,6 @@ public class NetworkServerController extends Observable implements Observer {
 		}
 	}
 
-	/**
-	 * Gets all clients shich are waiting on the allocation to the server.
-	 * 
-	 * @return the clients waiting for allocation
-	 */
 	public Vector<ClientInformation> getClientsWaitingForAllocation() {
 		return rmiServer.getClientsWaitingForAllocation();
 	}
@@ -76,12 +71,6 @@ public class NetworkServerController extends Observable implements Observer {
 		updateObservers(obj);
 	}
 
-	/**
-	 * Update observers.
-	 * 
-	 * @param obj
-	 *            the obj
-	 */
 	private void updateObservers(Object obj) {
 		setChanged();
 		notifyObservers(obj);
@@ -110,21 +99,10 @@ public class NetworkServerController extends Observable implements Observer {
 
 	}
 
-	/**
-	 * Sets the client allocator
-	 * 
-	 * @param clientsAllocated
-	 *            the new clients allocated
-	 */
 	public void setClientsAllocated(ClientAllocator clientsAllocated) {
 		this.clientsAllocater = clientsAllocated;
 	}
 
-	/**
-	 * Gets the client allocator
-	 * 
-	 * @return the client allocater
-	 */
 	public ClientAllocator getClientAllocater() {
 		return clientsAllocater;
 	}

@@ -84,12 +84,6 @@ public class SquadsInCompetitionTableModel extends AbstractTableModel implements
 
 	}
 
-	/**
-	 * Sets the competition.
-	 * 
-	 * @param competition
-	 *            the new competition
-	 */
 	public void setCompetition(Competition competition) {
 		if (competition != null) {
 			this.competition = competition;

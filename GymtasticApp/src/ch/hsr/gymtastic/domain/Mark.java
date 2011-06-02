@@ -67,142 +67,61 @@ public class Mark implements Serializable, Cloneable {
 				+ getFinalMark() + "]";
 	}
 
-	/**
-	 * Gets the dmark.
-	 * 
-	 * @return the dmark
-	 */
 	public double getdMark() {
 		return dMark;
 	}
 
-	/**
-	 * Sets the dmark.
-	 * 
-	 * @param dMark
-	 *            the new dmark
-	 */
 	public void setdMark(double dMark) {
 		this.dMark = dMark;
 	}
 
-	/**
-	 * Gets the emark one.
-	 * 
-	 * @return the emark one
-	 */
 	public double geteMarkOne() {
 		return eMarkOne;
 	}
 
-	/**
-	 * Sets the emark one.
-	 * 
-	 * @param eMarkOne
-	 *            the new emark one
-	 */
 	public void seteMarkOne(double eMarkOne) {
 		this.eMarkOne = eMarkOne;
 		calcFinalMark();
 	}
 
-	/**
-	 * Gets the emark two.
-	 * 
-	 * @return the emark two
-	 */
 	public double getEmarkTwo() {
 		return eMarkTwo;
 	}
 
-	/**
-	 * Sets the emark two.
-	 * 
-	 * @param emarkTwo
-	 *            the new emark two
-	 */
-	public void setEmarkTwo(double emarkTwo) {
+	public void setemarkTwo(double emarkTwo) {
 		this.eMarkTwo = emarkTwo;
 		calcFinalMark();
 	}
 
-	/**
-	 * Gets the emark three.
-	 * 
-	 * @return the emark three
-	 */
 	public double geteMarkThree() {
 		return eMarkThree;
 	}
 
-	/**
-	 * Sets the emark three.
-	 * 
-	 * @param eMarkThree
-	 *            the new emark three
-	 */
 	public void seteMarkThree(double eMarkThree) {
 		this.eMarkThree = eMarkThree;
 		calcFinalMark();
 	}
 
-	/**
-	 * Gets the penalty.
-	 * 
-	 * @return the penalty
-	 */
 	public double getPenalty() {
 		return penalty;
 	}
 
-	/**
-	 * Sets the penalty.
-	 * 
-	 * @param penalty
-	 *            the new penalty
-	 */
 	public void setPenalty(double penalty) {
 		this.penalty = penalty;
 		calcFinalMark();
 	}
 
-	/**
-	 * Gets the bonus.
-	 * 
-	 * @return the bonus
-	 */
 	public double getBonus() {
 		return bonus;
 	}
 
-	/**
-	 * Sets the bonus.
-	 * 
-	 * @param bonus
-	 *            the new bonus
-	 */
 	public void setBonus(double bonus) {
 		this.bonus = bonus;
 		calcFinalMark();
 	}
 
-	/**
-	 * Gets the final mark.
-	 * 
-	 * @return the final mark
-	 */
 	public double getFinalMark() {
 		return finalMark;
-	}
-
-	/**
-	 * Calculates the final mark.
-	 */
-	private void calcFinalMark() {
-
-		finalMark = ((eMarkOne + eMarkTwo + eMarkThree) / 3) + dMark + bonus
-				- penalty;
-
 	}
 
 	public void setId(int id) {
@@ -215,6 +134,16 @@ public class Mark implements Serializable, Cloneable {
 
 	public void setFinalMark(double finalMark) {
 		this.finalMark = finalMark;
+	}
+
+	/**
+	 * Calculates the final mark.
+	 */
+	private void calcFinalMark() {
+
+		finalMark = ((eMarkOne + eMarkTwo + eMarkThree) / 3) + dMark + bonus
+				- penalty;
+
 	}
 
 }

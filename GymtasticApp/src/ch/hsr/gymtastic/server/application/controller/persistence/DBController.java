@@ -24,7 +24,7 @@ public final class DBController {
 	}
 
 	/**
-	 * Import an gym cup to the db.
+	 * Import an gym cup to the DB.
 	 * 
 	 * @param gymCup
 	 *            the gym cup
@@ -49,17 +49,25 @@ public final class DBController {
 		addSquadsToCup(gymCup, results);
 		commitAndClose();
 	}
-
+	
+	/**
+	 * adds all Squads to the cup
+	 * 
+	 * @param gymCup
+	 *            the gym cup
+	 * @param results
+	 *            the Squad list
+	 */
 	private static void addSquadsToCup(GymCup gymCup, List<Squad> results) {
 		GymCup tmpCup;
 		Squad tmpSquad;
 		for (Squad squad : results) {
 			tmpCup = dbConnection.getEm().find(GymCup.class, gymCup.getId());
-			tmpSquad = dbConnection.getEm().find(Squad.class, squad.getId());
+			tmpSquad = dbConnection.getEm().find(Squad.class, squad.getSquadId());
 			tmpCup.addSquad(tmpSquad.getSquadId(), tmpSquad);
 			tmpCup.addSquadUnallocated(tmpSquad);
 			dbConnection.persist(tmpCup);
-			gymCup.addSquad(squad.getId(), squad);
+			gymCup.addSquad(squad.getSquadId(), squad);
 			gymCup.addSquadUnallocated(squad);
 		}
 	}
@@ -94,11 +102,10 @@ public final class DBController {
 			dbConnection.persist(dbAthlete);
 		}
 		commitAndClose();
-
 	}
 
 	/**
-	 * Persist competition.
+	 * Persist a competition.
 	 * 
 	 * @param competition
 	 *            the competition
@@ -108,7 +115,7 @@ public final class DBController {
 		Competition dbComp = dbConnection.getEm().find(Competition.class,
 				competition.getId());
 		for (Squad s : competition.getSquads()) {
-			Squad dbSquad = dbConnection.getEm().find(Squad.class, s.getId());
+			Squad dbSquad = dbConnection.getEm().find(Squad.class, s.getSquadId());
 			dbComp.addSquad(dbSquad);
 		}
 		dbConnection.persist(dbComp);
@@ -117,7 +124,7 @@ public final class DBController {
 	}
 
 	/**
-	 * Update the athlete informations
+	 * Updates the athlete informations
 	 * 
 	 * @param tmpAthlete
 	 *            the tmp athlete
@@ -152,7 +159,7 @@ public final class DBController {
 	}
 
 	/**
-	 * Update the competition informations
+	 * Updates the competition informations
 	 * 
 	 * @param newComp
 	 *            the new comp
@@ -172,7 +179,15 @@ public final class DBController {
 		commitAndClose();
 
 	}
-
+	
+	/**
+	 * Adds an Athlete to the Squad
+	 * 
+	 * @param newAthlete
+	 *            the new comp
+	 * @param oldSquad
+	 *            the old comp
+	 */
 	public static void addAthlete(Athlete newAthlete, Squad oldSquad) {
 		dbConnection = new DBConnection();
 		Squad dbSquad = dbConnection.getEm().find(Squad.class,
@@ -199,7 +214,17 @@ public final class DBController {
 		}
 		dbConnection.persist(atemp);
 	}
-
+	
+	/**
+	 * Updates the DeviceType Mark of an Athlete
+	 * 
+	 * @param newMark
+	 *            the newMark
+	 * @param ramAthlete
+	 *            the ramAthlete	             
+	 * @param deviceType
+	 *            the deviceType
+	 */
 	public static void updateMark(Mark newMark, Athlete ramAthlete,
 			DeviceType deviceType) {
 		dbConnection = new DBConnection();
@@ -267,16 +292,24 @@ public final class DBController {
 		dbConnection = new DBConnection();
 		Competition dbComp = dbConnection.getEm().find(Competition.class,
 				comp.getId());
-		Squad dbSquad = dbConnection.getEm().find(Squad.class, squad.getId());
+		Squad dbSquad = dbConnection.getEm().find(Squad.class, squad.getSquadId());
 		dbComp.removeSquad(dbSquad);
 		commitAndClose();
 	}
 
+	/**
+	 * Updates the DeviceType Mark of an Athlete
+	 * 
+	 * @param removableAthlete
+	 *            the removableAthlete
+	 * @param oldSquad
+	 *            the oldSquad	             
+	 */
 	public static void removeAthleteFromSquad(Athlete removableAthlete,
 			Squad oldSquad) {
 		dbConnection = new DBConnection();
 		Squad dbSquad = dbConnection.getEm()
-				.find(Squad.class, oldSquad.getId());
+				.find(Squad.class, oldSquad.getSquadId());
 		Athlete dbAthlete = dbConnection.getEm().find(Athlete.class,
 				removableAthlete.getStartNr());
 		dbSquad.removeAthlete(dbAthlete);
@@ -301,7 +334,10 @@ public final class DBController {
 		dbConnection.persist(tmpCup);
 		commitAndClose();
 	}
-
+	
+	/**
+	 * Commits and Closes the dbConnection.
+	 */
 	private static void commitAndClose() {
 		dbConnection.commit();
 		dbConnection.closeConnection();

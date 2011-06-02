@@ -124,10 +124,14 @@ public class PdfStartlistExporter extends PdfExporter {
 		for (Squad squad : competition.getSquads()) {
 			writeSquadTitle(squad);
 			for (Athlete athlete : squad.getAthlets()) {
-				Paragraph athleteParagraph = new Paragraph(
-						athlete.getFirstName() + " " + athlete.getLastName()
-								+ " " + athlete.getYearOfBirth() + " "
-								+ athlete.getAssociation());
+				Paragraph athleteParagraph = new Paragraph(athlete
+						.getFirstName()
+						+ " "
+						+ athlete.getLastName()
+						+ " "
+						+ athlete.getYearOfBirth()
+						+ " "
+						+ athlete.getAssociation());
 				document.add(athleteParagraph);
 			}
 			document.add(new Paragraph(" "));
@@ -158,9 +162,13 @@ public class PdfStartlistExporter extends PdfExporter {
 	 */
 	private void writeTotalTitle() throws DocumentException {
 
-		Paragraph title = new Paragraph("Startliste vom " + gymCup.getName() + " in " + gymCup.getLocation() + " vom "
-				+ DateFormatConverter.convertDateToString(gymCup.getStartDate())
-				+ " bis "
+		Paragraph title = new Paragraph("Startliste vom "
+				+ gymCup.getName()
+				+ " in "
+				+ gymCup.getLocation()
+				+ " vom "
+				+ DateFormatConverter
+						.convertDateToString(gymCup.getStartDate()) + " bis "
 				+ DateFormatConverter.convertDateToString(gymCup.getEndDate()),
 				totalStartlistTitleFont);
 		title.setAlignment(Paragraph.ALIGN_CENTER);
@@ -187,11 +195,6 @@ public class PdfStartlistExporter extends PdfExporter {
 
 	}
 
-	/**
-	 * Gets the competition.
-	 * 
-	 * @return the competition
-	 */
 	private Competition getCompetition() {
 		for (Competition competition : gymCup.getCompetitions()) {
 			if (competition.getDescription().equals(competitionName)) {

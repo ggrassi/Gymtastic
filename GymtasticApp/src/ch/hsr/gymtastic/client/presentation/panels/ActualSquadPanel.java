@@ -55,7 +55,6 @@ public class ActualSquadPanel extends JPanel {
 	 */
 	public ActualSquadPanel(Squad actualSquad, DeviceType deviceType,
 			NetworkClientController networkController, ClientFrame clientFrame) {
-
 		this.actualSquad = actualSquad;
 		this.deviceType = deviceType;
 		this.networkController = networkController;

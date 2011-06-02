@@ -301,7 +301,8 @@ public class RoundAllocationPanel extends JPanel implements Observer {
 		GridBagLayout gbl_panelClientStatus = new GridBagLayout();
 		gbl_panelClientStatus.columnWidths = new int[] { 0, 0, 0, 0 };
 		gbl_panelClientStatus.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-		gbl_panelClientStatus.columnWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panelClientStatus.columnWeights = new double[] { 0.0, 0.0, 1.0,
+				Double.MIN_VALUE };
 		gbl_panelClientStatus.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, Double.MIN_VALUE };
 		panelClientStatus.setLayout(gbl_panelClientStatus);

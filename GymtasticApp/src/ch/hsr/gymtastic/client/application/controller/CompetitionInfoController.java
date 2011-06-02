@@ -11,34 +11,20 @@ import ch.hsr.gymtastic.domain.CompetitionInfo;
  * exchanged between Server and Client.
  */
 public class CompetitionInfoController extends Observable {
-	/** The competition info. */
+
 	private CompetitionInfo competitionInfo;
 
-	/**
-	 * Sets the comeptition info.
-	 *
-	 * @param arg the new comeptition info
-	 */
 	public void setComeptitionInfo(Object arg) {
 		this.competitionInfo = (CompetitionInfo) arg;
 		updateObservers();
 	}
 
-	/**
-	 * Update observers.
-	 */
-	public void updateObservers() {
-		setChanged();
-		notifyObservers();
-	}
-
-	/**
-	 * Gets the competition info.
-	 *
-	 * @return the competition info
-	 */
 	public CompetitionInfo getCompetitionInfo() {
 		return competitionInfo;
 	}
 
+	public void updateObservers() {
+		setChanged();
+		notifyObservers();
+	}
 }
