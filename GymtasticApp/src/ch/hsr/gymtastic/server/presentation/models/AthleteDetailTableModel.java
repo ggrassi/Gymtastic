@@ -43,46 +43,26 @@ public class AthleteDetailTableModel extends AbstractTableModel implements
 
 	/** The column types. */
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	private Class[] columnTypes = new Class[] { DeviceType.class, Double.class,
 			Double.class, Double.class, Double.class, Double.class,
 			Double.class, Double.class };
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.table.AbstractTableModel#getColumnClass(int)
-	 */
-	@SuppressWarnings( { "unchecked" })
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Class getColumnClass(int columnIndex) {
 		return columnTypes[columnIndex];
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.table.AbstractTableModel#getColumnName(int)
-	 */
 	@Override
 	public String getColumnName(int columnIndex) {
 		return columns[columnIndex];
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.table.TableModel#getColumnCount()
-	 */
 	@Override
 	public int getColumnCount() {
 		return columns.length;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.table.TableModel#getRowCount()
-	 */
 	@Override
 	public int getRowCount() {
 		if (athlete != null) {
@@ -91,11 +71,6 @@ public class AthleteDetailTableModel extends AbstractTableModel implements
 		return 0;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.table.TableModel#getValueAt(int, int)
-	 */
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (athlete != null) {
@@ -126,21 +101,10 @@ public class AthleteDetailTableModel extends AbstractTableModel implements
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.table.AbstractTableModel#isCellEditable(int, int)
-	 */
 	public boolean isCellEditable(int row, int col) {
 		return !(getColumnClass(col).equals(DeviceType.class) || col == (getColumnCount() - 1));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.table.AbstractTableModel#setValueAt(java.lang.Object,
-	 * int, int)
-	 */
 	public void setValueAt(final Object value, final int rowIndex,
 			final int columnIndex) {
 		EventQueue.invokeLater(new Runnable() {
@@ -194,11 +158,6 @@ public class AthleteDetailTableModel extends AbstractTableModel implements
 		this.athlete = athlete;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-	 */
 
 	public void update(Observable arg0, Object arg1) {
 		fireTableDataChanged();

@@ -30,40 +30,25 @@ public class AthleteDataTableModel extends AbstractTableModel implements
 		this.gymCupController.getGymCup().addObserver(this);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	private Class[] columnTypes = new Class[] { String.class, String.class,
 			Integer.class, String.class };
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Class getColumnClass(int columnIndex) {
 		return columnTypes[columnIndex];
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.table.AbstractTableModel#getColumnName(int)
-	 */
 	@Override
 	public String getColumnName(int columnIndex) {
 		return columns[columnIndex];
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.table.TableModel#getColumnCount()
-	 */
 	@Override
 	public int getColumnCount() {
 		return columns.length;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.table.TableModel#getRowCount()
-	 */
 	@Override
 	public int getRowCount() {
 		if (gymCupController.getGymCup() != null) {
@@ -73,15 +58,10 @@ public class AthleteDataTableModel extends AbstractTableModel implements
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.swing.table.TableModel#getValueAt(int, int)
-	 */
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Athlete athlete = gymCupController.getGymCup().getAllAthletes().get(
-				rowIndex);
+		Athlete athlete = gymCupController.getGymCup().getAllAthletes()
+				.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
 			return athlete.getFirstName();
@@ -96,11 +76,6 @@ public class AthleteDataTableModel extends AbstractTableModel implements
 		return "";
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		fireTableDataChanged();
