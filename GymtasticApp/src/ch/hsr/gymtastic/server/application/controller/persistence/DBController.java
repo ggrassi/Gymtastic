@@ -2,7 +2,6 @@ package ch.hsr.gymtastic.server.application.controller.persistence;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.TypedQuery;
 
@@ -82,7 +81,7 @@ public final class DBController {
      * @param deviceType
      *            the device type
      */
-    public static void saveReceivedSquad(Squad s, DeviceType deviceType) {
+    public static void saveSquad(Squad s, DeviceType deviceType) {
 	dbConnection = new DBConnection();
 	Collection<Athlete> ramAthletes = s.getAthlets();
 	for (Athlete ramAthlete : ramAthletes) {
@@ -120,7 +119,7 @@ public final class DBController {
      * @param tmpAthlete
      *            the tmp athlete
      */
-    public static void updateAthlete(Athlete tmpAthlete) {
+    public static void saveAthlete(Athlete tmpAthlete) {
 	dbConnection = new DBConnection();
 	Athlete dbAthlete = dbConnection.getEm().find(Athlete.class, tmpAthlete.getId());
 	dbAthlete.setAddress(tmpAthlete.getAddress());
