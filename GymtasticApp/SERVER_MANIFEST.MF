@@ -1,0 +1,2 @@
+Manifest-Version: 1.0
+Main-Class: ch.hsr.gymtastic.server.presentation.frames.ServerFrame
