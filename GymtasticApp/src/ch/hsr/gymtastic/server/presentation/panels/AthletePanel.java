@@ -26,7 +26,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableRowSorter;
 
+import ch.hsr.gymtastic.domain.Athlete;
+import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.server.application.controller.cupmanagement.GymCupController;
+import ch.hsr.gymtastic.server.application.controller.persistence.DBController;
 import ch.hsr.gymtastic.server.presentation.SearchTextField;
 import ch.hsr.gymtastic.server.presentation.frames.AthleteDetailFrame;
 import ch.hsr.gymtastic.server.presentation.models.AthleteDataTableModel;
@@ -92,7 +95,10 @@ public class AthletePanel extends JPanel implements Observer {
 	    public void actionPerformed(ActionEvent e) {
 		int row = tableAthletes.getSelectedRow();
 		row = tableAthletes.convertRowIndexToModel(row);
-		gymCupController.getGymCup().removeAthleteFromSquad(athleteDataTableModel.getAthlete(row));
+		Athlete removableAthlete = athleteDataTableModel.getAthlete(row);
+		gymCupController.getGymCup().removeAthleteFromSquad(removableAthlete);
+		Squad tmpSquad = gymCupController.getGymCup().getSquad(removableAthlete.getSquadId());
+		DBController.removeAthleteFromSquad(removableAthlete, tmpSquad);
 	    }
 	});
 

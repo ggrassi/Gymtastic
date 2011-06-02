@@ -3,29 +3,25 @@ package ch.hsr.gymtastic.domain;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 /**
  * The Class Mark holds the different marktypes, penaltys, bonus and the
  * finalmark.
  */
 @Entity
-public class Mark implements Serializable {
+public class Mark implements Serializable, Cloneable {
 
     private static final long serialVersionUID = -2064909882686204715L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int id = 0;
     private double dMark;
     private double eMarkOne;
     private double eMarkTwo;
     private double eMarkThree;
     private double penalty;
     private double bonus;
-    private double finalMark = 0;
+    private double finalMark = 0.0;
 
+    
     /**
      * Instantiates a new mark.
      */
@@ -55,7 +51,6 @@ public class Mark implements Serializable {
 	this.eMarkThree = eMarkThree;
 	this.penalty = penalty;
 	this.bonus = bonus;
-	calcFinalMark();
     }
 
     /*
@@ -66,9 +61,8 @@ public class Mark implements Serializable {
     @Override
     public String toString() {
 	return "Mark [dMark=" + dMark + ", eMarkOne=" + eMarkOne + ", emarkTwo=" + eMarkTwo + ", eMarkThree="
-		+ eMarkThree + ", penalty=" + penalty + ", bonus=" + bonus + ", finalmark=" + finalMark + "]";
+		+ eMarkThree + ", penalty=" + penalty + ", bonus=" + bonus + ", finalmark=" + getFinalMark() + "]";
     }
-
 
     /**
      * Gets the dmark.
@@ -185,29 +179,19 @@ public class Mark implements Serializable {
     }
 
     /**
-     * Sets the final mark.
-     * 
-     * @param finalMark
-     *            the new final mark
-     */
-    public void setFinalMark(double finalMark) {
-	this.finalMark = finalMark;
-    }
-
-    /**
      * Gets the final mark.
      * 
      * @return the final mark
      */
     public double getFinalMark() {
-	return finalMark;
+	return calcFinalMark();
     }
 
     /**
      * Calculates the final mark.
      */
-    public void calcFinalMark() {
-	finalMark = ((eMarkOne + eMarkTwo + eMarkThree) / 3) + dMark + bonus - penalty;
+    private double calcFinalMark() {
+	return ((eMarkOne + eMarkTwo + eMarkThree) / 3) + dMark + bonus - penalty;
 
     }
 
@@ -217,6 +201,10 @@ public class Mark implements Serializable {
 
     public int getId() {
 	return id;
+    }
+
+    public void setFinalMark(double finalMark) {
+	this.finalMark = finalMark;
     }
 
 }

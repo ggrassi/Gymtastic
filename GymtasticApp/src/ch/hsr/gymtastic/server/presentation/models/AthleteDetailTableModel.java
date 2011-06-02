@@ -1,7 +1,7 @@
 package ch.hsr.gymtastic.server.presentation.models;
 
+import java.awt.EventQueue;
 import java.text.DecimalFormat;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -37,14 +37,13 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
 	this.athlete = athlete;
 	this.gymCupController = gymCupController;
 	this.gymCupController.getCompetitionController().addObserver(this);
-
     }
 
     /** The column types. */
 
     @SuppressWarnings("unchecked")
-    private Class[] columnTypes = new Class[] { DeviceType.class, Double.class, Double.class, Double.class, Double.class,
-	    Double.class, Double.class, Double.class };
+    private Class[] columnTypes = new Class[] { DeviceType.class, Double.class, Double.class, Double.class,
+	    Double.class, Double.class, Double.class, Double.class };
 
     /*
      * (non-Javadoc)
@@ -85,10 +84,8 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
     public int getRowCount() {
 	if (athlete != null) {
 	    return DeviceType.values().length;
-	} else {
-	    return 0;
 	}
-
+	return 0;
     }
 
     /*
@@ -140,39 +137,46 @@ public class AthleteDetailTableModel extends AbstractTableModel implements Obser
      * @see javax.swing.table.AbstractTableModel#setValueAt(java.lang.Object,
      * int, int)
      */
-    public void setValueAt(Object value, int rowIndex, int columnIndex) {
-	if (athlete != null) {
-	    DeviceType deviceType = DeviceType.values()[rowIndex];
-	    if (deviceType != null) {
-		
-		
-		
-		Mark mark = athlete.getMark(deviceType);
-		mark.setId(athlete.getMark(deviceType).getId());
-		switch (columnIndex) {
-		case 1:
-		    mark.setdMark((Double) value);
-		    DBController.updatedMark(mark, athlete);
-		    return;
-		case 2:
-		    mark.seteMarkOne((Double) value);
-		    return;
-		case 3:
-		    mark.setEmarkTwo((Double) value);
-		    return;
-		case 4:
-		    mark.seteMarkThree((Double) value);
-		    return;
-		case 5:
-		    mark.setBonus((Double) value);
-		    return;
-		case 6:
-		    mark.setPenalty((Double) value);
-		    return;
+    public void setValueAt(final Object value, final int rowIndex, final int columnIndex) {
+	EventQueue.invokeLater(new Runnable() {
+	    @Override
+	    public void run() {
+		if (athlete != null) {
+		    DeviceType deviceType = DeviceType.values()[rowIndex];
+		    if (deviceType != null) {
+			Mark updateMark = athlete.getMark(deviceType);
+			switch (columnIndex) {
+			case 1:
+			    updateMark.setdMark((Double) value);
+			    DBController.updateMark(updateMark, athlete, deviceType);
+			    return;
+			case 2:
+			    updateMark.seteMarkOne((Double) value);
+			    DBController.updateMark(updateMark, athlete, deviceType);
+			    return;
+			case 3:
+			    updateMark.setEmarkTwo((Double) value);
+			    DBController.updateMark(updateMark, athlete, deviceType);
+			    return;
+			case 4:
+			    updateMark.seteMarkThree((Double) value);
+			    DBController.updateMark(updateMark, athlete, deviceType);
+			    return;
+			case 5:
+			    updateMark.setBonus((Double) value);
+			    DBController.updateMark(updateMark, athlete, deviceType);
+			    return;
+			case 6:
+			    updateMark.setPenalty((Double) value);
+			    DBController.updateMark(updateMark, athlete, deviceType);
+			    return;
+			}
+		    }
 		}
+
 	    }
-	}
-	fireTableCellUpdated(rowIndex, columnIndex);
+	});
+	fireTableDataChanged();
     }
 
     /**

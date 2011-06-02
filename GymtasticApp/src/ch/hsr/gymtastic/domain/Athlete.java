@@ -21,7 +21,6 @@ public class Athlete extends Observable implements Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -18961899248373223L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -58,8 +57,7 @@ public class Athlete extends Observable implements Serializable {
 	 *            the association
 	 */
 	public Athlete(int squadID, int startNr, String prgClass, String firstName,
-			String lastName, String address, int yearOfBirth,
-			String association) {
+			String lastName, String address, int yearOfBirth, String association) {
 		this.squadId = squadID;
 		this.startNr = startNr;
 		this.prgClass = prgClass;
@@ -93,26 +91,6 @@ public class Athlete extends Observable implements Serializable {
 	}
 
 	/**
-	 * Gets the id.
-	 * 
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
-
-	/**
-	 * Sets the id.
-	 * 
-	 * @param id
-	 *            the new id
-	 */
-	public void setId(int id) {
-		this.id = id;
-		updateObservers();
-	}
-
-	/**
 	 * Gets the squad id.
 	 * 
 	 * @return the squad id
@@ -142,13 +120,14 @@ public class Athlete extends Observable implements Serializable {
 	}
 
 	/**
-	 * Sets the start nr.
+	 * Sets the start nr. but its not allowed to change it, thats why it does
+	 * nothing, but we need it for JPA
 	 * 
 	 * @param startNr
 	 *            the new start nr
 	 */
 	public void setStartNr(int startNr) {
-		this.startNr = startNr;
+		this.startNr= startNr;
 		updateObservers();
 	}
 
@@ -344,5 +323,13 @@ public class Athlete extends Observable implements Serializable {
 	 */
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public int getId() {
+		return startNr;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

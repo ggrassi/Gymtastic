@@ -29,7 +29,9 @@ import javax.swing.border.TitledBorder;
 import ch.hsr.gymtastic.domain.Athlete;
 import ch.hsr.gymtastic.domain.DeviceType;
 import ch.hsr.gymtastic.domain.Mark;
+import ch.hsr.gymtastic.domain.Squad;
 import ch.hsr.gymtastic.server.application.controller.cupmanagement.GymCupController;
+import ch.hsr.gymtastic.server.application.controller.persistence.DBController;
 import ch.hsr.gymtastic.server.presentation.models.AthleteDetailTableModel;
 import ch.hsr.gymtastic.server.presentation.models.ProgramClassAthleteComboBoxModel;
 import ch.hsr.gymtastic.server.presentation.models.SquadComboBoxModel;
@@ -549,7 +551,6 @@ public final class AthleteDetailFrame {
 
 		} else {
 			createAthleteFromInput();
-
 		}
 		setButtonsEnabled(false);
 		gymCupController.getGymCup().athleteChanged();
@@ -568,6 +569,8 @@ public final class AthleteDetailFrame {
 		for (DeviceType dt : DeviceType.values()) {
 			athlete.addMark(dt, new Mark(0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 		}
+		Squad tmpSquad = gymCupController.getGymCup().getSquad((Integer) comboBoxSquad.getSelectedItem());
+		DBController.addAthlete(athlete, tmpSquad);
 		athleteDetailTableModel.setAthlete(athlete);
 		updateAfterCancel();
 	}
@@ -587,6 +590,7 @@ public final class AthleteDetailFrame {
 		athlete.setStartNr(Integer.parseInt(txtFieldStartNr.getText()));
 		athlete.setYearOfBirth(((Number) txtFieldYearOfBirth.getValue())
 				.intValue());
+		DBController.updateAthlete(athlete);
 	}
 
 	private class KeyReleasedApater extends KeyAdapter {

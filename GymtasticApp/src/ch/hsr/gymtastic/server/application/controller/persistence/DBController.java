@@ -18,242 +18,293 @@ import ch.hsr.gymtastic.technicalServices.database.DBConnection;
  */
 public final class DBController {
 
-    private static DBConnection dbConnection;
+	private static DBConnection dbConnection;
 
-    private DBController() {
-    }
-
-    /**
-     * Import an gym cup to the db.
-     * 
-     * @param gymCup
-     *            the gym cup
-     */
-    public static void importGymCupToDB(GymCup gymCup) {
-	dbConnection = new DBConnection();
-	dbConnection.persist(gymCup);
-	commitAndClose();
-    }
-
-    /**
-     * Imports all squads to a cup
-     * 
-     * @param gymCup
-     *            the gym cup
-     */
-    public static void importAllSquads(GymCup gymCup) {
-	dbConnection = new DBConnection();
-	TypedQuery<Squad> query = dbConnection.getEm().createQuery("SELECT p FROM Squad p", Squad.class);
-	List<Squad> results = query.getResultList();
-	addSquadsToCup(gymCup, results);
-	commitAndClose();
-    }
-
-    private static void addSquadsToCup(GymCup gymCup, List<Squad> results) {
-	GymCup tmpCup;
-	Squad tmpSquad;
-	for (Squad squad : results) {
-	    tmpCup = dbConnection.getEm().find(GymCup.class, gymCup.getId());
-	    tmpSquad = dbConnection.getEm().find(Squad.class, squad.getId());
-	    tmpCup.addSquad(tmpSquad.getSquadId(), tmpSquad);
-	    tmpCup.addSquadUnallocated(tmpSquad);
-	    dbConnection.persist(tmpCup);
-	    gymCup.addSquad(squad.getId(), squad);
-	    gymCup.addSquadUnallocated(squad);
-	}
-    }
-
-    /**
-     * Sets the path of the DB Location
-     * 
-     * @param path
-     *            the new path
-     */
-    public static void setPath(String path) {
-	DBConnection.setPath(path);
-    }
-
-    /**
-     * Saves an received squad to the db
-     * 
-     * @param s
-     *            the s
-     * @param deviceType
-     *            the device type
-     */
-    public static void saveSquad(Squad s, DeviceType deviceType) {
-	dbConnection = new DBConnection();
-	Collection<Athlete> ramAthletes = s.getAthlets();
-	for (Athlete ramAthlete : ramAthletes) {
-	    Athlete dbAthlete = dbConnection.getEm().find(Athlete.class, ramAthlete.getStartNr());
-	    Mark ramMark = ramAthlete.getMarks().get(deviceType);
-	    dbConnection.persist(ramMark);
-	    dbAthlete.addMark(deviceType, ramMark);
-	    dbConnection.persist(dbAthlete);
-	}
-	commitAndClose();
-
-    }
-
-    /**
-     * Persist competition.
-     * 
-     * @param competition
-     *            the competition
-     */
-    public static void saveCompetition(Competition competition) {
-	dbConnection = new DBConnection();
-	Competition dbComp = dbConnection.getEm().find(Competition.class, competition.getId());
-	for (Squad s : competition.getSquads()) {
-	    Squad dbSquad = dbConnection.getEm().find(Squad.class, s.getId());
-	    dbComp.addSquad(dbSquad);
-	}
-	dbConnection.persist(dbComp);
-	commitAndClose();
-
-    }
-
-    /**
-     * Update the athlete informations
-     * 
-     * @param tmpAthlete
-     *            the tmp athlete
-     */
-    public static void saveAthlete(Athlete tmpAthlete) {
-	dbConnection = new DBConnection();
-	Athlete dbAthlete = dbConnection.getEm().find(Athlete.class, tmpAthlete.getId());
-	dbAthlete.setAddress(tmpAthlete.getAddress());
-	dbAthlete.setFirstName(tmpAthlete.getFirstName());
-	dbAthlete.setLastName(tmpAthlete.getLastName());
-	dbAthlete.setPrgClass(tmpAthlete.getPrgClass());
-	dbAthlete.setStartNr(tmpAthlete.getStartNr());
-	dbAthlete.setYearOfBirth(tmpAthlete.getYearOfBirth());
-	dbAthlete.setAssociation(tmpAthlete.getAssociation());
-	commitAndClose();
-    }
-
-    /**
-     * Adds the prg class to gym cup.
-     * 
-     * @param gymCup
-     *            the gym cup
-     * @param athlete
-     *            the athlete
-     */
-    public static void addPrgClassToGymCup(GymCup gymCup, Athlete athlete) {
-	dbConnection = new DBConnection();
-	GymCup dbGymCup = dbConnection.getEm().find(GymCup.class, gymCup.getId());
-	dbGymCup.addProgramClass(athlete.getPrgClass());
-	commitAndClose();
-    }
-
-    /**
-     * Update the competition informations
-     * 
-     * @param newComp
-     *            the new comp
-     * @param oldComp
-     *            the old comp
-     */
-    public static void updateCompetition(Competition newComp, Competition oldComp) {
-	dbConnection = new DBConnection();
-	Competition dbComp = dbConnection.getEm().find(Competition.class, oldComp.getId());
-	dbComp.setDescription(newComp.getDescription());
-	dbComp.setDate(newComp.getDate());
-	dbComp.setEndTime(newComp.getEndTime());
-	dbComp.setStartTime(newComp.getStartTime());
-	dbComp.setProgramClass(newComp.getProgramClass());
-	commitAndClose();
-
-    }
-
-    /**
-     * Gets the existing gym cup.
-     * 
-     * @return the existing gym cup
-     */
-    public static GymCup getActualGymCup() {
-	dbConnection = new DBConnection();
-	GymCup gymCup = null;
-	TypedQuery<GymCup> query = dbConnection.getEm().createQuery("SELECT p FROM GymCup p", GymCup.class);
-	List<GymCup> result = query.getResultList();
-	if (result.size() == 1) {
-	    int first = 0;
-	    gymCup = result.get(first);
+	private DBController() {
 	}
 
-	commitAndClose();
-
-	return gymCup;
-    }
-
-    /**
-     * Deletes a competition from a gymcup.
-     * 
-     * @param oldComp
-     *            the old comp
-     * @param gymCup
-     *            the gym cup
-     */
-    public static void deleteCompetitionFromGymCup(Competition oldComp, GymCup gymCup) {
-	dbConnection = new DBConnection();
-	Competition dbComp = dbConnection.getEm().find(Competition.class, oldComp.getId());
-	GymCup dbGymCup = dbConnection.getEm().find(GymCup.class, gymCup.getId());
-	dbGymCup.getCompetitions().remove(dbComp);
-	dbConnection.remove(dbComp);
-	commitAndClose();
-    }
-
-    /**
-     * Removes the squad from competition.
-     * 
-     * @param comp
-     *            the comp
-     * @param squad
-     *            the squad
-     */
-    public static void removeSquadFromCompetition(Competition comp, Squad squad) {
-	dbConnection = new DBConnection();
-	Competition dbComp = dbConnection.getEm().find(Competition.class, comp.getId());
-	Squad dbSquad = dbConnection.getEm().find(Squad.class, squad.getId());
-	dbComp.removeSquad(dbSquad);
-	commitAndClose();
-    }
-
-    /**
-     * Adds a competition to the gymcup.
-     * 
-     * @param competition
-     *            the competition
-     * @param gymCup
-     *            the gym cup
-     */
-    public static void addCompetitionToGymCup(Competition competition, GymCup gymCup) {
-	dbConnection = new DBConnection();
-	GymCup tmpCup = dbConnection.getEm().find(GymCup.class, gymCup.getId());
-	dbConnection.persist(competition);
-	tmpCup.addCompetition(competition);
-	dbConnection.persist(tmpCup);
-	commitAndClose();
-
-    }
-
-    public static void updatedMark(Mark oldMark, Athlete oldAthlete) {
-	dbConnection = new DBConnection();
-	TypedQuery<Mark> query = dbConnection.getEm().createQuery(
-		"SELECT m FROM Athlete a, Mark m where a.id=" + oldAthlete.getId(), Mark.class);
-	List<Mark> results = query.getResultList();
-	if (results.size() == 1) {
-	    Mark dbMark = dbConnection.getEm().find(Mark.class, results.get(0).getId());
-	    dbMark.setdMark(oldMark.getdMark());
-	    dbConnection.persist(dbMark);
+	/**
+	 * Import an gym cup to the db.
+	 * 
+	 * @param gymCup
+	 *            the gym cup
+	 */
+	public static void importGymCupToDB(GymCup gymCup) {
+		dbConnection = new DBConnection();
+		dbConnection.persist(gymCup);
+		commitAndClose();
 	}
-	commitAndClose();
-    }
 
-    private static void commitAndClose() {
-	dbConnection.commit();
-	dbConnection.closeConnection();
-    }
+	/**
+	 * Imports all squads to a cup
+	 * 
+	 * @param gymCup
+	 *            the gym cup
+	 */
+	public static void importAllSquads(GymCup gymCup) {
+		dbConnection = new DBConnection();
+		TypedQuery<Squad> query = dbConnection.getEm().createQuery(
+				"SELECT p FROM Squad p", Squad.class);
+		List<Squad> results = query.getResultList();
+		addSquadsToCup(gymCup, results);
+		commitAndClose();
+	}
+
+	private static void addSquadsToCup(GymCup gymCup, List<Squad> results) {
+		GymCup tmpCup;
+		Squad tmpSquad;
+		for (Squad squad : results) {
+			tmpCup = dbConnection.getEm().find(GymCup.class, gymCup.getId());
+			tmpSquad = dbConnection.getEm().find(Squad.class, squad.getId());
+			tmpCup.addSquad(tmpSquad.getSquadId(), tmpSquad);
+			tmpCup.addSquadUnallocated(tmpSquad);
+			dbConnection.persist(tmpCup);
+			gymCup.addSquad(squad.getId(), squad);
+			gymCup.addSquadUnallocated(squad);
+		}
+	}
+
+	/**
+	 * Sets the path of the DB Location
+	 * 
+	 * @param path
+	 *            the new path
+	 */
+	public static void setPath(String path) {
+		DBConnection.setPath(path);
+	}
+
+	/**
+	 * Saves an received squad to the db
+	 * 
+	 * @param s
+	 *            the s
+	 * @param deviceType
+	 *            the device type
+	 */
+	public static void saveSquad(Squad s, DeviceType deviceType) {
+		dbConnection = new DBConnection();
+		Collection<Athlete> ramAthletes = s.getAthlets();
+		for (Athlete ramAthlete : ramAthletes) {
+			Athlete dbAthlete = dbConnection.getEm().find(Athlete.class,
+					ramAthlete.getId());
+			Mark ramMark = ramAthlete.getMarks().get(deviceType);
+			dbConnection.persist(ramMark);
+			dbAthlete.addMark(deviceType, ramMark);
+			dbConnection.persist(dbAthlete);
+		}
+		commitAndClose();
+
+	}
+
+	/**
+	 * Persist competition.
+	 * 
+	 * @param competition
+	 *            the competition
+	 */
+	public static void saveCompetition(Competition competition) {
+		dbConnection = new DBConnection();
+		Competition dbComp = dbConnection.getEm().find(Competition.class,
+				competition.getId());
+		for (Squad s : competition.getSquads()) {
+			Squad dbSquad = dbConnection.getEm().find(Squad.class, s.getId());
+			dbComp.addSquad(dbSquad);
+		}
+		dbConnection.persist(dbComp);
+		commitAndClose();
+
+	}
+
+	/**
+	 * Update the athlete informations
+	 * 
+	 * @param tmpAthlete
+	 *            the tmp athlete
+	 */
+	public static void updateAthlete(Athlete tmpAthlete) {
+		dbConnection = new DBConnection();
+		Athlete dbAthlete = dbConnection.getEm().find(Athlete.class,
+				tmpAthlete.getStartNr());
+		dbAthlete.setAddress(tmpAthlete.getAddress());
+		dbAthlete.setFirstName(tmpAthlete.getFirstName());
+		dbAthlete.setLastName(tmpAthlete.getLastName());
+		dbAthlete.setPrgClass(tmpAthlete.getPrgClass());
+		dbAthlete.setYearOfBirth(tmpAthlete.getYearOfBirth());
+		dbAthlete.setAssociation(tmpAthlete.getAssociation());
+		commitAndClose();
+	}
+
+	/**
+	 * Adds the prg class to gym cup.
+	 * 
+	 * @param gymCup
+	 *            the gym cup
+	 * @param athlete
+	 *            the athlete
+	 */
+	public static void addPrgClassToGymCup(GymCup gymCup, Athlete athlete) {
+		dbConnection = new DBConnection();
+		GymCup dbGymCup = dbConnection.getEm().find(GymCup.class,
+				gymCup.getId());
+		dbGymCup.addProgramClass(athlete.getPrgClass());
+		commitAndClose();
+	}
+
+	/**
+	 * Update the competition informations
+	 * 
+	 * @param newComp
+	 *            the new comp
+	 * @param oldComp
+	 *            the old comp
+	 */
+	public static void updateCompetition(Competition newComp,
+			Competition oldComp) {
+		dbConnection = new DBConnection();
+		Competition dbComp = dbConnection.getEm().find(Competition.class,
+				oldComp.getId());
+		dbComp.setDescription(newComp.getDescription());
+		dbComp.setDate(newComp.getDate());
+		dbComp.setEndTime(newComp.getEndTime());
+		dbComp.setStartTime(newComp.getStartTime());
+		dbComp.setProgramClass(newComp.getProgramClass());
+		commitAndClose();
+
+	}
+
+	public static void addAthlete(Athlete newAthlete, Squad oldSquad) {
+		dbConnection = new DBConnection();
+		Squad dbSquad = dbConnection.getEm().find(Squad.class,
+				oldSquad.getSquadId());
+		dbConnection.persist(newAthlete);
+		addEmptyMarksTo(newAthlete);
+		dbSquad.addAthlet(newAthlete);
+		dbConnection.persist(dbSquad);
+		commitAndClose();
+	}
+
+	/**
+	 * Adds the empty marks to an Athlete and persists it to the DB
+	 * 
+	 * @param atemp
+	 *            the atemp
+	 */
+	private static void addEmptyMarksTo(Athlete atemp) {
+
+		for (DeviceType dt : DeviceType.values()) {
+			Mark mtemp = new Mark(0, 0, 0, 0, 0, 0);
+			dbConnection.persist(mtemp);
+			atemp.addMark(dt, mtemp);
+		}
+		dbConnection.persist(atemp);
+	}
+
+	public static void updateMark(Mark newMark, Athlete ramAthlete,
+			DeviceType deviceType) {
+		dbConnection = new DBConnection();
+		Athlete dbAthlete = dbConnection.getEm().find(Athlete.class,
+				ramAthlete.getStartNr());
+		Mark ramMark = newMark;
+		ramMark.setFinalMark(ramMark.getFinalMark());
+		dbConnection.persist(newMark);
+		dbAthlete.addMark(deviceType, ramMark);
+		dbConnection.persist(dbAthlete);
+		commitAndClose();
+
+	}
+
+	/**
+	 * Gets the existing gym cup.
+	 * 
+	 * @return the existing gym cup
+	 */
+	public static GymCup getActualGymCup() {
+		dbConnection = new DBConnection();
+		GymCup gymCup = null;
+		TypedQuery<GymCup> query = dbConnection.getEm().createQuery(
+				"SELECT p FROM GymCup p", GymCup.class);
+		List<GymCup> result = query.getResultList();
+		if (result.size() == 1) {
+			int first = 0;
+			gymCup = result.get(first);
+		}
+
+		commitAndClose();
+
+		return gymCup;
+	}
+
+	/**
+	 * Deletes a competition from a gymcup.
+	 * 
+	 * @param oldComp
+	 *            the old comp
+	 * @param gymCup
+	 *            the gym cup
+	 */
+	public static void deleteCompetitionFromGymCup(Competition oldComp,
+			GymCup gymCup) {
+		dbConnection = new DBConnection();
+		Competition dbComp = dbConnection.getEm().find(Competition.class,
+				oldComp.getId());
+		GymCup dbGymCup = dbConnection.getEm().find(GymCup.class,
+				gymCup.getId());
+		dbGymCup.getCompetitions().remove(dbComp);
+		dbConnection.remove(dbComp);
+		commitAndClose();
+	}
+
+	/**
+	 * Removes the squad from competition.
+	 * 
+	 * @param comp
+	 *            the comp
+	 * @param squad
+	 *            the squad
+	 */
+	public static void removeSquadFromCompetition(Competition comp, Squad squad) {
+		dbConnection = new DBConnection();
+		Competition dbComp = dbConnection.getEm().find(Competition.class,
+				comp.getId());
+		Squad dbSquad = dbConnection.getEm().find(Squad.class, squad.getId());
+		dbComp.removeSquad(dbSquad);
+		commitAndClose();
+	}
+
+	public static void removeAthleteFromSquad(Athlete removableAthlete,
+			Squad oldSquad) {
+		dbConnection = new DBConnection();
+		Squad dbSquad = dbConnection.getEm()
+				.find(Squad.class, oldSquad.getId());
+		Athlete dbAthlete = dbConnection.getEm().find(Athlete.class,
+				removableAthlete.getStartNr());
+		dbSquad.removeAthlete(dbAthlete);
+		dbConnection.remove(dbAthlete);
+		commitAndClose();
+	}
+
+	/**
+	 * Adds a competition to the gymcup.
+	 * 
+	 * @param competition
+	 *            the competition
+	 * @param gymCup
+	 *            the gym cup
+	 */
+	public static void addCompetitionToGymCup(Competition competition,
+			GymCup gymCup) {
+		dbConnection = new DBConnection();
+		GymCup tmpCup = dbConnection.getEm().find(GymCup.class, gymCup.getId());
+		dbConnection.persist(competition);
+		tmpCup.addCompetition(competition);
+		dbConnection.persist(tmpCup);
+		commitAndClose();
+	}
+
+	private static void commitAndClose() {
+		dbConnection.commit();
+		dbConnection.closeConnection();
+	}
 
 }
